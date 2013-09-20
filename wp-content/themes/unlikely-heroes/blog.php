@@ -13,7 +13,7 @@ get_header(); ?>
 				<?php rewind_posts(); ?>
 				
 				<?php get_template_part( 'loop', 'blog-landing' ); ?>
-				
+				<h1>SHITBALLS</h1>
 			</div>
 			<div class="col-lg-4">
 				<?php get_sidebar(); ?>

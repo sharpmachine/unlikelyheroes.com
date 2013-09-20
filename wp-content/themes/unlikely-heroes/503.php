@@ -6,14 +6,14 @@
 
 <style type="text/css">
 	body {
-		background-color: #000;
-		color: #fff;
+		background-color: #fff;
+		color: #000;
 		font-family: Arial, Helvetica, sans-serif;
 	}
 	
 	#logo {
-		width: 355px;
-		margin: 50px auto;
+		width: 315px;
+		margin: 52px auto;
 	}
 	
 	p {
@@ -26,7 +26,7 @@
 <body>
 		
 	<div id="logo">
-		<img src="http://www.domain.com/wp-content/themes/project_theme/images/logo.png" width="335" height="52" alt="Logo">
+		<img src="http://unlikelyheroes.com/wp-content/themes/unlikely-heroes/img/login-logo.png" width="315" height="52" alt="Logo">
 		<p>We are currently undergoing routine maintenance.  Please check back soon.</p>
 	</div>
 		

@@ -1,0 +1,106 @@
+/* line 10, main.sass */
+.socialtags-dropdown {
+  position: relative;
+  display: inline-block;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+  border-radius: 30px;
+}
+/* line 17, main.sass */
+.socialtags-dropdown > a {
+  padding: 4px;
+  text-decoration: none;
+}
+
+.socialtags-dropdown:focus {
+  outline: none;
+}
+
+/* line 23, main.sass */
+.socialtags-dropdown:after {
+  content: "\25BE";
+  margin: 4px 4px 4px 0;
+}
+
+/* line 27, main.sass */
+.socialtags-dropdown .socialtags-dropdown-menu {
+  background-color: #fff;
+  overflow: hidden;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 999;
+  width: 140px;
+  max-height: 0;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* line 40, main.sass */
+.socialtags-dropdown .socialtags-dropdown-menu li {
+  word-wrap: normal;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  hyphens: none;
+  margin: 0;
+}
+
+/* line 48, main.sass */
+.socialtags-dropdown .socialtags-dropdown-menu .socialtags-dropdown-header {
+  margin-bottom: 5px;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 11px;
+  text-transform: uppercase;
+  border-bottom: solid 1px #999999;
+  color: #999999;
+  line-height: 16px;
+}
+
+/* line 56, main.sass */
+.socialtags-dropdown .socialtags-dropdown-menu a {
+  padding: 6px 10px 6px 40px;
+  text-decoration: none;
+}
+.socialtags-dropdown .socialtags-dropdown-menu a:hover {
+  background-color: #eee !important;
+}
+
+.socialtags-dropdown .socialtags-dropdown-menu li:nth-child(2) a {
+  background: url(../img/twitter.png) no-repeat 10px 6px;
+}
+
+.socialtags-dropdown .socialtags-dropdown-menu li:nth-child(3) a {
+  background: url(../img/google-plus.png) no-repeat 10px 6px;
+}
+
+.socialtags-dropdown .socialtags-dropdown-menu li:nth-child(4) a {
+  background: url(../img/facebook.png) no-repeat 10px 6px;
+  margin-bottom: 5px;
+}
+
+/* line 61, main.sass */
+.socialtags-dropdown .socialtags-dropdown-menu .socialtags-dropdown-header,
+.socialtags-dropdown .socialtags-dropdown-menu a {
+  display: block;
+}
+/* line 66, main.sass */
+.socialtags-dropdown:hover .socialtags-dropdown-menu, .socialtags-dropdown:focus .socialtags-dropdown-menu {
+  max-height: 300px;
+  border: solid 1px #777777;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: 2px 4px 4px rgba(90, 90, 90, 0.3);
+  -moz-box-shadow: 2px 4px 4px rgba(90, 90, 90, 0.3);
+  box-shadow: 2px 4px 4px rgba(90, 90, 90, 0.3);
+}
+
+.socialtags-dropdown .socialtags-dropdown-menu li a:first-child:before {
+ content: "" !important;
+}

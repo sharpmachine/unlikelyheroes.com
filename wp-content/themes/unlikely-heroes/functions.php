@@ -413,7 +413,6 @@ function bootstrap_pagination(){
 	$total_pages = $wp_query->max_num_pages;
 	if ($total_pages > 1){
 	  $current_page = max(1, get_query_var('paged'));
-	  echo '<div class="pagination">';
 	  echo paginate_links(array(
 	      'base' => get_pagenum_link(1) . '%_%',
 	      'format' => 'page/%#%',
@@ -423,7 +422,6 @@ function bootstrap_pagination(){
 	      'next_text' => 'Next',
 		  'type' => 'list'
 	    ));
-	  echo '</div>';
 	}
 }
 
