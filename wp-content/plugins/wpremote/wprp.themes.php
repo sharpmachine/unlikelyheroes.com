@@ -9,8 +9,6 @@ function _wprp_get_themes() {
 
 	require_once( ABSPATH . '/wp-admin/includes/theme.php' );
 
-	_wpr_add_non_extend_theme_support_filter();
-
 	// Get all themes
 	if ( function_exists( 'wp_get_themes' ) )
 		$themes = wp_get_themes();
@@ -98,8 +96,11 @@ function _wprp_get_themes() {
  */
 function _wprp_install_theme( $theme, $args = array() ) {
 
+	if ( defined( 'DISALLOW_FILE_MODS' ) && DISALLOW_FILE_MODS )
+		return new WP_Error( 'disallow-file-mods', __( "File modification is disabled with the DISALLOW_FILE_MODS constant.", 'wpremote' ) );
+
 	if ( wp_get_theme( $theme )->exists() )
-		return array( 'status' => 'error', 'error' => 'Theme is already installed.' );
+		return new WP_Error( 'theme-installed', __( 'Theme is already installed.' ) );
 
 	include_once ABSPATH . 'wp-admin/includes/admin.php';
 	include_once ABSPATH . 'wp-admin/includes/upgrade.php';
@@ -114,7 +115,7 @@ function _wprp_install_theme( $theme, $args = array() ) {
 	$api = themes_api( 'theme_information', $api_args );
 
 	if ( is_wp_error( $api ) )
-		return array( 'status' => 'error', 'error' => $api->get_error_code() );
+		return $api;
 
 	$skin = new WPRP_Theme_Upgrader_Skin();
 	$upgrader = new Theme_Upgrader( $skin );
@@ -128,7 +129,7 @@ function _wprp_install_theme( $theme, $args = array() ) {
 	if ( is_wp_error( $result ) )
 		return $result;
 	else if ( ! $result )
-		return array( 'status' => 'error', 'error' => 'Unknown error installing theme.' );
+		return new WP_Error( 'unknown-install-error', __( 'Unknown error installing theme.', 'wpremote' ) );
 
 	return array( 'status' => 'success' );
 }
@@ -142,7 +143,7 @@ function _wprp_install_theme( $theme, $args = array() ) {
 function _wprp_activate_theme( $theme ) {
 
 	if ( ! wp_get_theme( $theme )->exists() )
-		return array( 'status' => 'error', 'error' => 'Theme is not installed.' );
+		return new WP_Error( 'theme-not-installed', __( 'Theme is not installed.', 'wpremote' ) );
 
 	switch_theme( $theme );
 	return array( 'status' => 'success' );
@@ -156,16 +157,16 @@ function _wprp_activate_theme( $theme ) {
  */
 function _wprp_update_theme( $theme ) {
 
+	if ( defined( 'DISALLOW_FILE_MODS' ) && DISALLOW_FILE_MODS )
+		return new WP_Error( 'disallow-file-mods', __( "File modification is disabled with the DISALLOW_FILE_MODS constant.", 'wpremote' ) );
+
 	include_once ( ABSPATH . 'wp-admin/includes/admin.php' );
-
-	if ( ! _wprp_supports_theme_upgrade() )
-		return array( 'status' => 'error', 'error' => 'WordPress version too old for theme upgrades' );
-
-	_wpr_add_non_extend_theme_support_filter();
+	require_once ( ABSPATH . 'wp-admin/includes/class-wp-upgrader.php' );
+	require_once WPRP_PLUGIN_PATH . 'inc/class-wprp-theme-upgrader-skin.php';
 
 	// check for filesystem access
 	if ( ! _wpr_check_filesystem_access() )
-		return array( 'status' => 'error', 'error' => 'The filesystem is not writable with the supplied credentials' );		
+		return new WP_Error( 'filesystem-not-writable', __( 'The filesystem is not writable with the supplied credentials', 'wpremote' ) );
 
 	$skin = new WPRP_Theme_Upgrader_Skin();
 	$upgrader = new Theme_Upgrader( $skin );
@@ -176,14 +177,17 @@ function _wprp_update_theme( $theme ) {
 	$data = ob_get_contents();
 	ob_clean();
 
-	if ( ( ! $result && ! is_null( $result ) ) || $data )
-		return array( 'status' => 'error', 'error' => 'file_permissions_error' );
+	if ( ! empty( $skin->error ) )
 
-	elseif ( is_wp_error( $result ) )
-		return array( 'status' => 'error', 'error' => $result->get_error_code() );
+		return new WP_Error( 'theme-upgrader-skin', $upgrader->strings[$skin->error] );
 
-	if ( $skin->error )
-		return array( 'status' => 'error', 'error' => $skin->error );
+	else if ( is_wp_error( $result ) )
+
+		return $result;
+
+	else if ( ( ! $result && ! is_null( $result ) ) || $data )
+
+		return new WP_Error( 'theme-update', __( 'Unknown error updating theme.', 'wpremote' ) );
 
 	return array( 'status' => 'success' );
 
@@ -198,96 +202,32 @@ function _wprp_update_theme( $theme ) {
 function _wprp_delete_theme( $theme ) {
 	global $wp_filesystem;
 
+	if ( defined( 'DISALLOW_FILE_MODS' ) && DISALLOW_FILE_MODS )
+		return new WP_Error( 'disallow-file-mods', __( "File modification is disabled with the DISALLOW_FILE_MODS constant.", 'wpremote' ) );
+
 	if ( ! wp_get_theme( $theme )->exists() )
-		return array( 'status' => 'error', 'error' => 'Theme is not installed.' );
+		return new WP_Error( 'theme-missing', __( 'Theme is not installed.', 'wpremote' ) );
 
 	include_once ABSPATH . 'wp-admin/includes/admin.php';
 	include_once ABSPATH . 'wp-admin/includes/upgrade.php';
 	include_once ABSPATH . 'wp-includes/update.php';
 
 	if ( ! _wpr_check_filesystem_access() || ! WP_Filesystem() )
-		return array( 'status' => 'error', 'error' => 'The filesystem is not writable with the supplied credentials' );
+		return new WP_Error( 'filesystem-not-writable', __( 'The filesystem is not writable with the supplied credentials', 'wpremote' ) );
 
 	$themes_dir = $wp_filesystem->wp_themes_dir();
 	if ( empty( $themes_dir ) )
-		return array( 'status' => 'error', 'error' => 'Unable to locate WordPress theme directory.' );
+		return new WP_Error( 'theme-dir-missing', __( 'Unable to locate WordPress theme directory', 'wpremote' ) );
 
 	$themes_dir = trailingslashit( $themes_dir );
 	$theme_dir = trailingslashit( $themes_dir . $theme );
 	$deleted = $wp_filesystem->delete( $theme_dir, true );
 
 	if ( ! $deleted )
-		return array( 'status' => 'error', 'error' => sprintf( 'Could not fully delete the theme: %s.', $theme ) );
+		return new WP_Error( 'theme-delete', sprintf( __( 'Could not fully delete the theme: %s.', 'wpremote' ), $theme ) );
 
 	// Force refresh of theme update information
 	delete_site_transient('update_themes');
 
 	return array( 'status' => 'success' );
-}
-
-/**
- * Check if the site can support theme upgrades
- *
- * @todo should probably check if we have direct filesystem access
- * @todo can we remove support for versions which don't support Theme_Upgrader
- * @return bool
- */
-function _wprp_supports_theme_upgrade() {
-
-	include_once ( ABSPATH . 'wp-admin/includes/admin.php' );
-
-	return class_exists( 'Theme_Upgrader' );
-
-}
-
-function _wpr_add_non_extend_theme_support_filter() {
-	add_filter( 'pre_set_site_transient_update_themes', '_wpr_add_non_extend_theme_support' );
-}
-
-function _wpr_add_non_extend_theme_support( $value ) {
-
-    foreach( $non_extend_list = _wprp_get_non_extend_themes_data() as $key => $anon_function ) {
-
-        if ( ( $returned = call_user_func( $non_extend_list[$key] ) ) )
-            $value->response[ $returned['Template'] ] = $returned;
-    }
-
-    return $value;
-
-}
-
-
-function _wprp_get_non_extend_themes_data() {
-
-    return array(
-        'pagelines' => '_wpr_get_pagelines_theme_data'
-    );
-
-}
-
-function _wpr_get_pagelines_theme_data() {
-
-	global $global_pagelines_settings;
-
-	if ( !class_exists( 'PageLinesUpdateCheck' ) )
-		return false;
-
-	if ( defined( 'PL_CORE_VERSION' ) )
-		$version = PL_CORE_VERSION;
-	elseif ( defined( 'CORE_VERSION' ) )
-		$version = CORE_VERSION;
-	else
-		return false;
-
-	$global_pagelines_settings['disable_updates'] = true; // prevent endless loop in PageLinesUpdateCheck::pagelines_theme_check_version()
-	$updater = new PageLinesUpdateCheck( $version );
-	$update_data = (array) maybe_unserialize( $updater->pagelines_theme_update_check() );
-
-	if ( $update_data && isset( $update_data['package'] ) && $update_data['package'] !== 'bad' ) {
-		$update_data['Template'] = 'pagelines'; // needed in _wpr_add_non_extend_theme_support()
-		return $update_data;
-	}
-
-	return false;
-
 }

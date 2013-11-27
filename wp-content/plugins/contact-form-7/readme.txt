@@ -3,8 +3,8 @@ Contributors: takayukister
 Donate link: http://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
 Requires at least: 3.5
-Tested up to: 3.6
-Stable tag: 3.5.2
+Tested up to: 3.7.1
+Stable tag: 3.5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,7 @@ The following are other recommended plugins by the author of Contact Form 7.
 * Brazilian Portuguese (pt_BR) - [Leonardo Pinheiro](http://www.eletrikabarbarella.com.br/), [Henrique Vianna](http://henriquevianna.com/), [Caciano Gabriel Batista](http://www.gn10.com.br/), [Gervásio Antônio](http://twitter.com/gervasioantonio)
 * Bulgarian (bg_BG) - [Iliyan Darganov](http://www.darganov.com/)
 * Catalan (ca) - [Jordi Sancho](http://www.qasolutions.net/blog), Robert Buj, Jaume Aragay Badia
+* Central Kurdish (ckb) - Mahr Hassan
 * Chinese, Simplified (zh_CN) - [Soz](http://www.webtoolol.com/), [Keefe Dunn](http://dengkefu.com/), [Stella Hu](http://prowordpresser.com/)
 * Chinese, Traditional (zh_TW) - [James Wu](http://jameswublog.com)
 * Croatian (hr) - [tolingo Translation Services](http://www.tolingo.com)
@@ -75,11 +76,11 @@ The following are other recommended plugins by the author of Contact Form 7.
 * Malayalam (ml_IN) - [RAHUL.S.A](http://www.infution.co.cc/)
 * Maltese (mt_MT) - [Ajoft Technologies](http://www.ajoft.com/)
 * Norwegian (nb_NO) - Kjetil M. Bergem, [aanvik.net](http://www.aanvik.net), [Peter Holme](http://holme.se/nettsteder/)
-* Persian (Farsi; fa_IR) - [Mohammad Musavi](http://www.musavis.com/), [Mohsen Firoozmandan](http://www.rankbazar.com/)
+* Persian (Farsi; fa_IR) - [Mohammad Musavi](http://www.musavis.com/), [Mohsen Firoozmandan](http://www.rankbazar.com/), Ghaem Omidi
 * Polish (pl_PL) - [Zbigniew Czernik](http://zibik.jogger.pl/), [Daniel Fruzynski](http://www.poradnik-webmastera.com), [RafalDesign](http://www.rafaldesign.pl/), [Bartosz Arendt](http://digitalfactory.pl/)
 * Portuguese (pt_PT) - [Hugo Baeta](http://hugobaeta.com), [Pedro Nave](http://pedronave.com/)
 * Russian (ru_RU) - Dmitry Volotovich, [Denis Voituk](http://artprima.cz/), [kg69design](http://kg69design.com/)
-* Romanian (ro_RO) - [Stas Sushkov](http://stas.nerd.ro/), [Anunturi Jibo](http://www.jibo.ro/), [Marius Olar](http://webdudes.ro/)
+* Romanian (ro_RO) - [Stas Sushkov](http://stas.nerd.ro/), [Anunturi Jibo](http://www.jibo.ro/), [Marius Olar](http://webdudes.ro/), [Flo Bejgu](http://inboxtranslation.com/)
 * Serbian (sr_RS) - [Vedran](http://www.seorabbit.com/), [Aleksandar Urošević](http://blog.urosevic.net/)
 * Sinhala (si_LK) - [Nitin Aggarwal](http://offshoreally.com/)
 * Slovak (sk_SK) - [Patrik Bóna](http://www.mrhead.sk/), [WordPress Slovakia](http://wp.sk/)
@@ -119,6 +120,19 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 1. screenshot-1.png 
 
 == Changelog ==
+
+= 3.5.4 =
+
+* Fixed: Strip slashes from some text inputs before validating them.
+* The jQuery Form Plugin (jquery.form.js) has been updated to 3.45.0.
+* Translations for German, French, Persian and Romanian have been updated.
+
+= 3.5.3 =
+
+* Checking of file extension when uploading has been enhanced.
+* The jQuery Form Plugin (jquery.form.js) has been updated to 3.44.0.
+* Translation for Central Kurdish (ckb) has been created.
+* Translations for German, Hungarian and Japanese have been updated.
 
 = 3.5.2 =
 
