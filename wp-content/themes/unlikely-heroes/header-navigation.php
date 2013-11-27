@@ -3,7 +3,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12">
-					<p><span>Lastest Update:</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, saepe.</p>
+					<p><span>Lastest Update:</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, saepe. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, saepe. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, saepe.</p>
 				</div>
 			</div>
 		</div>
