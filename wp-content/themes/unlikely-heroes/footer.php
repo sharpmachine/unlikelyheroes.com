@@ -15,9 +15,9 @@
 <footer id="footer" role="contentinfo">
 	<div class="container">
 		<div class="social-media">
-      <div class="network twitter"><a href="#"></a></div>
-      <div class="network facebook"><a href="#"></a></div> 
-      <div class="network vimeo"><a href="#"></a></div> 
+      <div class="network twitter"><a href="http://twitter.com/uheroes"></a></div>
+      <div class="network facebook"><a href="http://www.facebook.com/pages/Unlikely-Heroes/127675453978638"></a></div> 
+      <div class="network vimeo"><a href="http://vimeo.com/unlikelyheroes"></a></div> 
     </div>
 	</div>
 </footer>
