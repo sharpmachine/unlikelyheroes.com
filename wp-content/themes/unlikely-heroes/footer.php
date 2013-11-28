@@ -15,9 +15,9 @@
 <footer id="footer" role="contentinfo">
 	<div class="container">
 		<div class="social-media">
-      <div class="network twitter"></div>
-      <div class="network facebook"></div> 
-      <div class="network vimeo"></div> 
+      <div class="network twitter"><a href="#"></a></div>
+      <div class="network facebook"><a href="#"></a></div> 
+      <div class="network vimeo"><a href="#"></a></div> 
     </div>
 	</div>
 </footer>
