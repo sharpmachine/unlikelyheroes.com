@@ -66,7 +66,6 @@
 	 */
 	if ( ! comments_open() ) :
 ?>
-	<p class="nocomments"><?php _e( 'Comments are closed.', 'smm' ); ?></p>
 <?php endif; // end ! comments_open() ?>
 
 <?php endif; // end have_comments() ?>

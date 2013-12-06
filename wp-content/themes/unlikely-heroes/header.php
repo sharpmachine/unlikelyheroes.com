@@ -32,6 +32,7 @@
 	<link rel="profile" href="http://gmpg.org/xfn/11" />
 
 	<!-- Le styles -->
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 	<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700|Roboto+Condensed:400,700,300|Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
 	<link href="<?php bloginfo('template_directory'); ?>/css/bootstrap.css" rel="stylesheet">
 

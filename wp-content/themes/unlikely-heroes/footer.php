@@ -15,11 +15,17 @@
 <footer id="footer" role="contentinfo">
 	<div class="container">
 		<div class="social-media">
-      <div class="network twitter"><a href="http://twitter.com/uheroes"></a></div>
-      <div class="network facebook"><a href="http://www.facebook.com/pages/Unlikely-Heroes/127675453978638"></a></div> 
-      <div class="network vimeo"><a href="http://vimeo.com/unlikelyheroes"></a></div> 
+      <a href="http://twitter.com/uheroes"><i class="fa fa-twitter"></i></a>
+      <a href="http://www.facebook.com/pages/Unlikely-Heroes/127675453978638"><i class="fa fa-facebook"></i></a> 
+      <a href="http://vimeo.com/unlikelyheroes"><i class="fa fa-instagram"></i></a>
+      <a href="http://vimeo.com/unlikelyheroes"><i class="fa fa-youtube-play"></i></a>
     </div>
-	</div>
+  </div>
+  <div class="site-info">
+    <div class="container">
+      <a href="#">Privacy Policy</a> | <a href="#">Terms &amp; Conditions</a> | &copy;<?php echo date('Y') ?> Unlikely Heroes
+    </div>
+  </div>
 </footer>
 
     <!-- Le javascript
@@ -37,6 +43,8 @@
     <script src="<?php bloginfo('template_directory'); ?>/js/collapse.js"></script>
     <script src="<?php bloginfo('template_directory'); ?>/js/carousel.js"></script>
     <script src="<?php bloginfo('template_directory'); ?>/js/retina.js"></script>
+    <script src="<?php bloginfo('template_directory'); ?>/js/sticky.js"></script>
+    <script src="<?php bloginfo('template_directory'); ?>/assets/js/holder.js"></script>
 
     <!-- scripts concatenated and minified via ant build script-->
     <script src="<?php bloginfo ('template_directory'); ?>/js/plugins.js"></script>
@@ -44,6 +52,12 @@
 
     <!-- Remove these before deploying to production -->
     <script src="<?php bloginfo ('template_directory'); ?>/js/hashgrid.js" type="text/javascript"></script>
+
+    <script>
+    jQuery(window).load(function(){
+      jQuery(".navbar-collapse").sticky({ topSpacing: 0 });
+    });
+  </script>
 
     <script type="text/javascript">
     var grid = new hashgrid({ numberOfGrids: 1 });

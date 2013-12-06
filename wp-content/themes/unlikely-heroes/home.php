@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<div class="jumbotron">
+<div class="jumbotron jumbotron-home">
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12">
@@ -13,13 +13,26 @@
 	</div>
 </div>
 
-<div class="section section-gray coa-first text-center">
+<div class="section section-gray text-center">
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-12">
-				<p>Every human being no matter what race, color or age, was born to be free and to stay free. Sex trafficking can seem like too big of a problem when we think about fighting it on our own. But history has proven that when people join their voices together, change is inevitable.
+			<div class="col-md-offset-2 col-md-8">
+				<p class="lead">Every human being no matter what race, color or age, was born to be free and to stay free. Sex trafficking can seem like too big of a problem when we think about fighting it on our own. But history has proven that when people join their voices together, change is inevitable.
 				</p>
 				<a href="<?php bloginfo('url' ); ?>/get-involved" class="btn btn-teal btn-lg">Get involved.  Become a hero today.</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="section section-dark-gray text-center">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-offset-2 col-md-8">
+				<h2 class="text-center">Latest Event</h2>
+				<div class="video-container">
+					<iframe src="//player.vimeo.com/video/54469680" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -37,7 +50,14 @@
 							<img src="<?php bloginfo('template_directory'); ?>/img/township.jpg" alt="" class="img-responsive">
 						</div>
 						<h3>Campaign 1</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit harum optio saepe quam nostrum! Perferendis, eveniet unde tempora molestias ut.</p>
+						<div class="progress">
+							<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+								<span class="sr-only">60% Complete</span>
+							</div>
+						</div>
+						<div class="money-raised"><span>$2,456</span> Raised</div>
+						<div class="days-left">64 Days Left</div>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit harum optio saepe quam nostrum!</p>
 					</a>
 				</div>
 			</div>
@@ -48,7 +68,14 @@
 							<img src="<?php bloginfo('template_directory'); ?>/img/township.jpg" alt="" class="img-responsive">
 						</div>
 						<h3>Campaign 2</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit harum optio saepe quam nostrum! Perferendis, eveniet unde tempora molestias ut.</p>
+						<div class="progress">
+							<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+								<span class="sr-only">60% Complete</span>
+							</div>
+						</div>
+						<div class="money-raised"><span>$2,456</span> Raised</div>
+						<div class="days-left">64 Days Left</div>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit harum optio saepe quam nostrum!</p>
 					</a>
 				</div>
 			</div>
@@ -59,7 +86,14 @@
 							<img src="<?php bloginfo('template_directory'); ?>/img/township.jpg" alt="" class="img-responsive">
 						</div>
 						<h3>Campaign 3</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit harum optio saepe quam nostrum! Perferendis, eveniet unde tempora molestias ut.</p>
+						<div class="progress">
+							<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+								<span class="sr-only">60% Complete</span>
+							</div>
+						</div>
+						<div class="money-raised"><span>$2,456</span> Raised</div>
+						<div class="days-left">64 Days Left</div>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit harum optio saepe quam nostrum!</p>
 					</a>
 				</div>
 			</div>
@@ -71,14 +105,14 @@
 							<div class="plus"></div>
 						</div>
 						<h3>Create a campaign</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit harum optio saepe quam nostrum! Perferendis, eveniet unde tempora molestias ut.</p>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit harum optio saepe quam nostrum!  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit harum optio saepe quam nostrum! Perferendis, eveniet unde tempora.</p>
 					</a>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="section boxes-one">
+	<div class="section boxes-one hidden">
 		<h2 class="text-center">Heroic Events</h2>
 		<div class="row">
 			<div class="col-sm-6 col-md-3 box-one">
