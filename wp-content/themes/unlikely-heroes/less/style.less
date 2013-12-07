@@ -429,7 +429,7 @@ p.lead {
 .form-horizontal {
 	.list-group {
 		.list-group-item {
-			padding: 4px 15px;
+			padding: 1px 5px;
 		}
 
 		.form-group {
@@ -441,13 +441,8 @@ p.lead {
 			font-size: 16px;
 		}
 
-		input[type="radio"] {
-			position: relative;
-			top: 10px;
-		}
-
 		.radio {
-			padding-top: 0;
+			padding: 0;
 		}
 
 		input[type="text"] {
@@ -462,7 +457,9 @@ p.lead {
 		}
 
 		.input-group-addon {
-			padding: 0 5px;
+			position: relative;
+			top: 2px;
+			padding: 0 4px 0 14px;
 			border: 0;
 			background-color: transparent;
 		}
@@ -473,6 +470,27 @@ p.lead {
 	&:first-child,
 	&:last-child {
 		border-radius: 0;
+	}
+}
+
+.donation-payment-buttons {
+	padding: 40px 0;
+	border: 1px solid #ddd;
+
+	button.btn {
+		display: inline-block;
+		width: 228px;
+		padding: 13px 0;
+		background-color: @gray-light;
+	}
+
+	span.or {
+		padding: 0 40px;
+		.Roboto-condensed-light;
+		font-size: 22px;
+		letter-spacing: 3px;
+		text-transform: uppercase;
+		vertical-align: middle;
 	}
 }
 
@@ -526,15 +544,45 @@ h3.team-member-name {
 		.box-shadow(0 0px 0px rgba(0,0,0,0));
 	}
 }
+
 label {
 	.Roboto-slab-regular;
 	font-size: 14px;
 }
+
 input[type="email"] {
 	background-color: @gray-lighter;
 	border: none;
 	border-radius: 0;
 	.box-shadow(0 0px 0px rgba(0,0,0,0));
+}
+
+input[type="radio"] {
+	display: none;
+}
+
+input[type='radio'] + label:before {
+	color: darken(@gray-lighter, 15%);
+	font-family: 'icomoon';
+	font-size: 20px;
+	padding-right: 10px;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+
+input[type="radio"] + label:before {
+	position: relative;
+	top: 2px;
+	content: "\e600"; /* Radio unchecked */
+}
+
+input[type="radio"]:checked + label:before {
+	content: "\e601"; /* Radio checked */
 }
 
 
@@ -633,7 +681,8 @@ footer {
 
 body {
 	// Teal
-	&.home {
+	&.home,
+	&.page-id-787 {
 		@accent-color: @brand-teal;
 		.accent-colors;
 	}
