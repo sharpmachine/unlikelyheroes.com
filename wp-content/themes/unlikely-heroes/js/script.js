@@ -8,7 +8,7 @@ jQuery(document).ready(function($) {
 	// Forces WordPress to place nice with dropdowns
 	$("li.dropdown > a").addClass('dropdown-toggle');
 	$("li.dropdown > a").attr('data-toggle','dropdown');
-	$("a.dropdown-toggle").append('<i class="fa fa-angle-down"></i>');
+	// $("a.dropdown-toggle").append('<i class="fa fa-angle-down"></i>');
 
 	// Add bootstrap pagination class to WordPress pagination
 	$("ul.page-numbers").addClass('pagination');
@@ -35,18 +35,16 @@ jQuery(document).ready(function($) {
 		})
 	});
 
-var header = $(".navbar-collapse");
-    $(window).scroll(function() {    
-        var scroll = $(window).scrollTop();
-    
-        if (scroll >= 162) {
-            header.removeClass(".navbar-collapse").addClass("navbar-color");
-        } else {
-            header.removeClass("navbar-color").addClass(".navbar-collapse");
-        }
-    });
+	var header = $(".navbar-collapse");
+	$(window).scroll(function() {    
+		var scroll = $(window).scrollTop();
 
-	
+		if (scroll >= 162) {
+			header.removeClass(".navbar-collapse").addClass("navbar-color");
+		} else {
+			header.removeClass("navbar-color").addClass(".navbar-collapse");
+		}
+	});
 });
 
 

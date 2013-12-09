@@ -40,13 +40,8 @@ p.lead {
 	text-transform: uppercase;
 	border-radius: 0;
 
-	&-teal {
-		background-color: @brand-teal;
-
-		&:hover {
-			color: white;
-			background-color: darken(@brand-teal, 5%);
-		}
+	&:hover {
+		color: white;
 	}
 }
 
@@ -102,6 +97,21 @@ p.lead {
 	.transition(0.2s all ease);
 }
 
+// Menu links mixin 
+.menu-links {
+	padding: 14.5px 32px;
+	color: white;
+	.Roboto-light;
+	font-size: 15px;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+
+	&:hover {
+		background-color: white;
+	}
+}
+
+
 .navbar-default {
 	background-color: transparent;
 
@@ -125,24 +135,7 @@ p.lead {
 			float: none;
 
 			& > a {
-				padding: 14.5px 32px;
-				color: white;
-				.Roboto-light;
-				font-size: 15px;
-				letter-spacing: 3px;
-				text-transform: uppercase;
-
-				i {
-					position: relative;
-					top: 2px;
-					padding-left: 6px;
-					font-size: 22px;
-				}
-
-				&:hover {
-					color: @brand-teal;
-					background-color: white;
-				}
+				.menu-links;
 
 				@media (max-width: @screen-sm) {
 					padding-left: 13px;
@@ -150,16 +143,13 @@ p.lead {
 				}
 			}
 		}
-	}
-}
 
-.navbar-color {
-	background-color: rgba(12, 33, 43, 0.9);
-	border: none;
-	.transition(0.2s all ease);
-
-	.navbar-nav > li > a:hover {
-		color: @brand-blueDark;
+		& > .open > a,
+		& > .open > a:hover,
+		& > .open > a:active,
+		& > .open > a:focus {
+			background-color: white;
+		}
 	}
 }
 
@@ -178,6 +168,67 @@ p.lead {
 	height: 40px;
 	background: no-repeat center center;
 	.at2x('../img/logo.png', 240px, 40px);
+}
+
+// Dropdown menu
+.nav > li {
+	position: static;
+}
+
+.dropdown-menu {
+	float: none;
+	width: 100%;
+	padding: 0;
+	border: 0;
+	border-bottom: 1px solid white;
+	border-radius: 0;
+	background-color: transparent;
+	box-shadow: none;
+	text-align: center;
+	.transition(0.2s all ease);
+
+	& > li {
+		display: inline-block;
+		float: none;
+		
+		& > a {
+			.menu-links;
+		}
+	}
+}
+
+@sticky-menu-bg: rgba(12, 33, 43, 0.9);
+
+.navbar-color {
+	background-color: @sticky-menu-bg;
+	border: none;
+	.transition(0.2s all ease);
+
+	.navbar-nav > li > a:hover {
+		color: @brand-blueDark !important;
+	}
+
+	.navbar-nav {
+		& > .open > a,
+		& > .open > a:hover,
+		& > .open > a:active,
+		& > .open > a:focus {
+			color: @brand-blueDark !important;
+		}
+	}
+
+	.dropdown-menu {
+		border: 0;
+		border-top: 1px solid white;
+		background-color: @sticky-menu-bg;
+		.transition(0.2s all ease);
+
+		& li > a {
+			&:hover {
+				color: @brand-blueDark !important;
+			}
+		}
+	}
 }
 
 /*..................................the jumbotron */
@@ -260,11 +311,22 @@ p.lead {
 	}
 
 	&-project-homes {
-		height: 400px;
 		background: url(../img/jpg) bottom center no-repeat;
+	}
+}
 
-		h1 {
-			bottom: -355px;
+// Short
+body {
+	&.page-template-project-homes-php, // Project home pages
+	&.page-id-14, // Donate page
+	&.page-id-787, // Contact page
+	&.single-lastest_updates {  // Latest Updates
+		.jumbotron {
+			height: 400px;
+
+			h1 {
+				bottom: -355px;
+			}
 		}
 	}
 }
@@ -481,7 +543,6 @@ p.lead {
 		display: inline-block;
 		width: 228px;
 		padding: 13px 0;
-		background-color: @gray-light;
 	}
 
 	span.or {
@@ -523,6 +584,8 @@ h3.team-member-name {
 	input[type="email"] {
 		width: 369px;
 		height: 50px;
+		border: none;
+		background-color: @gray-lighter;
 	}
 
 	.btn {
@@ -539,6 +602,7 @@ h3.team-member-name {
 /*..................................the forms */
 .form-control {
 	height: 40px;
+	border-radius: 0;
 	&:focus {
 		border: 1px solid @brand-teal;
 		.box-shadow(0 0px 0px rgba(0,0,0,0));
@@ -550,10 +614,10 @@ label {
 	font-size: 14px;
 }
 
-input[type="email"] {
-	background-color: @gray-lighter;
-	border: none;
-	border-radius: 0;
+input[type="email"],
+input[type="text"],
+input[type="password"],
+textarea {
 	.box-shadow(0 0px 0px rgba(0,0,0,0));
 }
 
@@ -681,22 +745,23 @@ footer {
 
 body {
 	// Teal
-	&.home,
-	&.page-id-787 {
+	&.home, // Home page
+	&.page-id-787 { // Contact page
 		@accent-color: @brand-teal;
 		.accent-colors;
 	}
 	
 	// Purple
-	&.page-id-882,
-	&.page-template-project-homes-php {
+	&.page-id-882, // About page
+	&.page-template-project-homes-php { // Project home pages
 		@accent-color: @brand-purple;
 		.accent-colors;
 	}
 	
 	// Pink
-	&.page-id-838,
-	&.page-id-14 {
+	&.page-id-838, // The Problem page
+	&.page-id-14, // Donate page
+	&.single-lastest_updates { // Updates
 		@accent-color: @brand-pink;
 		.accent-colors;
 	}
@@ -713,18 +778,29 @@ body {
 	}
 
 	.accent-color-border {
-		border-color: @accent-color;
+		border: 1px solid @accent-color;
 	}
 
 	footer,
 	.jumbotron,
-	.newsletter-signup .btn {
+	.btn {
 		.accent-color-bg;
 	}
 
+	.btn {
+		&:hover {
+			background-color: lighten(@accent-color, 5%);
+		}
+	}
+	
 	footer a,
 	a.read-more,
-	.navbar-nav > li > a:hover {
+	.main-content a,
+	.navbar-nav > li > a:hover,
+	.dropdown-menu > li > a:hover,
+	.navbar-nav > .open > a,
+	.navbar-nav > .open > a:hover,
+	.navbar-nav > .open > a:focus {
 		.accent-color-text
 	}
 

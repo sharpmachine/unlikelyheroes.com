@@ -33,8 +33,6 @@
 		</span>
 		<span class="meta-sep">|</span>
 	<?php endif; ?>
-	
-		<span class="comments-link"><?php comments_popup_link( __( 'Leave a comment', 'smm' ), __( '1 Comment', 'smm' ), __( '% Comments', 'smm' ) ); ?></span>
 	</div><!-- .entry-utility -->
 	
 	<?php if(is_single()): ?>
