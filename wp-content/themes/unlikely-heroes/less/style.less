@@ -320,7 +320,10 @@ body {
 	&.page-template-project-homes-php, // Project home pages
 	&.page-id-14, // Donate page
 	&.page-id-787, // Contact page
-	&.single-lastest_updates {  // Latest Updates
+	&.single-ignition_product,
+	&.page-id-941,
+	&.single-lastest_updates, // Latest Updates
+	&.post-type-archive-ignition_product {  
 		.jumbotron {
 			height: 400px;
 
@@ -740,20 +743,37 @@ footer {
 	margin-left: 60px;
 }
 
+/*..................................the campaigns */
+.progress {
+	.progress-bar {
+
+	}
+}
+
+.single-campaign {
+	.progress {
+		height: 20px;
+	}
+}
+
 /*..................................the page accents */
 @accent-color: transparent;
 
 body {
 	// Teal
 	&.home, // Home page
-	&.page-id-787 { // Contact page
+	&.page-id-787, // Contact page
+	&.page-id-941,
+	&.single-ignition_product,
+	&.post-type-archive-ignition_product { 
 		@accent-color: @brand-teal;
 		.accent-colors;
 	}
 	
 	// Purple
 	&.page-id-882, // About page
-	&.page-template-project-homes-php { // Project home pages
+	&.page-template-project-homes-php, // Project home pages
+	&.page-id-853 { // Get Involved
 		@accent-color: @brand-purple;
 		.accent-colors;
 	}
@@ -780,19 +800,24 @@ body {
 	.accent-color-border {
 		border: 1px solid @accent-color;
 	}
-
+	
+	// Background Color
 	footer,
 	.jumbotron,
-	.btn {
+	.btn,
+	.progress-bar {
 		.accent-color-bg;
 	}
 
 	.btn {
+		color: white !important;
+
 		&:hover {
 			background-color: lighten(@accent-color, 5%);
 		}
 	}
 	
+	// Text color
 	footer a,
 	a.read-more,
 	.main-content a,
@@ -803,8 +828,13 @@ body {
 	.navbar-nav > .open > a:focus {
 		.accent-color-text
 	}
-
+	
+	// Border color
 	.form-control:focus {
 		.accent-color-border;
 	}
+}
+
+.ignitiondeck h2.id-product-title a {
+ font-size: 58px;
 }
