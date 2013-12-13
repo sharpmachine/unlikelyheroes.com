@@ -70,7 +70,7 @@
 						<a href=""><?php _e('Project Closed', 'fivehundred'); ?></a>
 						<?php }else {?>
 						<?php if (empty($permalinks) || $permalinks == '') { ?>
-						<a href="<?php echo get_permalink($id); ?>&amp;purchaseform=500&amp;prodid=<?php echo (isset($project_id) ? $project_id : ''); ?>" class="btn btn-lg btn-block">Support Now</a>
+						<a href="<?php echo get_permalink($id); ?>?purchaseform=500&amp;prodid=<?php echo (isset($project_id) ? $project_id : ''); ?>" class="btn btn-lg btn-block">Support Now</a>
 						<?php }
 						else { ?>
 						<a href="<?php echo get_permalink($id); ?>?purchaseform=500&amp;prodid=<?php echo (isset($project_id) ? $project_id : ''); ?>" class="btn btn-lg btn-block">Support Now</a>

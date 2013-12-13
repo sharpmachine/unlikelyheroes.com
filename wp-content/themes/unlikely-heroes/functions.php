@@ -653,6 +653,14 @@ function get_backer_total($id) {
 	return $return_pledgers->count;
 }
 
+function the_short_title($limit) {
+	$title = get_the_title($post->ID);
+	if(strlen($title) > $limit) {
+		$title = substr($title, 0, $limit) . '...';
+	}
+
+	echo $title;
+}
 
 // Show posts of 'post', 'page' and 'movie' post types on home page
 add_action( 'pre_get_posts', 'add_my_post_types_to_query' );
@@ -661,4 +669,12 @@ function add_my_post_types_to_query( $query ) {
 	if ( is_home() && $query->is_main_query() )
 		$query->set( 'post_type', array( 'post', 'page', 'ignition_project' ) );
 	return $query;
+}
+
+add_action('after_setup_theme', 'remove_admin_bar');
+
+function remove_admin_bar() {
+	if (!current_user_can('administrator') && !is_admin()) {
+		show_admin_bar(false);
+	}
 }

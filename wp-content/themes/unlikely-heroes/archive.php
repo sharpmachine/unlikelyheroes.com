@@ -13,7 +13,7 @@
 		the_post();
 ?>
 
-		<h1 class="page-title">COCK
+		<h1 class="page-title">
 		</h1>
 
 <?php
