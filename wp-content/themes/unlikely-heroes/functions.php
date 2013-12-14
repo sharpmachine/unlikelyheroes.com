@@ -653,6 +653,72 @@ function get_backer_total($id) {
 	return $return_pledgers->count;
 }
 
+function the_levels($id) {
+	global $wpdb;
+	$project_id = get_post_meta($id, 'ign_project_id', true);
+	$level_count = get_post_meta($id, 'ign_product_level_count', true);
+
+	// GETTING product default settings
+	$default_prod_settings = getProductDefaultSettings();
+
+	// Getting product settings and if they are not present, set the default settings as product settings
+	$prod_settings = getProductSettings($project_id);
+	if (empty($prod_settings)) {
+		$prod_settings = $default_prod_settings;
+	}
+	$currency_code = $prod_settings->currency_code;
+	//GETTING the currency symbols
+	$cCode = setCurrencyCode($currency_code);
+	$level_data = array();
+	for ($i=1; $i <= $level_count; $i++) {
+		$level_sales = $wpdb->prepare('SELECT COUNT(*) as count FROM '.$wpdb->prefix.'ign_pay_info WHERE product_id=%d AND product_level = %d', $project_id, $i);
+		$return_sales = $wpdb->get_row($level_sales);
+		$level_sales = $return_sales->count;
+		if ($i == 1) {
+			$level_title = html_entity_decode(get_post_meta($id, 'ign_product_title', true));
+			$level_desc = html_entity_decode(get_post_meta($id, 'ign_product_details', true));
+			$level_price = get_post_meta($id, 'ign_product_price', true);
+			if ($level_price > 0) {
+				$level_price = number_format($level_price, 0, '.', ',');
+			}
+			$level_limit = get_post_meta($id, 'ign_product_limit', true);
+			$level_order = get_post_meta($id, 'ign_projectmeta_level_order', true);
+			$level_data[] = array('id' => $i,
+			'title' => $level_title,
+			'description' => $level_desc,
+			'price' => $level_price,
+			'sold' => $level_sales,
+			'limit' => $level_limit,
+			'currency_code' => $cCode,
+			'order' => $level_order);	
+		}
+		else {
+			$level_title = html_entity_decode(get_post_meta($id, 'ign_product_level_'.$i.'_title', true));
+			$level_desc = html_entity_decode(get_post_meta($id, 'ign_product_level_'.$i.'_desc', true));
+			$level_price = get_post_meta($id, 'ign_product_level_'.$i.'_price', true);
+			if ($level_price > 0) {
+				$level_price = number_format($level_price, 0, '.', ',');
+			}
+			$level_limit = get_post_meta($id, 'ign_product_level_'.$i.'_limit', true);
+			$level_order = get_post_meta($id, 'ign_product_level_'.$i.'_order', true);
+			$level_data[] = array('id' => $i,
+			'title' => $level_title,
+			'description' => $level_desc,
+			'price' => $level_price,
+			'limit' => $level_limit,
+			'sold' => $level_sales,
+			'currency_code' => $cCode,
+			'order' => $level_order);	
+		}
+		
+	}
+	return $level_data;
+}
+
+function fh_level_sort($a, $b) {
+	return $a['order'] == $b['order'] ? 0 : ($a['order'] > $b['order']) ? 1 : -1;
+}
+
 function the_short_title($limit) {
 	$title = get_the_title($post->ID);
 	if(strlen($title) > $limit) {

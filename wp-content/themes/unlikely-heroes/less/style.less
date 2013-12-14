@@ -460,36 +460,6 @@ body {
 	}
 }
 
-/*..................................the campaigns */
-.progress {
-	height: 14px;
-	margin-bottom: 20px;
-	border-radius: 0;
-	box-shadow: 0;
-
-	&-bar {
-		background-color: @gray-light;
-	}
-}
-
-.money-raised {
-	font-size: 18px;
-	line-height: 1;
-	letter-spacing: 2px;
-
-	span {
-		.Roboto-slab-bold;
-		font-size: 26px;
-	}
-}
-
-.days-left {
-	margin-bottom: 10px;
-	.Roboto-condensed-regular;
-	text-transform: uppercase;
-	letter-spacing: 2px;
-}
-
 /*..................................the donate page */
 .form-horizontal {
 	.list-group {
@@ -745,17 +715,82 @@ footer {
 
 /*..................................the campaigns */
 .progress {
-	.progress-bar {
+	height: 14px;
+	margin-bottom: 20px;
+	border-radius: 0;
+	box-shadow: 0;
 
+	&-bar {
+		background-color: @gray-light;
 	}
+}
+
+.money-raised {
+	font-size: 18px;
+	line-height: 1;
+	letter-spacing: 2px;
+
+	span {
+		.Roboto-slab-bold;
+		font-size: 26px;
+	}
+}
+
+.days-left {
+	margin-bottom: 10px;
+	.Roboto-condensed-regular;
+	text-transform: uppercase;
+	letter-spacing: 2px;
 }
 
 .single-campaign {
+
+	h3 {
+		margin-top: 0;
+	}
+
 	.progress {
 		height: 20px;
 	}
+
+	.money-raised,
+	.number-of-supporters {
+		margin-bottom: 5px;
+		font-size: 24px;
+		line-height: 1;
+		letter-spacing: 2px;
+
+		span {
+			.Roboto-slab-bold;
+			font-size: 36px;
+		}
+	}
+
+	// .money-raised {
+	// 	margin-bottom: 5px;
+	// }
+
+	.campaign-goal {
+		font-size: 24px;
+		line-height: 2;
+	}
+
+	.days-left {
+		font-size: 20px;
+		// margin-bottom: 10px;
+		// .Roboto-condensed-regular;
+		// text-transform: uppercase;
+		// letter-spacing: 2px;
+	}
+
+	.btn {
+		// height: 87px;
+		padding: 18.5px 10%;
+		font-size: 24px;
+	}
 }
 
+// Campaign summary boxes
 .campaign-summary,
 .create-campagin-cta {
 	margin-bottom: 30px;
@@ -780,6 +815,30 @@ footer {
 	p {
 		height: 172px;
 	}
+}
+
+
+// Campaign levels
+a.level-binding {
+	color: @brand-gray !important;
+
+	&:hover {
+		text-decoration: none;
+	}
+}
+
+.level-group {
+	margin-top: 15px;
+	padding: 15px;
+	background-color: @gray-lighter;
+}
+
+.ign-level-title {
+
+	span {
+		font-size: 18px;
+	}
+	
 }
 
 /*..................................the page accents */

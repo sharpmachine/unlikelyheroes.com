@@ -1,0 +1,271 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: IDStripe\n"
+"POT-Creation-Date: 2013-11-04 18:21-0500\n"
+"PO-Revision-Date: 2013-11-04 18:21-0500\n"
+"Last-Translator: Nathan Hangen <nhangen@gmail.com>\n"
+"Language-Team: IgnitionDeck <hello@virtuousgiant.com>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ../.\n"
+
+#: .././idstripe-functions.php:6
+msgid "Pay with Credit Card"
+msgstr ""
+
+#: .././idstripe-functions.php:321 .././idstripe-functions.php:335
+msgid "Sorry, but your card could not be authorized."
+msgstr ""
+
+#: .././idstripe-functions.php:340
+msgid "Sorry, something went wrong. Please try again."
+msgstr ""
+
+#: .././idstripe.php:57 .././idstripe.php:182 .././idstripe.php:189
+#: .././templates/admin/_stripeSettings.php:6
+msgid "Stripe Settings"
+msgstr ""
+
+#: .././idstripe.php:171
+msgid "Settings Saved"
+msgstr ""
+
+#: .././inc/stripeConnect.php:7 .././templates/admin/_connectSettings.php:2
+#: .././templates/admin/_connectSettings.php:84
+msgid "Stripe Connect"
+msgstr ""
+
+#: .././templates/_stripeForm.php:7
+msgid "Card Number"
+msgstr ""
+
+#: .././templates/_stripeForm.php:7 .././templates/_stripeForm.php:15
+msgid "Required"
+msgstr ""
+
+#: .././templates/_stripeForm.php:11
+msgid "CVC"
+msgstr ""
+
+#: .././templates/_stripeForm.php:15
+msgid "Expiration (MM/YYYY)"
+msgstr ""
+
+#: .././templates/_stripeForm.php:21
+msgid "JavaScript is required for the registration form."
+msgstr ""
+
+#: .././templates/admin/_connectSettings.php:7
+#: .././templates/admin/_connectSettings.php:48
+msgid "Application Settings"
+msgstr ""
+
+#: .././templates/admin/_connectSettings.php:11
+msgid "Production Client ID"
+msgstr ""
+
+#: .././templates/admin/_connectSettings.php:17
+msgid "Development Client ID"
+msgstr ""
+
+#: .././templates/admin/_connectSettings.php:23
+msgid "Fee Type"
+msgstr ""
+
+#: .././templates/admin/_connectSettings.php:26
+msgid "Flat Fee (in cents)"
+msgstr ""
+
+#: .././templates/admin/_connectSettings.php:27
+msgid "Percentage"
+msgstr ""
+
+#: .././templates/admin/_connectSettings.php:32
+msgid "Application Fee"
+msgstr ""
+
+#: .././templates/admin/_connectSettings.php:38
+msgid "Enable Development Mode"
+msgstr ""
+
+#: .././templates/admin/_connectSettings.php:50
+msgid "Project Specific URL:"
+msgstr ""
+
+#: .././templates/admin/_connectSettings.php:53
+msgid "Select Project"
+msgstr ""
+
+#: .././templates/admin/_connectSettings.php:56
+msgid "Your URL:"
+msgstr ""
+
+#: .././templates/admin/_connectSettings.php:58
+msgid "Button Code"
+msgstr ""
+
+#: .././templates/admin/_connectSettings.php:60
+msgid "Blue on Light"
+msgstr ""
+
+#: .././templates/admin/_connectSettings.php:61
+msgid "Blue on Dark"
+msgstr ""
+
+#: .././templates/admin/_connectSettings.php:62
+msgid "Light on Light"
+msgstr ""
+
+#: .././templates/admin/_connectSettings.php:63
+msgid "Light on Dark"
+msgstr ""
+
+#: .././templates/admin/_connectSettings.php:66
+#: .././templates/admin/_connectSettings.php:69
+msgid "Connect with Stripe"
+msgstr ""
+
+#: .././templates/admin/_connectSettings.php:81
+msgid "Using Stripe Connect"
+msgstr ""
+
+#: .././templates/admin/_connectSettings.php:83
+msgid ""
+"Stripe Connect enables site owners to process transactions via Stripe "
+"Connect user accounts, and if desired, to charge a fee for doing so."
+msgstr ""
+
+#: .././templates/admin/_connectSettings.php:84
+msgid "In order to use"
+msgstr ""
+
+#: .././templates/admin/_connectSettings.php:84
+msgid "you will need a"
+msgstr ""
+
+#: .././templates/admin/_connectSettings.php:84
+msgid "Stripe account"
+msgstr ""
+
+#: .././templates/admin/_connectSettings.php:84
+msgid "with an application created via the dashboard."
+msgstr ""
+
+#: .././templates/admin/_stripeSettings.php:8
+msgid ""
+"You will need a <a href=\"http://www.stripe.com\" target=\"_blank\">Stripe "
+"Account</a> in order to continue. Please enter your credentials in order to "
+"continue and activate Stripe."
+msgstr ""
+
+#: .././templates/admin/_stripeSettings.php:9
+msgid "If using sandbox mode, make sure to enter test credentials."
+msgstr ""
+
+#: .././templates/admin/_stripeSettings.php:10
+msgid ""
+"Note, all Stripe transactions will be processed in the currency selected "
+"below. Use the default project settings to change level display."
+msgstr ""
+
+#: .././templates/admin/_stripeSettings.php:14
+msgid "Currency"
+msgstr ""
+
+#: .././templates/admin/_stripeSettings.php:17
+msgid "Choose Currency"
+msgstr ""
+
+#: .././templates/admin/_stripeSettings.php:18
+msgid "USD"
+msgstr ""
+
+#: .././templates/admin/_stripeSettings.php:19
+msgid "CAD"
+msgstr ""
+
+#: .././templates/admin/_stripeSettings.php:20
+msgid "GBP"
+msgstr ""
+
+#: .././templates/admin/_stripeSettings.php:21
+msgid "EUR"
+msgstr ""
+
+#: .././templates/admin/_stripeSettings.php:22
+msgid "AUD (beta)"
+msgstr ""
+
+#: .././templates/admin/_stripeSettings.php:27
+msgid "Fund Type"
+msgstr ""
+
+#: .././templates/admin/_stripeSettings.php:30
+msgid "Immediately Deliver Funds"
+msgstr ""
+
+#: .././templates/admin/_stripeSettings.php:31
+msgid "100% Threshold"
+msgstr ""
+
+#: .././templates/admin/_stripeSettings.php:36
+msgid "Live Secret Key"
+msgstr ""
+
+#: .././templates/admin/_stripeSettings.php:40
+msgid "Live Publishable Key"
+msgstr ""
+
+#: .././templates/admin/_stripeSettings.php:44
+msgid "Test Secret Key"
+msgstr ""
+
+#: .././templates/admin/_stripeSettings.php:48
+msgid "Test Publishable Key"
+msgstr ""
+
+#: .././templates/admin/_stripeSettings.php:52
+msgid "Click "
+msgstr ""
+
+#: .././templates/admin/_stripeSettings.php:52
+msgid "here"
+msgstr ""
+
+#: .././templates/admin/_stripeSettings.php:52
+msgid "for testing information"
+msgstr ""
+
+#: .././templates/admin/_stripeSettings.php:53
+msgid "Test Mode"
+msgstr ""
+
+#: .././templates/admin/_stripeSettings.php:57
+msgid "Disable Paypal"
+msgstr ""
+
+#: .././templates/admin/_stripeSettings.php:69
+msgid "Process Project Authorizations"
+msgstr ""
+
+#: .././templates/admin/_stripeSettings.php:71
+msgid ""
+"Use this screen to process transactions once your fund threshold has been "
+"reached. Please use this feature with care, and remember to clearly state "
+"terms on your website or campaign page"
+msgstr ""
+
+#: .././templates/admin/_stripeSettings.php:73
+msgid ""
+"Warning:</span> This will process all pending authorizations related to the "
+"selected campaign"
+msgstr ""
+
+#: .././templates/admin/_stripeSettings.php:74
+msgid "Customers will only be charged once"
+msgstr ""

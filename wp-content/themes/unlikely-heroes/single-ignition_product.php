@@ -1,10 +1,17 @@
 <?php
 	global $post;
 	$id = $post->ID;
-	$content = the_project_content($id);
 	$project_id = get_post_meta($id, 'ign_project_id', true);
+	$content = the_project_content($id);
+	$levels = the_levels($id);
 	$summary = the_project_summary($id);
 	$hDeck = the_project_hDeck($id);
+	$type = get_post_meta($id, 'ign_project_type', true);
+	$url = get_permalink($id).'/?purchaseform=500&prodid='.$project_id; //getPurchaseURLfromType($project_id, 'purchaseform');
+	$custom_order = get_post_meta($id, 'custom_level_order', true);
+	if ($custom_order) {
+		usort($levels, 'fh_level_sort');
+	}
 	do_action('fh_project_summary_before');
 ?>
 <?php get_header(); ?>
@@ -43,14 +50,12 @@
 					</div>
 
 					<div class="money-raised">
-						<span><?php echo $hDeck->currency_code; ?><?php echo number_format(apply_filters('id_funds_raised', $hDeck->total, $id), 2, '.', ','); ?></span>
+						<span><?php echo $hDeck->currency_code; ?><?php echo number_format(apply_filters('id_funds_raised', $hDeck->total, $id)); ?></span>
 						Raised
 					</div>
 
-					
-
 					<div class="campaign-goal">
-						<?php echo $hDeck->currency_code; ?><?php echo number_format($hDeck->goal, 2, '.', ','); ?> Goal
+						<?php echo $hDeck->currency_code; ?><?php echo number_format($hDeck->goal); ?> Goal
 					</div>
 
 					<div class="number-of-supporters">
@@ -77,9 +82,43 @@
 						<?php } ?>
 						<?php }?>
 					</div>
+						<!-- START: .levels -->
 
+						<?php
+						foreach ($levels as $level) {
+							$level_invalid = getLevelLimitReached($project_id, $id, $level['id']);
+							?>
+							<?php if (empty($type) || $type == 'level-based') { ?>
+							<a class="level-binding" <?php echo (isset($level_invalid) && $level_invalid ? '' : 'href="'.$url.'&level='.$level['id'].'"'); ?>>
+								<?php } ?>
+								<div class="level-group">
+									<div class="ign-level-title">
+										<span> <?php echo $level['title'] ?></span>
+										<div class="level-price">
+											<?php if ($type !== 'pwyw') { ?>
+											<?php echo $level['currency_code']; ?><?php echo $level['price'] ?>
+											<?php } ?>
+										</div>
+										<div class="clear"></div>
+									</div>
+									<div class="ign-level-desc">
+										<?php echo $level['description'] ?>
+									</div>
+									<?php if ($level['limit'] !== '' && $level['limit'] > 0) { ?>
+									<div class="ign-level-counts">
+										<span><?php _e('Limit', 'fivehundred'); ?>: <?php echo $level['sold'] ?> of <?php echo $level['limit'] ?> <?php _e('taken', 'fivehundred'); ?>.</span>
+									</div>
+									<?php } ?>
+								</div>
+								<?php if (empty($type) || $type == 'level-based') { ?>
+							</a>
+							<?php } ?>
+							<?php } ?>
+						<!-- END: .levels -->
 				</div>
-
+<?php
+//echo apply_filters('the_content', do_shortcode('[project_purchase_form]'));
+?>
 			</div>
 
 		</div>
