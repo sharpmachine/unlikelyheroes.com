@@ -63,6 +63,7 @@ jQuery(document).ready(function() {
 	        jQuery('input[name="price"]').val(price_entry);
 	        jQuery("#price_entry").change(function() {
 	            price_entry = jQuery("#price_entry").val();
+	             price_entry = price_entry.replace(/\D/g,'');
 	            jQuery('input[name="price"]').val(price_entry);
 	            jQuery('.preorder-form-product-price').html(price_entry);
 	        });
@@ -70,6 +71,7 @@ jQuery(document).ready(function() {
 	            if (price_entry < 0.99) {
 	                e.preventDefault();
 	                jQuery("#price_entry").addClass("red-border");
+	                alert('Please enter a contribution value greater than 0.99.');
 	            }
 	            else {
 	                jQuery("#price_entry").removeClass("red-border");
@@ -163,6 +165,7 @@ jQuery(document).ready(function() {
     });*/
 
 	// IDE //
+
 	jQuery('input[name="project_fesubmit"]').submit(function(e) {
 		//e.preventDefault();
 		error = false;
@@ -180,7 +183,9 @@ jQuery(document).ready(function() {
 			return false;
 		}
 	});
-
+	if (jQuery('.id-fes-form-wrapper').length > 0) {
+		jQuery('.id-fes-form-wrapper .date').datepicker({});
+	}
 	jQuery('#fes input[name="project_levels"]').change(function() {
 		var fesLevels = countLevels();
 		newLevels = jQuery(this).val();
@@ -190,7 +195,7 @@ jQuery(document).ready(function() {
 	var thumbs = jQuery('#fes input[type="file"]');
 	jQuery.each(jQuery(thumbs), function(k,v) {
 		var url = jQuery(this).data('url');
-		if (url.length > 0) {
+		if (url && url.length > 0) {
 			var name = jQuery(this).attr('name');
 			jQuery(this).replaceWith('<span class="image_swap"><img class="project_image" src="' + url + '"/><br/><a name="' + name + '" href="#" class="remove_image">Remove</a></span>');
 			jQuery('#fes .remove_image').click(function(e) {

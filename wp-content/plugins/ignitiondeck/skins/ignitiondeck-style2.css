@@ -145,6 +145,21 @@
 .ignitiondeck .poweredbyID span a {
   background: transparent url(images/poweredbyID.png) no-repeat center center;
   background-size: 136px 39px; }
+.ignitiondeck.id-creatorprofile {
+  color: #444444;
+  background-image: rgba(127, 127, 127, 0.2);
+  /* Old browsers */
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.3) 0%, rgba(127, 127, 127, 0.2) 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255, 255, 255, 0.3)), color-stop(100%, rgba(127, 127, 127, 0.2)));
+  /* Chrome,Safari4+ */
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.3) 0%, rgba(127, 127, 127, 0.2) 100%);
+  background-image: -o-linear-gradient(rgba(255, 255, 255, 0.3) 0%, rgba(127, 127, 127, 0.2) 100%);
+  background-image: -ms-linear-gradient(rgba(255, 255, 255, 0.3) 0%, rgba(127, 127, 127, 0.2) 100%);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.3) 0%, rgba(127, 127, 127, 0.2) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4DFFFFFF', endColorstr='#337F7F7F',GradientType=0);
+  border: none; }
+  .ignitiondeck.id-creatorprofile .id-creator-links a.facebook, .ignitiondeck.id-creatorprofile .id-creator-links a.twitter, .ignitiondeck.id-creatorprofile .id-creator-links a.gplus {
+    color: #d8d8d8; }
 
 .ignitiondeck .id-purchase-form-wrapper {
   background-image: rgba(127, 127, 127, 0.2);

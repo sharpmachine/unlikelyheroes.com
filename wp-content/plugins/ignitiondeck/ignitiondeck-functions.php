@@ -1285,7 +1285,7 @@ function id_create_order($order) {
 }
 
 function id_validate_license($key) {
-	$ch = curl_init('https://ignitiondeck.com/id/?action=md_validate_license&key='.$key);
+	$ch = curl_init('http://ignitiondeck.com/id/?action=md_validate_license&key='.$key);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     $response = curl_exec($ch);
     if (!$response) {
@@ -1300,12 +1300,7 @@ function id_validate_license($key) {
     else {
     	$download = null;
     }
-    if ($download == '30' && $valid == true) {
-    	return true;
-    }
-    else {
-    	return false;
-    }
+    return array('response' => $valid, 'download' => $download);
 }
 
 //AJAX for getting the product number from product id

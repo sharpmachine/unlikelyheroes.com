@@ -13,6 +13,12 @@ class ID_Project {
 		return $res;
 	}
 
+	function update_project($args) {
+		global $wpdb;
+		$sql = $wpdb->prepare('UPDATE '.$wpdb->prefix.'ign_products SET product_name = %s, ign_product_title = %s, ign_product_limit = %d, product_details = %s, product_price = %s, goal = %s WHERE id = %d', $args['product_name'], $args['ign_product_title'], $args['ign_product_limit'], $args['product_details'], $args['product_price'], $args['goal'], $this->id);
+		$res = $wpdb->query($sql);
+	}
+
 	function get_project_settings() {
 		global $wpdb;
 		$sql = $wpdb->prepare('SELECT * FROM '.$wpdb->prefix.'ign_product_settings WHERE product_id = %d', $this->id);

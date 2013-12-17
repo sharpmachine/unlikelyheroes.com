@@ -30,6 +30,9 @@ class ID_Form {
 			if (isset($field['wclass'])) {
 				$wclass = $field['wclass'];
 			}
+			else {
+				$wclass = null;
+			}
 			if (isset($field['class'])) {
 				$class= $field['class'];
 			}

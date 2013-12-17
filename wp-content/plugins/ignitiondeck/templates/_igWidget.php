@@ -13,7 +13,7 @@
 					<?php if (!$custom || ($custom && isset($attrs['project_bar']))) { ?>
 					<div class="progress-wrapper">
 						<div class="progress-percentage"> <?php echo number_format(apply_filters('id_percentage_raised', $the_deck->rating_per, $the_deck->post_id, $the_deck->project->goal));?>% </div>
-						<div class="progress-bar" style="width: <?php echo number_format(apply_filters('id_percentage_raised', $the_deck->rating_per, $the_deck->post_id, $the_deck->project->goal)); ?>%"> 
+						<div class="progress-bar" style="width: <?php apply_filters('id_percentage_raised', $the_deck->rating_per, $the_deck->post_id, $the_deck->project->goal); ?>%"> 
 						</div>
 						<!-- end progress bar --> 
 					</div>
@@ -78,16 +78,32 @@
 				<div class="id-product-levels">
 					<?php
 					if ($the_deck->project_type !== "pwyw") { ?>
-						<?php foreach ($the_deck->level_data as $level) { ?>
-						<a class="level-binding" <?php echo (isset($level->level_invalid) && $level->level_invalid ? '' : 'href="'.$url.'&level='.$level->id.'"'); ?>>
+						<?php foreach ($the_deck->level_data as $level) { 
+							if (isset($the_deck->end_type) && $the_deck->end_type == 'closed') {
+								if (isset($the_deck->days_left) && $the_deck->days_left > 0) {
+						?>
+								<a class="level-binding" <?php echo (isset($level->level_invalid) && $level->level_invalid ? '' : 'href="'.$url.'&level='.$level->id.'"'); ?>>
+						<?php 
+								}
+								else { ?>
+									<a class="level-binding" <?php echo (isset($level->level_invalid) && $level->level_invalid ? '' : ''); ?>>
+								<?php 
+								}
+							}
+							else { ?>
+								<a class="level-binding" <?php echo (isset($level->level_invalid) && $level->level_invalid ? '' : 'href="'.$url.'&level='.$level->id.'"'); ?>>
+							<?php
+							}
+						?>
 							<div class="level-group">
 								<div class="id-level-title"><span><?php echo (isset($level->meta_title) ? strip_tags(stripslashes($level->meta_title)) : $tr_Level.' '.($level->id)); ?>:</span> <?php echo $the_deck->cCode;?><?php echo number_format($level->meta_price, 2, '.', ','); ?></div>
 								<div class="id-level-desc"><?php echo html_entity_decode(stripslashes($level->meta_desc)); ?></div>
 							<?php echo (!empty($level->meta_limit) ? '<div class="id-level-counts"><span>'. $tr_Limit .': '.$level->meta_count .' '.$tr_Of.' '.$level->meta_limit.' '.$tr_Taken.'</span></div>' : ''); ?>
 							<?php echo do_action('id_after_level'); ?>
 							</div>
-						</a>
-						<?php }
+								</a>
+						<?php
+						}
 					} ?>
 				</div>
 				<!-- end product levels -->

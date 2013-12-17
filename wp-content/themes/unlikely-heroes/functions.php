@@ -372,7 +372,7 @@ add_filter( 'wp_page_menu', 'bootstrap_menu' );
 
 // Add's classes to default wp_nav() output to utilize the Bootstraps menu
 class Bootstrap_Menu_Walker extends Walker_Nav_Menu{
-	function start_lvl(&$output, $depth) {
+	function start_lvl(&$output, $depth = 0, $args = array()) {
 		$indent = str_repeat("\t", $depth);
 		$output .= "\n$indent<ul class=\"dropdown-menu\">\n";
 	}
@@ -442,24 +442,6 @@ function id_add_custom_types( $query ) {
 }
 add_filter( 'pre_get_posts', 'id_add_custom_types' );
 
-function the_project_content($id) {
-	$project_id = get_post_meta($id, 'ign_project_id', true);
-	$name = get_post_meta($id, 'ign_product_name', true);
-	$short_desc = html_entity_decode(get_post_meta($id, 'ign_project_description', true));
-	$long_desc = get_post_meta($id, 'ign_project_long_description', true);
-	
-	$content = new stdClass;
-	$content->name = $name;
-	$content->short_description = $short_desc;
-	$content->long_description = apply_filters('fh_project_content', html_entity_decode($long_desc), $project_id);
-	return $content;
-}
-
-function the_project_video($id) {
-	$video = get_post_meta($id, 'ign_product_video', true);
-	return html_entity_decode($video);
-}
-
 function the_project_summary($id) {
 	$project_id = get_post_meta($id, 'ign_project_id', true);
 	$image_url = the_project_image($id, "1");
@@ -485,17 +467,20 @@ function the_project_summary($id) {
 	if ($end !== '') {
 		$show_dates = true;
 		$end = str_replace('/', ' ', $end);
-		$end = explode(' ', $end);
-		$end_string = $end[2].'-'.$end[0].'-'.$end[1];
+		$end = str_replace('-', ' ', $end);
+		if (is_array($end)) {
+			$end_string = $end[2].'-'.$end[0].'-'.$end[1];
 
-		$end_date = strtotime($end_string);
+			$end_date = strtotime($end_string);
 
-		$now = time();
+			$now = time();
 
-		$dif = number_format(($end_date - $now)/86400);
-		if ($dif < 0) {
-			$dif = 0;
+			$dif = number_format(($end_date - $now)/86400);
+			if ($dif < 0) {
+				$dif = 0;
+			}
 		}
+		else ($dif = 0);
 	}
 	else {
 		$show_dates = false;
@@ -525,52 +510,17 @@ function the_project_summary($id) {
 	return $summary;
 }
 
-function the_project_image($id, $num) {
-	if ($num == 1) {
-		$project_id = get_post_meta($id, 'ign_project_id', true);
-		global $wpdb;
-		$url = get_post_meta($id, 'ign_product_image1', true);
-		$sql = $wpdb->prepare('SELECT ID FROM '.$wpdb->prefix.'posts WHERE guid = %s', $url);
-		$res = $wpdb->get_row($sql);
-		if (isset($res->ID)) {
-			$src = wp_get_attachment_image_src($res->ID, 'fivehundred_featured');
-			$image = $src[0];
-		} else {
-			$image = $url;
-		}
-	}
-	else {
-		$key = 'ign_product_image'.$num;
-		$image = get_post_meta($id, $key, true);
-	}
+function the_project_content($id) {
+	$project_id = get_post_meta($id, 'ign_project_id', true);
+	$name = get_post_meta($id, 'ign_product_name', true);
+	$short_desc = html_entity_decode(get_post_meta($id, 'ign_project_description', true));
+	$long_desc = get_post_meta($id, 'ign_project_long_description', true);
 	
-	return $image;
-}
-
-function get_fund_total($id) {
-	$project_id = get_post_meta($id, 'ign_project_id', true);
-
-	$pay_info = get_pay_info($project_id);
-	$total = 0;
-	foreach ($pay_info as $fund) {
-		$total = $total + $fund->prod_price;
-	}
-	return $total;
-}
-
-function get_pay_info($id) {
-	global $wpdb;
-	$pay_query = $wpdb->prepare('SELECT * FROM '.$wpdb->prefix.'ign_pay_info WHERE product_id=%d', absint($id));
-	$pay_return = $wpdb->get_results($pay_query);
-	return $pay_return;
-}
-
-function the_project_goal($id) {
-	global $wpdb;
-	$project_id = get_post_meta($id, 'ign_project_id', true);
-	$goal_query = $wpdb->prepare('SELECT goal FROM '.$wpdb->prefix.'ign_products WHERE id=%d', $project_id);
-	$goal_return = $wpdb->get_row($goal_query);
-	return $goal_return->goal;
+	$content = new stdClass;
+	$content->name = $name;
+	$content->short_description = $short_desc;
+	$content->long_description = apply_filters('fh_project_content', html_entity_decode($long_desc), $project_id);
+	return $content;
 }
 
 function the_project_hDeck($id) {
@@ -645,12 +595,9 @@ function the_project_hDeck($id) {
 	return $hDeck;
 }
 
-function get_backer_total($id) {
-	global $wpdb;
-	$project_id = get_post_meta($id, 'ign_project_id', true);
-	$get_pledgers = $wpdb->prepare('SELECT COUNT(*) AS count FROM '.$wpdb->prefix.'ign_pay_info WHERE product_id=%d', $project_id);
-	$return_pledgers = $wpdb->get_row($get_pledgers);
-	return $return_pledgers->count;
+function the_project_video($id) {
+	$video = get_post_meta($id, 'ign_product_video', true);
+	return html_entity_decode($video);
 }
 
 function the_levels($id) {
@@ -719,6 +666,98 @@ function fh_level_sort($a, $b) {
 	return $a['order'] == $b['order'] ? 0 : ($a['order'] > $b['order']) ? 1 : -1;
 }
 
+function have_projects() {
+	global $wpdb;
+
+	$proj_return = get_ign_projects();
+	if ($proj_return) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+// not in use --
+function the_project($id) {
+	$project_id = get_post_meta($id, 'ign_project_id', true);
+	$project = get_ign_project($project_id);
+	$pay_info = get_pay_info($project_id);
+	$fund_total = array('fund_total' => get_fund_total($pay_info));
+	$meta = get_post_meta($id);
+	$the_project = array_merge( $project, $pay_info, $fund_total, $meta);
+	return $the_project;
+}
+
+function get_ign_project($id) {
+	global $wpdb;
+	$proj_query = $wpdb->prepare('SELECT * FROM '.$wpdb->prefix.'ign_products WHERE id=%d', absint($id));
+	$proj_return = $wpdb->get_row($proj_query);
+	return $proj_return;
+}
+
+function get_ign_projects() {
+	global $wpdb;
+	$proj_query = 'SELECT * FROM '.$wpdb->prefix.'ign_products';
+	$proj_return = $wpdb->get_results($proj_query);
+	return $proj_return;
+}
+
+function get_pay_info($id) {
+	global $wpdb;
+	$pay_query = $wpdb->prepare('SELECT * FROM '.$wpdb->prefix.'ign_pay_info WHERE product_id=%d', absint($id));
+	$pay_return = $wpdb->get_results($pay_query);
+	return $pay_return;
+}
+
+function get_fund_total($id) {
+	$project_id = get_post_meta($id, 'ign_project_id', true);
+
+	$pay_info = get_pay_info($project_id);
+	$total = 0;
+	foreach ($pay_info as $fund) {
+		$total = $total + $fund->prod_price;
+	}
+	return $total;
+}
+
+function get_backer_total($id) {
+	global $wpdb;
+	$project_id = get_post_meta($id, 'ign_project_id', true);
+	$get_pledgers = $wpdb->prepare('SELECT COUNT(*) AS count FROM '.$wpdb->prefix.'ign_pay_info WHERE product_id=%d', $project_id);
+	$return_pledgers = $wpdb->get_row($get_pledgers);
+	return $return_pledgers->count;
+}
+
+function the_project_image($id, $num) {
+	if ($num == 1) {
+		$project_id = get_post_meta($id, 'ign_project_id', true);
+		global $wpdb;
+		$url = get_post_meta($id, 'ign_product_image1', true);
+		$sql = $wpdb->prepare('SELECT ID FROM '.$wpdb->prefix.'posts WHERE guid = %s', $url);
+		$res = $wpdb->get_row($sql);
+		if (isset($res->ID)) {
+			$src = wp_get_attachment_image_src($res->ID, 'fivehundred_featured');
+			$image = $src[0];
+		} else {
+			$image = $url;
+		}
+	}
+	else {
+		$key = 'ign_product_image'.$num;
+		$image = get_post_meta($id, $key, true);
+	}
+	
+	return $image;
+}
+
+function the_project_goal($id) {
+	global $wpdb;
+	$project_id = get_post_meta($id, 'ign_project_id', true);
+	$goal_query = $wpdb->prepare('SELECT goal FROM '.$wpdb->prefix.'ign_products WHERE id=%d', $project_id);
+	$goal_return = $wpdb->get_row($goal_query);
+	return $goal_return->goal;
+}
+
 function the_short_title($limit) {
 	$title = get_the_title($post->ID);
 	if(strlen($title) > $limit) {
@@ -743,4 +782,18 @@ function remove_admin_bar() {
 	if (!current_user_can('administrator') && !is_admin()) {
 		show_admin_bar(false);
 	}
+}
+
+function uh_registration_redirect()
+{
+	return home_url( '/dashboard/' );
+}
+add_filter( 'registration_redirect', 'uh_registration_redirect' );
+
+add_filter( 'parse_query', 'exclude_pages_from_admin' );
+function exclude_pages_from_admin($query) {
+    global $pagenow,$post_type;
+    if (is_admin() && $pagenow=='edit.php' && $post_type =='page') {
+        $query->query_vars['post__not_in'] = array('941', '990');
+    }
 }

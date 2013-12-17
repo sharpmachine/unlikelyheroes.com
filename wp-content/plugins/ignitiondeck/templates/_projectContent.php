@@ -4,7 +4,7 @@
 	<div class="product-video-container"><?php echo html_entity_decode(stripslashes(get_post_meta($post_id, "ign_product_video", true))); ?></div>
 	<?php include ID_PATH.'templates/_socialButtons.php'; ?>
 		<div style="clear:both;"></div>
-		<?php do_action('id_before_content_description'); ?>
+		<?php do_action('id_before_content_description', $project_id, $post_id); ?>
 		<div class="long-description"><?php echo nl2br(html_entity_decode($project_long_desc)); ?></div>
 		<div class="product-image-container">
 			<div>

@@ -52,6 +52,7 @@ class Product_Widget extends WP_Widget {
 		global $post, $wpdb;
 		$show_mini = false;
 		$page_project_id = 0;
+		$custom = false;
 		// Condition to store the product_id, if the page currently being visited is the project page or some other
 		if (isset($post)) {
 			$page_project_id = projectPageof($post->ID, $params['product_id']);
@@ -77,7 +78,6 @@ class Product_Widget extends WP_Widget {
 			else {
 				$show_mini = true;
 			}
-			$custom = false;
 			if (isset($params['deck_id']) && $params['deck_id'] > 0) {
 				$deck_id = $params['deck_id'];
 				$settings = Deck::get_deck_attrs($deck_id);

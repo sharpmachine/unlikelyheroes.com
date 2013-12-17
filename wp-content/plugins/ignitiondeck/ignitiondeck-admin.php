@@ -237,7 +237,7 @@ add_filter( 'enter_title_here', 'change_ign_product_title_text' );
 add_action('admin_menu', 'pre_order_menu');
 function pre_order_menu() {
 	if (current_user_can('manage_options')) {
-	    add_menu_page('IgnitionDeck Settings', 'IgnitionDeck', 'manage_options', 'ignitiondeck', 'id_main_menu', plugins_url( '/images/ignitiondeck-menu.png', __FILE__ ));
+	    $settings = add_menu_page('IgnitionDeck Settings', 'IgnitionDeck', 'manage_options', 'ignitiondeck', 'id_main_menu', plugins_url( '/images/ignitiondeck-menu.png', __FILE__ ));
 		add_submenu_page( 'ignitiondeck', 'Project Settings', 'Project Settings', 'manage_options', 'project-settings', 'product_settings');
 		add_submenu_page( 'ignitiondeck', 'Custom Settings', 'Custom Settings', 'manage_options', 'custom-settings', 'custom_settings');
 	    add_submenu_page( 'ignitiondeck', 'Payment Settings', 'Payment Settings', 'manage_options', 'payment-options', 'paypal_payment_options');
@@ -254,6 +254,7 @@ function pre_order_menu() {
 		add_submenu_page( $order_menu, 'Refund', '', 'manage_options', 'refund', 'refund_order');
 		add_submenu_page( 'ignitiondeck', 'Extensions', 'Extensions', 'manage_options', 'extensions', 'extension_list');
 		do_action('id_submenu');
+		add_action('admin_print_styles-'.$settings, 'id_font_awesome');
 	}
 }
 
@@ -262,16 +263,28 @@ function id_main_menu(){
 	global $wpdb;
 
 	$license_key = get_option('id_license_key');
+	$is_pro = get_option('is_id_pro', 0);
+	$is_basic = get_option('is_id_basic', 0);
 	if (isset($_POST['license_key'])) {
+		$is_pro = 0;
+		$is_basic = 0;
 		$license_key = esc_attr($_POST['license_key']);
 		update_option('id_license_key', $license_key);
 		$validate = id_validate_license($license_key);
-		if ($validate) {
-			update_option('is_id_pro', $validate);
+		if (isset($validate['response'])) {
+			if ($validate['response']) {
+				if (isset($validate['download'])) {
+					if ($validate['download'] == '30') {
+						$is_pro = 1;
+					}
+					else if ($validate['download'] == '1') {
+						$is_basic = 1;
+					}
+				}
+			}
 		}
-		else {
-			update_option('is_id_pro', 0);
-		}
+		update_option('is_id_pro', $is_pro);
+		update_option('is_id_basic', $is_basic);
 	}
 	$skins = $wpdb->get_row('SELECT theme_choices FROM '.$wpdb->prefix.'ign_settings WHERE id="1"');
 	if (isset($skins)) {

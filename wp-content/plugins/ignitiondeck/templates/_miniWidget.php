@@ -16,7 +16,7 @@
 					<div class="progress-wrapper">
 						<div class="progress-percentage"><?php echo number_format(apply_filters('id_percentage_raised', $mini_deck->rating_per, $mini_deck->post_id, $mini_deck->project->goal)); ?>% </div>					
 						<!-- end progress-percentage -->
-						<div class="progress-bar" style="width: <?php echo number_format(apply_filters('id_percentage_raised', $mini_deck->rating_per, $mini_deck->post_id, $mini_deck->project->goal)); ?>%"> 
+						<div class="progress-bar" style="width: <?php echo apply_filters('id_percentage_raised', $mini_deck->rating_per, $mini_deck->post_id, $mini_deck->project->goal); ?>%"> 
 							<!----> 
 						</div>
 						<!-- end progress bar --> 

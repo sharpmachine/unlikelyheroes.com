@@ -1,5 +1,4 @@
 <div class="memberdeck">
-	SHITBALLS
 	<form action="" method="POST" id="payment-form" data-currency-code="<?php echo $pp_currency; ?>" data-product="<?php echo (isset($product_id) ? $product_id : ''); ?>" data-type="<?php echo (isset($type) ? $type : ''); ?>" <?php echo (isset($type) && $type == 'recurring' ? 'data-recurring="'.$recurring.'"' : ''); ?> data-free="<?php echo ($level_price == '' || $level_price == 0 ? 'free' : 'premium'); ?>" data-txn-type="<?php echo (isset($txn_type) ? $txn_type : 'capture'); ?>" data-scpk="<?php echo (isset($sc_pubkey) ? $sc_pubkey : ''); ?>" data-claimedpp="<?php echo (isset($claimed_paypal) ? $claimed_paypal : ''); ?>" <?php echo ($es == 1 || $eb == 1 ? 'style="display: none;"' : ''); ?>>
 		<h3 class="checkout-header"><?php echo (isset($level_name) ? $level_name : ''); ?> <?php _e('Checkout', 'memberdeck'); ?></h3>
 		<?php if (!is_user_logged_in()) { ?>

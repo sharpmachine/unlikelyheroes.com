@@ -1,5 +1,4 @@
 <div class="memberdeck">
-	SHITBOX
 	<?php include_once MD_PATH.'templates/_mdProfileTabs.php'; ?>
 	<ul class="md-box-wrapper full-width cf">
 	<?php echo (isset($error) ? '<p class="error">'.$error.'</p>' : ''); ?>

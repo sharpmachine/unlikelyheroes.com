@@ -7,7 +7,7 @@
 Plugin Name: IgnitionDeck Plugin
 URI: http://IgnitionDeck.com
 Description: A custom crowdfunding platform for WordPress. IgnitionDeck allows you to create unlimited and dynamic fundraising campaigns for physical and/or digital goods, integrates with a variety of email and ecommerce platforms, and is compatible with all WordPress themes 3.1+.
-Version: 1.3.3
+Version: 1.3.4
 Author: Virtuous Giant
 Author URI: http://VirtuousGiant.com
 License: GPL2
@@ -63,7 +63,7 @@ function install_id_for_blogs() {
 }
 
 global $ign_db_version;
-$ign_db_version = "1.3.3";
+$ign_db_version = "1.3.4";
 $ign_installed_ver = get_option( "ign_db_version" );
 
 function ign_pre_install ($blog_id = null) {
@@ -442,11 +442,11 @@ function enqueue_front_js() {
 }
 add_action('wp_enqueue_scripts', 'enqueue_front_js');
 
-function font_awesome() {
+function id_font_awesome() {
 	wp_register_style('font-awesome', plugins_url('/inc/css/font-awesome.min.css', __FILE__));
 	wp_enqueue_style('font-awesome');
 }
-add_action('wp_enqueue_scripts', 'font_awesome');
+add_action('wp_enqueue_scripts', 'id_font_awesome');
 
 // Initializing our widget in the admin area
 add_action( 'widgets_init', 'showproduct_load_widgets' );

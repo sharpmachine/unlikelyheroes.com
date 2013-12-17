@@ -7,7 +7,7 @@
 	$summary = the_project_summary($id);
 	$hDeck = the_project_hDeck($id);
 	$type = get_post_meta($id, 'ign_project_type', true);
-	$url = get_permalink($id).'/?purchaseform=500&prodid='.$project_id; //getPurchaseURLfromType($project_id, 'purchaseform');
+	$url = '../../campaign-support/?purchaseform=500&prodid='.$project_id; //getPurchaseURLfromType($project_id, 'purchaseform');
 	$custom_order = get_post_meta($id, 'custom_level_order', true);
 	if ($custom_order) {
 		usort($levels, 'fh_level_sort');
@@ -75,10 +75,10 @@
 						<a href=""><?php _e('Project Closed', 'fivehundred'); ?></a>
 						<?php }else {?>
 						<?php if (empty($permalinks) || $permalinks == '') { ?>
-						<a href="<?php echo get_permalink($id); ?>?purchaseform=500&amp;prodid=<?php echo (isset($project_id) ? $project_id : ''); ?>" class="btn btn-lg btn-block">Support Now</a>
+						<a href="<?php bloginfo('url'); ?>/campaign-support/?purchaseform=500&amp;prodid=<?php echo (isset($project_id) ? $project_id : ''); ?>" class="btn btn-lg btn-block">Support Now</a>
 						<?php }
 						else { ?>
-						<a href="<?php echo get_permalink($id); ?>?purchaseform=500&amp;prodid=<?php echo (isset($project_id) ? $project_id : ''); ?>" class="btn btn-lg btn-block">Support Now</a>
+						<a href="<?php bloginfo('url'); ?>/campaign-support/?purchaseform=500&amp;prodid=<?php echo (isset($project_id) ? $project_id : ''); ?>" class="btn btn-lg btn-block">Support Now</a>
 						<?php } ?>
 						<?php }?>
 					</div>
@@ -115,7 +115,7 @@
 							<?php } ?>
 							<?php } ?>
 						<!-- END: .levels -->
-				</div>
+			</div>
 <?php
 //echo apply_filters('the_content', do_shortcode('[project_purchase_form]'));
 ?>

@@ -76,6 +76,12 @@
 .ignitiondeck .poweredbyID span a {
   background: transparent url(images/poweredbyID.png) no-repeat center center;
   background-size: 136px 39px; }
+.ignitiondeck.id-creatorprofile {
+  color: #242424;
+  background: rgba(173, 173, 173, 0.6);
+  border: none; }
+  .ignitiondeck.id-creatorprofile .id-creator-links a.facebook, .ignitiondeck.id-creatorprofile .id-creator-links a.twitter, .ignitiondeck.id-creatorprofile .id-creator-links a.gplus {
+    color: #fff; }
 
 .ignitiondeck .id-purchase-form-wrapper {
   background: rgba(173, 173, 173, 0.6);

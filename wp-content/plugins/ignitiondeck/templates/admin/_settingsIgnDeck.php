@@ -9,11 +9,11 @@
 							<ul>
 								<li>
 									<p><?php echo $tr_license_description; ?></p>
-									<label for="license_key" class=""><?php echo $tr_License_Key; ?></label><br/>
+									<label for="license_key" class=""><i class="fa fa-key"></i> <?php echo $tr_License_Key; ?></label><br/>
 									<input type="text" name="license_key" id="license_key" value="<?php echo (isset($license_key) ? $license_key : ''); ?>"/>
 								</li>
 								<li>
-									<input type="submit" class="button button-primary" value="<?php echo $tr_Save; ?>"/>
+									<button class="button button-primary"><?php echo $tr_Save.' '.($is_pro || $is_basic ? '<i class="fa fa-check"></i>' : '<i class="fa fa-times"></i>'); ?></button>
 								</li>
 							</ul>
 						</form>
