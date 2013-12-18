@@ -396,7 +396,8 @@ function memberdeck_settings() {
 }
 
 function memberdeck_gateways() {
-	
+	$pp_currency = 'USD';
+	$stripe_currency = 'USD';
 	$settings = get_option('memberdeck_gateways');
 	if (!empty($settings)) {
 		$settings = unserialize($settings);
@@ -406,6 +407,7 @@ function memberdeck_gateways() {
 			$pp_email = $settings['pp_email'];
 			$test_email = $settings['test_email'];
 			$paypal_redirect = $settings['paypal_redirect'];
+			$stripe_currency = $settings['stripe_currency'];
 			$pk = $settings['pk'];
 			$sk = $settings['sk'];
 			$tpk = $settings['tpk'];
@@ -424,58 +426,59 @@ function memberdeck_gateways() {
 		}
 	}
 	if (isset($_POST['gateway-submit'])) {
-		$pp_currency = $_POST['pp-currency'];
-		$pp_symbol = $_POST['pp-symbol'];
-		$pp_email = $_POST['pp-email'];
-		$test_email = $_POST['test-email'];
-		$paypal_redirect = $_POST['paypal-redirect'];
-		$pk = $_POST['pk'];
-		$sk = $_POST['sk'];
-		$tpk = $_POST['tpk'];
-		$tsk = $_POST['tsk'];
-		$bk = $_POST['bk'];
-		$burl = $_POST['burl'];
-		$btk = $_POST['btk'];
-		$bturl = $_POST['bturl'];
+		$pp_currency = esc_attr($_POST['pp-currency']);
+		$pp_symbol = esc_attr($_POST['pp-symbol']);
+		$pp_email = esc_attr($_POST['pp-email']);
+		$test_email = esc_attr($_POST['test-email']);
+		$paypal_redirect = esc_attr($_POST['paypal-redirect']);
+		$stripe_currency = esc_attr($_POST['stripe_currency']);
+		$pk = esc_attr($_POST['pk']);
+		$sk = esc_attr($_POST['sk']);
+		$tpk = esc_attr($_POST['tpk']);
+		$tsk = esc_attr($_POST['tsk']);
+		$bk = esc_attr($_POST['bk']);
+		$burl = esc_attr($_POST['burl']);
+		$btk = esc_attr($_POST['btk']);
+		$bturl = esc_attr($_POST['bturl']);
 
 		if (isset($_POST['test'])) {
-			$test = $_POST['test'];
+			$test = absint($_POST['test']);
 		}
 		else {
 			$test = '0';
 		}
 		if (isset($_POST['epp'])) {
-			$epp = $_POST['epp'];
+			$epp = absint($_POST['epp']);
 		}
 		else {
 			$epp = '0';
 		}
 		if (isset($_POST['epp_fes'])) {
-			$epp_fes = $_POST['epp_fes'];
+			$epp_fes = absint($_POST['epp_fes']);
 		}
 		else {
 			$epp_fes = '0';
 		}
 		if (isset($_POST['es'])) {
-			$es = $_POST['es'];
+			$es = absint($_POST['es']);
 		}
 		else {
 			$es = '0';
 		}
 		if (isset($_POST['esc'])) {
-			$esc = $_POST['esc'];
+			$esc = absint($_POST['esc']);
 		}
 		else {
 			$esc = 0;
 		}
 		if (isset($_POST['eb'])) {
-			$eb = $_POST['eb'];
+			$eb = absint($_POST['eb']);
 		}
 		else {
 			$eb = 0;
 		}
 		if (isset($_POST['eb_fes'])) {
-			$eb_fes = $_POST['eb_fes'];
+			$eb_fes = absint($_POST['eb_fes']);
 		}
 		else {
 			$eb_fes = 0;
@@ -486,6 +489,7 @@ function memberdeck_gateways() {
 			'pp_email' => $pp_email,
 			'test_email' => $test_email,
 			'paypal_redirect' => $paypal_redirect,
+			'stripe_currency' => $stripe_currency,
 			'pk' => $pk,
 			'sk' => $sk,
 			'tpk' => $tpk,
@@ -796,9 +800,14 @@ function call_level_metabox() {
 }
 
 // Bridge Metaboxes
-global $crowdfunding;
-if ($crowdfunding) {
-	add_action('add_meta_boxes', 'mdid_project_metaboxes');
+add_action('plugins_loaded', 'load_project_crowdfunding');
+
+function load_project_crowdfunding() {
+	global $crowdfunding;
+	if ($crowdfunding) {
+		add_action('add_meta_boxes', 'mdid_project_metaboxes');
+		add_action('save_post', 'md_extension_save');
+	}
 }
 
 function mdid_project_metaboxes() {
@@ -823,10 +832,6 @@ function mdid_project_activate($post) {
 	echo '<p><label for="mdid_project_activate">Activate for Membership</label></p>';
 	echo '<p><input type="radio" name="mdid_project_activate" id="mdid_project_activate" value="yes" '.(isset($active) && $active == 'yes' ? 'checked="checked"' : '').'/> '.__('Yes', 'mdid').'</p>';
 	echo '<p><input type="radio" name="mdid_project_activate" id="mdid_project_activate" value="no" '.(isset($active) && $active == 'no' ? 'checked="checked"' : '').'/> '.__('No', 'mdid').'</p>';
-}
-
-if ($crowdfunding) {
-	add_action('save_post', 'md_extension_save');
 }
 
 function md_extension_save($post_id) {

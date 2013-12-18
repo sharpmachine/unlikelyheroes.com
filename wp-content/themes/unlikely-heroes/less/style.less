@@ -137,9 +137,9 @@ p.lead {
 			& > a {
 				.menu-links;
 
-				@media (max-width: @screen-sm) {
-					padding-left: 13px;
-					padding-right: 13px;
+				@media (max-width: @screen-sm-max) {
+					padding-left: 10px;
+					padding-right: 10px;
 				}
 			}
 		}
@@ -149,6 +149,13 @@ p.lead {
 		& > .open > a:active,
 		& > .open > a:focus {
 			background-color: white;
+		}
+
+		@media (min-width: 0) and (max-width: @screen-xs-max) {
+			background-color: @brand-teal;
+			& > li {
+				display: block;
+			}
 		}
 	}
 }
@@ -234,23 +241,17 @@ p.lead {
 /*..................................the jumbotron */
 .jumbotron {
 	position: relative;
-	// height: 520px;
-	// height: 680px;
-	height: 550px;
+	height: 400px;
 	margin-top: -170px;
 	margin-bottom: 0;
 	padding: 0;
 	color: white;
-	
-	// background-color: @brand-teal;
 
 	h1 {
 		position: absolute;
 		left: 0;
 		right: 0;
-		// bottom: -662px;
-		// bottom: -522px;
-		bottom: -505px;
+		bottom: -355px;
 		.Roboto-slab-light;
 		font-size: 30px;
 		letter-spacing: 8px;
@@ -315,20 +316,14 @@ p.lead {
 	}
 }
 
-// Short
+// Tall Jumbotron
 body {
-	&.page-template-project-homes-php, // Project home pages
-	&.page-id-14, // Donate page
-	&.page-id-787, // Contact page
-	&.single-ignition_product,
-	&.page-id-941,
-	&.single-lastest_updates, // Latest Updates
-	&.post-type-archive-ignition_product {  
+	&.home {  
 		.jumbotron {
-			height: 400px;
+			height: 550px;
 
 			h1 {
-				bottom: -355px;
+				bottom: -505px;
 			}
 		}
 	}
@@ -359,13 +354,15 @@ body {
 	p:last-child {
 		margin-bottom: 0;
 	}
-
-
+	
+	@media (min-width: 0) and (max-width: @screen-sm) {
+		padding: 45px 0;
+	}
 }
 
 /*..................................the boxes-one */
 .boxes-one {
-	margin-bottom: 105px;
+	// margin-bottom: 105px;
 	padding-bottom: 0;
 
 	&:last-child {
@@ -570,20 +567,36 @@ h3.team-member-name {
 		line-height: 0.5;
 		letter-spacing: 2px;
 	}
+
+	@media (min-width: 0) and (max-width: @screen-xs-max) {
+		padding: 20px;
+
+		input[type="email"] {
+			width: 100%;
+		}
+
+		.btn {
+			margin-left: 0;
+			margin-top: 20px;
+			.btn-block;
+		}
+	}
 }
 
 /*..................................the forms */
 .form-control {
 	height: 40px;
+	color: @gray-light;
 	border-radius: 0;
 	&:focus {
 		border: 1px solid @brand-teal;
 		.box-shadow(0 0px 0px rgba(0,0,0,0));
+		color: @text-color;
 	}
 }
 
 label {
-	.Roboto-slab-regular;
+	.Roboto-regular;
 	font-size: 14px;
 }
 
@@ -595,7 +608,7 @@ textarea {
 }
 
 input[type="radio"] {
-	display: none;
+	display: none !important;
 }
 
 input[type='radio'] + label:before {
@@ -622,6 +635,67 @@ input[type="radio"]:checked + label:before, {
 	content: "\e601"; /* Radio checked */
 }
 
+.project-creation-form {
+	padding: 0 15px;
+
+	h4 {
+		margin-top: 40px;
+	}
+
+	.row {
+		margin-bottom: 20px;
+	}
+	.help-block {
+		padding: 0 15px;
+		.Roboto-regular;
+		font-size: 12px;
+	}
+}
+
+#form_pay {
+	// add 15px padding to left and right for mobile
+	padding: 0 15px;
+
+	.row {
+		margin-bottom: 20px;
+	}
+
+	.donation-payment-buttons {
+		padding: 20px;
+		button,
+		a {
+			.btn-block;
+		}
+	}
+}
+
+#payment-form {
+	padding: 0 15px;
+}
+
+.ign-checkout-price {
+	label {
+		text-transform: uppercase;
+	}
+}
+
+.id-checkout-level-desc {
+	margin-top: 16px;
+}
+
+.preorder-form-product-price,
+.id-buy-form-currency {
+	.Roboto-bold;
+}
+
+.card-expiry-year {
+	position: relative;
+	top: 35px;
+}
+
+.ign-checkout-button {
+	margin-top: 57px;
+}
 
 /*..................................the footer */
 footer {
@@ -655,6 +729,10 @@ footer {
 			top: -1px;
 			.square(48px);
 		}
+
+		@media (min-width: 0) and (max-width: @screen-xs) {
+			margin-right: 10%;
+		}
 	}
 }
 
@@ -666,6 +744,10 @@ footer {
 
 	a {
 		color: @brand-teal;
+	}
+
+	@media (min-width: 0) and (max-width: @screen-xs) {
+		line-height: 2;
 	}
 }
 
@@ -833,16 +915,39 @@ a.level-binding {
 	background-color: @gray-lighter;
 }
 
+.level-price {
+	.Roboto-bold;
+	font-size: 20px;
+}
+
+.ign-level-counts {
+	.Roboto-regular;
+	text-transform: uppercase;
+}
+
 .ign-level-title {
 
 	span {
 		font-size: 18px;
 	}
-	
 }
 
+.project-content {
+	margin-top: 32px;
+}
+
+.project-close-when {
+	margin-top: -25px;
+}
 /*..................................the page accents */
 @accent-color: transparent;
+
+body {
+	&.page {
+		@accent-color: @brand-gray;
+		.accent-colors;
+	}
+}
 
 body {
 	// Teal
@@ -920,12 +1025,28 @@ body {
 	}
 }
 
-.memberdeck .dashboardmenu {
-	// font-size: 58px !important;
-}
-
 .payment-errors {
 	display: block;
 	margin-bottom: 10px;
 	color: @brand-danger;
+}
+
+#stripe-input {
+	margin-top: 20px;
+}
+
+.box-border {
+	padding: 20px;
+	border: 1px solid #ddd;
+
+	h3 {
+		margin-top: 0;
+	}
+
+	.checkbox input[type=checkbox] {
+		position: relative;
+		top: 4px;
+		margin-left: -5px;
+		margin-right: 5px;
+	}
 }

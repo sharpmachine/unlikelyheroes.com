@@ -19,7 +19,7 @@ do_action('fh_project_summary_before');
 				</div>
 			</div>
 			<div class="money-raised">
-				<span><?php echo $hDeck->currency_code; ?><?php echo number_format(apply_filters('id_funds_raised', $hDeck->total, $id), 2, '.', ','); ?></span>
+				<span><?php echo $hDeck->currency_code; ?><?php echo number_format(apply_filters('id_funds_raised', $hDeck->total, $id)); ?></span>
 				Raised
 			</div>
 			<?php if (isset($hDeck->show_dates) && $hDeck->show_dates == true) { ?>

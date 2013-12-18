@@ -448,7 +448,7 @@ function id_submissionForm($post_id = null) {
 					'levels' => $levels);
 				$form = new ID_FES(null, $vars);
 				$output = '<div class="ignitiondeck"><div class="id-purchase-form-wrapper">';
-				$output .= '<form name="fes" id="fes" action="" method="POST">';
+				$output .= '<form name="fes" id="fes" class="form-inline action="" method="POST">';
 				$output .= $form->display_form();
 				$output .= '</form>';
 				$output .= '</div></div>';
@@ -468,7 +468,7 @@ function id_submissionForm($post_id = null) {
 	}
 	else {
 		$form = new ID_FES(null, $vars);
-		$output = '<div class="ignitiondeck"><div class="id-fes-form-wrapper">';
+		$output = '<div class="row project-creation-form"><div class="id-fes-form-wrapper col-md-12">';
 		$output .= '<form name="fes" id="fes" action="" method="POST" enctype="multipart/form-data">';
 		$output .= $form->display_form();
 		$output .= '</form>';

@@ -1,4 +1,3 @@
-WHAT IS THIS
 <form action="" method="post" id="buyform">
 	<input type="hidden" name="cmd" value="_xclick">
 	<input type="hidden" name="business" value="">

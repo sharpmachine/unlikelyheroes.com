@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MemberDeck\n"
-"POT-Creation-Date: 2013-11-22 15:51-0500\n"
-"PO-Revision-Date: 2013-11-22 15:51-0500\n"
+"POT-Creation-Date: 2013-12-01 16:51-0500\n"
+"PO-Revision-Date: 2013-12-01 16:51-0500\n"
 "Last-Translator: Nathan Hangen <nhangen@gmail.com>\n"
 "Language-Team: IgnitionDeck <hello@virtuousgiant.com>\n"
 "Language: en_US\n"
@@ -14,87 +14,87 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ../.\n"
 
-#: .././idmember-admin.php:6
+#: .././idmember-admin.php:7
 msgid "MemberDeck"
 msgstr ""
 
-#: .././idmember-admin.php:8
+#: .././idmember-admin.php:9
 msgid "Members"
 msgstr ""
 
-#: .././idmember-admin.php:9
+#: .././idmember-admin.php:10
 msgid "Gateways"
 msgstr ""
 
-#: .././idmember-admin.php:14
+#: .././idmember-admin.php:15
 msgid "Crowdfunding"
 msgstr ""
 
-#: .././idmember-admin.php:22 .././templates/admin/_stripeConnect.php:2
+#: .././idmember-admin.php:23 .././templates/admin/_stripeConnect.php:2
 msgid "Stripe Connect"
 msgstr ""
 
-#: .././idmember-admin.php:28
+#: .././idmember-admin.php:29
 msgid "S3 Settings"
 msgstr ""
 
-#: .././idmember-admin.php:71
+#: .././idmember-admin.php:73
 msgid "Level Created"
 msgstr ""
 
-#: .././idmember-admin.php:71
+#: .././idmember-admin.php:73
 msgid "Edit Checkout Page"
 msgstr ""
 
-#: .././idmember-admin.php:84
+#: .././idmember-admin.php:86
 msgid "Level Saved"
 msgstr ""
 
-#: .././idmember-admin.php:94
+#: .././idmember-admin.php:96
 msgid "Level Deleted"
 msgstr ""
 
-#: .././idmember-admin.php:121
+#: .././idmember-admin.php:123
 msgid "Credit Saved"
 msgstr ""
 
-#: .././idmember-admin.php:222
+#: .././idmember-admin.php:224
 msgid "Download Saved"
 msgstr ""
 
-#: .././idmember-admin.php:228
+#: .././idmember-admin.php:230
 msgid "Download Deleted"
 msgstr ""
 
-#: .././idmember-admin.php:235
+#: .././idmember-admin.php:237
 msgid "Credit Deleted"
 msgstr ""
 
-#: .././idmember-admin.php:297
+#: .././idmember-admin.php:299
 msgid "Dashboard Saved"
 msgstr ""
 
-#: .././idmember-admin.php:331
+#: .././idmember-admin.php:333
 msgid "Receipt Settings Saved"
 msgstr ""
 
-#: .././idmember-admin.php:386
+#: .././idmember-admin.php:388
 msgid "CRM Settings Saved"
 msgstr ""
 
-#: .././idmember-admin.php:503
+#: .././idmember-admin.php:505
 msgid "Gateways Saved"
 msgstr ""
 
-#: .././idmember-admin.php:807
+#: .././idmember-admin.php:809
 msgid "Make Available for Memberships"
 msgstr ""
 
-#: .././idmember-admin.php:822 .././templates/admin/_metaboxContent.php:14
+#: .././idmember-admin.php:824 .././templates/admin/_metaboxContent.php:14
 msgid "Yes"
 msgstr ""
 
-#: .././idmember-admin.php:823 .././templates/admin/_metaboxContent.php:15
+#: .././idmember-admin.php:825 .././templates/admin/_metaboxContent.php:15
 msgid "No"
 msgstr ""
 
@@ -103,163 +103,167 @@ msgstr ""
 msgid "Checkout"
 msgstr ""
 
-#: .././idmember-functions.php:576
+#: .././idmember-functions.php:596
 msgid "Passwords do not match"
 msgstr ""
 
-#: .././idmember-functions.php:579
+#: .././idmember-functions.php:599
 msgid "Profile Updated!"
 msgstr ""
 
-#: .././idmember-functions.php:705 .././idmember-functions.php:713
-#: .././idmember-functions.php:1032
+#: .././idmember-functions.php:725 .././idmember-functions.php:733
+#: .././idmember-functions.php:1052
 msgid "Payment Receipt"
 msgstr ""
 
-#: .././idmember-functions.php:706 .././idmember-functions.php:871
-#: .././idmember-functions.php:1025 .././idmember-functions.php:1208
-#: .././inc/memberdeck-ide.php:229 .././inc/memberdeck-ide.php:313
+#: .././idmember-functions.php:726 .././idmember-functions.php:891
+#: .././idmember-functions.php:1045 .././idmember-functions.php:1228
+#: .././inc/memberdeck-ide.php:230 .././inc/memberdeck-ide.php:314
 msgid "From"
 msgstr ""
 
-#: .././idmember-functions.php:707 .././idmember-functions.php:872
-#: .././idmember-functions.php:1026 .././idmember-functions.php:1209
-#: .././inc/memberdeck-ide.php:230 .././inc/memberdeck-ide.php:314
+#: .././idmember-functions.php:727 .././idmember-functions.php:892
+#: .././idmember-functions.php:1046 .././idmember-functions.php:1229
+#: .././inc/memberdeck-ide.php:231 .././inc/memberdeck-ide.php:315
 msgid "Reply-To"
 msgstr ""
 
-#: .././idmember-functions.php:717 .././idmember-functions.php:882
-#: .././idmember-functions.php:1036
+#: .././idmember-functions.php:737 .././idmember-functions.php:902
+#: .././idmember-functions.php:1056
 msgid "Hello"
 msgstr ""
 
-#: .././idmember-functions.php:719
+#: .././idmember-functions.php:739
 msgid "You have successfully made a payment of "
 msgstr ""
 
-#: .././idmember-functions.php:721
+#: .././idmember-functions.php:741
 msgid "This transaction should appear on your Credit Card statement as"
 msgstr ""
 
-#: .././idmember-functions.php:725 .././idmember-functions.php:894
+#: .././idmember-functions.php:745 .././idmember-functions.php:914
 msgid "DATE"
 msgstr ""
 
-#: .././idmember-functions.php:726 .././idmember-functions.php:895
+#: .././idmember-functions.php:746 .././idmember-functions.php:915
 msgid "DESCRIPTION"
 msgstr ""
 
-#: .././idmember-functions.php:727 .././idmember-functions.php:896
+#: .././idmember-functions.php:747 .././idmember-functions.php:916
 msgid "AMOUNT"
 msgstr ""
 
-#: .././idmember-functions.php:732 .././idmember-functions.php:901
+#: .././idmember-functions.php:752 .././idmember-functions.php:921
 msgid "$"
 msgstr ""
 
-#: .././idmember-functions.php:732 .././idmember-functions.php:901
+#: .././idmember-functions.php:752 .././idmember-functions.php:921
 msgid "USD"
 msgstr ""
 
-#: .././idmember-functions.php:737 .././idmember-functions.php:906
+#: .././idmember-functions.php:757 .././idmember-functions.php:926
 msgid "Thank you for your support!"
 msgstr ""
 
-#: .././idmember-functions.php:738 .././idmember-functions.php:907
-#: .././idmember-functions.php:1050
+#: .././idmember-functions.php:758 .././idmember-functions.php:927
+#: .././idmember-functions.php:1070
 msgid "The"
 msgstr ""
 
-#: .././idmember-functions.php:738 .././idmember-functions.php:907
-#: .././idmember-functions.php:1050
+#: .././idmember-functions.php:758 .././idmember-functions.php:927
+#: .././idmember-functions.php:1070
 msgid "team"
 msgstr ""
 
-#: .././idmember-functions.php:870 .././idmember-functions.php:878
+#: .././idmember-functions.php:890 .././idmember-functions.php:898
 msgid "Pre-Order Confirmation"
 msgstr ""
 
-#: .././idmember-functions.php:884
+#: .././idmember-functions.php:904
 msgid "This is a confirmation of your pre-order of "
 msgstr ""
 
-#: .././idmember-functions.php:886 .././idmember-functions.php:1047
+#: .././idmember-functions.php:906 .././idmember-functions.php:1067
 msgid "You have earned a total of "
 msgstr ""
 
-#: .././idmember-functions.php:886 .././idmember-functions.php:1047
+#: .././idmember-functions.php:906 .././idmember-functions.php:1067
 msgid "credits for this purchase"
 msgstr ""
 
-#: .././idmember-functions.php:889
+#: .././idmember-functions.php:909
 msgid "If funding is successful, this charge will process on "
 msgstr ""
 
-#: .././idmember-functions.php:1024
+#: .././idmember-functions.php:1044
 msgid "Complete Your Registration"
 msgstr ""
 
-#: .././idmember-functions.php:1038
+#: .././idmember-functions.php:1058
 msgid "Thank you for your purchase of "
 msgstr ""
 
-#: .././idmember-functions.php:1040
+#: .././idmember-functions.php:1060
 msgid ""
 "Your order is almost ready to go. We just need you to click the link\n"
 "    \t\t\t\t\t\tbelow to complete your registration"
 msgstr ""
 
-#: .././idmember-functions.php:1049
+#: .././idmember-functions.php:1069
 msgid "Thank you for your support"
 msgstr ""
 
-#: .././idmember-functions.php:1223
+#: .././idmember-functions.php:1243
 msgid "Dashboard Sidebar"
 msgstr ""
 
-#: .././idmember-functions.php:1225
+#: .././idmember-functions.php:1245
 msgid "Appears on the Dashboard below the User Profile"
 msgstr ""
 
-#: .././idmember-functions.php:2127 .././idmember-functions.php:2182
-#: .././idmember-functions.php:2420 .././idmember-functions.php:2424
-#: .././idmember-functions.php:2428
+#: .././idmember-functions.php:1967 .././idmember-functions.php:2027
+#: .././idmember-functions.php:2081 .././idmember-functions.php:2112
+#: .././idmember-functions.php:2175 .././idmember-functions.php:2191
+#: .././idmember-functions.php:2198 .././idmember-functions.php:2246
+#: .././idmember-functions.php:2262 .././idmember-functions.php:2269
+#: .././idmember-functions.php:2506 .././idmember-functions.php:2510
+#: .././idmember-functions.php:2514
 msgid "failure"
 msgstr ""
 
-#: .././idmember-functions.php:2420
+#: .././idmember-functions.php:2506
 msgid "Could not authorize transaction"
 msgstr ""
 
-#: .././idmember-functions.php:2424 .././idmember-functions.php:2428
+#: .././idmember-functions.php:2510 .././idmember-functions.php:2514
 msgid "Could not create customer token"
 msgstr ""
 
-#: .././idmember-functions.php:2466
+#: .././idmember-functions.php:2552
 msgid "Cannot use credits to purchase recurring products"
 msgstr ""
 
-#: .././idmember-functions.php:2527
+#: .././idmember-functions.php:2613
 msgid "You do not have enough credits to complete this transaction"
 msgstr ""
 
-#: .././idmember-functions.php:2532
+#: .././idmember-functions.php:2618
 msgid "This user is not a memberdeck user"
 msgstr ""
 
-#: .././idmember-functions.php:2537
+#: .././idmember-functions.php:2623
 msgid "User was not found"
 msgstr ""
 
-#: .././idmember-shortcodes.php:316
+#: .././idmember-shortcodes.php:317
 msgid "You already own this product. Please"
 msgstr ""
 
-#: .././idmember-shortcodes.php:316
+#: .././idmember-shortcodes.php:317
 msgid "logout"
 msgstr ""
 
-#: .././idmember-shortcodes.php:316
+#: .././idmember-shortcodes.php:317
 msgid "and create a new account in order to purchase again"
 msgstr ""
 
@@ -297,65 +301,65 @@ msgstr ""
 msgid "My Projects"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:65
+#: .././inc/memberdeck-ide.php:66
 msgid "Create Project"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:228
+#: .././inc/memberdeck-ide.php:229
 msgid "New Project Submission"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:236
+#: .././inc/memberdeck-ide.php:237
 msgid "Project Submission Notification"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:240
+#: .././inc/memberdeck-ide.php:241
 msgid "You have a new project submission from user "
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:240
+#: .././inc/memberdeck-ide.php:241
 msgid "with the following attributes"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:245 .././inc/memberdeck-ide.php:329
+#: .././inc/memberdeck-ide.php:246 .././inc/memberdeck-ide.php:330
 msgid "Title"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:246 .././inc/memberdeck-ide.php:330
+#: .././inc/memberdeck-ide.php:247 .././inc/memberdeck-ide.php:331
 msgid "Description"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:247 .././inc/memberdeck-ide.php:331
+#: .././inc/memberdeck-ide.php:248 .././inc/memberdeck-ide.php:332
 msgid "Goal"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:256
+#: .././inc/memberdeck-ide.php:257
 msgid "Use this link"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:256
+#: .././inc/memberdeck-ide.php:257
 msgid " to moderate the project"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:312 .././inc/memberdeck-ide.php:320
+#: .././inc/memberdeck-ide.php:313 .././inc/memberdeck-ide.php:321
 msgid "Project Submission Confirmation"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:324
+#: .././inc/memberdeck-ide.php:325
 msgid "Congratulations. The following project has been submitted for approval"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:340
+#: .././inc/memberdeck-ide.php:341
 msgid ""
 "You will be notified when the review process has been completed. In the "
 "interim, you may use "
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:340
+#: .././inc/memberdeck-ide.php:341
 msgid "use this link"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:340
+#: .././inc/memberdeck-ide.php:341
 msgid " to continue editing the project"
 msgstr ""
 
@@ -525,6 +529,14 @@ msgstr ""
 
 #: .././templates/_mdProfileTabs.php:15
 msgid "My Profile"
+msgstr ""
+
+#: .././templates/_myProjects.php:5
+msgid "EDIT"
+msgstr ""
+
+#: .././templates/_myProjects.php:6
+msgid "VIEW"
 msgstr ""
 
 #: .././templates/_paymentSettings.php:5
@@ -870,27 +882,27 @@ msgstr ""
 msgid "Select Payment Option"
 msgstr ""
 
-#: .././templates/admin/_memberDashboard.php:179
+#: .././templates/admin/_memberDashboard.php:180
 msgid "Card on File"
 msgstr ""
 
-#: .././templates/admin/_memberDashboard.php:181
+#: .././templates/admin/_memberDashboard.php:183
 msgid "Pay with Credits"
 msgstr ""
 
-#: .././templates/admin/_memberDashboard.php:185
+#: .././templates/admin/_memberDashboard.php:187
 msgid "What is Instant Checkout"
 msgstr ""
 
-#: .././templates/admin/_memberDashboard.php:186
+#: .././templates/admin/_memberDashboard.php:188
 msgid "Confirm"
 msgstr ""
 
-#: .././templates/admin/_memberDashboard.php:187
+#: .././templates/admin/_memberDashboard.php:189
 msgid "Learn More"
 msgstr ""
 
-#: .././templates/admin/_memberDashboard.php:187
+#: .././templates/admin/_memberDashboard.php:189
 msgid "Close"
 msgstr ""
 

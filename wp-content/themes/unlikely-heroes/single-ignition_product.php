@@ -37,7 +37,11 @@
 						<?php echo the_project_video($id); ?>
 					</div>
 					<?php get_template_part('project', 'social'); ?>
-					<?php echo $content->long_description; ?>
+
+					<div class="project-content">
+						<?php the_post_thumbnail('single-thumb'); ?>
+						<?php echo $content->long_description; ?>
+					</div>
 					<?php //echo $summary->image_url; ?>
 				</div>
 				<div class="col-md-5">
@@ -89,7 +93,6 @@
 							$level_invalid = getLevelLimitReached($project_id, $id, $level['id']);
 							?>
 							<?php if (empty($type) || $type == 'level-based') { ?>
-							<a class="level-binding" <?php echo (isset($level_invalid) && $level_invalid ? '' : 'href="'.$url.'&level='.$level['id'].'"'); ?>>
 								<?php } ?>
 								<div class="level-group">
 									<div class="ign-level-title">
@@ -99,19 +102,18 @@
 											<?php echo $level['currency_code']; ?><?php echo $level['price'] ?>
 											<?php } ?>
 										</div>
-										<div class="clear"></div>
 									</div>
 									<div class="ign-level-desc">
 										<?php echo $level['description'] ?>
 									</div>
 									<?php if ($level['limit'] !== '' && $level['limit'] > 0) { ?>
 									<div class="ign-level-counts">
-										<span><?php _e('Limit', 'fivehundred'); ?>: <?php echo $level['sold'] ?> of <?php echo $level['limit'] ?> <?php _e('taken', 'fivehundred'); ?>.</span>
+										<span><small><?php _e('Limit', 'fivehundred'); ?>: <?php echo $level['sold'] ?> of <?php echo $level['limit'] ?> <?php _e('taken', 'fivehundred'); ?>.</small></span>
 									</div>
 									<?php } ?>
 								</div>
 								<?php if (empty($type) || $type == 'level-based') { ?>
-							</a>
+					
 							<?php } ?>
 							<?php } ?>
 						<!-- END: .levels -->

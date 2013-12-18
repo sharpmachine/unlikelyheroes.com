@@ -8,7 +8,7 @@
 Plugin Name: MemberDeck
 URI: http://MemberDeck.com
 Description: A powerful, yet simple, content delivery system for WordPress. Features a widgetized dashboard so you can customize your product offerings, instant checkout, credits, and more.
-Version: 1.2.1
+Version: 1.2.2
 Author: Virtuous Giant
 Author URI: http://VirtuousGiant.com
 License: GPL2
@@ -17,7 +17,7 @@ License: GPL2
 define( 'MD_PATH', plugin_dir_path(__FILE__) );
 
 global $memberdeck_db_version;
-$memberdeck_db_version = "1.2.1";
+$memberdeck_db_version = "1.2.2";
 
 include_once 'classes/class-id-member.php';
 include_once 'classes/class-id-member-level.php';
@@ -46,6 +46,7 @@ if (function_exists('is_id_pro') && is_id_pro()) {
 	}
 	include_once 'inc/memberdeck-ide.php';
 }
+global $crowdfunding;
 
 function memberdeck_init() {
   load_plugin_textdomain( 'memberdeck', false, MD_PATH.'languages/' ); 
@@ -319,38 +320,39 @@ function memberdeck_styles() {
 	$pluginsurl = plugins_url('', __FILE__);
 	$siteurl = site_url();
 	$settings = get_option('memberdeck_gateways');
+	$test = '0';
 	if (!empty($settings)) {
 		$settings = unserialize($settings);
 		if (is_array($settings)) {
 			if (isset($settings['test'])) {
-				$test = $settings['test'];
+				$test = (string)$settings['test'];
 			}
 			else {
-				$test = 0;
+				$test = '0';
 			}
 			if (isset($settings['es'])) {
 				$es = $settings['es'];
 			}
 			else {
-				$es = 0;
+				$es = '0';
 			}
 			if (isset($settings['esc'])) {
 				$esc = $settings['esc'];
 			}
 			else {
-				$esc = 0;
+				$esc = '0';
 			}
 			if (isset($settings['epp'])) {
 				$epp = $settings['epp'];
 			}
 			else {
-				$epp = 0;
+				$epp = '0';
 			}
 			if (isset($settings['eb'])) {
 				$eb = $settings['eb'];
 			}
 			else {
-				$eb = 0;
+				$eb = '0';
 			}
 			global $post;
 			if (isset($post)) {

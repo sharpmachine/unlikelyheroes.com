@@ -11,21 +11,18 @@ function md_creator_projects() {
 		}
 	}
 	if ($enable_creator) {
-		echo '<li><a href="?payment_settings=1">'.__('Payment Settings', 'memberdeck').'</a></li>';
+		global $current_user;
+		get_currentuserinfo();
+		$user_id = $current_user->ID;
+		$user_projects = get_user_meta($user_id, 'ide_user_projects', true);
+		if (!empty($user_projects)) {
+			$user_projects = unserialize($user_projects);
+			if (is_array($user_projects)) {
+				echo '<li><a href="?payment_settings=1">'.__('Payment Settings', 'memberdeck').'</a></li>';
+			}
+		}
 		echo '<li><a href="?creator_projects=1">'.__('My Projects', 'memberdeck').'</a></li>';
 	}
-}
-
-add_action('init', 'md_ide_check_create_project');
-
-function md_ide_check_create_project() {
-	if (isset($_GET['create_project']) && $_GET['create_project'] == 1 && is_user_logged_in()) {
-		add_filter('the_content', 'md_ide_fes_create');
-	}
-}
-
-function md_ide_fes_create($content) {
-	return do_shortcode('[project_submission_form]');
 }
 
 add_action('init', 'md_ide_check_creator_profile');
@@ -104,36 +101,6 @@ function md_ide_payment_settings($content) {
 	return $content;
 }
 
-add_action('init', 'md_ide_check_edit_project');
-
-function md_ide_check_edit_project() {
-	if (isset($_GET['edit_project']) && $_GET['edit_project'] > 0) {
-		$project_id = absint($_GET['edit_project']);
-		global $current_user;
-		get_currentuserinfo();
-		$user_id = $current_user->ID;
-		$user_projects = get_user_meta($user_id, 'ide_user_projects', true);
-		if (!empty($user_projects)) {
-			$user_projects = unserialize($user_projects);
-			if (in_array($project_id, $user_projects)) {
-				add_filter('the_content', 'md_ide_edit_project');
-			}
-		}
-	}
-}
-
-function md_ide_edit_project($content) {
-	/*$edit_form = new ID_FES();
-	$content = '<div class="ignitiondeck"><div class="id-purchase-form-wrapper">';
-	$content .= '<form name="fes" id="fes" action="" method="POST">';
-	$content .= $edit_form->display_form();
-	$content .= '</form>';
-	$content .= '</div></div>';*/
-	$post_id = absint($_GET['edit_project']);
-	$content = id_submissionForm($post_id);
-	return $content;
-}
-
 add_action('ide_fes_create', 'mdid_fes_associations', 5, 6);
 
 function mdid_fes_associations($user_id, $project_id, $post_id, $proj_args, $levels, $auth) {
@@ -191,12 +158,6 @@ function mdid_fes_associations($user_id, $project_id, $post_id, $proj_args, $lev
 		$claim_level = update_option('md_level_'.$level_id.'_owner', $user_id);
 		$i++;
 	}
-}
-
-add_action('id_before_content_description', 'md_ide_creator_profile');
-
-function md_ide_creator_profile() {
-	//include_once MD_PATH.'templates/_projectCreatorProfile.php';
 }
 
 add_action('id_fes_create', 'md_ide_notify_admin', 5, 6);

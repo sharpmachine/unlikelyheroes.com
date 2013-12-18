@@ -4,7 +4,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<h1>
-					<span><?php the_title(); ?></span>
+					<span>My Campaign</span>
 				</h1>
 			</div>
 		</div>

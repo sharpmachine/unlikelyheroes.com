@@ -3,7 +3,7 @@
 add_filter('id_pay_choices', 'idstripe_pay_choice', 5, 2);
 
 function idstripe_pay_choice($pay_choices, $product_id) {
-	$pay_choices .= '<a id="pay-with-stripe" class="pay-choice" href="#"><span>'.__('Pay with Credit Card', 'idstripe').'</span></a>';
+	$pay_choices .= '<a id="pay-with-stripe" class="pay-choice btn" href="#"><span class="icon-credit"></span> '.__('Credit Card', 'idstripe').'</a>';
 	return $pay_choices;
 }
 //add_shortcode('stripe_form', 'idstripe_stripe_form');

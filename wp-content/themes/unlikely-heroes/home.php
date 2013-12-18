@@ -182,7 +182,7 @@
 			<?php endif; ?>
 			<div class="clearfix"></div>
 			<div class="text-center">
-				<a href="<?php bloginfo('url'); ?>/projects" class="btn btn-lg">All Campaigns</a>
+				<a href="<?php bloginfo('url'); ?>/campaigns" class="btn btn-lg">All Campaigns</a>
 			</div>
 			
 		</div>

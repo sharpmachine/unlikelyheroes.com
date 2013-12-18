@@ -10,7 +10,7 @@
   </div>
   <div class="site-info">
     <div class="container">
-      <a href="#">Privacy Policy</a> | <a href="#">Terms &amp; Conditions</a> | &copy;<?php echo date('Y') ?> Unlikely Heroes
+      <a href="#">Privacy Policy</a> | <a href="#">Terms &amp; Conditions</a> | </span>&copy;<?php echo date('Y') ?> Unlikely Heroes
     </div>
   </div>
 </footer>

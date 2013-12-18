@@ -37,8 +37,8 @@ function ign_create_post_type() {
 			'capability_type' => 'post',
 			'menu_icon' => plugins_url( '/images/ignitiondeck-menu.png', __FILE__ ),
 			'query_var' => true,
-			'rewrite' => array( 'slug' => 'projects', 'with_front' => true ),
-			'has_archive' => 'projects',
+			'rewrite' => array( 'slug' => 'campaigns', 'with_front' => true ),
+			'has_archive' => 'campaigns',
 			'supports' => array('title', 'editor', 'comments'),
 			'taxonomies' => array('category', 'post_tag'),
 		)

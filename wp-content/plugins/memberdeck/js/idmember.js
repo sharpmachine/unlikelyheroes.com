@@ -4,6 +4,9 @@ jQuery(document).ready(function() {
 	var isFree = jQuery("#payment-form").data('free');
 	var epp = memberdeck_epp;
 	var es = memberdeck_es;
+	if (es == '1') {
+		var stripeSymbol = jQuery('#stripe-input').data('symbol');
+	}
 	var eb = memberdeck_eb;
 	var idset = jQuery("#payment-form #stripe-input").data('idset');
 	var curSymbol = jQuery(".currency-symbol").eq(0).text();
@@ -48,6 +51,7 @@ jQuery(document).ready(function() {
 			}
 			if (jQuery('#payment-form .pay_selector').attr('id') == 'pay-with-stripe') {
 				jQuery("#payment-form #id-main-submit").attr("name", "submitPaymentStripe");
+				jQuery('.currency-symbol').text(stripeSymbol);
 			}
 			else if (jQuery('#payment-form .pay_selector').attr('id') == 'pay-with-balanced') {
 				jQuery("#payment-form #id-main-submit").attr("name", "submitPaymentBalanced");
@@ -76,8 +80,8 @@ jQuery(document).ready(function() {
 	// When Stripe Button is Clicked
 	jQuery("#payment-form #pay-with-stripe").click(function(e) {
 		e.preventDefault();
-		if (curSymbol !== '$') {
-			jQuery('.currency-symbol').text('$');
+		if (curSymbol !== stripeSymbol) {
+			jQuery('.currency-symbol').text(stripeSymbol);
 		}
 		jQuery("#id-main-submit").removeAttr("disabled");
 		if (type == 'recurring') {
@@ -102,6 +106,9 @@ jQuery(document).ready(function() {
 	// When Balanced Button is Clicked
 	jQuery("#payment-form #pay-with-balanced").click(function(e) {
 		e.preventDefault();
+		if (curSymbol !== '$') {
+			jQuery('.currency-symbol').text('$');
+		}
 		jQuery("#id-main-submit").removeAttr("disabled");
 		if (type == 'recurring') {
 			jQuery("#ppload").unload(memberdeck_pluginsurl + '/templates/_ppSubForm.php');

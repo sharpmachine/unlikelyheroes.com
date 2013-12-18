@@ -12,7 +12,7 @@ class ID_Form {
 	}
 
 	function build_form() {
-		$output = '<ul>';
+		$output = '';
 		foreach ($this->fields as $field) {
 			if (isset($field['label'])) {
 				$label = $field['label'];
@@ -62,69 +62,69 @@ class ID_Form {
 			if (isset($field['before'])) {
 				$output .= $field['before'];
 			}
-			$output .= '<li '.(isset($wclass) ? 'class="'.$wclass.'"' : '').'>';
+			$output .= '<div '.(isset($wclass) ? 'class="'.$wclass.'"' : '').'>';
 			switch($type) {
 				case 'text':
 					if (!empty($label)) {
-						$output .= '<p><label for="'.$id.'">'.$label.'</label>';
+						$output .= '<label for="'.$id.'">'.$label.'</label>';
 					}
 					$output .= '<input type="text" id="'.$id.'" name="'.$name.'" class="'.$class.'" value="'.$value.'" '.$misc.'/>';
 					if (!empty($label)) {
-						$output .= '</p>';
+						$output .= '';
 					}
 					break;
 				case 'email':
 					if (!empty($label)) {
-						$output .= '<p><label for="'.$id.'">'.$label.'</label>';
+						$output .= '<label for="'.$id.'">'.$label.'</label>';
 					}
 					$output .= '<input type="email" id="'.$id.'" name="'.$name.'" class="'.$class.'" value="'.$value.'" '.$misc.'/>';
 					if (!empty($label)) {
-						$output .= '</p>';
+						$output .= '';
 					}
 					break;
 				case 'number':
 					if (!empty($label)) {
-						$output .= '<p><label for="'.$id.'">'.$label.'</label>';
+						$output .= '<label for="'.$id.'">'.$label.'</label>';
 					}
 					$output .= '<input type="number" id="'.$id.'" name="'.$name.'" class="'.$class.'" value="'.$value.'" '.$misc.'/>';
 					if (!empty($label)) {
-						$output .= '</p>';
+						$output .= '';
 					}
 					break;
 				case 'password':
 					if (!empty($label)) {
-						$output .= '<p><label for="'.$id.'">'.$label.'</label>';
+						$output .= '<label for="'.$id.'">'.$label.'</label>';
 					}
 					$output .= '<input type="password" id="'.$id.'" name="'.$name.'" class="'.$class.'" value="'.$value.'" '.$misc.'/>';
 					if (!empty($label)) {
-						$output .= '</p>';
+						$output .= '';
 					}
 					break;
 				case 'file':
 					if (!empty($label)) {
-						$output .= '<p><label for="'.$id.'">'.$label.'</label>';
+						$output .= '<label for="'.$id.'">'.$label.'</label>';
 					}
 					$output .= '<input type="file" id="'.$id.'" name="'.$name.'" class="'.$class.'" value="'.$value.'" '.$misc.'/>';
 					if (!empty($label)) {
-						$output .= '</p>';
+						$output .= '';
 					}
 					break;
 				case 'date':
 					if (!empty($label)) {
-						$output .= '<p><label for="'.$id.'">'.$label.'</label>';
+						$output .= '<label for="'.$id.'">'.$label.'</label>';
 					}
 					$output .= '<input type="date" id="'.$id.'" name="'.$name.'" class="'.$class.'" value="'.$value.'" '.$misc.'/>';
 					if (!empty($label)) {
-						$output .= '</p>';
+						$output .= '';
 					}
 					break;
 				case 'tel':
 					if (!empty($label)) {
-						$output .= '<p><label for="'.$id.'">'.$label.'</label>';
+						$output .= '<label for="'.$id.'">'.$label.'</label>';
 					}
 					$output .= '<input type="tel" id="'.$id.'" name="'.$name.'" class="'.$class.'" value="'.$value.'" '.$misc.'/>';
 					if (!empty($label)) {
-						$output .= '</p>';
+						$output .= '';
 					}
 					break;
 				case 'hidden':
@@ -132,21 +132,21 @@ class ID_Form {
 					break;
 				case 'select':
 					if (!empty($label)) {
-						$output .= '<p><label for="'.$id.'">'.$label.'</label>';
+						$output .= '<label for="'.$id.'">'.$label.'</label>';
 					}
 					$output .= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'" >';
 					foreach ($options as $option) {
 						$output .= '<option value="'.$option['value'].'" '.$misc.'>'.$option['title'].'</option>';
 					}
-					$output .='</select></p>';
+					$output .='</select>';
 					break;
 				case 'checkbox':
 					if (!empty($label)) {
-						$output .= '<p><label for="'.$id.'">'.$label.'</label>';
+						$output .= '<label for="'.$id.'">'.$label.'</label>';
 					}
 					$output .= '<input type="checkbox" id="'.$id.'" name="'.$name.'" class="'.$class.'"  value="'.$value.'" '.$misc.'/>';
 					if (!empty($label)) {
-						$output .= '</p>';
+						$output .= '';
 					}
 					break;
 				case 'radio':
@@ -157,25 +157,25 @@ class ID_Form {
 					break;
 				case 'textarea':
 					if (!empty($label)) {
-						$output .= '<p><label for="'.$id.'">'.$label.'</label>';
+						$output .= '<label for="'.$id.'">'.$label.'</label>';
 					}
 					$output .= '<textarea id="'.$id.'" name="'.$name.'" class="'.$class.'" '.$misc.'>'.$value.'</textarea>';
 					if (!empty($label)) {
-						$output .= '</p>';
+						$output .= '';
 					}
 					break;
 				case 'submit':
-					$output .= '<p><input type="submit" id="'.$id.'" name="'.$name.'" class="'.$class.'" value="'.$value.'"/>';
+					$output .= '<input type="submit" id="'.$id.'" name="'.$name.'" class="'.$class.'" value="'.$value.'"/>';
 					if (!empty($label)) {
-						$output .= '</p>';
+						$output .= '';
 					}
 			}
-			$output .= '</li>';
+			$output .= '</div>';
 			if (isset($field['after'])) {
 				$output .= $field['after'];
 			}
 		}
-		$output .= '</ul>';
+		$output .= '';
 		return $output;
 	}
 }

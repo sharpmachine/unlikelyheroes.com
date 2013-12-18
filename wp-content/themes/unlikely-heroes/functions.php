@@ -444,6 +444,7 @@ add_filter( 'pre_get_posts', 'id_add_custom_types' );
 
 function the_project_summary($id) {
 	$project_id = get_post_meta($id, 'ign_project_id', true);
+	$small_image_url = the_project_image_small($id, "2");
 	$image_url = the_project_image($id, "1");
 	$name = get_post_meta($id, 'ign_product_name', true);
 	$short_desc = html_entity_decode(get_post_meta($id, 'ign_project_description', true));
@@ -750,6 +751,28 @@ function the_project_image($id, $num) {
 	return $image;
 }
 
+function the_project_image_small($id, $num) {
+	if ($num == 2) {
+		$project_id = get_post_meta($id, 'ign_project_id', true);
+		global $wpdb;
+		$url = get_post_meta($id, 'ign_product_image2', true);
+		$sql = $wpdb->prepare('SELECT ID FROM '.$wpdb->prefix.'posts WHERE guid = %s', $url);
+		$res = $wpdb->get_row($sql);
+		if (isset($res->ID)) {
+			$src = wp_get_attachment_image_src($res->ID, 'single-thumb');
+			$image = $src[0];
+		} else {
+			$image = $url;
+		}
+	}
+	else {
+		$key = 'ign_product_image'.$num;
+		$image = get_post_meta($id, $key, true);
+	}
+	
+	return $image;
+}
+
 function the_project_goal($id) {
 	global $wpdb;
 	$project_id = get_post_meta($id, 'ign_project_id', true);
@@ -796,4 +819,21 @@ function exclude_pages_from_admin($query) {
     if (is_admin() && $pagenow=='edit.php' && $post_type =='page') {
         $query->query_vars['post__not_in'] = array('941', '990');
     }
+}
+
+// Image Sizes added and Allowing to select those image sizes in Media Insert Admin
+if ( function_exists( 'add_image_size' ) ) { 
+	add_image_size( 'projectpage-large', 640, 9999 ); // For Project Pages with Unlimited Height allowed
+	add_image_size( 'single-thumb', 697, 463, true ); // For Single Posts (cropped)
+	add_image_size( 'fivehundred_featured', 624, 360, true); // For 500 Featured Project
+}
+
+add_filter( 'image_size_names_choose', 'custom_image_sizes_choose' );  
+function custom_image_sizes_choose( $sizes ) {  
+    $custom_sizes = array(  
+        'projectpage-large' => 'Project Page Full Width',
+        'single-thumb' => 'Single Post Thumb',
+        'fh_feature' => 'Fivehundred Feature'  
+    );  
+    return array_merge( $sizes, $custom_sizes );  
 }

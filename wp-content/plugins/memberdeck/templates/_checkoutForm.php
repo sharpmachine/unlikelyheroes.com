@@ -63,7 +63,7 @@
 			<?php } ?>
 		</div>
 		<?php } ?>
-		<div id="stripe-input" data-idset="<?php echo (isset($instant_checkout) && $instant_checkout == true ? true : false); ?>" style="display:none;">
+		<div id="stripe-input" data-idset="<?php echo (isset($instant_checkout) && $instant_checkout == true ? true : false); ?>" data-symbol="<?php echo (isset($stripe_symbol) ? $stripe_symbol : ''); ?>" style="display:none;">
 			<div class="form-row">
 				<label><?php _e('Card Number', 'memberdeck'); ?> <span class="cards"><img src="https://ignitiondeck.com/id/wp-content/themes/id2/images/creditcards-full2.png" alt="<?php _e('Credit Cards Accepted', 'memberdeck'); ?>" /></span></label>
 				<input type="text" size="20" autocomplete="off" class="card-number required"/>

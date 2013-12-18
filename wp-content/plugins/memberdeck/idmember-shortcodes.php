@@ -247,6 +247,17 @@ function memberdeck_checkout($attrs) {
 		else {
 			Stripe::setApiKey($sk);
 		}
+		// get stripe currency
+		$stripe_currency = 'USD';
+		$stripe_symbol = '$';
+		$settings = get_option('memberdeck_gateways');
+		if (!empty($settings)) {
+			$settings = unserialize($settings);
+			if (is_array($settings)) {
+				$stripe_currency = $settings['stripe_currency'];
+				$stripe_symbol = md_stripe_currency_symbol($stripe_currency);
+			}
+		}
 	}
 	else if ($eb == 1) {
 		if (isset($test) && $test == '1') {

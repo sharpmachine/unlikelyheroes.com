@@ -657,6 +657,27 @@ function idmember_login_redirect($user_login, $user) {
 
 add_filter('login_redirect', 'memberdeck_login_redirect', 3, 3);
 
+function md_stripe_currency_symbol($currency) {
+	switch($currency) {
+		case 'USD':
+			$ccode = '$';
+			break;
+		case 'EUR':
+			$ccode = '&euro;';
+			break;
+		case 'GBP':
+			$ccode = '&pound;';
+			break;
+		case 'CAD':
+			$ccode = '$';
+			break;
+		case 'AUD':
+			$ccode = '$';
+			break;
+	}
+	return $ccode;
+}
+
 function memberdeck_login_redirect($redirect_to, $request, $user) {
 	//is there a user to check?
     if( isset( $user->roles ) && is_array( $user->roles ) ) {
@@ -687,7 +708,7 @@ function memberdeck_login_redirect($redirect_to, $request, $user) {
     }
 }
 
-function idmember_purchase_receipt($user_id, $price, $level_id) {
+function idmember_purchase_receipt($user_id, $price, $level_id, $source) {
 	error_reporting(0);
 	$settings = get_option('md_receipt_settings');
 	if (!empty($settings)) {
@@ -698,6 +719,18 @@ function idmember_purchase_receipt($user_id, $price, $level_id) {
 	else {
 		$coname = '';
 		$coemail = '';
+	}
+	$currency = 'USD';
+	$symbol = '$';
+	if ($source == 'stripe') {
+		$settings = get_option('memberdeck_gateways');
+		if (!empty($settings)) {
+			$settings = unserialize($settings);
+			if (is_array($settings)) {
+				$currency = $settings['stripe_currency'];
+				$symbol = md_stripe_currency_symbol($stripe_currency);
+			}
+		}
 	}
 	$user = get_userdata($user_id);
 	$email = $user->user_email;
@@ -736,7 +769,7 @@ function idmember_purchase_receipt($user_id, $price, $level_id) {
 
  							'.__('Hello', 'memberdeck'). ' ' . $fname .' '. $lname .', <br /><br />
   
-  							'.__('You have successfully made a payment of ', 'memberdeck').'$'.number_format($price, 2, '.', ',').' USD<br /><br />
+  							'.__('You have successfully made a payment of ', 'memberdeck').$symbol.number_format($price, 2, '.', ',').' '.$currency.'<br /><br />
     
     						'.__('This transaction should appear on your Credit Card statement as', 'memberdeck').': '.$coname.'<br /><br />
     						<div style="border: 1px solid #333333; width: 500px;">
@@ -749,7 +782,7 @@ function idmember_purchase_receipt($user_id, $price, $level_id) {
 			                         <tr>
 			                           <td width="200">'.date("D, M j").'</td>
 			                           <td width="275">'.$coname.'</td>
-			                           <td width="125">'.__('$', 'memberdeck').number_format($price, 2, '.', ',').' '.__('USD', 'memberdeck').'</td>
+			                           <td width="125">'.__($symbol, 'memberdeck').number_format($price, 2, '.', ',').' '.__($currency, 'memberdeck').'</td>
 			                      	</tr>
     							</table>
     						</div>
@@ -829,9 +862,9 @@ function idmember_purchase_receipt($user_id, $price, $level_id) {
 	}
 }
 
-add_action('idmember_receipt', 'idmember_purchase_receipt', 1, 3);
+add_action('idmember_receipt', 'idmember_purchase_receipt', 1, 4);
 
-function memberdeck_preauth_receipt($user_id, $price, $level_id) {
+function memberdeck_preauth_receipt($user_id, $price, $level_id, $source) {
 	error_reporting(0);
 	global $crowdfunding;
 	$settings = get_option('md_receipt_settings');
@@ -843,6 +876,18 @@ function memberdeck_preauth_receipt($user_id, $price, $level_id) {
 	else {
 		$coname = '';
 		$coemail = '';
+	}
+	$currency = 'USD';
+	$symbol = '$';
+	if ($source == 'stripe') {
+		$settings = get_option('memberdeck_gateways');
+		if (!empty($settings)) {
+			$settings = unserialize($settings);
+			if (is_array($settings)) {
+				$currency = $settings['stripe_currency'];
+				$symbol = md_stripe_currency_symbol($stripe_currency);
+			}
+		}
 	}
 	$user = get_userdata($user_id);
 	$email = $user->user_email;
@@ -901,7 +946,7 @@ function memberdeck_preauth_receipt($user_id, $price, $level_id) {
 
  							'.__('Hello', 'memberdeck'). ' ' . $fname .' '. $lname .', <br /><br />
   
-  							'.__('This is a confirmation of your pre-order of ', 'memberdeck').$level_name.' for $'.number_format($price, 2, '.', ',').' USD<br /><br />';
+  							'.__('This is a confirmation of your pre-order of ', 'memberdeck').$level_name.' for '.$symbol.number_format($price, 2, '.', ',').' '.$currency.'<br /><br />';
   	if (isset($credit_value) && $credit_value > 0) {
    		$message .=			__('You have earned a total of ', 'memberdeck').$credit_value.' '.($credit_value > 1 ? __('credits for this purchase', 'memberdeck') : 'credit for this purchase').'<br/><br/>';
     }
@@ -918,7 +963,7 @@ function memberdeck_preauth_receipt($user_id, $price, $level_id) {
 			                         <tr>
 			                           <td width="200">'.date("D, M j").'</td>
 			                           <td width="275">'.$level_name.'</td>
-			                           <td width="125">'.__('$', 'memberdeck').number_format($price, 2, '.', ',').' '.__('USD', 'memberdeck').'</td>
+			                           <td width="125">'.__($symbol, 'memberdeck').number_format($price, 2, '.', ',').' '.__($currency, 'memberdeck').'</td>
 			                      	</tr>
     							</table>
     						</div>
@@ -998,7 +1043,7 @@ function memberdeck_preauth_receipt($user_id, $price, $level_id) {
 	}
 }
 
-add_action('memberdeck_preauth_receipt', 'memberdeck_preauth_receipt', 1, 3);
+add_action('memberdeck_preauth_receipt', 'memberdeck_preauth_receipt', 1, 4);
 
 function idmember_registration_email($user_id, $reg_key) {
 	$settings = get_option('md_receipt_settings');
@@ -1807,6 +1852,7 @@ function idmember_create_customer() {
 		$txn_type = $_POST['txnType'];
 		$product_id = absint(esc_attr($customer['product_id']));
 		$settings = get_option('memberdeck_gateways');
+		$stripe_currency = 'USD';
 		if (!empty($settings)) {
 			$settings = unserialize($settings);
 			if (is_array($settings)) {
@@ -1816,6 +1862,7 @@ function idmember_create_customer() {
 				$es = $settings['es'];
 				$esc = $settings['esc'];
 				$eb = $settings['eb'];
+				$stripe_currency = $settings['stripe_currency'];
 			}
 		}
 		if (function_exists('is_id_pro') && is_id_pro()) {
@@ -1919,6 +1966,7 @@ function idmember_create_customer() {
 		}
 		else if ($level_data->level_type == 'lifetime') {
 			$e_date = null;
+			$recurring = false;
 		}
 		else {
 			$exp = strtotime('+1 years');
@@ -2166,7 +2214,7 @@ function idmember_create_customer() {
 										'customer' => $custid,
 										'card' => $card_id,
 										'description' => $email,
-										'currency' => 'USD',
+										'currency' => $stripe_currency,
 										'application_fee' => $fee));
 									}
 									catch (Stripe_CardError $e) {
@@ -2183,7 +2231,7 @@ function idmember_create_customer() {
 										'customer' => $custid,
 										'card' => $card_id,
 										'description' => $email,
-										'currency' => 'USD'));
+										'currency' => $stripe_currency));
 									}
 									catch (Stripe_CardError $e) {
 										// Card was declined
@@ -2237,7 +2285,7 @@ function idmember_create_customer() {
 										'amount' => $price,
 										'customer' => $custid,
 										'description' => $email,
-										'currency' => 'USD',
+										'currency' => $stripe_currency,
 										'application_fee' => $fee));
 									}
 									catch (Stripe_CardError $e) {
@@ -2254,7 +2302,7 @@ function idmember_create_customer() {
 										'amount' => $price,
 										'customer' => $custid,
 										'description' => $email,
-										'currency' => 'USD'));
+										'currency' => $stripe_currency));
 									}
 									catch (Stripe_CardError $e) {
 										// Card was declined
@@ -2338,7 +2386,7 @@ function idmember_create_customer() {
 						$user = array('user_id' => $user_id, 'level' => $access_levels, 'data' => array('customer_id' => $custid));
 					}
 					$new = ID_Member::add_user($user);
-					if ($recurring !== true) {
+					if (!$recurring) {
 						$order = new ID_Member_Order(null, $user_id, $product_id, null, $txn_id, '', 'active', $e_date);
 						$new_order = $order->add_order();
 						if (is_multisite()) {
@@ -2356,11 +2404,11 @@ function idmember_create_customer() {
 							}
 							//echo 'sending a preorder';
 							$preorder_entry = ID_Member_Order::add_preorder($new_order, $charge_token, $source);
-							do_action('memberdeck_preauth_receipt', $user_id, $level_data->level_price, $product_id);
+							do_action('memberdeck_preauth_receipt', $user_id, $level_data->level_price, $product_id, $source);
 							do_action('memberdeck_preauth_success', $user_id, $new_order, $paykey, $fields);
 						}
 						else {
-							do_action('idmember_receipt', $user_id, $level_data->level_price, $product_id);
+							do_action('idmember_receipt', $user_id, $level_data->level_price, $product_id, $source);
 							do_action('memberdeck_payment_success', $user_id, $new_order, $paykey, $fields);
 						}
 					}
@@ -2430,12 +2478,12 @@ function idmember_create_customer() {
 								$charge_token = $custid;
 							}
 							$preorder_entry = ID_Member_Order::add_preorder($new_order, $charge_token, $source);
-							do_action('memberdeck_preauth_receipt', $user_id, $level_data->level_price, $product_id);
+							do_action('memberdeck_preauth_receipt', $user_id, $level_data->level_price, $product_id, $source);
 							do_action('memberdeck_preauth_success', $user_id, $new_order, $paykey, $fields);
 						}
 						else {
 							//echo 'before order action';
-							do_action('idmember_receipt', $user_id, $level_data->level_price, $product_id);
+							do_action('idmember_receipt', $user_id, $level_data->level_price, $product_id, $source);
 							//echo 'after receipt';
 							do_action('memberdeck_payment_success', $user_id, $new_order, $paykey, $fields);
 							//echo 'after order action';
@@ -2944,7 +2992,7 @@ function md_process_preauth() {
 									'amount' => $priceincents,
 									'customer' => $customer_id,
 									'description' => $email,
-									'currency' => 'USD',
+									'currency' => $stripe_currency,
 									'application_fee' => $fee);
 								}
 								else {
@@ -2952,7 +3000,7 @@ function md_process_preauth() {
 									"amount" => $priceincents,
 								    'customer' => $customer_id,
 								    'description' => $email,
-								    "currency" => "usd");
+								    "currency" => $stripe_currency);
 								}
 								if (!empty($pre_info->charge_token) && $pre_info->charge_token !== $customer_id) {
 								    $stripe_params["card"] = $pre_info->charge_token;
@@ -2994,7 +3042,7 @@ function md_process_preauth() {
 						  		$paykey = md5($email.time());
 								$response = array('code' => 'success');
 								$success[] = $txn_id;
-								do_action('idmember_receipt', $user_id, $price, $level_id);
+								do_action('idmember_receipt', $user_id, $price, $level_id, $gateway);
 								do_action('memberdeck_payment_success', $user_id, $capture->id, $paykey, null);
 							}
 							else {
@@ -3365,7 +3413,7 @@ function mdid_save_assignments() {
 			global $wpdb;
 			$level = $assignments['level'];
 			if (isset($assignments['projects'])) {
-				$sql = 'SELECT * FROM '.$wpdb->prefix.'mdid_assignments';
+				$sql = 'SELECT * FROM '.$wpdb->prefix.'mdid_assignments WHERE level_id = "'.$level.'"';
 				$res = $wpdb->get_results($sql);
 				$old_array = array();
 				foreach ($res as $row) {

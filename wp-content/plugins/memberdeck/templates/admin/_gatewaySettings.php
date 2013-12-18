@@ -51,6 +51,17 @@
 									<img src="<?php echo plugins_url('/images/Stripe-Logo.png', dirname(dirname(__FILE__))); ?>">
 								</p>
 								<div class="form-input">
+									<label for="stripe_currency"><?php _e('Stripe Currency', 'memberdeck'); ?></label>
+									<select id="stripe_currency" name="stripe_currency">
+										<option value="0"><?php _e('Choose Currency', 'idstripe'); ?></option>
+										<option value="USD" <?php echo (isset($stripe_currency) && $stripe_currency == 'USD' ? 'selected="selected"' : ''); ?>><?php _e('USD', 'idstripe'); ?></option>
+										<option value="CAD" <?php echo (isset($stripe_currency) && $stripe_currency == 'CAD' ? 'selected="selected"' : ''); ?>><?php _e('CAD', 'idstripe'); ?></option>
+										<option value="GBP" <?php echo (isset($stripe_currency) && $stripe_currency == 'GBP' ? 'selected="selected"' : ''); ?>><?php _e('GBP', 'idstripe'); ?></option>
+										<option value="EUR" <?php echo (isset($stripe_currency) && $stripe_currency == 'EUR' ? 'selected="selected"' : ''); ?>><?php _e('EUR', 'idstripe'); ?></option>
+										<option value="AUD" <?php echo (isset($stripe_currency) && $stripe_currency == 'AUD' ? 'selected="selected"' : ''); ?>><?php _e('AUD (beta)', 'idstripe'); ?></option>
+									</select>
+								</div>
+								<div class="form-input">
 									<label for="pk"><?php _e('Stripe Publishable Key', 'memberdeck'); ?></label>
 									<input type="text" name="pk" id="pk" value="<?php echo (isset($pk) ? $pk : ''); ?>"/>
 								</div>
