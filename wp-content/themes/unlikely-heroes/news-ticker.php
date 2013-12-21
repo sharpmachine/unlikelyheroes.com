@@ -21,9 +21,9 @@
 			<div class="col-sm-6 col-md-5 text-right">
 				<?php get_template_part('social','media'); ?>
 				<?php if (is_user_logged_in()): ?>
-				<a href="<?php echo wp_logout_url( home_url() ); ?>" class="">Logout</a>
+				<a href="<?php echo wp_logout_url( home_url() ); ?>" class="btn btn-xs">Logout</a>
 			<?php else: ?>
-			<a href="<?php bloginfo('url'); ?>/dashboard" class="">Hero Login</a>
+			<a href="<?php bloginfo('url'); ?>/dashboard" class="btn btn-xs">Hero Login</a>
 		<?php endif; ?>
 			</div>
 		</div>

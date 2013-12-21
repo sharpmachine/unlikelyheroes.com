@@ -1,4 +1,5 @@
 <?php get_header(); ?>
+
 <div class="jumbotron">
 	<div class="container">
 		<div class="row">
@@ -13,7 +14,7 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-8 col-md-offset-2 main-content">
+		<div class="col-md-10 col-md-offset-1 main-content">
 			<?php get_template_part( 'loop', 'page' ); ?>
 		</div>
 	</div>

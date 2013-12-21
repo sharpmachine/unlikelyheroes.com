@@ -322,7 +322,7 @@ if ( ! function_exists( 'smm_posted_on' ) ) :
  * @since Twitter Bootstrap Framework 1.0
  */
 function smm_posted_on() {
-	printf( __( '<span class="%1$s">Posted on</span> %2$s <span class="meta-sep">by</span> %3$s', 'smm' ),
+	printf( __( '<span class="%1$s">Posted on</span> %2$s', 'smm' ),
 		'meta-prep meta-prep-author',
 		sprintf( '<a href="%1$s" title="%2$s" rel="bookmark"><span class="entry-date">%3$s</span></a>',
 			get_permalink(),
@@ -632,13 +632,13 @@ function the_levels($id) {
 			$level_limit = get_post_meta($id, 'ign_product_limit', true);
 			$level_order = get_post_meta($id, 'ign_projectmeta_level_order', true);
 			$level_data[] = array('id' => $i,
-			'title' => $level_title,
-			'description' => $level_desc,
-			'price' => $level_price,
-			'sold' => $level_sales,
-			'limit' => $level_limit,
-			'currency_code' => $cCode,
-			'order' => $level_order);	
+				'title' => $level_title,
+				'description' => $level_desc,
+				'price' => $level_price,
+				'sold' => $level_sales,
+				'limit' => $level_limit,
+				'currency_code' => $cCode,
+				'order' => $level_order);	
 		}
 		else {
 			$level_title = html_entity_decode(get_post_meta($id, 'ign_product_level_'.$i.'_title', true));
@@ -650,13 +650,13 @@ function the_levels($id) {
 			$level_limit = get_post_meta($id, 'ign_product_level_'.$i.'_limit', true);
 			$level_order = get_post_meta($id, 'ign_product_level_'.$i.'_order', true);
 			$level_data[] = array('id' => $i,
-			'title' => $level_title,
-			'description' => $level_desc,
-			'price' => $level_price,
-			'limit' => $level_limit,
-			'sold' => $level_sales,
-			'currency_code' => $cCode,
-			'order' => $level_order);	
+				'title' => $level_title,
+				'description' => $level_desc,
+				'price' => $level_price,
+				'limit' => $level_limit,
+				'sold' => $level_sales,
+				'currency_code' => $cCode,
+				'order' => $level_order);	
 		}
 		
 	}
@@ -813,27 +813,28 @@ function uh_registration_redirect()
 }
 add_filter( 'registration_redirect', 'uh_registration_redirect' );
 
+
 add_filter( 'parse_query', 'exclude_pages_from_admin' );
 function exclude_pages_from_admin($query) {
-    global $pagenow,$post_type;
-    if (is_admin() && $pagenow=='edit.php' && $post_type =='page') {
-        $query->query_vars['post__not_in'] = array('941', '990');
-    }
+	global $pagenow,$post_type;
+	if (is_admin() && $pagenow=='edit.php' && $post_type =='page') {
+		$query->query_vars['post__not_in'] = array('941', '990');
+	}
 }
 
 // Image Sizes added and Allowing to select those image sizes in Media Insert Admin
 if ( function_exists( 'add_image_size' ) ) { 
 	add_image_size( 'projectpage-large', 640, 9999 ); // For Project Pages with Unlimited Height allowed
-	add_image_size( 'single-thumb', 697, 463, true ); // For Single Posts (cropped)
-	add_image_size( 'fivehundred_featured', 624, 360, true); // For 500 Featured Project
+	add_image_size( 'single-thumb', 697, 463); // For Campaign Summary boxes
+	add_image_size( 'fivehundred_featured', 720, 435); // For campaign page
 }
 
 add_filter( 'image_size_names_choose', 'custom_image_sizes_choose' );  
 function custom_image_sizes_choose( $sizes ) {  
-    $custom_sizes = array(  
-        'projectpage-large' => 'Project Page Full Width',
-        'single-thumb' => 'Single Post Thumb',
-        'fh_feature' => 'Fivehundred Feature'  
-    );  
-    return array_merge( $sizes, $custom_sizes );  
+	$custom_sizes = array(  
+		'projectpage-large' => 'Project Page Full Width',
+		'single-thumb' => 'Single Post Thumb',
+		'fh_feature' => 'Fivehundred Feature'  
+		);  
+	return array_merge( $sizes, $custom_sizes );  
 }

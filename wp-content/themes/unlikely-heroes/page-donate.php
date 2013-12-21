@@ -12,7 +12,19 @@
 	</div>
 </div>
 
-<div class="container">
+<div class="container main-content ">
+ <?php get_template_part( 'loop', 'page' ); ?>
+</div>
+
+	<!-- <div class="row hidden">
+		<div class="col-xs-12">
+			<h4><span class="glyphicon glyphicon-exclamation-sign"></span> Tax Info:</h4>
+			<p>All donations are tax-deductible in the United States. Annual tax receipts are sent to donors within the current year via email or mail by January 31. Unlikely Heroes is a 501c3 organization. </p>
+		</div>
+	</div>
+</div> -->
+
+<!-- <div class="container hidden">
 	<div class="row main-content sixteen-vr">
 		<form class="form-horizontal" action="" role="form">
 			<div class="col-md-offset-1 col-md-10">
@@ -104,7 +116,7 @@
 
 			</div>
 		</form>
-	</div>
-</div>
+	</div> -->
+
 
 <?php get_footer(); ?>

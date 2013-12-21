@@ -19,7 +19,12 @@
 			<div class="col-md-offset-2 col-md-8">
 				<p class="lead">Every human being no matter what race, color or age, was born to be free and to stay free. Sex trafficking can seem like too big of a problem when we think about fighting it on our own. But history has proven that when people join their voices together, change is inevitable.
 				</p>
-				<a href="<?php bloginfo('url' ); ?>/get-involved" class="btn btn-teal btn-lg">Get involved.  Become a hero today.</a>
+				<div class="hidden-xs">
+					<a href="<?php bloginfo('url' ); ?>/get-involved" class="btn btn-teal btn-lg">Get involved.  Become a hero today.</a>
+				</div>
+				<div class="visible-xs">
+					<a href="<?php bloginfo('url' ); ?>/get-involved" class="btn btn-teal btn-lg">Become a hero today.</a>
+				</div>
 			</div>
 		</div>
 	</div>

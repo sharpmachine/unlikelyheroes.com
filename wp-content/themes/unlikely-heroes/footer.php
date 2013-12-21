@@ -10,7 +10,7 @@
   </div>
   <div class="site-info">
     <div class="container">
-      <a href="#">Privacy Policy</a> | <a href="#">Terms &amp; Conditions</a> | </span>&copy;<?php echo date('Y') ?> Unlikely Heroes
+      <a href="<?php bloginfo('url' ); ?>/privacy-policy">Privacy Policy</a> | <a href="<?php bloginfo('url' ); ?>/terms-conditions">Terms &amp; Conditions</a> | &copy;<?php echo date('Y') ?> Unlikely Heroes | Branding &amp; site design by <a href="http://sharpmachinemedia.com">Sharp Machine.</a>
     </div>
   </div>
 </footer>
@@ -37,19 +37,11 @@
     <script src="<?php bloginfo ('template_directory'); ?>/js/plugins.js"></script>
     <script src="<?php bloginfo ('template_directory'); ?>/js/script.js"></script>
 
-    <!-- Remove these before deploying to production -->
-    <script src="<?php bloginfo ('template_directory'); ?>/js/hashgrid.js" type="text/javascript"></script>
-
     <script>
     jQuery(window).load(function(){
       jQuery(".navbar-collapse").sticky({ topSpacing: 0 });
     });
-  </script>
-
-    <script type="text/javascript">
-    var grid = new hashgrid({ numberOfGrids: 1 });
     </script>
-
 
     <?php wp_footer(); ?>
   </body>

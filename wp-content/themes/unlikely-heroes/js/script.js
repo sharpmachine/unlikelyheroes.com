@@ -45,6 +45,8 @@ jQuery(document).ready(function($) {
 			header.removeClass("navbar-color").addClass(".navbar-collapse");
 		}
 	});
+
+	
 });
 
 

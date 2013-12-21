@@ -1,14 +1,25 @@
 <?php get_header(); ?>
 
-<div id="error-four0four" class="page">
+<div class="jumbotron">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-12">
+			<div class="col-xs-12">
+				<h1>
+					<?php _e( 'The page you requested could not be found.', 'smm' ); ?>
+					<span>AHHHHHHHHHH!!</span>
+				</h1>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="error-four0four">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-10 col-sm-offset-1">
 				<div id="post-0" class="post error404 not-found">
-					<h1 class="entry-title"><?php _e( 'Not Found', 'smm' ); ?></h1>
-					<div class="entry-content">
-						<p><?php _e( 'Apologies, but the page you requested could not be found. Perhaps searching will help.', 'smm' ); ?></p>
-						<?php get_search_form(); ?>
+					<div class="entry-content text-center">
+						<img src="<?php bloginfo('template_directory' ); ?>/img/home-alone.jpg" class="img-responsive" alt="Not Found">
 					</div><!-- .entry-content -->
 				</div><!-- #post-0 -->
 			</div>

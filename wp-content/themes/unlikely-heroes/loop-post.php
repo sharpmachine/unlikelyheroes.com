@@ -36,8 +36,8 @@
 	</div><!-- .entry-utility -->
 	
 	<?php if(is_single()): ?>
-		<?php get_template_part( 'author-info' ); ?>
-		<?php comments_template( '', true ); ?>
+		<?php // get_template_part( 'author-info' ); ?>
+		<?php //comments_template( '', true ); ?>
 	<?php endif; ?>
 </article><!-- #post -->
 

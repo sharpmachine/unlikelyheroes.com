@@ -4,33 +4,24 @@ body.admin-bar {
 	}
 }
 
-body.home {
-	.accent-color {
-		color: @brand-teal
-	}
-}
-
 h1, h2, h3, h4, h5, h6 {
-	// .Roboto-condensed-regular;
-	// font-size: 24px;
 	letter-spacing: 4px;
 	text-transform: uppercase;
 }
 
-// @base-margin: 36px;
-
-// p {
-// 	margin: 0 0 @base-margin;
-// }
-
-
-p.lead {
-	margin: 0 0 36px;
-	.Roboto-slab-regular;
-	font-size: 16px;
-	line-height: 44px;
+h2 {
+	.glyphicon {
+		position: relative;
+		top: 5px;
+	}
 }
 
+p.lead {
+	margin: 0 0 16px;
+	.Roboto-slab-regular;
+	font-size: 16px;
+	line-height: 2;
+}
 
 /*..................................the buttons */
 .btn {
@@ -43,9 +34,11 @@ p.lead {
 	&:hover {
 		color: white;
 	}
+
+	&-xs {
+		padding: 5px 3%;
+	}
 }
-
-
 
 /*..................................the news ticker */
 .news-ticker {
@@ -70,14 +63,14 @@ p.lead {
 			color: @gray-lighter;
 			font-size: 24px;
 		}
-
-		&:last-child i {
-			margin-right: -12px;
-		}
 	}
 
 	a.read-more {
 		padding-left: 5px;
+	}
+
+	.btn {
+		margin-left: 16px;
 	}
 }
 
@@ -110,7 +103,6 @@ p.lead {
 		background-color: white;
 	}
 }
-
 
 .navbar-default {
 	background-color: transparent;
@@ -265,15 +257,6 @@ p.lead {
 			letter-spacing: 12px;
 		}
 
-		// @media (min-width: @screen-sm-max) and (max-width: @screen-md-max) {
-		// 	font-size: 16px;
-
-		// 	span {
-		// 		font-size: 69px;
-		// 	}
-		// }
-
-
 		@media (max-width: @screen-md-max) {
 			font-size: 25px;
 
@@ -338,6 +321,10 @@ body {
 		margin-bottom: 45px;
 	}
 
+	.btn {
+		margin-top: 32px;
+	}
+
 	&-gray {
 		background-color: @gray-lighter;
 	}
@@ -362,23 +349,12 @@ body {
 
 /*..................................the boxes-one */
 .boxes-one {
-	// margin-bottom: 105px;
 	padding-bottom: 0;
 
 	&:last-child {
 		padding-bottom: 90px;
 	}
-
-	// @media (min-width: 0) and (max-width: @screen-sm-max) {
-	// 	margin-bottom: -30px;
-	// }
 }
-
-// .box-one {
-// 	@media (min-width: 0) and (max-width: @screen-sm-max) {
-// 		margin-bottom: 30px;
-// 	}
-// }
 
 .box-one-inner {
 
@@ -561,6 +537,7 @@ h3.team-member-name {
 	.btn {
 		height: 50px;
 		margin-left: -4px;
+		margin-top: 0;
 		.Roboto-condensed-light;
 		padding-left: 15px;
 		padding-right: 15px;
@@ -595,7 +572,8 @@ h3.team-member-name {
 	}
 }
 
-label {
+label,
+.label {
 	.Roboto-regular;
 	font-size: 14px;
 }
@@ -635,8 +613,52 @@ input[type="radio"]:checked + label:before, {
 	content: "\e601"; /* Radio checked */
 }
 
+// Contact form
+form.wpcf7-form {
+	p {
+		.form-group;
+		.label;
+		padding: 0;
+		color: @text-color;
+	}
+
+	input[type="text"],
+	input[type="email"],
+	textarea {
+		.form-control;
+		margin-bottom: 16px;
+		.Roboto-slab-regular;
+	}
+
+	input[type="submit"] {
+		margin-top: 32px;
+		.btn;
+		.btn-lg;
+		.btn-block;
+		border-radius: 0;
+	}
+
+	textarea {
+		height: 100px;
+	}
+
+	br {
+		.hidden;
+	}
+}
+
+.contact-form {
+	label {
+		margin-bottom: 0;
+		line-height: 1;
+	}
+	.btn {
+		margin-top: 32px;
+	}
+}
+
+//Campaign forms
 .project-creation-form {
-	padding: 0 15px;
 
 	h4 {
 		margin-top: 40px;
@@ -653,24 +675,21 @@ input[type="radio"]:checked + label:before, {
 }
 
 #form_pay {
-	// add 15px padding to left and right for mobile
-	padding: 0 15px;
-
 	.row {
-		margin-bottom: 20px;
+		margin-bottom: 16px;
 	}
 
 	.donation-payment-buttons {
 		padding: 20px;
-		button,
-		a {
-			.btn-block;
-		}
-	}
-}
 
-#payment-form {
-	padding: 0 15px;
+		@media (min-width: 0) and (max-width: @screen-xs-max) {
+			button,
+			a {
+				.btn-block;
+			}
+		}
+		
+	}
 }
 
 .ign-checkout-price {
@@ -696,6 +715,67 @@ input[type="radio"]:checked + label:before, {
 .ign-checkout-button {
 	margin-top: 57px;
 }
+
+.required-mark {
+	color: @brand-danger;
+}
+
+.payment-errors {
+	display: block;
+	margin-bottom: 10px;
+	color: @brand-danger;
+}
+
+#stripe-input {
+	margin-top: 20px;
+}
+
+/*..................................the dashboard */
+.memberdeck .md-box-wrapper {
+	border: 0 !important;
+	background-color: transparent !important;
+}
+
+.memberdeck .md-box.half {
+	border: 0 !important;
+}
+
+
+.nav-tabs {
+	& > li {
+		& > a {
+			border: 1px solid #ddd;
+			border-bottom: 0;
+			border-right: 0;
+			border-radius: 0;
+
+			&:last-child {
+				border-right: 1px solid #ddd;
+			}
+		}
+
+		&:nth-child(3) {
+			display: none;
+		}
+	}
+}
+
+.memberdeck .md-profile .project-status {
+	.label !important;
+	.label-info !important;
+	font-size: 12px !important;
+	background: @brand-teal !important;
+}
+
+.memberdeck button {
+	margin-top: 36px !important;
+	.btn;
+	.btn-lg;
+	background: @brand-teal !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+}
+
 
 /*..................................the footer */
 footer {
@@ -751,8 +831,7 @@ footer {
 	}
 }
 
-
-/*..................................the custome utilities */
+/*..................................the custom utilities */
 .video-container { 
 	position: relative; 
 	padding-bottom: 56.25%; 
@@ -770,19 +849,57 @@ footer {
 }
 
 .main-content {
-	padding: 70px 0 41px;
+	padding-top: 70px;
+	padding-bottom: 41px;
 }
 
 .sixteen-vr {
-	margin: 0 0 36px;
-	font-size: 16px;
-	line-height: 44px;
+	p,
+	address {
+		margin: 0 0 36px;
+		font-size: 16px;
+		line-height: 44px;
+	}
+}
+
+.box-border {
+	margin-bottom: 70px;
+	margin-top: 32px;
+	padding: 20px;
+	border: 1px solid #ddd;
+
+	h3 {
+		margin-top: 0;
+	}
+
+	.checkbox input[type=checkbox] {
+		position: relative;
+		top: 4px;
+		margin-left: -5px;
+		margin-right: 5px;
+	}
+
+	.login-actions {
+		margin-top: 32px;
+	}
+}
+
+.sign-up-box {
+	padding-top: 120px;
+	height: 290px;
+}
+
+#error-four0four {
+	img {
+		margin: 0 auto;
+	}
 }
 
 /*..................................the images */
 .alignleft,
 .alignright {
 	margin-top: 16px;
+	.img-responsive;
 }
 
 .alignleft {
@@ -848,10 +965,6 @@ footer {
 		}
 	}
 
-	// .money-raised {
-	// 	margin-bottom: 5px;
-	// }
-
 	.campaign-goal {
 		font-size: 24px;
 		line-height: 2;
@@ -859,14 +972,9 @@ footer {
 
 	.days-left {
 		font-size: 20px;
-		// margin-bottom: 10px;
-		// .Roboto-condensed-regular;
-		// text-transform: uppercase;
-		// letter-spacing: 2px;
 	}
 
 	.btn {
-		// height: 87px;
 		padding: 18.5px 10%;
 		font-size: 24px;
 	}
@@ -898,7 +1006,6 @@ footer {
 		height: 172px;
 	}
 }
-
 
 // Campaign levels
 a.level-binding {
@@ -939,11 +1046,23 @@ a.level-binding {
 .project-close-when {
 	margin-top: -25px;
 }
+
+.image_swap {
+	img.project_image {
+		.img-responsive;
+	}
+}
+
+.embed-box code {
+	white-space: pre-wrap;
+}
+
 /*..................................the page accents */
 @accent-color: transparent;
 
 body {
-	&.page {
+	&.page
+	{
 		@accent-color: @brand-gray;
 		.accent-colors;
 	}
@@ -955,7 +1074,9 @@ body {
 	&.page-id-787, // Contact page
 	&.page-id-941,
 	&.single-ignition_product,
-	&.post-type-archive-ignition_product { 
+	&.post-type-archive-ignition_product,
+	&.error404,
+	&.page-id-932 { 
 		@accent-color: @brand-teal;
 		.accent-colors;
 	}
@@ -995,7 +1116,8 @@ body {
 	footer,
 	.jumbotron,
 	.btn,
-	.progress-bar {
+	.progress-bar,
+	input[type="submit"] {
 		.accent-color-bg;
 	}
 
@@ -1022,31 +1144,5 @@ body {
 	// Border color
 	.form-control:focus {
 		.accent-color-border;
-	}
-}
-
-.payment-errors {
-	display: block;
-	margin-bottom: 10px;
-	color: @brand-danger;
-}
-
-#stripe-input {
-	margin-top: 20px;
-}
-
-.box-border {
-	padding: 20px;
-	border: 1px solid #ddd;
-
-	h3 {
-		margin-top: 0;
-	}
-
-	.checkbox input[type=checkbox] {
-		position: relative;
-		top: 4px;
-		margin-left: -5px;
-		margin-right: 5px;
 	}
 }

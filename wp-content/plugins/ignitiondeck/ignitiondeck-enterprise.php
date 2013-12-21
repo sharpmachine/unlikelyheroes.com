@@ -452,7 +452,7 @@ function id_submissionForm($post_id = null) {
 				$output .= $form->display_form();
 				$output .= '</form>';
 				$output .= '</div></div>';
-				echo '<script>location.href="?edit_project='.$post_id.'";</script>';
+				echo '<script>location.href="?edit_project='.$post_id.'";</script>HEELI';
 			}
 			else {
 				// return some error
