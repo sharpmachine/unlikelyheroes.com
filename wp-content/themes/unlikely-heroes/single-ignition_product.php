@@ -115,7 +115,12 @@ $type = get_post_meta($id, 'ign_project_type', true);
 							<?php get_template_part('project', 'social'); ?>
 
 							<div class="project-content">
-								<?php echo the_project_image($project_id, 1); ?>
+								<!-- <?php echo the_project_image(); ?> -->
+								<!-- <img src="<?php echo the_project_image($id, 2); ?>" alt=""> -->
+								<?php echo the_project_image($id, 1); ?>
+								<br>
+								<!-- <?php echo the_project_image_small($id, 1); ?> -->
+								
 								<?php echo $content->long_description; ?>
 							</div>
 							<div class="visible-xs">

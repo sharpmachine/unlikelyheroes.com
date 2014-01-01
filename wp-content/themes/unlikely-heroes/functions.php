@@ -736,33 +736,50 @@ if ( function_exists( 'add_image_size' ) ) {
 	add_image_size( 'fivehundred_featured', 720, 435); // For campaign page
 }
 
+// function the_project_image($id, $num) {
+// 	if ($num == 1) {
+// 		$project_id = get_post_meta($id, 'ign_project_id', true);
+// 		global $wpdb;
+// 		$url = get_post_meta($id, 'ign_product_image1', true);
+// 		$sql = $wpdb->prepare('SELECT ID FROM '.$wpdb->prefix.'posts WHERE guid = %s', $url);
+// 		$res = $wpdb->get_row($sql);
+// 		if (isset($res->ID)) {
+// 			$src = wp_get_attachment_image_src($res->ID, 'fivehundred_featured');
+// 			print_r($src);
+// 			$image = $src[0];
+// 		} else {
+// 			$image = $url;
+// 		}
+// 	}
+// 	else {
+// 		$key = 'ign_product_image'.$num;
+// 		$image = get_post_meta($id, $key, true);
+// 	}
+	
+// 	return $image;
+// }
+
 function the_project_image($id, $num) {
+if ($num == 1) {
+$project_id = get_post_meta($id, 'ign_project_id', true);
+global $wpdb;
+$url = get_post_meta($id, 'ign_product_image1', true);
+$extension = pathinfo($url, PATHINFO_EXTENSION);
+$image = $url.'-697×463'.$extension;
+}
+else {
+$key = 'ign_product_image'.$num;
+$image = get_post_meta($id, $key, true);
+}
+
+return $image;
+}
+
+function the_project_image_small($id, $num) {
 	if ($num == 1) {
 		$project_id = get_post_meta($id, 'ign_project_id', true);
 		global $wpdb;
 		$url = get_post_meta($id, 'ign_product_image1', true);
-		$sql = $wpdb->prepare('SELECT ID FROM '.$wpdb->prefix.'posts WHERE guid = %s', $url);
-		$res = $wpdb->get_row($sql);
-		if (isset($res->ID)) {
-			$src = wp_get_attachment_image_src($res->ID, 'fivehundred_featured');
-			$image = $src[0];
-		} else {
-			$image = $url;
-		}
-	}
-	else {
-		$key = 'ign_product_image'.$num;
-		$image = get_post_meta($id, $key, true);
-	}
-	
-	return $image;
-}
-
-function the_project_image_small($id, $num) {
-	if ($num == 2) {
-		$project_id = get_post_meta($id, 'ign_project_id', true);
-		global $wpdb;
-		$url = get_post_meta($id, 'ign_product_image2', true);
 		$sql = $wpdb->prepare('SELECT ID FROM '.$wpdb->prefix.'posts WHERE guid = %s', $url);
 		$res = $wpdb->get_row($sql);
 		if (isset($res->ID)) {
