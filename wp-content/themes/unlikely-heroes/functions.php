@@ -729,6 +729,13 @@ function get_backer_total($id) {
 	return $return_pledgers->count;
 }
 
+// Image Sizes added and Allowing to select those image sizes in Media Insert Admin
+if ( function_exists( 'add_image_size' ) ) { 
+	add_image_size( 'projectpage-large', 640, 9999 ); // For Project Pages with Unlimited Height allowed
+	add_image_size( 'single-thumb', 697, 463); // For Campaign Summary boxes
+	add_image_size( 'fivehundred_featured', 720, 435); // For campaign page
+}
+
 function the_project_image($id, $num) {
 	if ($num == 1) {
 		$project_id = get_post_meta($id, 'ign_project_id', true);
@@ -822,19 +829,12 @@ function exclude_pages_from_admin($query) {
 	}
 }
 
-// Image Sizes added and Allowing to select those image sizes in Media Insert Admin
-if ( function_exists( 'add_image_size' ) ) { 
-	add_image_size( 'projectpage-large', 640, 9999 ); // For Project Pages with Unlimited Height allowed
-	add_image_size( 'single-thumb', 697, 463); // For Campaign Summary boxes
-	add_image_size( 'fivehundred_featured', 720, 435); // For campaign page
-}
-
 add_filter( 'image_size_names_choose', 'custom_image_sizes_choose' );  
 function custom_image_sizes_choose( $sizes ) {  
 	$custom_sizes = array(  
 		'projectpage-large' => 'Project Page Full Width',
 		'single-thumb' => 'Single Post Thumb',
-		'fh_feature' => 'Fivehundred Feature'  
+		'fivehundred_featured' => 'Fivehundred Feature'  
 		);  
 	return array_merge( $sizes, $custom_sizes );  
 }

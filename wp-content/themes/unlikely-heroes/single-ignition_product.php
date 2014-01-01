@@ -115,7 +115,7 @@ $type = get_post_meta($id, 'ign_project_type', true);
 							<?php get_template_part('project', 'social'); ?>
 
 							<div class="project-content">
-								<?php the_post_thumbnail('single-thumb'); ?>
+								<?php echo the_project_image($project_id, 1); ?>
 								<?php echo $content->long_description; ?>
 							</div>
 							<div class="visible-xs">

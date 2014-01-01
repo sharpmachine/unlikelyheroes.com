@@ -17,13 +17,14 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-offset-2 col-md-8">
-				<p class="lead">Every human being no matter what race, color or age, was born to be free and to stay free. Sex trafficking can seem like too big of a problem when we think about fighting it on our own. But history has proven that when people join their voices together, change is inevitable.
+				<p class="lead">
+					<?php the_field('cta_inspiring_paragraph', 'options'); ?>
 				</p>
 				<div class="hidden-xs">
-					<a href="<?php bloginfo('url' ); ?>/get-involved" class="btn btn-teal btn-lg">Get involved.  Become a hero today.</a>
+					<a href="<?php bloginfo('url' ); ?>/get-involved" class="btn btn-teal btn-lg"><?php the_field('cta_long_button_label', 'options'); ?></a>
 				</div>
 				<div class="visible-xs">
-					<a href="<?php bloginfo('url' ); ?>/get-involved" class="btn btn-teal btn-lg">Become a hero today.</a>
+					<a href="<?php bloginfo('url' ); ?>/get-involved" class="btn btn-teal btn-lg"><?php the_field('cta_short_button_label', 'options'); ?></a>
 				</div>
 			</div>
 		</div>
@@ -34,9 +35,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-offset-2 col-md-8">
-				<h2 class="text-center">Latest Event</h2>
+				<h2 class="text-center"><?php the_field('featured_video_video_title', 'options'); ?></h2>
 				<div class="video-container">
-					<iframe src="//player.vimeo.com/video/54469680" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+					<?php the_field('featued_video_embed_code', 'options'); ?>
 				</div>
 			</div>
 		</div>

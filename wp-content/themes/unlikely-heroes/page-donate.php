@@ -12,7 +12,7 @@
 	</div>
 </div>
 
-<div class="container main-content ">
+<div class="container main-content donations">
  <?php get_template_part( 'loop', 'page' ); ?>
 </div>
 
