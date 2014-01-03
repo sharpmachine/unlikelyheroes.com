@@ -759,20 +759,42 @@ function the_project_image($id, $num) {
 }
 
 function the_project_image_thumb($id, $num) {
-if ($num == 1) {
-$project_id = get_post_meta($id, 'ign_project_id', true);
-global $wpdb;
-$url = get_post_meta($id, 'ign_product_image1', true);
-$extension = pathinfo($url, PATHINFO_EXTENSION);
-$image = str_replace('.'.$extension, '', $url).'-697x463.'.$extension;
-}
-else {
-$key = 'ign_product_image'.$num;
-$image = get_post_meta($id, $key, true);
+	if ($num == 1) {
+		$project_id = get_post_meta($id, 'ign_project_id', true);
+		global $wpdb;
+		$url = get_post_meta($id, 'ign_product_image1', true);
+		$sql = $wpdb->prepare('SELECT ID FROM '.$wpdb->prefix.'posts WHERE guid = %s', $url);
+		$res = $wpdb->get_row($sql);
+		if (isset($res->ID)) {
+			$src = wp_get_attachment_image_src($res->ID, 'single-thumb');
+			$image = $src[0];
+		} else {
+			$image = $url;
+		}
+	}
+	else {
+		$key = 'ign_product_image'.$num;
+		$image = get_post_meta($id, $key, true);
+	}
+	
+	return $image;
 }
 
-return $image;
-}
+// function the_project_image_thumb($id, $num) {
+// if ($num == 1) {
+// $project_id = get_post_meta($id, 'ign_project_id', true);
+// global $wpdb;
+// $url = get_post_meta($id, 'ign_product_image1', true);
+// $extension = pathinfo($url, PATHINFO_EXTENSION);
+// $image = str_replace('.'.$extension, '', $url).'-697x463.'.$extension;
+// }
+// else {
+// $key = 'ign_product_image'.$num;
+// $image = get_post_meta($id, $key, true);
+// }
+
+// return $image;
+// }
 
 function the_project_image_small($id, $num) {
 	if ($num == 1) {
