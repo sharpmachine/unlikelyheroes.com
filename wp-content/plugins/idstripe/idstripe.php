@@ -95,7 +95,8 @@ function idstripe_front_js() {
 	
 	global $post;
 	if (isset($post)) {
-		if (stripos($post->post_content, 'purchase_form')) {
+		// if (stripos($post->post_content, 'purchase_form')) {
+        if (has_shortcode($post->post_content, 'project_purchase_form')) {
 			wp_register_script('stripe', 'https://js.stripe.com/v1/');
 			wp_enqueue_script('stripe');
 		}

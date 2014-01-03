@@ -81,6 +81,12 @@ p.lead {
 	border-radius: 0;
 }
 
+.navbar-nav {
+	@media (max-width: @screen-sm-max) {
+		margin: 0;
+	}
+}
+
 .navbar-collapse {
 	width: 100%;
 	padding: 0;
@@ -148,6 +154,16 @@ p.lead {
 			& > li {
 				display: block;
 			}
+
+			.open .dropdown-menu > li {
+				display: block;
+
+				& > a {
+					display: block;
+					color: white;
+					font-size: 12px;
+				}
+			}
 		}
 	}
 }
@@ -158,6 +174,10 @@ p.lead {
 
 .navbar > .container .navbar-brand {
 	margin: 26px auto  36px;
+
+	@media (min-width: 0) and (max-width: @screen-xs-max) {
+		margin: 27px 5% 41px;
+	}
 }
 
 .navbar-brand {
@@ -227,6 +247,19 @@ p.lead {
 				color: @brand-blueDark !important;
 			}
 		}
+	}
+}
+
+.navbar-toggle {
+	// top: 30px;
+	// margin: 0 auto;
+	top: 23px;
+	right: -40px;
+	border: 0;
+
+	.icon-bar {
+		height: 3px;
+		background-color: white;
 	}
 }
 
@@ -699,6 +732,8 @@ form.wpcf7-form {
 	}
 }
 
+/*..................................the Checkout form */
+
 .ign-checkout-price {
 	label {
 		text-transform: uppercase;
@@ -735,6 +770,58 @@ form.wpcf7-form {
 
 #stripe-input {
 	margin-top: 20px;
+}
+
+.ignitiondeck form .form-row input, 
+.ignitiondeck form .form-row textarea, 
+.ignitiondeck form .form-row select {
+	.form-control !important;
+	margin-bottom: 16px !important;
+	padding-left: 0 !important;
+	float: left !important;
+}
+
+.ignitiondeck form .form-row label {
+	.label !important;
+	color: @text-color !important;
+	padding: 0 !important;
+}
+
+.ignitiondeck form .form-row label .required-mark {
+	float: none !important;
+}
+
+.ignitiondeck form .main-btn, .ignitiondeck form input[type=submit] {
+	.btn !important;
+	.btn-lg !important;
+	border-radius: 0 !important;
+}
+
+.ignitiondeck form .id-checkout-level-desc {
+	padding: 0 !important;
+}
+
+.ignitiondeck form {
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+.ignitiondeck form .form-row.date {
+	input {
+		width: auto !important;
+		display: inline-block !important;
+		padding-right: 5px !important;
+
+		&.card-expiry-year {
+			position: relative;
+			top: -30px;
+			left: 15px;
+		}
+	}
+
+	span {
+		padding: 0 5px;
+	}
 }
 
 /*..................................the dashboard */
@@ -904,7 +991,8 @@ footer {
 
 /*..................................the images */
 .alignleft,
-.alignright {
+.alignright,
+.aligncenter {
 	margin-top: 16px;
 	.img-responsive;
 }
@@ -917,6 +1005,11 @@ footer {
 .alignright {
 	.pull-right;
 	margin-left: 60px;
+}
+
+.aligncenter {
+	display: block;
+	margin: 0 auto;
 }
 
 /*..................................the campaigns */
@@ -991,12 +1084,6 @@ footer {
 .campaign-summary,
 .create-campagin-cta {
 	margin-bottom: 30px;
-	
-	// remove once image issue is sorted
-	.box-one-img {
-		height: 148px;
-		overflow: hidden;
-	}
 
 	h3 {
 		height: 34px;

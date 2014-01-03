@@ -34,9 +34,8 @@ $type = get_post_meta($id, 'ign_project_type', true);
 				<div class="row">
 					<div class="col-xs-12 col-md-5 pull-right">
 						<h3><?php echo $summary->name; ?></h3>
-
 						<div class="progress">
-							<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 50<?php //echo number_format(apply_filters('id_percentage_raised', $hDeck->percentage, $id, $hDeck->goal)); ?>%">
+							<div class="progress-bar" role="progressbar" aria-valuenow="<?php echo number_format(apply_filters('id_percentage_raised', $hDeck->percentage, $id, $hDeck->goal)); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo number_format(apply_filters('id_percentage_raised', $hDeck->percentage, $id, $hDeck->goal)); ?>%">
 								<span class="sr-only"><?php echo number_format(apply_filters('id_percentage_raised', $hDeck->percentage, $id, $hDeck->goal)); ?>% Complete</span>
 							</div>
 						</div>
@@ -115,11 +114,11 @@ $type = get_post_meta($id, 'ign_project_type', true);
 							<?php get_template_part('project', 'social'); ?>
 
 							<div class="project-content">
-								<!-- <?php echo the_project_image(); ?> -->
-								<!-- <img src="<?php echo the_project_image($id, 2); ?>" alt=""> -->
-								<?php echo the_project_image($id, 1); ?>
-								<br>
-								<!-- <?php echo the_project_image_small($id, 1); ?> -->
+
+								<?php if (the_project_video($id)):?>
+									<img src="<?php echo $summary->image_url; ?>" class="img-responsive" alt="<?php echo $summary->name; ?>">
+									<br>
+								<?php endif; ?>
 								
 								<?php echo $content->long_description; ?>
 							</div>

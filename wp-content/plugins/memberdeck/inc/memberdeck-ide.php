@@ -21,7 +21,7 @@ function md_creator_projects() {
 				echo '<li><a href="?payment_settings=1">'.__('Payment Settings', 'memberdeck').'</a></li>';
 			}
 		}
-		echo '<li><a href="?creator_projects=1">'.__('My Projects', 'memberdeck').'</a></li>';
+		echo '<li><a href="?creator_projects=1">'.__('My Campaigns', 'memberdeck').'</a></li>';
 	}
 }
 
@@ -41,7 +41,7 @@ function md_ide_creator_projects($content) {
 	echo '<div class="memberdeck">';
 	include_once MD_PATH.'templates/_mdProfileTabs.php';
 	echo '<ul class="md-box-wrapper full-width cf"><li class="md-box full"><div class="md-profile">';
-	echo '<h3>'.__('My Projects', 'memberdeck').': </h3>';
+	echo '<h3>'.__('My Campaigns', 'memberdeck').': </h3>';
 	echo '<ul>';
 	$user_projects = get_user_meta($user_id, 'ide_user_projects', true);
 	if (!empty($user_projects)) {

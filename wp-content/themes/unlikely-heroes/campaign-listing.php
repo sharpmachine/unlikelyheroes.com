@@ -10,11 +10,11 @@ do_action('fh_project_summary_before');
 	<div class="box-one-inner">
 		<a href="<?php the_permalink(); ?>">
 			<div class="box-one-img">
-				<img src="<?php echo $summary->image_url; ?>" class="img-responsive" alt="<?php the_title(); ?>">
+				<img src="<?php echo the_project_image_thumb($id, 1); ?>" class="img-responsive" alt="<?php the_title(); ?>">
 			</div>
 			<h3><?php the_short_title(40); ?></h3>
 			<div class="progress">
-				<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 50<?php //echo number_format(apply_filters('id_percentage_raised', $hDeck->percentage, $id, $hDeck->goal)); ?>%">
+				<div class="progress-bar" role="progressbar" aria-valuenow="<?php echo number_format(apply_filters('id_percentage_raised', $hDeck->percentage, $id, $hDeck->goal)); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo number_format(apply_filters('id_percentage_raised', $hDeck->percentage, $id, $hDeck->goal)); ?>%">
 					<span class="sr-only"><?php echo number_format(apply_filters('id_percentage_raised', $hDeck->percentage, $id, $hDeck->goal)); ?>% Complete</span>
 				</div>
 			</div>

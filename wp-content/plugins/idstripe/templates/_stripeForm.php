@@ -12,10 +12,10 @@
 		<input type="text" size="4" autocomplete="off" class="card-cvc required"/>
 	</li>
 	<li id="date" class="form-row twothird date idfield">
-		<label class="idfield_label"><?php _e('Expiration (MM/YYYY)', 'idstripe'); ?> <span class="required-mark"><?php _e('Required', 'idstripe'); ?></span></label><br/>
-		<input type="text" size="2" class="card-expiry-month"/>
+		<label class="idfield_label"><?php _e('Expiration', 'idstripe'); ?> <span class="required-mark"><?php _e('Required', 'idstripe'); ?></span></label><br/>
+		<input type="text" size="4" class="card-expiry-month" placeholder="mm"/>
 		<span> / </span>
-		<input type="text" size="4" class="card-expiry-year required"/>
+		<input type="text" size="4" class="card-expiry-year" placeholder="yyyy" required/>
 	</li>
 </div>
 <noscript><p><?php _e('JavaScript is required for the registration form.', 'idstripe'); ?></p></noscript>

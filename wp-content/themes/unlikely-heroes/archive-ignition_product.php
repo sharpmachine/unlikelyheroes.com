@@ -30,7 +30,11 @@
 			<?php wp_reset_postdata(); ?>
 
 			<?php else:  ?>
-				<?php _e( 'Sorry, no posts matched your criteria.' ); ?></p>
+				<h3 class="text-center"><?php _e( 'No campaigns yet.  Create one now!' ); ?></h3>
+				<?php get_template_part('create','campaign'); ?>
+				<?php get_template_part('create','campaign'); ?>
+				<?php get_template_part('create','campaign'); ?>
+				<?php get_template_part('create','campaign'); ?>
 			<?php endif; ?>
 		</div><!-- .row -->
 	</div><!-- .section -->

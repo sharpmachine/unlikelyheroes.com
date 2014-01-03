@@ -182,14 +182,19 @@
 				<?php endwhile; ?>
 					<?php get_template_part('create','campaign'); ?>
 					<?php wp_reset_postdata(); ?>
+						<div class="clearfix"></div>
+						<div class="text-center">
+							<a href="<?php bloginfo('url'); ?>/campaigns" class="btn btn-lg">All Campaigns</a>
+						</div>
 
 			<?php else:  ?>
-				<?php _e( 'Sorry, no posts matched your criteria.' ); ?></p>
+				<h3 class="text-center"><?php _e( 'No campaigns yet.  Create one now!' ); ?></h3>
+				<?php get_template_part('create','campaign'); ?>
+				<?php get_template_part('create','campaign'); ?>
+				<?php get_template_part('create','campaign'); ?>
+				<?php get_template_part('create','campaign'); ?>
 			<?php endif; ?>
-			<div class="clearfix"></div>
-			<div class="text-center">
-				<a href="<?php bloginfo('url'); ?>/campaigns" class="btn btn-lg">All Campaigns</a>
-			</div>
+		
 			
 		</div>
 	</div>

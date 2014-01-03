@@ -6,7 +6,7 @@
 				<div class="plus"></div>
 			</div>
 			<h3>Create a campaign</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit harum optio saepe quam nostrum!  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit harum optio saepe quam nostrum! Perferendis, eveniet unde tempora.</p>
+			<p>Create your own campaign and share it with the world!  All the money you raise goes towards our mission of ending human trafficking.</p>
 		</a>
 	</div>
 </div>

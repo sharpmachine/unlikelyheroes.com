@@ -20,27 +20,8 @@
 .id-purchase-form .payment-type-selector {
 	text-align: center;
 }
-.id-purchase-form .payment-type-selector a {
-	display: inline-block;
-	padding: 5px 15px;
-	padding-bottom: 48px;
-	margin: 5px;
-	border: 1px solid #f2f3f2;
-	color: #000;
-	border-radius: 5px;
-	text-decoration: none;
-	background: rgb(163,215,255); /* Old browsers */
-	background: -moz-linear-gradient(top,  rgba(163,215,255,1) 0%, rgba(196,229,255,1) 35%, rgba(0,106,198,1) 35%, rgba(92,159,219,1) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(163,215,255,1)), color-stop(35%,rgba(196,229,255,1)), color-stop(35%,rgba(0,106,198,1)), color-stop(100%,rgba(92,159,219,1))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  rgba(163,215,255,1) 0%,rgba(196,229,255,1) 35%,rgba(0,106,198,1) 35%,rgba(92,159,219,1) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  rgba(163,215,255,1) 0%,rgba(196,229,255,1) 35%,rgba(0,106,198,1) 35%,rgba(92,159,219,1) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  rgba(163,215,255,1) 0%,rgba(196,229,255,1) 35%,rgba(0,106,198,1) 35%,rgba(92,159,219,1) 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  rgba(163,215,255,1) 0%,rgba(196,229,255,1) 35%,rgba(0,106,198,1) 35%,rgba(92,159,219,1) 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a3d7ff', endColorstr='#5c9fdb',GradientType=0 ); /* IE6-9 */
-	opacity: .7;
-	-webkit-transition: all 500ms;
-}
-.id-purchase-form .payment-type-selector a:hover {
+
+/*.id-purchase-form .payment-type-selector a:hover {
 	border: 1px solid #0069c5;
 	color: #0067c2;
 	opacity: 1;
@@ -53,16 +34,16 @@
 .id-purchase-form .payment-type-selector a.active:hover {
 	color: #0067c2;
 	opacity: 1;
-}
-.id-purchase-form .payment-type-selector a#pay-with-paypal span{
+}*/
+/*.id-purchase-form .payment-type-selector a#pay-with-paypal span{
 	background-image: url("images/paypal.png");
 	background-position: center 30px;
 	background-repeat: no-repeat;
 	padding-bottom: 48px;
-}
-.id-purchase-form .payment-type-selector a#pay-with-stripe span {
+}*/
+/*.id-purchase-form .payment-type-selector a#pay-with-stripe span {
 	background-image: url("images/creditcards.png");
 	background-position: center 30px;
 	padding-bottom: 48px;
 	background-repeat: no-repeat;
-}
+}*/

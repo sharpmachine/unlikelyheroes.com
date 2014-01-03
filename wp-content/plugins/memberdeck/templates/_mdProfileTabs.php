@@ -11,6 +11,10 @@ if (!empty($dash)) {
 }
 ?>
 <!-- <ul class="dashboardmenu"> -->
+<div class="logout-button text-right">
+	<a href="<?php echo wp_logout_url( home_url() ); ?>" class="btn btn-lg">Logout</a> 
+</div>
+
 	<ul class="nav nav-tabs">
 	<li><a href="<?php echo $durl; ?>"><?php _e('My Dashboard', 'memberdeck'); ?></a></li>
 	<li><a href="<?php echo (isset($current_user) ? the_permalink().'?edit-profile='.$current_user->ID : ''); ?>"><?php echo (isset($current_user) ? __('My Profile', 'memberdeck') : ''); ?></a></li>

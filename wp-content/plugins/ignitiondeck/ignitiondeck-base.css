@@ -522,7 +522,7 @@
     line-height: 26px;
     text-align: center;
     padding: 10px 20px; }
-  .ignitiondeck form .main-btn, .ignitiondeck form input[type=submit] {
+/*  .ignitiondeck form .main-btn, .ignitiondeck form input[type=submit] {
     font-weight: bold;
     font-size: 26px;
     padding: 26px 48px;
@@ -531,7 +531,7 @@
     cursor: pointer;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
-    border-radius: 10px; }
+    border-radius: 10px; }*/
   .ignitiondeck form .payment-errors {
     text-align: center;
     width: auto;
@@ -545,7 +545,7 @@
     height: 24px; }
   .ignitiondeck form .payment-type-selector {
     text-align: center; }
-  .ignitiondeck form .payment-type-selector a {
+/*  .ignitiondeck form .payment-type-selector a {
     display: inline-block;
     padding: 5px 15px;
     padding-bottom: 48px;
@@ -556,18 +556,18 @@
     -webkit-transition: all 200ms ease-out 0;
     -moz-transition: all 200ms ease-out 0;
     -o-transition: all 200ms ease-out 0;
-    transition: all 200ms ease-out 0; }
-  .ignitiondeck form .payment-type-selector a:hover {
+    transition: all 200ms ease-out 0; }*/
+/*  .ignitiondeck form .payment-type-selector a:hover {
     opacity: 1; }
   .ignitiondeck form .payment-type-selector a.active {
     opacity: 1; }
   .ignitiondeck form .payment-type-selector a.active:hover {
-    opacity: 1; }
-  .ignitiondeck form .payment-type-selector a#pay-with-paypal span {
+    opacity: 1; }*/
+  /*.ignitiondeck form .payment-type-selector a#pay-with-paypal span {
     background-image: url("images/paypal.png");
     background-position: center 30px;
     background-repeat: no-repeat;
-    padding-bottom: 48px; }
+    padding-bottom: 48px; }*/
   .ignitiondeck form .id-checkout-level-desc {
     margin: 0 auto;
     padding: 10px 20px;
