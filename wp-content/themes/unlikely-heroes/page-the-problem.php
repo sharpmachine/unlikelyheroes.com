@@ -14,7 +14,7 @@
 
 <div class="container">
 	<div class="row main-content">
-		<div class="col-md-offset-1 col-md-10">
+		<div class="col-md-12">
 			<?php get_template_part( 'loop', 'page' ); ?>
 		</div>
 	</div>
