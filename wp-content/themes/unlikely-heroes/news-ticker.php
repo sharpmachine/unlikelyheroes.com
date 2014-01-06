@@ -1,7 +1,10 @@
-	<div class="news-ticker hidden-xs">
+<!-- 	<div class="mobile-login visible-xs">
+		<a href="<?php bloginfo('url'); ?>/dashboard" class="btn btn-block">Heroic Login</a>
+	</div> -->
+	<div class="news-ticker">
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-6 col-md-6 hidden-sm">
+			<div class="col-sm-6 col-md-6 hidden-sm hidden-xs">
 				<span>Lastest Update:</span>
 					<?php $args = array( 'post_type' => 'lastest_updates', 'posts_per_page' => 1); ?>
 					<?php $latest_updates = new WP_Query( $args ); ?>

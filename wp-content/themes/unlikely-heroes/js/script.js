@@ -49,26 +49,3 @@ jQuery(document).ready(function($) {
 	$(".navbar-collapse").sticky({ topSpacing: 0 });
 	
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

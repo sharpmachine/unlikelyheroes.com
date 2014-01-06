@@ -46,6 +46,8 @@ p.lead {
 
 /*..................................the news ticker */
 .news-ticker {
+	position: relative;
+	z-index: 9;
 	height: 60px;
 	color: @brand-offWhite;
 	font-size: 12px;
@@ -97,7 +99,16 @@ p.lead {
 	border-top: 1px solid white;
 	border-bottom: 1px solid white;
 	min-height: 52px;
-	.transition(0.2s all ease);
+	
+	@media (max-width: @screen-sm-max) {
+	position: absolute;
+	}
+}
+
+.sticky-wrapper {
+	@media (max-width: @screen-sm-max) {
+		height: auto !important;
+	}
 }
 
 // Menu links mixin 
@@ -255,8 +266,6 @@ p.lead {
 }
 
 .navbar-toggle {
-	// top: 30px;
-	// margin: 0 auto;
 	top: 23px;
 	right: -40px;
 	border: 0;
@@ -265,6 +274,22 @@ p.lead {
 		height: 3px;
 		background-color: white;
 	}
+
+	&:hover, 
+	&:focus,
+	&:active {
+		background-color: transparent !important;
+		outline: 0;
+		border: 0;
+	}
+}
+
+/*..................................the mobile login */
+.mobile-login {
+	// margin: 20px 0;
+	padding: 0 20px;
+	position: relative;
+	z-index: 9;
 }
 
 /*..................................the jumbotron */
@@ -604,6 +629,21 @@ h3.team-member-name {
 		color: @brand-pink;
 		.Roboto-condensed-regular;
 		font-size: 30px;
+	}
+}
+
+/*..................................the mobile updates */
+.mobile-updates {
+	color: white;
+	background-color: @brand-blueDark;
+	padding: 20px;
+	font-size: 12px;
+
+	span {
+		display: block;
+		.Roboto-condensed-light;
+		letter-spacing: 3px;
+		text-transform: uppercase;
 	}
 }
 
