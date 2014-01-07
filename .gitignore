@@ -5,6 +5,7 @@ wp-content/blogs.dir/
 wp-content/upgrade/
 wp-content/backup-db/
 wp-content/advanced-cache.php
+wp-content/object-cache.php
 wp-content/wp-cache-config.php
 /wp-content/w3tc/
 sitemap.xml
