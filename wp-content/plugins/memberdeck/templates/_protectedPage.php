@@ -21,7 +21,7 @@
 
 			<form name="loginform" id="loginform" action="<?php bloginfo('url'); ?>/wp-login.php" method="post">
 				<div class="form-group login-username">
-					<label for="user_login">Username</label>
+					<label for="user_login">Email</label>
 					<input type="text" name="log" id="user_login" class="form-control input" value="" size="20" />
 				</div>
 				<div class="form-group login-password">
