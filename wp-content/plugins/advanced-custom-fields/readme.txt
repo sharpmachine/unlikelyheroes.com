@@ -1,5 +1,5 @@
 === Advanced Custom Fields ===
-Contributors: Elliot Condon
+Contributors: elliotcondon
 Tags: custom, field, custom field, advanced, simple fields, magic fields, more fields, repeater, matrix, post, type, text, textarea, file, image, edit, admin
 Requires at least: 3.5.0
 Tested up to: 3.8.0
@@ -106,6 +106,12 @@ http://support.advancedcustomfields.com/
 
 
 == Changelog ==
+
+= 4.3.4 =
+* Post Object field: Fixed get_pages bug cuasing 'pages' to not appear
+* Page Link field: Fixed get_pages bug cuasing 'pages' to not appear
+* Tab field: Fixed JS bug causing multiple tab groups on page to render incorrectly
+* Language: Updated Russian translation - Thanks to Alex Torscho
 
 = 4.3.3 =
 * Core: Updated styling to suit WP 3.8
