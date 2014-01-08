@@ -442,7 +442,7 @@ function md_bad_login( $username ) {
 				$durl = $home_url('/dashboard');
 			}
 		}
-		wp_redirect((isset($durl) ? $durl : home_url('/dashboard')) . '/?login_failure=1' );
+		wp_redirect((isset($durl) ? $durl : home_url()) . 'dashboard/?login_failure=1' );
 		exit;
 	}
 }
