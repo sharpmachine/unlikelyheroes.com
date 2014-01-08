@@ -876,3 +876,8 @@ function custom_image_sizes_choose( $sizes ) {
 		);  
 	return array_merge( $sizes, $custom_sizes );  
 }
+
+function soi_login_redirect( $redirect_to, $request, $user  ) {
+	return ( is_array( $user->roles ) && in_array( 'administrator', $user->roles ) ) ? admin_url() : site_url('/the-problem/');
+} // end soi_login_redirect
+add_filter( 'login_redirect', 'soi_login_redirect', 10, 3 );
