@@ -165,8 +165,7 @@ p.lead {
 			background-color: white;
 		}
 
-		@media (min-width: 0) and (max-width: @screen-xs-max) {
-			background-color: @brand-teal;
+		@media (max-width: @screen-xs-max) {
 			& > li {
 				display: block;
 			}
@@ -952,7 +951,7 @@ footer {
 			.square(48px);
 		}
 
-		@media (min-width: 0) and (max-width: @screen-xs) {
+		@media (max-width: @screen-xs) {
 			margin-right: 10%;
 		}
 	}
@@ -968,7 +967,7 @@ footer {
 		color: @brand-teal;
 	}
 
-	@media (min-width: 0) and (max-width: @screen-xs) {
+	@media (max-width: @screen-xs-max) {
 		line-height: 2;
 	}
 }
@@ -1205,7 +1204,7 @@ a.level-binding {
 body {
 	&.page
 	{
-		@accent-color: @brand-gray;
+		@accent-color: @brand-teal;
 		.accent-colors;
 	}
 }
@@ -1282,6 +1281,12 @@ body {
 
 		&:hover {
 			background-color: lighten(@accent-color, 5%);
+		}
+	}
+
+	.navbar-default .navbar-nav {
+		@media (max-width: @screen-xs-max) {
+			.accent-color-bg;
 		}
 	}
 	

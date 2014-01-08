@@ -45,7 +45,7 @@
 						<div class="payment-errors"></div>
 						<div class="text-center">
 							<button type="submit" id="id-reg-submit" class="submit-button btn btn-lg"><?php _e('Complete Registration', 'memberdeck'); ?></button>
-							<input type="hidden" name="redirect_to" value="<?php bloginfo('url'); ?>/dashboard" />
+							<input type="hidden" name="redirect_to" value="<?php bloginfo('url'); ?>/dashboard/" />
 						</div>
 					</form>
 				</div>

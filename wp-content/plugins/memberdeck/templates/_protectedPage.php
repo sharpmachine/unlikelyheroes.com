@@ -13,9 +13,9 @@
 				$durl = $dash['durl'];
 			}
 			else {
-				$durl = home_url('/');
+				$durl = home_url('/dashboard/');
 			}
-			$args = array('redirect' => $durl,
+			$args = array('redirect' => home_url('/dashboard/'),
 			'echo' => false); ?>
 
 

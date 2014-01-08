@@ -852,13 +852,6 @@ function remove_admin_bar() {
 	}
 }
 
-function uh_registration_redirect()
-{
-	return home_url( '/dashboard/' );
-}
-add_filter( 'registration_redirect', 'uh_registration_redirect' );
-
-
 add_filter( 'parse_query', 'exclude_pages_from_admin' );
 function exclude_pages_from_admin($query) {
 	global $pagenow,$post_type;
