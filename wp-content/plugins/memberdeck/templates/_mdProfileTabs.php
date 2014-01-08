@@ -12,7 +12,7 @@ if (!empty($dash)) {
 ?>
 <!-- <ul class="dashboardmenu"> -->
 <div class="logout-button text-right">
-	<a href="<?php echo wp_logout_url( home_url() ); ?>" class="btn btn-lg">Logout</a> 
+	<a href="<?php echo wp_logout_url( home_url('/dashboard/') ); ?>" class="btn btn-lg">Logout</a> 
 </div>
 
 	<ul class="nav nav-tabs">

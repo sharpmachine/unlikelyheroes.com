@@ -15,7 +15,7 @@
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2 main-content">
 			<div class="">
-				<form action="<?php bloginfo('url'); ?>/wp-login.php" method="POST" id="payment-form" name="reg-form" data-regkey="<?php echo (isset($reg_key) ? $reg_key : ''); ?>">
+				<form action="<?php bloginfo('url'); ?>/wp-login.php" method="POST" id="payment-form" name="reg-form" data-regkey="<?php echo (isset($reg_key) ? $reg_key : ''); ?>" data-ty-url="<?php bloginfo('url'); ?>/dashboard/?signup_successful"> 
 					<div id="logged-input" class="no">
 						<div class="row">
 							<div class="form-group col-sm-6">
