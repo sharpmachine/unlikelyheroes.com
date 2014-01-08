@@ -442,6 +442,7 @@ function md_bad_login( $username ) {
 				$durl = $home_url('/dashboard');
 			}
 		}
+		// Remove 'dashboard' after ID forum offer proper fix
 		wp_redirect((isset($durl) ? $durl : home_url()) . 'dashboard/?login_failure=1' );
 		exit;
 	}

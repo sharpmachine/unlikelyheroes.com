@@ -31,6 +31,11 @@ $type = get_post_meta($id, 'ign_project_type', true);
 	<div class="container">
 		<div class="row main-content single-campaign">
 			<div class="col-md-10 col-md-offset-1">
+
+				<?php if (isset($_GET['cc_success']) && $_GET['cc_success'] == 1): ?>
+					<div class="alert alert-success"><h4 class="text-center">You've successfully supported "<?php echo $summary->name; ?>"</h4></div>
+				<?php endif; ?>
+
 				<div class="row">
 					<div class="col-xs-12 col-md-5 pull-right">
 						<h3><?php echo $summary->name; ?></h3>
