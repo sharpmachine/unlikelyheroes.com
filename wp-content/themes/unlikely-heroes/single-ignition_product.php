@@ -72,10 +72,10 @@ $type = get_post_meta($id, 'ign_project_type', true);
 							<a href=""><?php _e('Project Closed', 'fivehundred'); ?></a>
 							<?php }else {?>
 							<?php if (empty($permalinks) || $permalinks == '') { ?>
-							<a href="<?php bloginfo('url'); ?>/campaign-support/?purchaseform=500&amp;prodid=<?php echo (isset($project_id) ? $project_id : ''); ?>" class="btn btn-lg btn-block">Support Now</a>
+							<a href="<?php echo site_url('/campaign-support/', 'https'); ?>?purchaseform=500&amp;prodid=<?php echo (isset($project_id) ? $project_id : ''); ?>" class="btn btn-lg btn-block">Support Now</a>
 							<?php }
 							else { ?>
-							<a href="<?php bloginfo('url'); ?>/campaign-support/?purchaseform=500&amp;prodid=<?php echo (isset($project_id) ? $project_id : ''); ?>" class="btn btn-lg btn-block">Support Now</a>
+							<a href="<?php echo site_url('/campaign-support/', 'https'); ?>?purchaseform=500&amp;prodid=<?php echo (isset($project_id) ? $project_id : ''); ?>" class="btn btn-lg btn-block">Support Now</a>
 							<?php } ?>
 							<?php }?>
 						</div>
