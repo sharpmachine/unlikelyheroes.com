@@ -119,15 +119,13 @@
 				<div class="row">
 					<div class="col-md-12">
 						<hr>
-						<h4 class="text-center">Pay By:</h4>
 						<div id="payment-choices" class="payment-type-selector donation-payment-buttons text-center">
+							<h4>Pay By:</h4>
 							<?php $pay_choices = '<a id="pay-with-paypal" class="pay-choice btn" href="#"><span class="icon-paypal"></span> Paypal</a> <span class="or">Or</span>'; ?>
 							<?php echo apply_filters('id_pay_choices', $pay_choices, $project_id); ?>
 						</div>
 					</div>
 				</div>
-
-				
 
 				<div class="row">
 					<div class="col-md-12">

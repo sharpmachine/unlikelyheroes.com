@@ -874,3 +874,12 @@ function soi_login_redirect( $redirect_to, $request, $user  ) {
 	return ( is_array( $user->roles ) && in_array( 'administrator', $user->roles ) ) ? admin_url() : site_url('/dashboard/');
 } // end soi_login_redirect
 add_filter( 'login_redirect', 'soi_login_redirect', 10, 3 );
+
+function baw_no_admin_access()
+{
+	if( !current_user_can( 'administrator' ) ) {
+		wp_redirect( home_url() );
+		die();
+	}
+}
+add_action( 'admin_init', 'baw_no_admin_access', 1 );
