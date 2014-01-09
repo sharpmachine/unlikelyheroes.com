@@ -120,17 +120,22 @@ return array(
 		2 => 'wp-locations.php',
 	),
 	'pgcache.accept.qs' => array(
+		0 => '',
 	),
 	'pgcache.reject.front_page' => false,
 	'pgcache.reject.logged' => true,
 	'pgcache.reject.logged_roles' => false,
 	'pgcache.reject.roles' => array(
+		0 => '',
 	),
 	'pgcache.reject.uri' => array(
 		0 => 'wp-.*\\.php',
 		1 => 'index\\.php',
+		2 => '/dashboard',
+		3 => '/sign-up',
 	),
 	'pgcache.reject.ua' => array(
+		0 => '',
 	),
 	'pgcache.reject.cookie' => array(
 		0 => 'wptouch_switch_toggle',
@@ -154,6 +159,7 @@ return array(
 	),
 	'pgcache.purge.postpages_limit' => 10,
 	'pgcache.purge.pages' => array(
+		0 => '',
 	),
 	'pgcache.purge.sitemap_regex' => '([a-z0-9_\\-]*?)sitemap([a-z0-9_\\-]*)?\\.xml',
 	'pgcache.prime.enabled' => false,
@@ -441,7 +447,7 @@ return array(
 	'browsercache.other.etag' => false,
 	'browsercache.other.w3tc' => false,
 	'browsercache.other.replace' => false,
-	'browsercache.timestamp' => '',
+	'browsercache.timestamp' => '1389139190',
 	'browsercache.replace.exceptions' => array(
 	),
 	'mobile.enabled' => false,
