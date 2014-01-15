@@ -410,7 +410,21 @@ body {
 
 	.box-one-img {
 		background-color: @brand-teal;
+		// height: 148px;
+		overflow: hidden;
 		.transition(0.2s background-color ease);
+
+		@media (min-width: @screen-sm) {
+			height: 203px;
+		}
+
+		@media (min-width: @screen-md) {
+			height: 115px;
+		}
+
+		@media (min-width: @screen-lg) {
+			height: 148px;
+		}
 	}
 
 	.box-one-action {
