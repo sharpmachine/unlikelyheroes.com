@@ -1,5 +1,9 @@
-<div class="wrap">
-	<div class="icon32" id="icon-md"></div><h2><?php _e('Amazon S3 Configuration', 'memberdeck'); ?></h2>
+<div class="wrap memberdeck">
+	<div class="icon32" id="icon-md"></div><h2 class="title"><?php _e('Amazon S3 Configuration', 'memberdeck'); ?></h2>
+	<div class="help">
+		<a href="http://forums.ignitiondeck.com" alt="IgnitionDeck Support" title="IgnitionDeck Support" target="_blank"><button class="button button-large"><?php _e('Support', 'memberdeck'); ?></button></a>
+		<a href="http://docs.ignitiondeck.com" alt="IgnitionDeck Documentation" title="IgnitionDeck Documentation" target="_blank"><button class="button button-large"><?php _e('Documentation', 'memberdeck'); ?></button></a>
+	</div>
 	<div class="md-settings-container">
 	<div class="postbox-container" style="width:65%; margin-right: 3%">
 		<div class="metabox-holder">

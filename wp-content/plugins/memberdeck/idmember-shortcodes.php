@@ -4,7 +4,8 @@ add_shortcode('memberdeck_dashboard', 'memberdeck_dashboard');
 function memberdeck_dashboard() {
 	ob_start();
 	global $crowdfunding;
-	global $instant_checkout;
+	$instant_checkout = instant_checkout();
+	/* Mange Dashboard Visibility */
 	if (is_user_logged_in()) {
 		global $current_user;
 		$user_id = $current_user->ID;
@@ -120,7 +121,7 @@ function memberdeck_dashboard() {
 			}
 		}
 
-		global $md_credits;
+		$md_credits = md_credits();
 		$settings = get_option('memberdeck_gateways', true);
 		if (isset($settings)) {
 			$options = unserialize($settings);
@@ -128,10 +129,10 @@ function memberdeck_dashboard() {
 				$es = $options['es'];
 				$eb = $options['eb'];
 				if ($es == 1) {
-					global $customer_id;
+					$customer_id = customer_id();
 				}
 				else if ($eb == 1) {
-					global $balanced_customer_id;
+					$balanced_customer_id = balanced_customer_id();
 					$customer_id = $balanced_customer_id;
 				}
 			}
@@ -159,8 +160,8 @@ add_shortcode('memberdeck_checkout', 'memberdeck_checkout');
 
 function memberdeck_checkout($attrs) {
 	ob_start();
-	global $customer_id;
-	global $instant_checkout;
+	$customer_id = customer_id();
+	$instant_checkout = instant_checkout();
 	global $crowdfunding;
 	// use the shortcode attr to get our level id
 	$product_id = $attrs['product'];
@@ -224,23 +225,26 @@ function memberdeck_checkout($attrs) {
 			$settings = unserialize($settings);
 			if (is_array($settings)) {
 				$esc = $settings['esc'];
-				if ($esc == '1') {
-					$check_claim = get_option('md_level_'.$product_id.'_owner');
-					if (!empty($check_claim)) {
-						// do stuff
-						$claimed_paypal = get_user_meta($check_claim, 'md_paypal_email', true);
+				$check_claim = get_option('md_level_'.$product_id.'_owner');
+				if (!empty($check_claim)) {
+					if ($esc == '1') {						
 						$md_sc_creds = get_sc_params($check_claim);
 						if (!empty($md_sc_creds)) {
 							$sc_accesstoken = $md_sc_creds->access_token;
 							$sc_pubkey = $md_sc_creds->stripe_publishable_key;
 						}
 					}
+					else if ($epp == '1') {
+						$claimed_paypal = get_user_meta($check_claim, 'md_paypal_email', true);
+					}
 				}
 			}
 		}
 	}
 	if ($es == 1) {
-		require_once 'lib/Stripe.php';
+		if (!class_exists('Stripe')) {
+			require_once 'lib/Stripe.php';
+		}
 		if (isset($test) && $test == '1') {
 			Stripe::setApiKey($tsk);
 		}

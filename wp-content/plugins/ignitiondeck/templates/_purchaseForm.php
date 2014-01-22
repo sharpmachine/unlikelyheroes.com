@@ -1,4 +1,3 @@
-
 <?php
 /**
  * The Template for displaying purchase form.
@@ -17,9 +16,10 @@
 <script src="https://www.paypalobjects.com/js/external/dg.js"></script>
 <div class="ignitiondeck id-purchase-form-full">
 <div class="id-checkout-description">
-	<h3 class="text-center">You're about to support <?php echo (isset($purchase_form->the_project) ? stripslashes($purchase_form->the_project->product_name) : '');?>.</h3>
+	<p>
+			<?php echo $tr_ThankYouText; ?> <?php echo (isset($purchase_form->the_project) ? stripslashes($purchase_form->the_project->product_name) : '');?>.
+		</p>
 </div>
-<hr>
 <div class="id-purchase-form-wrapper">
 <div class="id-purchase-form">
 	<div id="<?php echo $purchase_form->form_id; ?>-pay-form">
@@ -27,8 +27,7 @@
 			<input type="hidden" name="project_id" value="<?php echo ($purchase_form->project_id); ?>" />
 			<ul>
 				<li>
-					<h4 class="text-center"><?php echo $tr_Payment_Information; ?></h4>
-					<br>
+					<h4><?php echo $tr_Payment_Information; ?></h4>
 				</li>
 				<li id="id-notifications"><div class="notification"></div></li>
 				<li id="message-container" <?php echo (!isset($_SESSION['paypal_errors_content']) || $_SESSION['paypal_errors_content'] == "" ? 'style="display: none;"' : ''); ?>>
@@ -75,7 +74,7 @@
 						<?php if(isset($purchase_form->form_settings['address']['mandatory'])): ?>
 						<span class="required-mark"><?php echo $tr_Required;  ?></span>
 						<?php endif; ?></label>
-					<div class="idfield"><input type="text" name="address" class="<?php echo (isset($purchase_form->form_settings['address']['mandatory']))?'required':''; ?>" id="address"></textarea></div>
+					<div class="idfield"><textarea name="address" class="<?php echo (isset($purchase_form->form_settings['address']['mandatory']))?'required':''; ?>" id="address"></textarea></div>
 				</li>
 				<?php endif; ?>
 				<?php if(isset($purchase_form->form_settings['city']['status'])):?>
@@ -115,24 +114,11 @@
 				</li>
 				<?php endif; ?>
 				<?php $output = null; ?>
-
-				<div class="row">
-					<div class="col-md-12">
-						<hr>
-						<div id="payment-choices" class="payment-type-selector donation-payment-buttons text-center">
-							<h4>Pay By:</h4>
-							<?php $pay_choices = '<a id="pay-with-paypal" class="pay-choice btn" href="#"><span class="icon-paypal"></span> Paypal</a> <span class="or">Or</span>'; ?>
-							<?php echo apply_filters('id_pay_choices', $pay_choices, $project_id); ?>
-						</div>
-					</div>
+				<div id="payment-choices" class="payment-type-selector">
+					<?php $pay_choices = '<a id="pay-with-paypal" class="pay-choice" href="#"><span>Pay with Paypal</span></a>'; ?>
+					<?php echo apply_filters('id_pay_choices', $pay_choices, $project_id); ?>
 				</div>
-
-				<div class="row">
-					<div class="col-md-12">
-						<?php echo apply_filters('id_purchaseform_extrafields', $output); ?>
-					</div>
-				</div>
-				
+				<?php echo apply_filters('id_purchaseform_extrafields', $output); ?>
 				<li class="form-row">
 					<?php 
 					if (isset($level) && $level > 0) {
@@ -150,7 +136,7 @@
 						}
 					} 
 					else if (isset($purchase_form->project_type) && $purchase_form->project_type !== "pwyw") { ?>
-							<label class="idfield_label" for="level_select">Choose your reward:</label>
+							<label class="idfield_label" for="level_select"><?php echo $tr_Level; ?>:</label>
 							<div class="idfield">
 								<select name="level_select" id="level_select">
 									<?php foreach ($purchase_form->level_data as $level_item) {
@@ -172,7 +158,19 @@
 						<input type="hidden" name="level_select" id="level_select" value="1"/>
 					<?php }	?>
 				</li>
-				
+				<li class="form-row">
+					<div class="id-checkout-level-desc" desc="$">
+						<strong>
+							<?php echo (isset($purchase_form->project_type) && $purchase_form->project_type !== "pwyw" ? $tr_Level.': ' : ''); ?>
+						</strong>
+						<?php if (isset($level) && $level >= 1) {
+							echo (isset($meta_desc) ? $meta_desc : '');
+						}
+						else {
+							echo (isset($purchase_form->the_project) ? $purchase_form->the_project->product_details : '');
+						} ?>
+					</div>
+				</li>
 						<input type="hidden" name="price" value="<?php 
 							if (isset($level) && $level >= 1) {
 								echo (isset($meta_price) ? $meta_price : '');
@@ -198,7 +196,7 @@
 								} ?>
 						</div>
 					</div>
-					<div class="ign-checkout-button text-center"><input class="main-btn btn-btn-lg" type="submit" value="<?php echo $tr_Make_Payment; ?>" name="<?php echo $purchase_form->submit_btn_name ?>" id="button_pay_purchase"/>
+					<div class="ign-checkout-button"><input class="main-btn" type="submit" value="<?php echo $tr_Make_Payment; ?>" name="<?php echo $purchase_form->submit_btn_name ?>" id="button_pay_purchase"/>
 					</div>
 					<div class="clear"></div>
 				</li>
@@ -208,6 +206,6 @@
 </div><!-- .id-purchase-form -->
 </div><!-- .id-purchase-form-wrapper -->
 	<div class="project_disclaimer">
-			<?php // echo (isset($purchase_form->project_disc) ? $purchase_form->project_disc : ''); ?>
+			<?php echo (isset($purchase_form->project_disc) ? $purchase_form->project_disc : ''); ?>
 		</div>
 </div><!-- .id-purchase-form-full -->

@@ -33,7 +33,7 @@ if ($settings->prod_page_pinterest) {
 	
 	echo '<div id="share-pinterest" class="social-share social-button"><a href="http://pinterest.com/pin/create/button/?url='.currentPageURL().'&media='.get_post_meta($post_id, "ign_product_image1", true).'" class="pin-it-button" count-layout="horizontal"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script></div>';
 }
-echo '<div id="share-embed" class="social-share"><i class="icon-code"></i></div>';
+echo '<div id="share-embed" class="social-share"><i class="fa fa-code"></i></div>';
 ?>
 <div class="embed-box social-share" style="display: none;">
 	<code>&#60;iframe frameBorder="0" scrolling="no" src="<?php echo home_url(); ?>/?ig_embed_widget=1&product_no=<?php echo (isset($project_id) ? $project_id : ''); ?>" width="214" height="366"&#62;&#60;/iframe&#62;</code>

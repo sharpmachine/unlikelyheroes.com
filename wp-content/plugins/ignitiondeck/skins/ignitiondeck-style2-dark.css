@@ -160,7 +160,7 @@
   .ignitiondeck.id-creatorprofile .id-creator-links a.facebook, .ignitiondeck.id-creatorprofile .id-creator-links a.twitter, .ignitiondeck.id-creatorprofile .id-creator-links a.gplus {
     color: #b3b3b3; }
 
-.ignitiondeck .id-purchase-form-wrapper {
+.ignitiondeck .id-purchase-form-wrapper, .ignitiondeck .id-fes-form-wrapper {
   background-image: rgba(63, 63, 63, 0.2);
   /* Old browsers */
   background-image: -moz-linear-gradient(rgba(179, 179, 179, 0.3) 0%, rgba(63, 63, 63, 0.2) 60%);

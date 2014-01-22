@@ -2,7 +2,7 @@
 	<div class="id-creator-avatar"><img src="<?php echo (isset($company_logo) ? $company_logo : ''); ?>" title="Creator Name"/></div>
 	<div class="id-creator-content">
 		<div class="id-creator-name"><?php echo (isset($company_name) ? $company_name : ''); ?></div>
-		<div class="id-creator-title"><?php echo (isset($company_location) ? $company_location : ''); ?></div>
+		<div class="id-creator-location"><?php echo (isset($company_location) ? $company_location : ''); ?></div>
 	</div>
 	<div class="id-creator-links">
 		<?php if (!empty($company_twitter)) { ?>

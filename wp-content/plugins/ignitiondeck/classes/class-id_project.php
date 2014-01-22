@@ -84,7 +84,7 @@ class ID_Project {
 
 	function get_project_orders() {
 		global $wpdb;
-		$sql = $wpdb->prepare('SELECT COUNT(*) AS count FROM '.$wpdb->prefix.'ign_pay_info WHERE product_id= %d', $this->id);
+		$sql = $wpdb->prepare('SELECT COUNT(*) AS count FROM '.$wpdb->prefix.'ign_pay_info WHERE product_id = %d', $this->id);
 		$res = $wpdb->get_row($sql);
 		if (!empty($res)) {
 			return $res->count;
@@ -96,13 +96,13 @@ class ID_Project {
 
 	function get_project_raised() {
 		global $wpdb;
-		$sql = $wpdb->prepare('Select SUM(prod_price) AS raise from '.$wpdb->prefix . 'ign_pay_info where product_id= %d', $this->id);
+		$sql = 'Select SUM(prod_price) AS raise from '.$wpdb->prefix.'ign_pay_info where product_id = "'.$this->id.'"';
 		$res = $wpdb->get_row($sql);
 		if (!empty($res->raise)) {
-			return $res->raise;
+			return str_replace(',', '', $res->raise);
 		}
 		else {
-			return 0;
+			return '0';
 		}
 	}
 

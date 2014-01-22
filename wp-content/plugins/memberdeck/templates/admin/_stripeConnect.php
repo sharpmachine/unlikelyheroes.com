@@ -1,5 +1,10 @@
-<div class="wrap">
-	<div class="icon32" id="icon-options-general"></div><h2><?php _e('Stripe Connect', 'memberdeck'); ?></h2>
+<div class="wrap memberdeck">
+	<div class="icon32" id="icon-options-general"></div><h2 class="title"><?php _e('Stripe Connect', 'memberdeck'); ?></h2>
+	<div class="help">
+		<a href="http://forums.ignitiondeck.com" alt="IgnitionDeck Support" title="IgnitionDeck Support" target="_blank"><button class="button button-large"><?php _e('Support', 'memberdeck'); ?></button></a>
+		<a href="http://docs.ignitiondeck.com" alt="IgnitionDeck Documentation" title="IgnitionDeck Documentation" target="_blank"><button class="button button-large"><?php _e('Documentation', 'memberdeck'); ?></button></a>
+	</div>
+	<br style="clear: both;"/>
 	<div class="postbox-container" style="width:60%; margin-right: 5%">
 		<div class="metabox-holder">
 			<div class="meta-box-sortables" style="min-height:0;">
@@ -75,7 +80,7 @@
 		</div>
 	</div>
 	<!-- Begin Sidebar -->
-	<div class="postbox-container" style="width:25%;">
+	<div class="postbox-container" style="width:35%;">
 		<div class="metabox-holder">
 			<div class="meta-box-sortables" style="min-height:0;">
 				<div class="postbox">
@@ -83,6 +88,8 @@
 					<div class="inside">
 						<p><?php _e('Stripe Connect enables site owners to process transactions via Stripe Connect user accounts, and if desired, to charge a fee for doing so.', 'memberdeck'); ?></p>
 						<p><?php _e('In order to use <a href="https://stripe.com/connect" target="_blank">Stripe Connect</a>, you will need a <a href="http://stripe.com" target="_blank">Stripe account</a> with an application created via the dashboard.', 'memberdeck'); ?></p>	
+						<p><?php _e('When creating your Stripe Connect application, ensure that your URL\'s display as follows: ', 'memberdeck'); ?></p>
+						<p><strong><?php _e('http://yourdomain.com/[dashboard-link]?payment_settings=1&ipn_handler=sc_return', 'memberdeck'); ?></strong></p>
 					</div>
 				</div>
 			</div>

@@ -2,6 +2,7 @@
 	<div class="postbox-container" style="width:95%; margin-right: 5%">
 		<div class="metabox-holder">
 			<div class="meta-box-sortables" style="min-height:0;">
+				<?php if ($super) { ?>
 				<div class="postbox">
 					<h3 class="hndle"><span><?php echo $tr_License_Settings; ?></span></h3>
 					<div class="inside">
@@ -13,12 +14,16 @@
 									<input type="text" name="license_key" id="license_key" value="<?php echo (isset($license_key) ? $license_key : ''); ?>"/>
 								</li>
 								<li>
-									<button class="button button-primary"><?php echo $tr_Save.' '.($is_pro || $is_basic ? '<i class="fa fa-check"></i>' : '<i class="fa fa-times"></i>'); ?></button>
+									<button class="button button-primary"><?php _e('Validate', 'ignitiondeck'); ?></button>
+									<span class="license_validation">
+										<?php echo ($is_pro || $is_basic ? '<i class="fa fa-check"></i>'.__(' License Valid for', 'ignitiondeck').$type_msg : 'You are using IgnitionDeck Basic.<br/><a href="http://ignitiondeck.com/id/ignitiondeck-pricing" target="_blank">Upgrade now</a> to receive support, commerce, and free updates for a year.'); ?>
+									</span>
 								</li>
 							</ul>
 						</form>
 					</div>
 				</div>
+				<?php } ?>
 				<div class="postbox">
 					<h3 class="hndle"><span><?php echo $tr_General_Settings; ?></span></h3>
 					<div class="inside">

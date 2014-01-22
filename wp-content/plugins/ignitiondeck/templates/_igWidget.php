@@ -13,7 +13,7 @@
 					<?php if (!$custom || ($custom && isset($attrs['project_bar']))) { ?>
 					<div class="progress-wrapper">
 						<div class="progress-percentage"> <?php echo number_format(apply_filters('id_percentage_raised', $the_deck->rating_per, $the_deck->post_id, $the_deck->project->goal));?>% </div>
-						<div class="progress-bar" style="width: <?php apply_filters('id_percentage_raised', $the_deck->rating_per, $the_deck->post_id, $the_deck->project->goal); ?>%"> 
+						<div class="progress-bar" style="width: <?php echo apply_filters('id_percentage_raised', $the_deck->rating_per, $the_deck->post_id, $the_deck->project->goal); ?>%"> 
 						</div>
 						<!-- end progress bar --> 
 					</div>
@@ -57,10 +57,10 @@
 			<div class="separator">&nbsp;</div>
 			<?php if (!$custom || ($custom && isset($attrs['project_button']))) { ?>
 			<div class="btn-container">
-				<?php if (isset($the_deck->end_type) && $the_deck->end_type == 'open') { ?>
+				<?php if (isset($the_deck->end_type) && $the_deck->end_type == 'open' && is_id_licensed()) { ?>
 					<a href="<?php echo (isset($_GET['ig_embed_widget']) ? getProjectURLfromType($project_id) : getPurchaseURLfromType($project_id, 'purchaseform')); ?>" class="main-btn"><?php echo (isset($_GET['ig_embed_widget']) ? $tr_Learn_More : $tr_Support_Project); ?></a>
 				<?php } 
-				else if (isset($the_deck->days_left) && $the_deck->days_left > 0) { ?>
+				else if (isset($the_deck->days_left) && $the_deck->days_left > 0 && is_id_licensed()) { ?>
 				<a href="<?php echo (isset($_GET['ig_embed_widget']) ? getProjectURLfromType($project_id) : getPurchaseURLfromType($project_id, 'purchaseform')); ?>" class="main-btn"><?php echo (isset($_GET['ig_embed_widget']) ? $tr_Learn_More : $tr_Support_Project); ?></a>
 				<?php } ?>
 			</div>
@@ -79,11 +79,14 @@
 					<?php
 					if ($the_deck->project_type !== "pwyw") { ?>
 						<?php foreach ($the_deck->level_data as $level) { 
+							if (!is_id_licensed()) {
+								$level->level_invalid = 1;
+							}
 							if (isset($the_deck->end_type) && $the_deck->end_type == 'closed') {
 								if (isset($the_deck->days_left) && $the_deck->days_left > 0) {
 						?>
-								<a class="level-binding" <?php echo (isset($level->level_invalid) && $level->level_invalid ? '' : 'href="'.$url.'&level='.$level->id.'"'); ?>>
-						<?php 
+								<a class="level-binding" <?php echo (!isset($level->level_invalid) || $level->level_invalid ? '' : 'href="'.$url.'&level='.$level->id.'"'); ?>>
+						<?php
 								}
 								else { ?>
 									<a class="level-binding" <?php echo (isset($level->level_invalid) && $level->level_invalid ? '' : ''); ?>>
@@ -91,7 +94,7 @@
 								}
 							}
 							else { ?>
-								<a class="level-binding" <?php echo (isset($level->level_invalid) && $level->level_invalid ? '' : 'href="'.$url.'&level='.$level->id.'"'); ?>>
+								<a class="level-binding" <?php echo (!isset($level->level_invalid) || $level->level_invalid ? '' : 'href="'.$url.'&level='.$level->id.'"'); ?>>
 							<?php
 							}
 						?>

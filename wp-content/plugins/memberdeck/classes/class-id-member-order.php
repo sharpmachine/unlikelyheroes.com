@@ -33,7 +33,7 @@ class ID_Member_Order {
 
 	function add_order() {
 		if (empty($this->e_date)) {
-			$this->e_date = &$this->get_e_date();
+			$this->e_date = $this->get_e_date();
 		}
 		global $wpdb;
 		$sql = $wpdb->prepare('INSERT INTO '.$wpdb->prefix.'memberdeck_orders (user_id, 

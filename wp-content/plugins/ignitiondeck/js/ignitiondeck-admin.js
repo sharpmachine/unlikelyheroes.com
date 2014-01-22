@@ -1,4 +1,18 @@
 jQuery(document).ready(function() {
+	// FOR getting the project number, is called for the ignitiondeck-functions.php when Product
+	// is changed in Add Post/Add Page page
+	jQuery('#project_id_shortcodes').change(function () {
+		var prod_num = jQuery(this).val();
+		jQuery.ajax({
+			type: "POST",
+			url: 'admin-ajax.php',
+			data: {action: 'get_product_number', product_id: prod_num},
+			success: function(html) {						
+				//alert(jQuery.trim(html));
+				jQuery('.id-metabox-short-codes .shortcode-content span').html(jQuery.trim(html));
+			}
+		});
+	});
 	// edit project page
 	var short_desc = 'ign_project_description';
 	var long_desc = 'ign_project_long_description';
@@ -39,6 +53,17 @@ jQuery(document).ready(function() {
 			tinyMCE.execCommand('mceAddControl', false, faq);
 		});
 	}
+	var pwywSetting = jQuery('input[name="ign_project_type"]:checked').val();
+	if (pwywSetting == undefined) {
+		jQuery('input[name="ign_project_type"]').eq(1).attr('checked', 'checked');
+	}
+
+	var endTypeSetting = jQuery('input[name="ign_end_type"]:checked').val();
+	if (endTypeSetting == undefined) {
+		jQuery('input[name="ign_end_type"]').eq(1).attr('checked', 'checked');
+	}
+
+	/* ------ */
 	jQuery('#payment_gateway').change(function() {
 		var option2 = jQuery('#payment_gateway').val();
 
@@ -236,3 +261,61 @@ jQuery(document).ready(function() {
 		jQuery(this).attr('checked', 'checked');
 	});
 });
+
+function storeurladdress() {
+   	if(document.getElementById('select_pageurls').value == 'external_url')
+   	{
+	   	document.getElementById('proj_url_cont').style.display = 'block';
+	   	document.getElementById('proj_posts').style.display = 'none';
+   	}
+   	else if(document.getElementById('select_pageurls').value == 'page_or_post')
+   	{
+	   	document.getElementById('proj_posts').style.display = 'block';
+	   	document.getElementById('proj_url_cont').style.display = 'none';
+   	}
+   	else if(document.getElementById('select_pageurls').value == 'current_page')
+	{
+		document.getElementById('proj_posts').style.display = 'none';
+	   	document.getElementById('proj_url_cont').style.display = 'none';
+	}
+}
+
+function storepurchaseurladdress() {
+   	if(document.getElementById('select_purchase_pageurls').value == 'external_url')
+   	{
+	   	document.getElementById('purchase_url_cont').style.display = 'block';
+	   	document.getElementById('purchase_posts').style.display = 'none';
+   	}
+   	else if(document.getElementById('select_purchase_pageurls').value == 'page_or_post')
+   	{
+	   	document.getElementById('purchase_posts').style.display = 'block';
+	   	document.getElementById('purchase_url_cont').style.display = 'none';
+   	}
+   	else if(document.getElementById('select_purchase_pageurls').value == 'current_page')
+	{
+		document.getElementById('purchase_posts').style.display = 'none';
+	   	document.getElementById('purchase_url_cont').style.display = 'none';
+	}
+}
+
+function storetyurladdress()
+{
+   	if(document.getElementById('select_ty_pageurls').value == 'external_url')
+   	{
+	   	document.getElementById('ty_url_cont').style.display = 'block';
+	   	document.getElementById('ty_posts').style.display = 'none';
+   	}
+   	else if(document.getElementById('select_ty_pageurls').value == 'page_or_post')
+   	{
+	   	document.getElementById('ty_posts').style.display = 'block';
+	   	document.getElementById('ty_url_cont').style.display = 'none';
+   	}
+   	else if(document.getElementById('select_ty_pageurls').value == 'current_page')
+	{
+		document.getElementById('ty_posts').style.display = 'none';
+	   	document.getElementById('ty_url_cont').style.display = 'none';
+	}
+}
+function toggleDiv(divId) {
+	jQuery("#"+divId).slideToggle();
+}

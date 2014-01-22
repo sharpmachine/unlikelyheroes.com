@@ -1,9 +1,9 @@
-jQuery(document).ready(function($) {
+jQuery(document).ready(function() {
 	 
 	// Datepicker
-	$('.cmb_datepicker').each(function (){
-		$('#' + jQuery(this).attr('id')).datepicker();
-		// $('#' + jQuery(this).attr('id')).datepicker({ dateFormat: 'yy-mm-dd' });
+	jQuery('.cmb_datepicker').each(function (){
+		jQuery('#' + jQuery(this).attr('id')).datepicker();
+		// jQuery('#' + jQuery(this).attr('id')).datepicker({ dateFormat: 'yy-mm-dd' });
 		// For more options see http://jqueryui.com/demos/datepicker/#option-dateFormat
 	});
 	
@@ -14,16 +14,16 @@ jQuery(document).ready(function($) {
 	var formfield;
 	var uploadStatus = true;
 	
-	$('.upload_button').click(function() {
-		formfield = $(this).prev('input').attr('name');
+	jQuery('.upload_button').click(function() {
+		formfield = jQuery(this).prev('input').attr('name');
 		tb_show('', 'media-upload.php?post_id=' + pID + 'type=image&cbm_setting=cbm_value&TB_iframe=true');
 		return false;
 	});
 	
-	$('.remove_file_button').live('click', function() {
-		formfield = $(this).attr('rel');
-		$('input.' + formfield).val('');
-		$(this).parent().remove();
+	jQuery('.remove_file_button').on('click', function() {
+		formfield = jQuery(this).attr('rel');
+		jQuery('input.' + formfield).val('');
+		jQuery(this).parent().remove();
 		return false;
 	});
 	var type = jQuery('input[name*="ign_project_type"]:checked').val();
@@ -48,19 +48,19 @@ jQuery(document).ready(function($) {
 	});
 	
 	/*
-	$( 'div#gallery-settings' ).hide();
-	$( '.savesend input.button[value*="Insert into Post"], .media-item #go_button' ).attr( 'value', 'Use this File' );
-	$( '.savesend a.wp-post-thumbnail' ).hide();
-	$( '#media-items .align' ).hide();
-	$( '#media-items .url' ).hide();
+	jQuery( 'div#gallery-settings' ).hide();
+	jQuery( '.savesend input.button[value*="Insert into Post"], .media-item #go_button' ).attr( 'value', 'Use this File' );
+	jQuery( '.savesend a.wp-post-thumbnail' ).hide();
+	jQuery( '#media-items .align' ).hide();
+	jQuery( '#media-items .url' ).hide();
 	*/
 	
 	window.original_send_to_editor = window.send_to_editor;
     window.send_to_editor = function(html) {
 		if (formfield) {
 			
-	        if ( $(html).html(html).find('img').length > 0 ) {
-	        	itemurl = $(html).html(html).find('img').attr('src'); // Use the URL to the size selected.
+	        if ( jQuery(html).html(html).find('img').length > 0 ) {
+	        	itemurl = jQuery(html).html(html).find('img').attr('src'); // Use the URL to the size selected.
 	        } else {
 	        	// It's not an image. Get the URL to the file instead.
 	        	var htmlBits = html.split("'"); // jQuery seems to strip out XHTML when assigning the string to an object. Use alternate method.
@@ -84,8 +84,8 @@ jQuery(document).ready(function($) {
 				uploadStatus = '<div class="no_image"><span class="file_link">'+html+'</span>&nbsp;&nbsp;&nbsp;<a href="#" class="remove_file_button" rel="' + formfield + '">Remove</a></div>';
 			}
 
-			$('.' + formfield).val(itemurl);
-			$('.' + formfield).siblings('.cmb_upload_status').slideDown().html(uploadStatus);
+			jQuery('.' + formfield).val(itemurl);
+			jQuery('.' + formfield).siblings('.cmb_upload_status').slideDown().html(uploadStatus);
 			tb_remove();
         
 		} else {

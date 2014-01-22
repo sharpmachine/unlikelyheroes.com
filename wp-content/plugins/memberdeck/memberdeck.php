@@ -8,7 +8,7 @@
 Plugin Name: MemberDeck
 URI: http://MemberDeck.com
 Description: A powerful, yet simple, content delivery system for WordPress. Features a widgetized dashboard so you can customize your product offerings, instant checkout, credits, and more.
-Version: 1.2.2
+Version: 1.2.5
 Author: Virtuous Giant
 Author URI: http://VirtuousGiant.com
 License: GPL2
@@ -17,7 +17,7 @@ License: GPL2
 define( 'MD_PATH', plugin_dir_path(__FILE__) );
 
 global $memberdeck_db_version;
-$memberdeck_db_version = "1.2.2";
+$memberdeck_db_version = "1.2.5";
 
 include_once 'classes/class-id-member.php';
 include_once 'classes/class-id-member-level.php';
@@ -310,7 +310,7 @@ global $crowdfunding;
 function memberdeck_styles() {
 	wp_register_script('memberdeck-js', plugins_url('js/idmember.js', __FILE__));
 	wp_register_style('memberdeck', plugins_url('css/style.css', __FILE__));
-	wp_register_style('font-awesome', "//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css");
+	wp_register_style('font-awesome', "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
 	wp_enqueue_script('jquery');
 	wp_enqueue_script('memberdeck-js');
 	wp_enqueue_style('font-awesome');
@@ -319,6 +319,7 @@ function memberdeck_styles() {
 	$ajaxurl = site_url('/wp-admin/admin-ajax.php');
 	$pluginsurl = plugins_url('', __FILE__);
 	$siteurl = site_url();
+	$durl = md_get_durl();
 	$settings = get_option('memberdeck_gateways');
 	$test = '0';
 	if (!empty($settings)) {
@@ -417,6 +418,7 @@ function memberdeck_styles() {
 	wp_localize_script( 'memberdeck-js', 'memberdeck_ajaxurl', $ajaxurl );
 	wp_localize_script( 'memberdeck-js', 'memberdeck_siteurl', $siteurl );
 	wp_localize_script( 'memberdeck-js', 'memberdeck_pluginsurl', $pluginsurl );
+	wp_localize_script( 'memberdeck-js', 'memberdeck_durl', $durl);
 	wp_enqueue_style('memberdeck');
 };
 
@@ -934,6 +936,17 @@ function memberdeck_webhook_listener() {
 }
 
 add_action('init', 'memberdeck_webhook_listener');
+
+add_action('init', 'memberdeck_disable_autop', 1);
+
+function memberdeck_disable_autop() {
+	if (isset($_GET['action']) && $_GET['action'] == 'register') {
+		remove_filter('the_content', 'wpautop');
+	}
+	else if (isset($_GET['key_valid']) && isset($_GET['email'])) {
+		remove_filter('the_content', 'wpautop');
+	}
+}
 
 add_filter('the_content', 'idmember_registration_form', 1);
 

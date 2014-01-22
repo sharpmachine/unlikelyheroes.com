@@ -1,0 +1,1517 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"jum",
+				"jumbotronHeight"
+			],
+			[
+				"hal",
+				"halfHeight"
+			],
+			[
+				"ha",
+				"halfHeight"
+			],
+			[
+				"categor",
+				"categories_menu"
+			],
+			[
+				"cate",
+				"categories_menu"
+			],
+			[
+				"tags",
+				"tags_menu"
+			],
+			[
+				"categori",
+				"categories-menu"
+			],
+			[
+				"tr",
+				"transparent"
+			],
+			[
+				"user_l",
+				"is_user_logged_in"
+			],
+			[
+				"get_tema",
+				"get_template_part"
+			],
+			[
+				"get_templ",
+				"get_template_part"
+			],
+			[
+				"brand-",
+				"brand-blueDark"
+			],
+			[
+				"in",
+				"inline-block"
+			],
+			[
+				"accent",
+				"accent-color"
+			],
+			[
+				"brand",
+				"brand-blueDark"
+			],
+			[
+				"the",
+				"the_date"
+			],
+			[
+				"the_",
+				"the_permalink"
+			],
+			[
+				"que",
+				"query_posts"
+			],
+			[
+				"br",
+				"border-radius"
+			],
+			[
+				"z-",
+				"z-index"
+			],
+			[
+				"max",
+				"max-height"
+			],
+			[
+				"fs",
+				"font-size"
+			],
+			[
+				"Futura",
+				"FuturaBT-MediumCondensed"
+			],
+			[
+				"Futur",
+				"FuturaBT-Medium"
+			],
+			[
+				"Futu",
+				"FuturaBT-Light"
+			],
+			[
+				"tc",
+				"table-cell"
+			],
+			[
+				"gray-l",
+				"gray-light"
+			],
+			[
+				"gray-",
+				"gray-lighter"
+			],
+			[
+				"mw",
+				"max-width"
+			],
+			[
+				"va",
+				"va-bl	vertical-align: baseline;"
+			],
+			[
+				"fl",
+				"float"
+			],
+			[
+				"di",
+				"d-i	display: inline;"
+			],
+			[
+				"backg",
+				"background-size"
+			],
+			[
+				"bbn",
+				"bdb-n	border-bottom: none;"
+			],
+			[
+				"brn",
+				"bdr-n	border-right: none;"
+			],
+			[
+				"bg",
+				"bg+	background: ${1:#fff} url(${2}) ${3:0} ${4:0} ${5:no-repeat};"
+			],
+			[
+				"ls",
+				"letter-spacing"
+			],
+			[
+				"tt",
+				"text-transform"
+			],
+			[
+				"border",
+				"border-bottom"
+			],
+			[
+				"te",
+				"text-align"
+			],
+			[
+				"tal",
+				"text-align"
+			],
+			[
+				"d",
+				"display"
+			],
+			[
+				"po",
+				"po	position: relative"
+			],
+			[
+				"is_c",
+				"is_category"
+			],
+			[
+				"is_t",
+				"is_tax"
+			],
+			[
+				"ur",
+				"url"
+			],
+			[
+				"font",
+				"font-variant"
+			],
+			[
+				"for",
+				"foreach	foreach …"
+			],
+			[
+				"child_",
+				"child_terms"
+			],
+			[
+				"db",
+				"db	display: block"
+			],
+			[
+				"blog",
+				"bloginfo"
+			],
+			[
+				"fw",
+				"fwb	font-weight: bold"
+			],
+			[
+				"fon",
+				"font-style"
+			],
+			[
+				"template",
+				"template_directory"
+			],
+			[
+				"echo",
+				"echo"
+			],
+			[
+				"cb",
+				"clb	clear: both"
+			],
+			[
+				"carousel",
+				"carousel-caption"
+			],
+			[
+				"m",
+				"margin-left"
+			],
+			[
+				"get_te",
+				"get_template_part"
+			],
+			[
+				"visi",
+				"visible"
+			],
+			[
+				"fo",
+				"font-style"
+			],
+			[
+				"the_ti",
+				"the_title"
+			],
+			[
+				"bord",
+				"border-bottom"
+			],
+			[
+				"bor",
+				"border-bottom"
+			],
+			[
+				"h",
+				"height"
+			],
+			[
+				"le",
+				"letter-spacing"
+			],
+			[
+				"border-r",
+				"border-right"
+			],
+			[
+				"des",
+				"description"
+			],
+			[
+				"ff",
+				"font-family"
+			],
+			[
+				"gray",
+				"grayLighter"
+			],
+			[
+				"gra",
+				"grayLighter"
+			],
+			[
+				"re",
+				"relative"
+			],
+			[
+				"gr",
+				"grayDark"
+			],
+			[
+				"g",
+				"grayDark"
+			],
+			[
+				"clues-",
+				"clues-navi"
+			],
+			[
+				"clue",
+				"clues-nav"
+			],
+			[
+				"templa",
+				"template_directory"
+			],
+			[
+				"mar",
+				"margin-left"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "wp-content/themes/unlikely-heroes/header.php",
+			"settings":
+			{
+				"buffer_size": 2761,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 295.0,
+		"selected_items":
+		[
+			[
+				"car",
+				"Snippet: Bootstrap carousel"
+			],
+			[
+				"wordpre",
+				"WordPress: Open Config File"
+			],
+			[
+				"pa",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"package cont",
+				"Package Control: Install Package"
+			],
+			[
+				"brow",
+				"Preferences: Browse Packages"
+			],
+			[
+				"package",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"pac",
+				"Package Control: Install Package"
+			],
+			[
+				"Brow",
+				"Preferences: Browse Packages"
+			],
+			[
+				"Pack",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"mc",
+				"Set Syntax: mCSS"
+			],
+			[
+				"alert",
+				"Snippet: Bootstrap success alert"
+			],
+			[
+				"modal",
+				"Snippet: Bootstrap modal"
+			],
+			[
+				"upgrad",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"ugrad",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"u",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"up",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"caro",
+				"Snippet: Bootstrap carousel"
+			],
+			[
+				"ca",
+				"Snippet: Bootstrap carousel"
+			],
+			[
+				"pagin",
+				"Snippet: Bootstrap pagination"
+			],
+			[
+				"pag",
+				"Snippet: Bootstrap pagination"
+			],
+			[
+				"tabs",
+				"Snippet: Bootstrap tabbable navigation tabs"
+			],
+			[
+				"na",
+				"Snippet: Bootstrap tabbable navigation tabs on the left"
+			],
+			[
+				"nav",
+				"Snippet: Bootstrap tabbable navigation tabs on the left"
+			],
+			[
+				"button",
+				"Snippet: Bootstrap button dropdowns"
+			],
+			[
+				"nav ",
+				"Snippet: Bootstrap tabbable navigation tabs"
+			],
+			[
+				"carou",
+				"Snippet: Bootstrap carousel"
+			],
+			[
+				"Snippet: tabs",
+				"Snippet: Bootstrap basic tabs"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"insa",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"bootstrap form",
+				"Snippet: Bootstrap horizontal form"
+			],
+			[
+				"Tabs",
+				"Snippet: Bootstrap basic tabs"
+			],
+			[
+				"Bootstrap tab",
+				"Snippet: Bootstrap basic tabs"
+			],
+			[
+				"php",
+				"Snippet: The Loop"
+			],
+			[
+				"APck",
+				"Package Control: Enable Package"
+			],
+			[
+				"snippet",
+				"Snippet: Bootstrap large button"
+			],
+			[
+				"side",
+				"View: Toggle Open Files in Side Bar"
+			],
+			[
+				"snippet mar",
+				"Snippet: margin: all"
+			],
+			[
+				"JSO",
+				"Set Syntax: JSON"
+			],
+			[
+				"syntax jav",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"syntax ja",
+				"Set Syntax: Java"
+			]
+		],
+		"width": 593.0
+	},
+	"console":
+	{
+		"height": 0.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/page-sign-up.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/plugins/memberdeck/templates/_protectedPage.php",
+		"/Users/jessekade/Sites/chasingvictory.com/wp-content/themes/chasing-victory/home.php",
+		"/Users/jessekade/Sites/chasingvictory.com/wp-includes/functions.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/home.php",
+		"/Users/jessekade/Sites/otb-splash/index.html",
+		"/Users/jessekade/Sites/otb-splash/index-2.html",
+		"/Users/jessekade/Sites/themedev/wp-content/themes/unlikelyhero/page-us.php",
+		"/Users/jessekade/Sites/chasingvictory.com/wp-content/themes/chasing-victory/archive.php",
+		"/Users/jessekade/Sites/chasingvictory.com/wp-content/themes/chasing-victory/woocommerce/archive-product.php",
+		"/Users/jessekade/Sites/chasingvictory.com/wp-content/themes/chasing-victory/index.php",
+		"/Users/jessekade/Sites/chasingvictory.com/wp-content/themes/chasing-victory/style.css",
+		"/Users/jessekade/.bashrc",
+		"/Users/jessekade/.bash_profile",
+		"/Users/jessekade/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/jessekade/Sites/onthebeam.com/Gemfile.lock",
+		"/Users/jessekade/Sites/blog.onthebeam.com/wp-content/themes/otb-blog/functions/need-help-dashboard-widget.php",
+		"/Users/jessekade/Sites/blog.onthebeam.com/wp-content/themes/otb-blog/footer.php",
+		"/Users/jessekade/Sites/blog.onthebeam.com/wp-content/themes/otb-blog/blog-navigation.php",
+		"/Users/jessekade/Sites/blog.onthebeam.com/wp-content/themes/otb-blog/header-navigation.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/.git/MERGE_MSG",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/plugins/ignitiondeck/ignitiondeck-enterprise.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/plugins/memberdeck/templates/_myProjects.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/plugins/memberdeck/idmember-functions.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/news-ticker.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/.gitignore",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/plugins/memberdeck/inc/memberdeck-ide.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/functions.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/page-campaign-support.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/project-homes.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/create-campaign.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/campaign.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/single-ignition_product.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/plugins/memberdeck/templates/_mdProfileTabs.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/plugins/ignitiondeck/skins/ignitiondeck-uh.css",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/header.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/plugins/ignitiondeck/templates/_purchaseForm-custom.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/plugins/ignitiondeck/templates/_purchaseForm.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/plugins/ignitiondeck/ignitiondeck-base.css",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/page-the-problem.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/page-donate.php",
+		"/Users/jessekade/.profile",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/page-us.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/footer.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/plugins/memberdeck/templates/_editProfile.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/page-dashboard.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/campaign-listing.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/archive-ignition_product.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/plugins/ignitiondeck/templates/_purchaseForm-default.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/css/bootstrap.css",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/js/script.js",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/js/uservoice.js",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/js/plugins.js",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/js/script-min.js",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/archive.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/functions/need-help-dashboard-widget.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/functions/customize-admin.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/plugins/ignitiondeck/ignitiondeck.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/page-about.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/page.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/single.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/blog.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/loop-blog.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/loop-post.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/project-social.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/less/mixins.less",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/loop-single.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/social-media.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/page-contact.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/plugins/ignitiondeck/classes/class-id_form.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/plugins/ignitiondeck/classes/class-id_fes.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/loop-page.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/404.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/plugins/ignitiondeck/ignitiondeck-admin.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/plugins/ignitiondeck/templates/_projectContent.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/plugins/memberdeck/templates/_checkoutForm.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/plugins/memberdeck/languages/en_US.po",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/plugins/memberdeck/css/style.css",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-config.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/page-new-campaign.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/plugins/memberdeck/templates/_regForm.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/less/uh-variables.less",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/less/dropdowns.less",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/less/type.less",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/header-navigation.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/newsletter-signup.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/summary.php",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/js/sticky.js",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/js/color.js",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/comments.php",
+		"/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/lib/ruby/2.0.0/webrick/config.rb",
+		"/Users/jessekade/.rvm/rubies/ruby-2.0.0-p247/lib/ruby/2.0.0/webrick/config.rb",
+		"/Users/jessekade/Sites/unlikelyheroes.com/wp-content/themes/unlikely-heroes/index.php",
+		"/Users/jessekade/Sites/chasingvictory.com/wp-content/themes/chasing-victory/blog.php",
+		"/Users/jessekade/Sites/chasingvictory.com/wp-content/themes/chasing-victory/loop-blog-landing.php",
+		"/Users/jessekade/Sites/chasingvictory.com/wp-content/themes/chasing-victory/loop-post.php",
+		"/Users/jessekade/Sites/chasingvictory.com/wp-content/themes/chasing-victory/functions.php",
+		"/Users/jessekade/Sites/chasingvictory.com/wp-content/themes/chasing-victory/woocommerce",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/js/scripts.js",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/js/scripts-min.js",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/js/plugins.js",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/less/mixins.less",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/less/responsive.less",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/login.html",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/pages/features.php",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/partials/blocks/call_to_action.php",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/pages/pricing.php",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/pages/team.php",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/pages/faq.php",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/pages/faq/category.php",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/pages/faq/single.php",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/partials/navbar.php",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/partials/_footer.php",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/partials/blocks/pricing_plans.php",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/partials/_header.php",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/partials/blocks/pagination.php",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/pages/get_started.php",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/pages/signin.php",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/css/bootstrap.css",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/blog/wp-includes/category.php",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/pages/billing.php",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/pages/expired.php",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/partials/drawer.php",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/pages/404.php",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/partials/call_to_action.php",
+		"/Users/jessekade/Sites/onthebeam.com/.git/MERGE_MSG",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/blog/wp-includes/general-template.php",
+		"/Users/jessekade/Sites/onthebeam.com/marketing/less/drawer.less"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"standard",
+			"poop",
+			"repeater_field_name",
+			"facebook",
+			"options-page",
+			"carousel-example-generic",
+			"latest_updates",
+			"woocommerce_content",
+			"single-page",
+			"page-title",
+			"page-description",
+			"woocommerce-result-count",
+			"description",
+			"page-description",
+			"VirtualHost",
+			"NameVirtualHost",
+			"SSL",
+			"single-thumb",
+			"echo",
+			"<?php print BASEURL;?>",
+			"<?php bloginfo( 'url' ); ?>/..",
+			"<?php bloginfo( 'url' ); ?>/../../members",
+			"rubygems",
+			"site_url",
+			"login_failure",
+			"redirect",
+			"login",
+			"draft",
+			"project-status",
+			"Draft",
+			"Login failed",
+			"/?login_failure=1",
+			"redirect",
+			"registration_redirect",
+			"My Projects",
+			"My Campaign",
+			"navbar-collapse",
+			"</p>",
+			"<p>",
+			"</p>",
+			"</p> ",
+			"<p>",
+			"My Projects",
+			"My Projects:",
+			"My Projects",
+			".payment-type-selector a.active",
+			".id-purchase-form .payment-type-selector a.active",
+			"Level:",
+			"Sorry, no posts matched your criteria.",
+			"′",
+			"’",
+			"‘",
+			"′",
+			"’",
+			"‘",
+			"’",
+			"‘",
+			"the_project_image",
+			"ign_product_image",
+			"the_project_image",
+			"ign_product_image",
+			"repeater_field_name",
+			"v1/",
+			"v1/?=",
+			"v1",
+			"add_theme_support",
+			"form-row half",
+			"md",
+			"the forms",
+			"edit_project",
+			"ide_fes_submit_redirect",
+			"md",
+			"col-md-6",
+			"md",
+			"the foter",
+			"Required",
+			"class=\"idfield_label\"",
+			"12",
+			"Project",
+			"form-group ",
+			"col-md-12",
+			"id=\"fes\"",
+			"form",
+			"col-md-6",
+			"required",
+			"<p>",
+			"</p>",
+			"form-row",
+			"form-row third",
+			"form-row twothird left",
+			"register_post_type",
+			"_post_type_method",
+			"form-row idfield",
+			"li",
+			"Expiration",
+			"Pay with Credit Card",
+			"Credit Card",
+			"Pay with Credit Card",
+			"<div class=\"idfield\">",
+			"<?php echo $tr_Required;  ?>",
+			"<div class=\"form-group\"",
+			"</li>",
+			"li class",
+			"li",
+			"the_project_image_small",
+			"the_project_image",
+			"$image_url",
+			"get_the_product",
+			"required",
+			"form-row",
+			"class=\"input\"",
+			"input",
+			"<div",
+			"<div class",
+			"</p>",
+			"<p",
+			"SHITBOX",
+			"<?php\n$dash = get_option('md_dash_settings');\nif (!empty($dash)) {\n	$dash = unserialize($dash);\n	if (isset($durl)) {\n		$durl = $dash['durl'];\n	}\n	else {\n		$durl = home_url('/dashboard');\n	}\nthe_project",
+			"build_form",
+			"echo",
+			"the cam",
+			"title",
+			"short",
+			"latest_updates",
+			"onTimeDonations",
+			"oneTimeDonations",
+			"donations",
+			"fonts"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "wp-content/themes/unlikely-heroes/header.php",
+					"settings":
+					{
+						"buffer_size": 2761,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				0,
+				1,
+				1,
+				2
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			0.5,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"header",
+				"unlikely-heroes/header.php"
+			],
+			[
+				"sign",
+				"unlikely-heroes/page-sign-up.php"
+			],
+			[
+				"pro",
+				"memberdeck/templates/_protectedPage.php"
+			],
+			[
+				"style",
+				"less/style.less"
+			],
+			[
+				"scr",
+				"js/script.js"
+			],
+			[
+				"woo",
+				"woocommerce.php"
+			],
+			[
+				"home",
+				"home.php"
+			],
+			[
+				"func",
+				"functions.php"
+			],
+			[
+				"fun",
+				"wp-includes/functions.php"
+			],
+			[
+				"",
+				"index.html"
+			],
+			[
+				"var",
+				"less/variables.less"
+			],
+			[
+				"soc",
+				"social-media.php"
+			],
+			[
+				"page-",
+				"page-us.php"
+			],
+			[
+				"page",
+				"page.php"
+			],
+			[
+				"footer",
+				"footer.php"
+			],
+			[
+				"nav",
+				"header-navigation.php"
+			],
+			[
+				"us",
+				"page-us.php"
+			],
+			[
+				"in",
+				"index.php"
+			],
+			[
+				"loop",
+				"loop-page.php"
+			],
+			[
+				"va",
+				"less/variables.less"
+			],
+			[
+				"cam",
+				"campaign-listing.php"
+			],
+			[
+				"camp",
+				"campaign-listing.php"
+			],
+			[
+				"ind",
+				"index.php"
+			],
+			[
+				"sc",
+				"js/script.js"
+			],
+			[
+				"na",
+				"header-navigation.php"
+			],
+			[
+				"need",
+				"functions/need-help-dashboard-widget.php"
+			],
+			[
+				"cu",
+				"functions/customize-admin.php"
+			],
+			[
+				"pos",
+				"loop-post.php"
+			],
+			[
+				"blog",
+				"blog-navigation.php"
+			],
+			[
+				"he",
+				"header.php"
+			],
+			[
+				"sing",
+				"unlikely-heroes/single-ignition_product.php"
+			],
+			[
+				"campa",
+				"unlikely-heroes/campaign.php"
+			],
+			[
+				"proj",
+				"unlikely-heroes/project-homes.php"
+			],
+			[
+				"tabs",
+				"memberdeck/templates/_mdProfileTabs.php"
+			],
+			[
+				"new",
+				"unlikely-heroes/news-ticker.php"
+			],
+			[
+				"stick",
+				"unlikely-heroes/js/sticky.js"
+			],
+			[
+				"script",
+				"unlikely-heroes/js/script.js"
+			],
+			[
+				"hea",
+				"unlikely-heroes/header.php"
+			],
+			[
+				"donate",
+				"unlikely-heroes/page-donate.php"
+			],
+			[
+				"problem",
+				"unlikely-heroes/page-the-problem.php"
+			],
+			[
+				"base",
+				"ignitiondeck/ignitiondeck-base.css"
+			],
+			[
+				"boot",
+				"unlikely-heroes/css/bootstrap.css"
+			],
+			[
+				"pl",
+				"unlikely-heroes/js/plugins.js"
+			],
+			[
+				"plug",
+				"unlikely-heroes/js/plugins.js"
+			],
+			[
+				"crea",
+				"unlikely-heroes/create-campaign.php"
+			],
+			[
+				"archive",
+				"unlikely-heroes/archive.php"
+			],
+			[
+				"cre",
+				"unlikely-heroes/create-campaign.php"
+			],
+			[
+				"page-us",
+				"unlikely-heroes/page-us.php"
+			],
+			[
+				"dash",
+				"unlikely-heroes/page-dashboard.php"
+			],
+			[
+				"project",
+				"unlikely-heroes/project-social.php"
+			],
+			[
+				"looppost",
+				"unlikely-heroes/loop-post.php"
+			],
+			[
+				"loopblo",
+				"unlikely-heroes/loop-blog.php"
+			],
+			[
+				"loopblog",
+				"unlikely-heroes/loop-blog.php"
+			],
+			[
+				"single",
+				"unlikely-heroes/loop-single.php"
+			],
+			[
+				"scri",
+				"unlikely-heroes/js/script.js"
+			],
+			[
+				"cont",
+				"unlikely-heroes/page-contact.php"
+			],
+			[
+				"con",
+				"unlikely-heroes/page-contact.php"
+			],
+			[
+				"404",
+				"unlikely-heroes/404.php"
+			],
+			[
+				"about",
+				"unlikely-heroes/page-about.php"
+			],
+			[
+				"social",
+				"unlikely-heroes/social-media.php"
+			],
+			[
+				"news",
+				"unlikely-heroes/news-ticker.php"
+			],
+			[
+				"sign-up",
+				"unlikely-heroes/page-sign-up.php"
+			],
+			[
+				"_",
+				"memberdeck/templates/_protectedPage.php"
+			],
+			[
+				"page-das",
+				"unlikely-heroes/page-dashboard.php"
+			],
+			[
+				"ignition",
+				"ignitiondeck/ignitiondeck-admin.php"
+			],
+			[
+				"pagecam",
+				"unlikely-heroes/page-campaign-support.php"
+			],
+			[
+				"loop.php",
+				"loop-post.php"
+			],
+			[
+				"ar",
+				"archive.php"
+			],
+			[
+				"sum",
+				"summary.php"
+			],
+			[
+				"summ",
+				"summary.php"
+			],
+			[
+				"singl",
+				"single.php"
+			],
+			[
+				"ty",
+				"less/type.less"
+			],
+			[
+				"comm",
+				"comments.php"
+			],
+			[
+				"drop",
+				"less/dropdowns.less"
+			],
+			[
+				"mixi",
+				"less/mixins.less"
+			],
+			[
+				"hom",
+				"home-xxx.php"
+			],
+			[
+				"boo",
+				"less/bootstrap.less"
+			],
+			[
+				"ach",
+				"woocommerce/archive-product.php"
+			],
+			[
+				"lpo",
+				"loop-post.php"
+			],
+			[
+				"bll",
+				"loop-blog-landing.php"
+			],
+			[
+				"inde",
+				"index.php"
+			],
+			[
+				"loo",
+				"loop-page.php"
+			],
+			[
+				"erro",
+				"woocommerce/shop/errors.php"
+			],
+			[
+				"faq",
+				"pages/faq.php"
+			],
+			[
+				"login",
+				"login.html"
+			],
+			[
+				"pricing",
+				"pages/pricing.php"
+			],
+			[
+				"team",
+				"pages/team.php"
+			],
+			[
+				"res",
+				"less/responsive.less"
+			],
+			[
+				"categ",
+				"pages/faq/category.php"
+			],
+			[
+				"pric",
+				"pages/pricing.php"
+			],
+			[
+				"actio",
+				"partials/blocks/call_to_action.php"
+			],
+			[
+				"fea",
+				"pages/features.php"
+			],
+			[
+				"logi",
+				"login.html"
+			],
+			[
+				"action",
+				"partials/blocks/call_to_action.php"
+			],
+			[
+				"get",
+				"pages/get_started.php"
+			],
+			[
+				"cat",
+				"pages/faq/category.php"
+			],
+			[
+				"prici",
+				"pages/pricing.php"
+			],
+			[
+				"head",
+				"partials/_header.php"
+			],
+			[
+				"drawe",
+				"partials/drawer.php"
+			],
+			[
+				"si",
+				"pages/signin.php"
+			],
+			[
+				"mix",
+				"less/mixins.less"
+			],
+			[
+				"pri",
+				"pages/pricing.php"
+			],
+			[
+				"feature",
+				"pages/features.php"
+			],
+			[
+				"ge",
+				"pages/get_started.php"
+			],
+			[
+				"draw",
+				"less/drawer.less"
+			],
+			[
+				"otb",
+				"less/otb-theme.less"
+			],
+			[
+				"ot",
+				"less/otb-theme.less"
+			],
+			[
+				"styl",
+				"less/style.less"
+			],
+			[
+				"di",
+				"pages/discussion_thread.php"
+			],
+			[
+				"webin",
+				"pages/webinars.php"
+			],
+			[
+				"my",
+				"partials/blocks/my_feeds_actions.php"
+			],
+			[
+				"chan",
+				"partials/blocks/channels_all.php"
+			],
+			[
+				"cancel",
+				"partials/blocks/account_settings_cancel_account.php"
+			],
+			[
+				"acc",
+				"pages/account_settings.php"
+			],
+			[
+				"bill",
+				"partials/blocks/account_settings_billing.php"
+			],
+			[
+				"notes",
+				"partials/blocks/webinar_notes.php"
+			],
+			[
+				"com",
+				"partials/blocks/content_commenting.php"
+			],
+			[
+				"ak",
+				"partials/blocks/ask_on_twitter.php"
+			],
+			[
+				"deta",
+				"partials/blocks/webinar_details.php"
+			],
+			[
+				"past",
+				"partials/blocks/webinars_past_webinars.php"
+			],
+			[
+				"webinar",
+				"partials/blocks/webinars_upcoming_webinars.php"
+			],
+			[
+				"we",
+				"pages/webinars.php"
+			],
+			[
+				"upcoming",
+				"pages/upcoming_events.php"
+			],
+			[
+				"up",
+				"pages/upcoming_events.php"
+			],
+			[
+				"web",
+				"partials/blocks/webinar_notes.php"
+			],
+			[
+				"not",
+				"pages/notifications.php"
+			],
+			[
+				"goals",
+				"partials/blocks/goals_available_goals.php"
+			],
+			[
+				"dic",
+				"pages/discussions.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 219.0,
+	"status_bar_visible": true
+}

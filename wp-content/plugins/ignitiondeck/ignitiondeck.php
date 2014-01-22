@@ -7,7 +7,7 @@
 Plugin Name: IgnitionDeck Plugin
 URI: http://IgnitionDeck.com
 Description: A custom crowdfunding platform for WordPress. IgnitionDeck allows you to create unlimited and dynamic fundraising campaigns for physical and/or digital goods, integrates with a variety of email and ecommerce platforms, and is compatible with all WordPress themes 3.1+.
-Version: 1.3.4
+Version: 1.3.6
 Author: Virtuous Giant
 Author URI: http://VirtuousGiant.com
 License: GPL2
@@ -39,7 +39,7 @@ if (is_multisite() && is_id_pro()) {
 	}
 	// we are not in network admin, so we run regular activation script
 	else {
-		ign_pre_install();
+		register_activation_hook(__FILE__,'ign_pre_install');
 	}
 }
 
@@ -63,7 +63,7 @@ function install_id_for_blogs() {
 }
 
 global $ign_db_version;
-$ign_db_version = "1.3.4";
+$ign_db_version = "1.3.6";
 $ign_installed_ver = get_option( "ign_db_version" );
 
 function ign_pre_install ($blog_id = null) {
@@ -208,8 +208,6 @@ function ign_pre_install ($blog_id = null) {
 	
     $sql_aweber = "CREATE TABLE " . $aweber_settings . " (
 	id mediumint(9) NOT NULL AUTO_INCREMENT,
-	api_key VARCHAR( 250 ) NOT NULL,
-	api_secret VARCHAR ( 250 ) NOT NULL,
 	list_email VARCHAR( 100 ) NOT NULL,
 	is_active TINYINT( 2 ) NOT NULL,
 	UNIQUE KEY id (id));";
@@ -274,7 +272,7 @@ function ign_set_defaults() {
 	do_action('id_set_defaults');
 }
 
-register_deactivation_hook( __FILE__, 'ignitiondeck_deactivate' );
+//register_deactivation_hook( __FILE__, 'ignitiondeck_deactivate' );
 
 function ignitiondeck_deactivate(){
     global $wpdb;
@@ -336,6 +334,23 @@ function ignitiondeck_uninstall($blog_id = null) {
 	.'ign_products, '.$wpdb->base_prefix.'ign_product_settings, '.$wpdb->base_prefix.'ign_prod_default_settings, '.$wpdb->base_prefix.'ign_questions, '.
 	$wpdb->base_prefix.'ign_settings, '.$wpdb->base_prefix.'ign_twitterapp_settings';
 	$res = $wpdb->query($sql);
+
+	$options = array(
+		'id_license_key',
+		'is_id_pro',
+		'is_id_basic',
+		'id_settings_option',
+		'id_defaults_notice',
+		'id_settings_notice',
+		'id_products_notice',
+		'id_purchase_default',
+		'id_ty_default',
+		'id_email_inactive',
+		'ign_db_version',
+		);
+	foreach ($options as $option) {
+		delete_option($option);
+	}
 }
 /*
 End Pro Activation, Multisite Activation, Standard Activation
@@ -361,6 +376,9 @@ if (is_id_pro()) {
 	include_once 'ignitiondeck-enterprise.php';
 }
 include_once 'ignitiondeck-update.php';
+if (idf_exists()) {
+	include_once 'idf/ignitiondeck-idf.php';
+}
 
 /**
  * Register ignitiondeck domain for translation texts
@@ -435,7 +453,12 @@ function enqueue_front_js() {
     	}
     	
 	}
-    $id_ajaxurl = site_url('/').'wp-admin/admin-ajax.php';
+	if (is_multisite()) {
+		$id_ajaxurl = network_home_url('/').'wp-admin/admin-ajax.php';
+	}
+	else {
+    	$id_ajaxurl = site_url('/').'wp-admin/admin-ajax.php';
+    }
     $id_siteurl = site_url('/');
     wp_localize_script('ignitiondeck', 'id_ajaxurl', $id_ajaxurl);
     wp_localize_script('ignitiondeck', 'id_siteurl', $id_siteurl);
@@ -550,7 +573,9 @@ function productBuyout(){
 
     }
 }
-add_action('init', 'productBuyout');
+if (is_id_licensed()) {
+	add_action('init', 'productBuyout');
+}
 
 /*
  *	Function for catching the submission of popup, for using Paypal Adaptive Payments
@@ -759,12 +784,17 @@ function projectPurchaseAdaptive() {
 
 	}
 }
-add_action('init', 'projectPurchaseAdaptive');
+if (is_id_licensed()) {
+	add_action('init', 'projectPurchaseAdaptive');
+}
 
 function adaptivePreapproval() {
 	if (isset($_POST['btnSubmitPreapproval'])) {
 		global $wpdb;
 		$tz = get_option('timezone_string');
+		if (empty($tz)) {
+			$tz = 'UTC';
+		}
 		date_default_timezone_set($tz);
 		//print_r($_POST);
 		session_start();
@@ -912,8 +942,9 @@ function adaptivePreapproval() {
 
 	}
 }
-
-add_action('init', 'adaptivePreapproval');
+if (is_id_licensed()) {
+	add_action('init', 'adaptivePreapproval');
+}
 
 /*
  * 	Function for adding the Order if the payment is made successfully
@@ -926,7 +957,9 @@ function paymentSuccess() {
 		echo '<script type="text/javascript">window.location="'.$ty_url.'";</script>';
 	}
 }
-add_action('init', 'paymentSuccess');
+if (is_id_licensed()) {
+	add_action('init', 'paymentSuccess');
+}
 
 /*
  *
@@ -947,7 +980,9 @@ function id_parse_request($wp) {
         IPNHandler($wp);
     }
 }
-add_action('parse_request', 'id_parse_request');
+if (is_id_licensed()) {
+	add_action('parse_request', 'id_parse_request');
+}
 
  
 function id_rewrite_rules( $wp_rewrite ) {
@@ -960,6 +995,9 @@ function IPNHandler($wp) {
 	//if (isset($_GET['ipn_handler'])) {
 		global $wpdb;
 		$tz = get_option('timezone_string');
+		if (empty($tz)) {
+			$tz = 'UTC';
+		}
 		date_default_timezone_set($tz);
 		//unlink("log.txt");
 		//================================================================================================================
@@ -1307,6 +1345,9 @@ if (isset($_GET['adaptive_payment_cancel'])) {
 function embedWidget() {
 	global $wpdb;
 	$tz = get_option('timezone_string');
+	if (empty($tz)) {
+		$tz = 'UTC';
+	}
 	date_default_timezone_set($tz);
 	$theme_name = getThemeFileName();
 	
@@ -1363,8 +1404,14 @@ function embedWidget() {
 		}
 			
 		//GETTING the currency symbols
-		$currencyCodeValue = $prod_settings->currency_code;	
-		$cCode = setCurrencyCode($currencyCodeValue);
+		if (isset($prod_settings)) {
+			$currencyCodeValue = $prod_settings->currency_code;	
+			$cCode = setCurrencyCode($currencyCodeValue);
+		}
+		else {
+			$currencyCodeValue = 'USD';
+			$cCode = '$';
+		}
 		
 		//GETTING project URL
 		$product_url = getProjectURLfromType($project_id);
@@ -1388,6 +1435,9 @@ function askAQuestion() {
 	
 	if (isset($_POST['btnSubmitQuestion'])) {
 		$tz = get_option('timezone_string');
+		if (empty($tz)) {
+			$tz = 'UTC';
+		}
 		date_default_timezone_set($tz);
 		require 'languages/text_variables.php';
 		$settings = getSettings();
@@ -1453,12 +1503,15 @@ function askAQuestion() {
 /*
  *  Adding METABoxes code for displaying widget short codes
  */
+
 add_action( 'add_meta_boxes', 'add_project_url' );
-add_action( 'add_meta_boxes', 'add_purchase_url' );
-add_action( 'add_meta_boxes', 'add_ty_url' );
-add_action( 'add_meta_boxes', 'shortcode_side_meta' );
-add_action( 'add_meta_boxes', 'shortcode_on_post' );
-add_action( 'add_meta_boxes', 'shortcode_on_page' );
+if (is_id_licensed()) {
+	add_action( 'add_meta_boxes', 'add_purchase_url' );
+	add_action( 'add_meta_boxes', 'add_ty_url' );
+	add_action( 'add_meta_boxes', 'shortcode_side_meta' );
+	add_action( 'add_meta_boxes', 'shortcode_on_post' );
+	add_action( 'add_meta_boxes', 'shortcode_on_page' );
+}
 
 /* Adds a box to the main column on the Post and Page edit screens */
 function shortcode_side_meta() {
@@ -1575,6 +1628,7 @@ function add_purchase_url_box ($post) {
 				<td>Checkout Page</td>
 				<td>
 					<select name="ign_option_purchase_url" id="select_purchase_pageurls" onchange=storepurchaseurladdress();>
+						<option value="default" '.((get_post_meta($post->ID, 'ign_option_purchase_url', true) == "default") ? 'selected' : '').'>'.__('Default', 'ignitiondeck').'</option>
 						<option value="current_page" '.((get_post_meta($post->ID, 'ign_option_purchase_url', true) == "current_page") ? 'selected' : '').'>Current Project Page</option>
 						<option value="page_or_post" '.((get_post_meta($post->ID, 'ign_option_purchase_url', true) == "page_or_post") ? 'selected' : '').'>Page/Post</option>
 						<option value="external_url" '.((get_post_meta($post->ID, 'ign_option_purchase_url', true) == "external_url") ? 'selected' : '').'>External URL</option>
@@ -1638,6 +1692,7 @@ function add_ty_url_box ($post) {
 				<td>Thank You Page</td>
 				<td>
 					<select name="ign_option_ty_url" id="select_ty_pageurls" onchange=storetyurladdress();>
+						<option value="default" '.((get_post_meta($post->ID, 'ign_option_ty_url', true) == "default") ? 'selected' : '').'>'.__('Default', 'ignitiondeck').'</option>
 						<option value="current_page" '.((get_post_meta($post->ID, 'ign_option_ty_url', true) == "current_page") ? 'selected' : '').'>Current Project Page</option>
 						<option value="page_or_post" '.((get_post_meta($post->ID, 'ign_option_ty_url', true) == "page_or_post") ? 'selected' : '').'>Page/Post</option>
 						<option value="external_url" '.((get_post_meta($post->ID, 'ign_option_ty_url', true) == "external_url") ? 'selected' : '').'>External URL</option>
@@ -1687,9 +1742,28 @@ function add_ty_url_box ($post) {
 		  </table>';
 }
 
+function idf_exists() {
+	return (class_exists('IDF'));
+}
+
 function is_id_pro() {
 	// do some validation here to check serial number
 	return get_option('is_id_pro', false);
+}
+
+function is_id_basic() {
+	return get_option('is_id_basic', false);
+}
+
+function is_id_licensed() {
+	$is_pro = is_id_pro();
+	$is_basic = is_id_basic();
+	if ($is_pro || $is_basic) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 //add_action('activated_plugin','id_save_error');
@@ -1708,12 +1782,4 @@ function id_print_error() {
 function id_debug() {
 
 }
-
-// Remove Update Notification
-add_filter('site_transient_update_plugins', 'dd_remove_update_nag');
-function dd_remove_update_nag($value) {
-	unset($value->response[ plugin_basename(__FILE__) ]);
-	return $value;
-}
-
 ?>

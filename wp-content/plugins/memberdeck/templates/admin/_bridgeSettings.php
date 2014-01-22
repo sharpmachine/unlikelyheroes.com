@@ -1,5 +1,9 @@
-<div class="wrap">
-	<div class="icon32" id="icon-options-general"></div><h2><?php _e('MemberDeck IgnitionDeck Bridge', 'mdid'); ?></h2>
+<div class="wrap memberdeck">
+	<div class="icon32" id="icon-options-general"></div><h2 class="title"><?php _e('MemberDeck IgnitionDeck Bridge', 'mdid'); ?></h2>
+	<div class="help">
+		<a href="http://forums.ignitiondeck.com" alt="IgnitionDeck Support" title="IgnitionDeck Support" target="_blank"><button class="button button-large"><?php _e('Support', 'memberdeck'); ?></button></a>
+		<a href="http://docs.ignitiondeck.com" alt="IgnitionDeck Documentation" title="IgnitionDeck Documentation" target="_blank"><button class="button button-large"><?php _e('Documentation', 'memberdeck'); ?></button></a>
+	</div>
 	<div class="postbox-container" style="width:100%;">
 		<div class="metabox-holder">
 			<div class="meta-box-sortables" style="min-height:0;">

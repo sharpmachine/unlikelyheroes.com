@@ -324,7 +324,7 @@
     font-size: 18px;
     margin: 0;
     line-height: 18px; }
-  .ignitiondeck.id-creatorprofile .id-creator-title {
+  .ignitiondeck.id-creatorprofile .id-creator-location {
     font-size: 11px; }
   .ignitiondeck.id-creatorprofile .id-creator-bio {
     font-size: 90%;
@@ -387,25 +387,40 @@
   position: relative; }
 .ignitiondeck .project_disclaimer p {
   margin: 40px 0 20px 0; }
+.ignitiondeck .notification {
+  display: block;
+  clear: both;
+  padding: 15px 10px 13px 8px;
+  margin: 10px 0;
+  line-height: 150%;
+  font-size: 21px;
+  text-align: center; }
+  .ignitiondeck .notification.red {
+    color: #fff;
+    background: #CF0000;
+    border: 1px solid #FFFFFF;
+    -moz-box-shadow: inset 0px 0px 0px 7px #FF2626;
+    -webkit-box-shadow: inset 0px 0px 0px 7px #FF2626;
+    box-shadow: inset 0px 0px 0px 7px #FF2626; }
+  .ignitiondeck .notification.green {
+    color: #008000;
+    background: #D8F1D3;
+    border: 2px solid #9EBF6D;
+    -moz-box-shadow: inset 0px 0px 0px 7px #BBE2BC;
+    -webkit-box-shadow: inset 0px 0px 0px 7px #BBE2BC;
+    box-shadow: inset 0px 0px 0px 7px #BBE2BC; }
+.ignitiondeck .box {
+  border-bottom: 1px solid rgba(145, 145, 145, 0.4);
+  margin-left: -20px;
+  margin-right: -20px;
+  padding-left: 20px;
+  padding-right: 20px; }
 .ignitiondeck form {
   padding: 20px;
   margin: 10px auto 20px auto;
   counter-reset: level; }
   .ignitiondeck form select {
     vertical-align: middle; }
-  .ignitiondeck form .notification {
-    display: block;
-    clear: both;
-    padding: 10px 10px 8px 8px;
-    margin: 10px 0;
-    line-height: 150%;
-    font-size: 21px; }
-  .ignitiondeck form .box {
-    border-bottom: 1px solid rgba(145, 145, 145, 0.4);
-    margin-left: -20px;
-    margin-right: -20px;
-    padding-left: 20px;
-    padding-right: 20px; }
   .ignitiondeck form .form-level {
     padding: 0 0 10px 0;
     margin: 0 auto 20px auto; }
@@ -522,7 +537,7 @@
     line-height: 26px;
     text-align: center;
     padding: 10px 20px; }
-/*  .ignitiondeck form .main-btn, .ignitiondeck form input[type=submit] {
+  .ignitiondeck form .main-btn, .ignitiondeck form input[type=submit] {
     font-weight: bold;
     font-size: 26px;
     padding: 26px 48px;
@@ -531,7 +546,7 @@
     cursor: pointer;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
-    border-radius: 10px; }*/
+    border-radius: 10px; }
   .ignitiondeck form .payment-errors {
     text-align: center;
     width: auto;
@@ -545,7 +560,7 @@
     height: 24px; }
   .ignitiondeck form .payment-type-selector {
     text-align: center; }
-/*  .ignitiondeck form .payment-type-selector a {
+  .ignitiondeck form .payment-type-selector a {
     display: inline-block;
     padding: 5px 15px;
     padding-bottom: 48px;
@@ -556,18 +571,18 @@
     -webkit-transition: all 200ms ease-out 0;
     -moz-transition: all 200ms ease-out 0;
     -o-transition: all 200ms ease-out 0;
-    transition: all 200ms ease-out 0; }*/
-/*  .ignitiondeck form .payment-type-selector a:hover {
+    transition: all 200ms ease-out 0; }
+  .ignitiondeck form .payment-type-selector a:hover {
     opacity: 1; }
   .ignitiondeck form .payment-type-selector a.active {
     opacity: 1; }
   .ignitiondeck form .payment-type-selector a.active:hover {
-    opacity: 1; }*/
-  /*.ignitiondeck form .payment-type-selector a#pay-with-paypal span {
+    opacity: 1; }
+  .ignitiondeck form .payment-type-selector a#pay-with-paypal span {
     background-image: url("images/paypal.png");
     background-position: center 30px;
     background-repeat: no-repeat;
-    padding-bottom: 48px; }*/
+    padding-bottom: 48px; }
   .ignitiondeck form .id-checkout-level-desc {
     margin: 0 auto;
     padding: 10px 20px;

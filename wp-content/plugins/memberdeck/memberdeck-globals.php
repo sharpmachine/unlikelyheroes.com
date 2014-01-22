@@ -3,24 +3,7 @@
 // Declare MD Global Variables
 
 /*
-1. User Levels
-*/
-
-global $current_user;
-if (!is_multisite()) {
-	require (ABSPATH . WPINC . '/pluggable.php');
-	get_currentuserinfo();
-	$md_user_levels = null;
-	if (!empty($current_user)) {
-		$user_id = $current_user->ID;
-		$md_user = ID_Member::user_levels($user_id);
-		if (!empty($md_user)) {
-			$md_user_levels = unserialize($md_user->access_level);
-		}
-	}
-}
-/*
-2. Crowdfunding Enabled?
+1. Crowdfunding Enabled?
 */
 $crowdfunding = false;
 $general = get_option('md_receipt_settings');
@@ -37,10 +20,10 @@ if (isset($general)) {
 }
 
 /*
-3. Customer ID
+2. Customer ID
 */
 
-if (isset($user_id)) {
+/*if (isset($user_id)) {
 	$member = new ID_Member();
 	$match = $member->match_user($user_id);
 	if (isset($match->data)) {
@@ -58,30 +41,30 @@ if (isset($user_id)) {
 			}
 		}
 	}
-}
+}*/
 
 /*
-4. Balanced Customer ID
+3. Balanced Customer ID
 */
 
-if (isset($user_id)) {
+/*if (isset($user_id)) {
 	$balanced_customer_id = get_user_meta($user_id, 'balanced_customer_id', true);
-}
+}*/
 
 /*
-5. Credits Available
+4. Credits Available
 */
 
-if (isset($user_id)) {
+/*if (isset($user_id)) {
 	$member = new ID_Member($user_id);
 	$md_credits = $member->get_user_credits();
-}
+}*/
 
 /*
-6. Instant Checkout
+5. Instant Checkout
 */
 
-$instant_checkout = false;
+/*$instant_checkout = false;
 $gateways = get_option('memberdeck_gateways');
 if (!empty($gateways)) {
 	$settings = unserialize($gateways);
@@ -95,23 +78,28 @@ if (!empty($gateways)) {
 			$instant_checkout = get_user_meta($user_id, 'instant_checkout', true);
 		}
 	}
-}
+}*/
 
 /*
-7. Default Timezone
+6. Default Timezone
 */
 
 $tz = get_option('timezone_string');
 
 /*
-8. S3
+7. S3
 */
 $s3 = 0;
 $general = get_option('md_receipt_settings');
 if (!empty($general)) {
 	$settings = unserialize($general);
 	if (is_array($settings)) {
-		$s3 = $settings['s3'];
+		if (isset($settings['s3'])) {
+			$s3 = $settings['s3'];
+		}
+		else {
+			$s3 = 0;
+		}
 	}
 }
 

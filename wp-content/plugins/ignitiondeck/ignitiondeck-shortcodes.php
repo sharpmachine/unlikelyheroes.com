@@ -1,24 +1,27 @@
 <?php
-add_shortcode('project_name', 'id_projectName');
-add_shortcode('project_short_desc', 'id_ShortDesc');
-add_shortcode('project_long_desc', 'id_projectLongDesc');
-add_shortcode('project_percentage_bar', 'id_projectPercentBar');
-add_shortcode('project_goal', 'id_projectGoal');
-add_shortcode('project_users', 'id_projectUsers');
-add_shortcode('project_pledged', 'id_projectPledgedPrice');
-add_shortcode('project_daystogo', 'id_projectdaytogo');
-add_shortcode('project_end', 'id_projectend');
-add_shortcode('project_mini_widget', 'id_projectMiniWidget');
-add_shortcode('project_page_widget', 'id_projectPageWidget');
-add_shortcode('project_grid', 'id_projectGrid');
-add_shortcode('project_image', 'id_projectImage');
-add_shortcode('project_video', 'id_projectVideo');
+
 add_shortcode('project_faq', 'id_projectFAQ');
 add_shortcode('project_updates', 'id_projectUpdates');
-add_shortcode('project_page_content_left', 'id_projectPageContent');
-add_shortcode('project_page_content', 'id_projectPageContentFull');
-add_shortcode('project_page_complete', 'id_projectPageComplete');
-add_shortcode('project_purchase_form', 'id_purchaseForm');
+if (is_id_licensed()) {
+	add_shortcode('project_name', 'id_projectName');
+	add_shortcode('project_short_desc', 'id_ShortDesc');
+	add_shortcode('project_long_desc', 'id_projectLongDesc');
+	add_shortcode('project_percentage_bar', 'id_projectPercentBar');
+	add_shortcode('project_goal', 'id_projectGoal');
+	add_shortcode('project_users', 'id_projectUsers');
+	add_shortcode('project_pledged', 'id_projectPledgedPrice');
+	add_shortcode('project_daystogo', 'id_projectdaytogo');
+	add_shortcode('project_end', 'id_projectend');
+	add_shortcode('project_mini_widget', 'id_projectMiniWidget');
+	add_shortcode('project_page_widget', 'id_projectPageWidget');
+	add_shortcode('project_grid', 'id_projectGrid');
+	add_shortcode('project_image', 'id_projectImage');
+	add_shortcode('project_video', 'id_projectVideo');
+	add_shortcode('project_page_content_left', 'id_projectPageContent');
+	add_shortcode('project_page_content', 'id_projectPageContentFull');
+	add_shortcode('project_page_complete', 'id_projectPageComplete');
+	add_shortcode('project_purchase_form', 'id_purchaseForm');
+}
 
 //**************************************
 // functions for shortcodes (project)
@@ -113,8 +116,9 @@ function id_projectPledgedPrice($attrs){
 	if (isset($attrs['product'])) {
 		$project_id = $attrs['product'];
 		$project = new ID_Project($project_id);
-		$raised = $project->get_project_raised();
-		return '<span class="product_pledged" style="clear: both;">'.$raised.'</span>';
+		$cCode = $project->currency_code();
+		$raised = number_format($project->get_project_raised(), 2, '.', ',');
+		return '<span class="product_pledged" style="clear: both;">'.$cCode.$raised.'</span>';
 	}
 	else {
 		return null;
@@ -411,7 +415,8 @@ function id_purchaseForm($attrs) {
 	include 'templates/_purchaseForm.php';
 	$purchase_form = ob_get_contents();
 	ob_end_clean();
-	return apply_filters('id_purchase_form', $purchase_form, $project_id);
+	$purchase_form = apply_filters('id_purchase_form', $purchase_form, $project_id);
+	return $purchase_form;
 }
 
 function id_projectGrid($attrs) {
@@ -430,6 +435,29 @@ function id_projectGrid($attrs) {
 	else {
 		$max = null;
 	}
+	if (isset($attrs['category'])) {
+		$category = $attrs['category'];
+		$args = array(
+			'post_type' => 'ignition_product',
+			'tax_query' => array(
+				array(
+					'taxonomy' => 'project_category',
+					'field' => 'id',
+					'terms' => $category
+				)
+			)
+		);
+		if (isset($max)) {
+			$args['posts_per_page'] = $max;
+		}
+		$posts = get_posts($args);
+		$project_ids = array();
+		foreach ($posts as $post) {
+			$post_id = $post->ID;
+			$project_id = get_post_meta($post_id, 'ign_project_id', true);
+			$project_ids[] = $project_id;
+		}
+	}
 	require 'languages/text_variables.php';
 	$custom = false;
 	if (isset($attrs['deck'])) {
@@ -445,16 +473,28 @@ function id_projectGrid($attrs) {
 	$i = 1;
 	if (!empty($projects)) {
 		foreach ($projects as $project) {
-			if ($i <= $max) {
-				$project_id = $project->id;
+			$pass = false;
+			$project_id = $project->id;
+			if (isset($project_ids)) {
+				if (in_array($project_id, $project_ids)) {
+					$pass = true;
+				}
+			}
+			else if ($i <= $max) {
+				$pass = true;
+			}
+			if ($pass) {
 				$deck = new Deck($project_id);
 				$mini_deck = $deck->mini_deck();
 				$post_id = $deck->get_project_postid();
-				$settings = getSettings();
-				echo '<div class="grid_item" style="float: left; margin: 0 '.$margin.'% '.$margin.'% 0; width: '.$width.'%;">';
-				include 'templates/_miniWidget.php';
-				echo '</div>';
-				$i++;
+				$status = get_post_status($post_id);
+				if (strtoupper($status) == 'PUBLISH') {
+					$settings = getSettings();
+					echo '<div class="grid_item" style="float: left; margin: 0 '.$margin.'% '.$margin.'% 0; width: '.$width.'%;">';
+					include 'templates/_miniWidget.php';
+					echo '</div>';
+					$i++;
+				}
 			}
 		}
 	}

@@ -1,10 +1,4 @@
 <?php
-function ign_admin_register_head() {
-    $siteurl = get_option('siteurl');
-	echo '<script type="text/javascript">function toggleDiv(divId) {jQuery("#"+divId).slideToggle();}</script>';
-}
-add_action('admin_head', 'ign_admin_register_head');
-
 /**
  * Create Projects post type
  */
@@ -37,12 +31,30 @@ function ign_create_post_type() {
 			'capability_type' => 'post',
 			'menu_icon' => plugins_url( '/images/ignitiondeck-menu.png', __FILE__ ),
 			'query_var' => true,
-			'rewrite' => array( 'slug' => 'campaigns', 'with_front' => true ),
-			'has_archive' => 'campaigns',
-			'supports' => array('title', 'editor', 'comments'),
-			'taxonomies' => array('category', 'post_tag'),
+			'rewrite' => array( 'slug' => 'projects', 'with_front' => true ),
+			'has_archive' => 'projects',
+			'supports' => array('title', 'editor', 'comments', 'author'),
+			'taxonomies' => array('category', 'post_tag', 'project_category'),
 		)
 	);
+}
+
+add_action('init', 'ign_create_taxonomy');
+
+function ign_create_taxonomy() {
+	$labels = array(
+		'name' => __('Project Categories', 'ignitiondeck'),
+		'singular_name' => __('Project Category', 'ignitiondeck'),
+	);
+	$args = array(
+		'hierarchical' => false,
+		'labels' => $labels,
+		'show_ui' => true,
+		'show_admin_column' => true,
+		'query_var' => true,
+		'rewrite' => array('slug' => 'project-category')
+	);
+	register_taxonomy('project_category', 'ignition_product', $args);
 }
 
 add_image_size('id_embed_image', 190, 127, true);
@@ -53,16 +65,25 @@ add_image_size('id_embed_image', 190, 127, true);
 
 function enqueue_admin_js() {
 	wp_register_script('ignitiondeck-admin', plugins_url('/js/ignitiondeck-admin.js', __FILE__));
-    wp_register_script( 'ignitiondeck', plugins_url('/js/ignitiondeck.js', __FILE__));
-    wp_enqueue_script('jquery');
-    wp_enqueue_script('ignitiondeck-admin');
-    wp_enqueue_script( 'ignitiondeck' );
-    $id_ajaxurl = site_url('/').'wp-admin/admin-ajax.php';
-    wp_localize_script('ignitiondeck-admin', 'id_homeurl', home_url());
-    wp_localize_script('ignitiondeck', 'id_ajaxurl', $id_ajaxurl);
-    wp_localize_script('ignitiondeck-admin', 'id_ajaxurl', $id_ajaxurl);
-    //wp_enqueue_style('wp-pointer');
-    //wp_enqueue_script('wp-pointer');
+	wp_enqueue_script('jQuery');
+	wp_enqueue_script('ignitiondeck-admin');
+	if (is_multisite()) {
+		$id_ajaxurl = network_home_url('/').'wp-admin/admin-ajax.php';
+	}
+	else {
+		$id_ajaxurl = site_url('/').'wp-admin/admin-ajax.php';
+	}
+	wp_localize_script('ignitiondeck-admin', 'id_homeurl', home_url());
+	wp_localize_script('ignitiondeck-admin', 'id_ajaxurl', $id_ajaxurl);
+	global $post;
+	if (isset($post->post_type) && $post->post_type == 'ignition_product') {
+	    wp_register_script( 'ignitiondeck', plugins_url('/js/ignitiondeck.js', __FILE__));
+	    wp_enqueue_script( 'ignitiondeck' );
+	    wp_localize_script('ignitiondeck', 'id_ajaxurl', $id_ajaxurl);
+	    wp_dequeue_script('autosave');
+	    //wp_enqueue_style('wp-pointer');
+	    //wp_enqueue_script('wp-pointer');
+	}
 }
 
 add_action('admin_enqueue_scripts', 'enqueue_admin_js');
@@ -74,18 +95,29 @@ function enqueue_admin_css() {
 
 add_action('admin_enqueue_scripts', 'enqueue_admin_css');
 
+add_action('init', 'enqueue_styles_scripts_for_post_type');
+
+function enqueue_styles_scripts_for_post_type() {
+	global $post;
+	if (isset($post->post_type) && $post->post_type == 'ignition_product') {
+		add_action('admin_enqueue_scripts', 'enqueue_admin_css');
+		add_action('admin_enqueue_scripts', 'enqueue_admin_js');
+	}
+}
+
 // Change the columns for the edit CPT screen
 function ign_change_columns( $cols ) {
 	require 'languages/text_variables.php';		
   	$cols = array(
 		'cb'		=> '<input type="checkbox" />',
-		'title'		=> $tr_Product,		
+		'title'		=> $tr_Product,
+		'author' 	=> __('Author', 'ignitiondeck'),
 		'goal'		=> $tr_Funding_Goal,
 		'raised'	=> $tr_Pledged,	
 		'enddate'	=> $tr_End_Date,		
 		'daysleft'	=> $tr_Days_Remaining ,		
   	);
-  	return $cols;
+  	return apply_filters('id_project_columns', $cols);
 }
 add_filter( "manage_ignition_product_posts_columns", "ign_change_columns" );
 add_action(	'manage_posts_custom_column', 'manage_ign_product_columns', 10, 2 );
@@ -98,6 +130,10 @@ function manage_ign_product_columns($column_name, $id) {
 	$cCode = $project->currency_code();
 	switch ($column_name) {
 		// display goal amount with currency formatting
+	case 'author':
+		echo (!empty($post->post_author) ? $post->post_author : __('None', 'ignitiondeck'));
+		break;
+
 	case 'goal':
 		if (get_post_meta( $post->ID, 'ign_fund_goal', true)) {
 			$goal_amt = number_format(get_post_meta( $post->ID, 'ign_fund_goal', true), 2, '.', ',');
@@ -129,6 +165,9 @@ function manage_ign_product_columns($column_name, $id) {
 	case 'daysleft':
 		if (get_post_meta( $post->ID, 'ign_fund_end', true)) {
 			$tz = get_option('timezone_string');
+			if (empty($tz)) {
+				$tz = 'UTC';
+			}
 			date_default_timezone_set($tz);
 			$ending = get_post_meta( $post->ID, 'ign_fund_end', true);
 			$future = strtotime($ending);
@@ -153,33 +192,33 @@ function manage_ign_product_columns($column_name, $id) {
 
 // Make these columns sortable
 function ign_sortable_columns() {
-  return array(
+  $sortable_columns = array(
     'title'     => 'title',
+    'author' 	=> 'author',
 	'goal'      => 'goal',
 	'raised'	=> 'raised',
     'enddate'	=> 'enddate',
 	'daysleft'	=> 'daysleft',
   );
+  return apply_filters('id_sortable_project_columns', $sortable_columns);
 }
 
 add_filter( "manage_edit-ignition_product_sortable_columns", "ign_sortable_columns" );
 
-// This is the NEW Order Details Menu
-
-/* Header */
+// This is the NEW Order Details Menu but appears to be unused
 
 add_filter('manage-order_columns', 'order_detail_columns');
 
 function order_detail_columns($columns) {
 	require 'languages/text_variables.php';
 	$columns = array(
-		'name' => '<th scope="col" id="name" class="manage-column sortable desc"><b><?php echo $tr_Name; ?>test1</b></th>',
+		'name' => '<th scope="col" id="name" class="manage-column sortable desc"><b><?php echo $tr_Name; ?></b></th>',
 		'project' => '<th scope="col" id="status" class="manage-column sortable desc"><b><?php echo $tr_Product_Name; ?></b></th>',
 		'level' => '<th scope="col" id="action" class="manage-column sortable desc"><b><?php echo $tr_Level; ?></b></th>',
 		'pledged' => '<th scope="col" id="action" class="manage-column sortable desc"><b><?php echo $tr_Pledged; ?></b></th>',
 		'date' => '<th scope="col" id="action" class="manage-column sortable desc"><b><?php echo $tr_Date; ?></b></th>'
 		);
-		return $columns;
+	return apply_filters('id_order_columns', $columns);
 }
 
 /* Content */
@@ -207,19 +246,20 @@ function order_detail_content($column_name, $id) {
 	} // end switch
 } // end function
 
-// This is to make order details menu sortable
+// This is to make order details menu sortable but seems to be unused
 
 add_filter ('edit-order_columns', 'order_details_sortable_columns');
 
 function order_details_sortable_columns() {
-	return array(
+	$columns = array(
 		'name' => 'name',
 		'project' => 'project',
 		'level' => 'level',
 		'pledged' => 'pledged',
 		'date' => 'date'
 	);
-} //end function and end order details menu
+	return apply_filters('id_sortable_order_columns', $columns);
+}
 
 // change post title box text
 function change_ign_product_title_text( $title ){
@@ -234,33 +274,55 @@ add_filter( 'enter_title_here', 'change_ign_product_title_text' );
 
 //-------------------------Admin Side Add IgnitionDeck STARTS------------------------------
 
-add_action('admin_menu', 'pre_order_menu');
-function pre_order_menu() {
+add_action('admin_menu', 'id_admin_menus');
+function id_admin_menus() {
 	if (current_user_can('manage_options')) {
 	    $settings = add_menu_page('IgnitionDeck Settings', 'IgnitionDeck', 'manage_options', 'ignitiondeck', 'id_main_menu', plugins_url( '/images/ignitiondeck-menu.png', __FILE__ ));
-		add_submenu_page( 'ignitiondeck', 'Project Settings', 'Project Settings', 'manage_options', 'project-settings', 'product_settings');
-		add_submenu_page( 'ignitiondeck', 'Custom Settings', 'Custom Settings', 'manage_options', 'custom-settings', 'custom_settings');
-	    add_submenu_page( 'ignitiondeck', 'Payment Settings', 'Payment Settings', 'manage_options', 'payment-options', 'paypal_payment_options');
-	    add_submenu_page( 'ignitiondeck', 'Deck Builder', 'Deck Builder', 'manage_options', 'deck-builder', 'deck_builder');
+		$project_settings = add_submenu_page( 'ignitiondeck', 'Project Settings', 'Project Settings', 'manage_options', 'project-settings', 'product_settings');
+		if (is_id_licensed()) {
+			$custom_settings = add_submenu_page( 'ignitiondeck', 'Custom Settings', 'Custom Settings', 'manage_options', 'custom-settings', 'custom_settings');
+	    	$payment_settings = add_submenu_page( 'ignitiondeck', 'Payment Settings', 'Payment Settings', 'manage_options', 'payment-options', 'paypal_payment_options');
+	    	$deck_settings = add_submenu_page( 'ignitiondeck', 'Deck Builder', 'Deck Builder', 'manage_options', 'deck-builder', 'deck_builder');
+	    }
 	    $order_menu = add_submenu_page( 'ignitiondeck', 'Orders', 'Orders', 'manage_options', 'order_details', 'order_details');
-		add_submenu_page( 'ignitiondeck', 'Email Settings', 'Email Settings', 'manage_options', 'email-settings', 'email_settings');
+		if (is_id_licensed()) {
+			$email_settings = add_submenu_page( 'ignitiondeck', 'Email Settings', 'Email Settings', 'manage_options', 'email-settings', 'email_settings');
+	    }
 	    //add_submenu_page( 'ignitiondeck', 'Social Settings', 'Social Settings ', 'manage_options', 'social-settings', 'social_application');
 	    //add_submenu_page( 'ignitiondeck', 'Payment Form Settings', 'Payment Form Settings', 'manage_options', 'form-settings', 'form_settings');
 		//add_submenu_page( 'ignitiondeck', 'Asked Question', 'Asked Question', 'manage_options', 'asked_questions', 'asked_questions');
-		add_submenu_page( $order_menu, 'Edit Order', '', 'manage_options', 'edit_order', 'edit_order');
-		add_submenu_page( $order_menu, 'View order', '', 'manage_options', 'view_order', 'view_order');
-		add_submenu_page( $order_menu, 'Delete Order', '', 'manage_options', 'delete_order', 'delete_order');
-		add_submenu_page( $order_menu, 'Add Order', '', 'manage_options', 'add_order', 'add_order');	
-		add_submenu_page( $order_menu, 'Refund', '', 'manage_options', 'refund', 'refund_order');
-		add_submenu_page( 'ignitiondeck', 'Extensions', 'Extensions', 'manage_options', 'extensions', 'extension_list');
+		$edit_order = add_submenu_page( $order_menu, 'Edit Order', '', 'manage_options', 'edit_order', 'edit_order');
+		$view_order = add_submenu_page( $order_menu, 'View order', '', 'manage_options', 'view_order', 'view_order');
+		$delete_order = add_submenu_page( $order_menu, 'Delete Order', '', 'manage_options', 'delete_order', 'delete_order');
+		$add_order = add_submenu_page( $order_menu, 'Add Order', '', 'manage_options', 'add_order', 'add_order');	
+		//add_submenu_page( $order_menu, 'Refund', '', 'manage_options', 'refund', 'refund_order');
+		$extension_list = add_submenu_page( 'ignitiondeck', 'Extensions', 'Extensions', 'manage_options', 'extensions', 'extension_list');
 		do_action('id_submenu');
 		add_action('admin_print_styles-'.$settings, 'id_font_awesome');
+		$menus = array($settings, $project_settings, $order_menu, $edit_order, $view_order, $delete_order, $add_order, $extension_list);
+		if (is_id_licensed()) {
+			$menus[] = $custom_settings;
+			$menus[] = $payment_settings;
+			$menus[] = $deck_settings;
+			$menus[] = $email_settings;
+		}
+		$menus = apply_filters('id_menu_enqueue', $menus);
+		if (is_array($menus)) {
+			foreach ($menus as $menu) {
+				add_action('admin_print_styles-'.$menu, 'enqueue_admin_css');
+				add_action('admin_print_styles-'.$menu, 'enqueue_admin_js');
+			}
+		}
 	}
 }
 
 function id_main_menu(){
 	require 'languages/text_variables.php';		
 	global $wpdb;
+	$super = true;
+	if (is_multisite()) {
+		$super = is_super_admin();
+	}
 
 	$license_key = get_option('id_license_key');
 	$is_pro = get_option('is_id_pro', 0);
@@ -286,6 +348,13 @@ function id_main_menu(){
 		update_option('is_id_pro', $is_pro);
 		update_option('is_id_basic', $is_basic);
 	}
+	if ($is_pro) {
+		$type_msg = __(' IgnitionDeck Enterprise', 'ignitiondeck');
+	}
+	else if ($is_basic) {
+		$type_msg = __(' IgnitionDeck', 'ignitiondeck');
+	}
+
 	$skins = $wpdb->get_row('SELECT theme_choices FROM '.$wpdb->prefix.'ign_settings WHERE id="1"');
 	if (isset($skins)) {
 		$skins = unserialize($skins->theme_choices);
@@ -414,119 +483,6 @@ function id_main_menu(){
 	include_once 'templates/admin/_settingsIgnDeck.php';
 }
 
-function social_application(){
-	require 'languages/text_variables.php';		
-    echo '<div class="wrap">
-	
-    	'.admin_menu_html().'
-    <h2>'.$tr_Facebook_Application_Settings.'</h2>';		
-    echo '<br />';
-    global $wpdb;
-    if(isset($_POST['btnSubmitFacebookSettings'])){
-        if($_POST['btnSubmitFacebookSettings'] == $tr_Save) {		
-            $sql_insert="INSERT INTO ".$wpdb->prefix ."ign_facebookapp_settings (application_id, application_secret, text_to_share) values ('".$_POST['application_id']."','".$_POST['application_secret']."', '".$_POST['text_to_share']."')";
-            $res = $wpdb->query( $sql_insert );
-            $message = '<div class="updated fade below-h2" id="message" class="updated"><p>'.$tr_Facebook_settings_successfully_updated.'</p></div>';		
-            echo $message;
-        }
-
-        if($_POST['btnSubmitFacebookSettings'] == $tr_Update) {		
-            $sql_update="update ".$wpdb->prefix . "ign_facebookapp_settings set application_id='".$_POST['application_id']."',application_secret='".$_POST['application_secret']."', text_to_share='".$_POST['text_to_share']."' where id='1'";
-            $res = $wpdb->query( $sql_update );
-            $message = '<div class="updated fade below-h2" id="message" class="updated"><p>'.$tr_Facebook_settings_successfully_updated.'</p></div>';	
-            echo $message;
-        }
-    }
-	
-	$facebook_help = '<p><a href="http://developers.facebook.com/" alt="Facebook Developer" title="Facebook Developer">Click here</a> to register as a Facebook developer.</p>';
-	echo $facebook_help;
-    $sql="select * from ".$wpdb->prefix . "ign_facebookapp_settings where id='1'";
-    $res =  $wpdb->query( $sql );
-    $rows = $wpdb->get_results($sql);
-    $row = &$rows[0];
-    $submit = ($row == null)? $tr_Save : $tr_Update;	
-    $appiid=$row->application_id;
-    $secretkey=$row->application_secret;
-    $textToShare = $row->text_to_share;
-    include_once 'templates/admin/_facebookApplication.php';
-	
-	echo '<h2>'.$tr_Twitter_Application_Settings.'</h2>';	
-	
-    if(isset($_POST['btnSubmitTwitterSettings'])){
-        if($_POST['btnSubmitTwitterSettings']== $tr_Save) {	
-            $sql_insert="INSERT INTO ".$wpdb->prefix ."ign_twitterapp_settings (consumer_key,consumer_secret,callback_url, text_to_share) values ('".$_POST['consumer_key'
-            ]."','".$_POST['consumer_secret']."','".$_POST['callback_url']."', '".$_POST['text_to_share']."')";
-            $res = $wpdb->query( $sql_insert );
-            $message = '<div class="updated fade below-h2" id="message" class="updated"><p>'.$tr_Twitter_settings_successfully_updated.'</p></div>';	
-            echo $message;
-        }
-
-        if($_POST['btnSubmitTwitterSettings'] == $tr_Update){	
-            $sql_update = "	update ".$wpdb->prefix . "ign_twitterapp_settings set
-							consumer_key='".$_POST['consumer_key']."',
-							consumer_secret='".$_POST['consumer_secret']."',
-							callback_url='".$_POST['callback_url']."' ,
-							text_to_share='".$_POST['text_to_share']."'
-							WHERE id='1'";
-            $res = $wpdb->query( $sql_update );
-            $message = '<div class="updated fade below-h2" id="message" class="updated"><p>'.$tr_Twitter_settings_successfully_updated.'</p></div>';	
-            echo $message;
-        }
-    }
-	$twitter_help = '<p><a href="http://dev.twitter.com/" alt="Twitter Developer" title="Twitter Developer">Click here</a> to register as a Twitter developer.</p>';
-	echo $twitter_help;
-    $sql="select * from ".$wpdb->prefix . "ign_twitterapp_settings where id='1'";
-    $res1 =  $wpdb->query( $sql );
-    $rows = $wpdb->get_results($sql);
-    $row = &$rows[0];
-	
-    $consumer_key=$row->consumer_key;
-    $consumer_secret=$row->consumer_secret;
-    $callback_url=$row->callback_url;
-    $textToShare = $row->text_to_share;
-    include_once 'templates/admin/_twitterApplication.php';
-}
-/**
- * Facebook settings
- * @global object $wpdb
- */
-function facebook_application() {
-	require 'languages/text_variables.php';		
-    echo '<h2>'.$tr_Facebook_Application_Settings.'</h2>';	
-    echo '<br />';
-    global $wpdb;
-
-    if(isset($_POST['submit'])){
-        if($_POST['submit']== $tr_Save){	
-            $sql_insert="INSERT INTO ".$wpdb->prefix ."ign_facebookapp_settings (application_id, application_secret, text_to_share) values ('".$_POST['application_id']."','".$_POST['application_secret']."', '".$_POST['text_to_share']."')";
-            $res = $wpdb->query( $sql_insert );
-            
-            $message = '<div class="updated fade below-h2" id="message" class="updated"><p>'.$tr_Facebook_settings_successfully_updated.'</p></div>';	
-            echo $message;
-        }
-
-        if($_POST['submit'] ==$tr_Update){	
-
-            $sql_update="update ".$wpdb->prefix . "ign_facebookapp_settings set application_id='".$_POST['application_id']."',application_secret='".$_POST['application_secret']."', text_to_share='".$_POST['text_to_share']."' where id='1'";
-            $res = $wpdb->query( $sql_update );
-            $message = '<div class="updated fade below-h2" id="message" class="updated"><p>'.$tr_Facebook_settings_successfully_updated.'</p></div>';	
-            echo $message;
-        }
-    }
-    $sql="select * from ".$wpdb->prefix . "ign_facebookapp_settings where id='1'";
-    $res =  $wpdb->query( $sql );
-    $rows = $wpdb->get_results($sql);
-    $row = &$rows[0];
-    $submit = ($row == null)? $tr_Save : $tr_Update;	
-    
-    $appiid=$row->application_id;
-    $secretkey=$row->application_secret;
-    $textToShare = $row->text_to_share;
-    
-    include_once 'templates/admin/_facebookApplication.php';
-}
-
-
 /**
  * Form settings for Admin area
  * @global object $wpdb
@@ -568,62 +524,34 @@ function form_settings(){
 	echo '</div>';
 }
 
-/**
- * Twitter settings
- * @global object $wpdb
- */
-function twitter_application() {
-	require 'languages/text_variables.php';		
-    global $wpdb;
-    echo '<h2>'.$tr_Twitter_Application_Settings.'</h2>';	
-    if(isset($_POST['submit'])){
-        if ($_POST['submit']== $tr_Save){	
-            $sql_insert="INSERT INTO ".$wpdb->prefix ."ign_twitterapp_settings (consumer_key,consumer_secret,callback_url, text_to_share) values ('".$_POST['consumer_key'
-            ]."','".$_POST['consumer_secret']."','".$_POST['callback_url']."', '".$_POST['text_to_share']."')";
-
-            $res = $wpdb->query( $sql_insert );
-            $message = '<div class="updated fade below-h2" id="message" class="updated"><p>'.$tr_Twitter_settings_successfully_saved.'</p></div>';	
-            echo $message;
-        }
-        if($_POST['submit'] ==$tr_Update){	
-            $sql_update="update ".$wpdb->prefix . "ign_twitterapp_settings set consumer_key='".$_POST['consumer_key']."', consumer_secret='".$_POST[
-            'consumer_secret']."',callback_url='".$_POST['callback_url']."' , text_to_share='".$_POST['text_to_share']."' where id='1'";
-            $res = $wpdb->query( $sql_update );
-            $message = '<div class="updated fade below-h2" id="message" class="updated"><p>'.$tr_Twitter_settings_successfully_updated.'</p></div>';	
-            echo $message;
-        }
-    }
-
-    $sql="select * from ".$wpdb->prefix . "ign_twitterapp_settings where id='1'";
-    $res1 =  $wpdb->query( $sql );
-    $rows = $wpdb->get_results($sql);
-    $row = &$rows[0];
-    $consumer_key=$row->consumer_key;
-    $consumer_secret=$row->consumer_secret;
-    $callback_url=$row->callback_url;
-    $textToShare = $row->text_to_share;
-
-    include_once 'templates/admin/_twitterApplication.php';
-}
-
 /*
  *  Email settings combining both Aweber and Mailchinmp settings
  */
 function email_settings() {
 	require 'languages/text_variables.php';		
 	global $wpdb;
-
+	$inactive = get_option('id_email_inactive');
 	$aweber_check = 'SELECT * FROM '.$wpdb->prefix.'ign_aweber_settings WHERE id = "1"';
 	$aweber_res = $wpdb->get_row($aweber_check);
+
+	if (empty($aweber_res)) {
+		$aweber_new = true;
+		$aweber_res = new stdClass();
+	}
+	else {
+		$aweber_new = false;
+		$aweber_active = $aweber_res->is_active;
+	}
 
 	$mc_check = 'SELECT * FROM '.$wpdb->prefix.'ign_mailchimp_subscription WHERE id = "1"';
 	$mc_res = $wpdb->get_row($mc_check);
 
-	$inactive = get_option('id_email_inactive');
-	if (!empty($aweber_res)) {
-		$aweber_active = $aweber_res->is_active;
+	if (empty($mc_res)) {
+		$mc_new = true;
+		$mc_res = new stdClass();
 	}
-	if (!empty($mc_res)) {
+	else {
+		$mc_new = false;
 		$mc_active = $mc_res->is_active;
 	}
 
@@ -643,30 +571,20 @@ function email_settings() {
 			$aweber_active = 0;
 			$inactive = 1;
 		}
-		$aweber_res->api_key = esc_attr($_POST['api_key']);
-		$aweber_res->api_secret = esc_attr($_POST['api_secret']);
 		$aweber_res->list_email = esc_attr($_POST['list_email']);
-		$mc_res->apikey = esc_attr($_POST['apikey']);
-		$mc_res->listid = esc_attr($_POST['listid']);
+		$mc_res->api_key = esc_attr($_POST['apikey']);
+		$mc_res->list_id = esc_attr($_POST['listid']);
+
 		//Condition for submission of Aweber Settings
 			
-		if(empty($aweber_res)) {	
-			$sql_insert = "	INSERT INTO ".$wpdb->prefix . "ign_aweber_settings
-							VALUES (
-								NULL,
-								'".$aweber_res->api_secret."',
-								'".$aweber_res->api_secret."',
-								'".$aweber_res->list_email."',
-								'".($aweber_active ? '1' : '0')."'
-							)";
+		if($aweber_new) {	
+			$sql_insert = "	INSERT INTO ".$wpdb->prefix . "ign_aweber_settings (list_email, is_active) VALUES ('".$aweber_res->list_email."','".($aweber_active ? '1' : '0')."')";
 	        $res = $wpdb->query( $sql_insert );
 			//echo $sql_insert; exit;
 		}
 		
 		else {
 			$sql_update = "	UPDATE ".$wpdb->prefix . "ign_aweber_settings SET
-							api_key = '".$aweber_res->api_secret."',
-							api_secret = '".$aweber_res->api_secret."',
 							list_email = '".$aweber_res->list_email."',
 							is_active = '".($aweber_active ? '1' : '0')."'
 							WHERE id = '1'";
@@ -674,15 +592,15 @@ function email_settings() {
 		}
 		
 		//Condition for submission of Mailchimp Settings
-	    $apiRegion = explode('-', $mc_res->apikey);
+	    $apiRegion = explode('-', $mc_res->api_key);
 	    $apiRegion = (isset($apiRegion[1]))? $apiRegion[1] : '';
 
-	    if(empty($mc_res)){	
-	        $sql="INSERT INTO ".$wpdb->prefix . "ign_mailchimp_subscription (api_key, list_id, region, is_active) VALUES ('".$_POST['apikey']."', '".$_POST['listid']."', '".$apiRegion."', '".($mc_active ? '1' : '0')."')";
+	    if($mc_new){	
+	        $sql="INSERT INTO ".$wpdb->prefix . "ign_mailchimp_subscription (api_key, list_id, region, is_active) VALUES ('".$mc_res->api_key."', '".$mc_res->list_id."', '".$apiRegion."', '".($mc_active ? '1' : '0')."')";
 	        $res = $wpdb->query( $sql );
 	    }
 	    else {
-	        $sql_update="update ".$wpdb->prefix . "ign_mailchimp_subscription set api_key='".$_POST['apikey']."',list_id='".$_POST['listid']."', region='".$apiRegion."', is_active = '".($mc_active ? '1' : '0')."' where id='1'";
+	        $sql_update="update ".$wpdb->prefix . "ign_mailchimp_subscription set api_key='".$mc_res->api_key."',list_id='".$mc_res->list_id."', region='".$apiRegion."', is_active = '".($mc_active ? '1' : '0')."' where id='1'";
 			$res = $wpdb->query( $sql_update );
 	    }
 	    update_option('id_email_inactive', $inactive);
@@ -705,6 +623,9 @@ function paypal_payment_options() {
 	require 'languages/text_variables.php';
     global $wpdb;
 	$tz = get_option('timezone_string');
+	if (empty($tz)) {
+		$tz = 'UTC';
+	}
 	date_default_timezone_set($tz);
     if(isset($_POST['btnSaveAdaptivePayment'])){
         if($_POST['btnSaveAdaptivePayment'] == $tr_Save_Settings) {
@@ -1008,6 +929,9 @@ function add_order() {
 	require 'languages/text_variables.php';		
 	global $wpdb;
 	$tz = get_option('timezone_string');
+	if (empty($tz)) {
+		$tz = 'UTC';
+	}
 	date_default_timezone_set($tz);
 	$cancel_hook = false;
 	if ( isset($_POST['btnAddOrder']) ) {
@@ -1066,8 +990,7 @@ function add_order() {
 		exit;
 	}
 	
-	$sql = "SELECT * FROM ".$wpdb->prefix."ign_products";
-    $products = $wpdb->get_results($sql);
+	$products = ID_Project::get_all_projects();
 
 	//print_r($products);
 	echo '<div class="wrap">
@@ -1549,38 +1472,30 @@ function admin_menu_html() {
 	require 'languages/text_variables.php';		
 	 //All the lines, with #GLOBALS['<variable name>']; replace with $<variable name>
 	$menu = '
-			<div class="sidebar">
-			<h2>IgnitionDeck</h2>
-				<h3 class="nav-tab-wrapper">
-					<a'.(($_GET['page'] == "ignitiondeck") ? ' class="nav-tab nav-tab-active"' : ' class="nav-tab"').' href="admin.php?page=ignitiondeck">'.$tr_Settings.'</a>
-					<a '.(($_GET['page'] == "project-settings") ? ' class="nav-tab nav-tab-active"' : ' class="nav-tab"').' href="admin.php?page=project-settings">'.$tr_Product_Settings.'</a>
-					<a '.(($_GET['page'] == "custom-settings") ? ' class="nav-tab nav-tab-active"' : ' class="nav-tab"').' href="admin.php?page=custom-settings">'.$tr_Custom_Pre_Product_Settings.'</a>
+		<div class="sidebar ignitiondeck">
+			<h2 class="title">IgnitionDeck</h2>
+			<div class="help">
+				<a href="http://forums.ignitiondeck.com" alt="IgnitionDeck Support" title="IgnitionDeck Support" target="_blank"><button class="button button-large">'.__('Support', 'memberdeck').'</button></a>
+				<a href="http://docs.ignitiondeck.com" alt="IgnitionDeck Documentation" title="IgnitionDeck Documentation" target="_blank"><button class="button button-large">'.__('Documentation', 'memberdeck').'</button></a>
+			</div>
+			<br style="clear: both;"/>
+			<h3 class="nav-tab-wrapper">
+				<a'.(($_GET['page'] == "ignitiondeck") ? ' class="nav-tab nav-tab-active"' : ' class="nav-tab"').' href="admin.php?page=ignitiondeck">'.$tr_Settings.'</a>
+				<a '.(($_GET['page'] == "project-settings") ? ' class="nav-tab nav-tab-active"' : ' class="nav-tab"').' href="admin.php?page=project-settings">'.$tr_Product_Settings.'</a>';
+				if (is_id_licensed()) {
+				$menu .= '<a '.(($_GET['page'] == "custom-settings") ? ' class="nav-tab nav-tab-active"' : ' class="nav-tab"').' href="admin.php?page=custom-settings">'.$tr_Custom_Pre_Product_Settings.'</a>
 					<a '.(($_GET['page'] == "payment-options") ? ' class="nav-tab nav-tab-active"' : ' class="nav-tab"').'href="admin.php?page=payment-options">'.$tr_Payment_Settings.'</a>
-					<a '.(($_GET['page'] == "deck-builder") ? ' class="nav-tab nav-tab-active"' : ' class="nav-tab"').'href="admin.php?page=deck-builder">'.$tr_Deck_Builder.'</a>
-					<a '.(($_GET['page'] == "order_details") ? ' class="nav-tab nav-tab-active"' : ' class="nav-tab"').' href="admin.php?page=order_details">'.$tr_Order_Details.'</a>
-					<a '.(($_GET['page'] == "email-settings") ? ' class="nav-tab nav-tab-active"' : ' class="nav-tab"').' href="admin.php?page=email-settings">'.$tr_Email_List_Settings.'</a>';
-				$menu_sub = '</h3>
-			</div>';
+					<a '.(($_GET['page'] == "deck-builder") ? ' class="nav-tab nav-tab-active"' : ' class="nav-tab"').'href="admin.php?page=deck-builder">'.$tr_Deck_Builder.'</a>';
+				}
+				$menu .= '<a '.(($_GET['page'] == "order_details") ? ' class="nav-tab nav-tab-active"' : ' class="nav-tab"').' href="admin.php?page=order_details">'.$tr_Order_Details.'</a>';
+				if (is_id_licensed()) {
+					'<a '.(($_GET['page'] == "email-settings") ? ' class="nav-tab nav-tab-active"' : ' class="nav-tab"').' href="admin.php?page=email-settings">'.$tr_Email_List_Settings.'</a>';
+				}	
+	$menu_sub = '</h3></div>';
 		
 	return apply_filters('id_submenu_tab', $menu).$menu_sub;
 }
 
-/*
- * Delete product after delete custom Post
- */
-add_action('admin_init', 'codex_init');
-function codex_init() {
-	//echo "\$_GET['action'] : ".$_GET['action'];
-	if (isset($_GET['post']) && (isset($_GET['action']) && $_GET['action'] == "trash")) {
-		//if (current_user_can('delete_posts'))
-		//	add_action('delete_post', 'delete_product', $_GET['post']);
-		global $wpdb;
-	
-		$prod_details = getProductFromPostID($_GET['post']);
-		if ($prod_details)
-			deleteCompleteProduct($prod_details->id);
-	}
-}
 function getProductFromPostID($postid) {
 	global $wpdb;
 	$product_name = get_post_meta($postid, 'ign_product_name', true);
@@ -1589,34 +1504,16 @@ function getProductFromPostID($postid) {
 	$product_details = $wpdb->get_row($sql);
 	return $product_details;
 }
-function delete_image()
-{
+function delete_image() {
 	//{
 	global $wpdb;
 	echo "hi";
 	exit;
 	$sql = "DELETE FROM ".$wpdb->prefix."postmeta WHERE post_id = '".$_GET['post_id']."' and meta_key='".$_GET['meta_key']."'";
-	$wpdb->query($sql);
-	
-	
+	$wpdb->query($sql);	
 }
 
-function deleteCompleteProduct($prod_id) {
-	global $wpdb;
-	$sql = "DELETE FROM ".$wpdb->prefix."ign_products WHERE id = '".$prod_id."'";
-	$wpdb->query($sql);
-	
-	$sql_prod_settings = "DELETE FROM ".$wpdb->prefix."ign_product_settings WHERE product_id = '".$prod_id."'";
-	$wpdb->query($sql_prod_settings);
-}
-
-	if(isset($_GET['post_id']))
-	{
-		
-	delete_img();
-}
-function delete_img()
-{
+function delete_img() {
 	global $wpdb;
 	global $post;
 	if ($post) {
@@ -1657,14 +1554,12 @@ function save_project_url($post_id) {
 	
 	if(isset($_POST['ign_option_project_url']))
 	{
-		delete_post_meta($post_id, 'ign_option_project_url');
-		add_post_meta($post_id, 'ign_option_project_url', $_POST['ign_option_project_url']);
+		update_post_meta($post_id, 'ign_option_project_url', esc_attr($_POST['ign_option_project_url']));
 	}
 	
 	if ($_POST['ign_option_project_url'] == "external_url") {		// If the Project URL is selected as external URL, that is the popup box is used to insert link
 		if(isset($_POST['id_project_URL'])) {
-			delete_post_meta($post_id, 'id_project_URL');
-			add_post_meta($post_id, 'id_project_URL', $_POST['id_project_URL']);
+			update_post_meta($post_id, 'id_project_URL', esc_attr($_POST['id_project_URL']));
 			//update_post_meta($post_id, 'id_project_URL', $_POST['id_project_URL']);
 		} else {
 			delete_post_meta($post_id, 'id_project_URL');
@@ -1676,8 +1571,7 @@ function save_project_url($post_id) {
 		
 			if($_POST['ign_post_name'] != '')
 			{
-				delete_post_meta($post_id, 'ign_post_name');
-				add_post_meta($post_id, 'ign_post_name', $_POST['ign_post_name']);
+				update_post_meta($post_id, 'ign_post_name', esc_attr($_POST['ign_post_name']));
 			}
 		}
 		delete_post_meta($post_id, 'id_project_URL');
@@ -1719,14 +1613,12 @@ function save_purchase_url($post_id) {
 	
 	if(isset($_POST['ign_option_purchase_url']))
 	{
-		delete_post_meta($post_id, 'ign_option_purchase_url');
-		add_post_meta($post_id, 'ign_option_purchase_url', $_POST['ign_option_purchase_url']);
+		update_post_meta($post_id, 'ign_option_purchase_url', esc_attr($_POST['ign_option_purchase_url']));
 	}
 	
 	if ($_POST['ign_option_purchase_url'] == "external_url") {		// If the Project URL is selected as external URL, that is the popup box is used to insert link
 		if(isset($_POST['purchase_project_URL'])) {
-			delete_post_meta($post_id, 'purchase_project_URL');
-			add_post_meta($post_id, 'purchase_project_URL', $_POST['purchase_project_URL']);
+			update_post_meta($post_id, 'purchase_project_URL', esc_attr($_POST['purchase_project_URL']));
 			//update_post_meta($post_id, 'id_project_URL', $_POST['id_project_URL']);
 		} else {
 			delete_post_meta($post_id, 'purchase_project_URL');
@@ -1738,8 +1630,7 @@ function save_purchase_url($post_id) {
 		
 			if($_POST['ign_purchase_post_name'] != '')
 			{
-				delete_post_meta($post_id, 'ign_purchase_post_name');
-				add_post_meta($post_id, 'ign_purchase_post_name', $_POST['ign_purchase_post_name']);
+				update_post_meta($post_id, 'ign_purchase_post_name', esc_attr($_POST['ign_purchase_post_name']));
 			}
 		}
 		delete_post_meta($post_id, 'purchase_project_URL');
@@ -1781,14 +1672,12 @@ function save_ty_url($post_id) {
 	
 	if(isset($_POST['ign_option_ty_url']))
 	{
-		delete_post_meta($post_id, 'ign_option_ty_url');
-		add_post_meta($post_id, 'ign_option_ty_url', $_POST['ign_option_ty_url']);
+		update_post_meta($post_id, 'ign_option_ty_url', esc_attr($_POST['ign_option_ty_url']));
 	}
 	
 	if ($_POST['ign_option_ty_url'] == "external_url") {		// If the Project URL is selected as external URL, that is the popup box is used to insert link
 		if(isset($_POST['ty_project_URL'])) {
-			delete_post_meta($post_id, 'ty_project_URL');
-			add_post_meta($post_id, 'ty_project_URL', $_POST['ty_project_URL']);
+			update_post_meta($post_id, 'ty_project_URL', esc_attr($_POST['ty_project_URL']));
 			//update_post_meta($post_id, 'id_project_URL', $_POST['id_project_URL']);
 		} else {
 			delete_post_meta($post_id, 'ty_project_URL');
@@ -1800,8 +1689,7 @@ function save_ty_url($post_id) {
 		
 			if($_POST['ign_ty_post_name'] != '')
 			{
-				delete_post_meta($post_id, 'ign_ty_post_name');
-				add_post_meta($post_id, 'ign_ty_post_name', $_POST['ign_ty_post_name']);
+				update_post_meta($post_id, 'ign_ty_post_name', esc_attr($_POST['ign_ty_post_name']));
 			}
 		}
 		delete_post_meta($post_id, 'ty_project_URL');
@@ -1823,6 +1711,8 @@ function delete_project($post_id) {
         if (!empty($product)) {
 	        $remove_query = $wpdb->prepare('DELETE FROM '.$wpdb->prefix.'ign_products WHERE id = %d', $product->id);
 	        $remove_res = $wpdb->query($remove_query);
+	        $sql_prod_settings = "DELETE FROM ".$wpdb->prefix."ign_product_settings WHERE product_id = '".$product->id."'";
+			$wpdb->query($sql_prod_settings);
 	    }
     }
 }
@@ -1851,7 +1741,7 @@ function id_setup_nags() {
 	}
 }
 
-add_action('admin_init', 'id_setup_nags');
+add_action('admin_init', 'id_setup_nags', 100);
 
 function id_settings_notice() {
 	echo '<div class="updated">

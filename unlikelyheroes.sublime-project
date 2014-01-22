@@ -1,0 +1,14 @@
+{
+	"folders":
+	[
+		{
+			"path": "wp-content/themes/unlikely-heroes"
+		},
+		{
+			"path": "wp-content/plugins/memberdeck"
+		},
+		{
+			"path": "wp-content/plugins/ignitiondeck"
+		}
+	]
+}

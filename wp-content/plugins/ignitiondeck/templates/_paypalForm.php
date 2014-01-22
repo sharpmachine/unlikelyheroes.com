@@ -2,7 +2,7 @@
     <input type="hidden" name="cmd" value="_xclick">
     <input type="hidden" name="business" value="<?php echo esc_attr( $paypal_email ); ?>">
     <input type="hidden" name="item_name" value="<?php echo stripslashes(esc_html( $productDetails->product_name )); ?>">
-    <input type="hidden" name="item_number" value="<?php echo stripslashes(esc_attr( absint( $productDetails->product_name ) )); ?>">
+    <input type="hidden" name="item_number" value="<?php echo stripslashes(esc_attr( absint( $productDetails->id ) )); ?>">
     <input type="hidden" name="item_id" value="<?php echo esc_attr( absint( mysql_insert_id() ) ); ?>">
     <input type="hidden" name="amount" value="<?php echo esc_attr( $_POST['price'] ); ?>">
     

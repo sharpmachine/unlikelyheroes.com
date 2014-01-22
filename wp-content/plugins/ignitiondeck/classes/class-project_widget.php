@@ -197,7 +197,7 @@ class Product_Widget extends WP_Widget {
 			switch ($field['type'])
 			{
 				case 'text':
-					echo '<input type="text" name="', $this->get_field_name($field['id']), '" id="', $this->get_field_id($field['id']), '" value="', $instance[$field['id']], '" class="vibe_text" />', 
+					echo '<input type="text" name="', $this->get_field_name($field['id']), '" id="', $this->get_field_id($field['id']), '" value="', (isset($instance[$field['id']]) ? $instance[$field['id']] : ''), '" class="vibe_text" />', 
 					'<br/><span class="description">', @$field['desc'], '</span>';
 					break;
 				case 'textarea':
@@ -215,7 +215,7 @@ class Product_Widget extends WP_Widget {
 
         			foreach($allproducts as $prod)
 					{
-						$selected_option = ( $value ) ? $value : $prod->product_name;
+						$selected_option = isset($value) ? $value : $prod->product_name;
 						//echo "selected_option: ".$selected_option."<br />";
 						//echo "meta: ".$meta."<br />";
 					    echo '<option', ($prod->id ? ' value="' . $prod->id . '"' : ''), ($meta == $prod->id ? ' selected="selected"' : ''), '>', $prod->product_name, '</option>';
