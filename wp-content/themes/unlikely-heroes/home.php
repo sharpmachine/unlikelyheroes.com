@@ -133,7 +133,6 @@
 				<?php get_template_part('create','campaign'); ?>
 				<?php get_template_part('create','campaign'); ?>
 			<?php endif; ?>
-		
 			
 		</div>
 	</div>

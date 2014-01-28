@@ -33,7 +33,7 @@ function custom_login_logo() {
   echo '<style type="text/css">
     h1 a 
     {
-    	 background-image:url('.get_bloginfo('template_directory').'/img/login-logo.png) !important;
+    	 background-image:url('.get_stylesheet_directory_uri().'/img/login-logo.png) !important;
 		 background-size: 315px 52px !important;
     	 width: 315px !important; /* Same width as logo */
     	 height: 52px !important; /* Same height as logo */

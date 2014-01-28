@@ -17,25 +17,23 @@
 	<div class="section boxes-one">
 		<div class="row">
 
-			<?php $args = array( 'post_type' => 'ignition_product','posts_per_page' => 15, 'paged' => $paged); ?>
-
-			<?php $all_campaigns = new WP_Query( $args ); ?>
-			<?php if ( $all_campaigns->have_posts() ) : ?>
-				<?php while ( $all_campaigns->have_posts() ) : $all_campaigns->the_post(); ?>
-					<?php get_template_part('campaign','listing'); ?>
-				<?php endwhile; ?>
-
-			<?php get_template_part('create','campaign'); ?>
-
-			<?php wp_reset_postdata(); ?>
-
-			<?php else:  ?>
-				<h3 class="text-center"><?php _e( 'No campaigns yet.  Create one now!' ); ?></h3>
-				<?php get_template_part('create','campaign'); ?>
-				<?php get_template_part('create','campaign'); ?>
-				<?php get_template_part('create','campaign'); ?>
-				<?php get_template_part('create','campaign'); ?>
-			<?php endif; ?>
+			<div id="project-grid">
+				<?php 
+				if (is_archive('ignition_product')) {
+					get_template_part('loop', 'project');
+				}
+				else {
+					$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+					$query = new WP_Query(array('paged' => $paged, 'posts_per_page' =>9));
+					// Start the loop
+					if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post();
+						get_template_part('entry');
+						endwhile;
+						endif; 
+					wp_reset_postdata();
+				}
+				?>
+			</div>
 		</div><!-- .row -->
 	</div><!-- .section -->
 

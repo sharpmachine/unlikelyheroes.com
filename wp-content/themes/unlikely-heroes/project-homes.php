@@ -20,7 +20,7 @@ get_header(); ?>
 	<div class="row main-content sixteen-vr">
 		<div class="col-md-offset-1 col-md-10">
 			<h2 class="text-center home-name"><?php the_field('home_name'); ?></h2>
-			<?php the_content(); ?>
+			<?php get_template_part( 'loop', 'page' ); ?>
 		</div>
 	</div>
 </div>
