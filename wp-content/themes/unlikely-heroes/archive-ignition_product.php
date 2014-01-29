@@ -21,6 +21,7 @@
 				<?php 
 				if (is_archive('ignition_product')) {
 					get_template_part('loop', 'project');
+					get_template_part('create','campaign');
 				}
 				else {
 					$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;

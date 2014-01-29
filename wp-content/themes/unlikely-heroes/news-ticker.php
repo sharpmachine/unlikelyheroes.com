@@ -1,7 +1,4 @@
-<!-- 	<div class="mobile-login visible-xs">
-		<a href="<?php bloginfo('url'); ?>/dashboard" class="btn btn-block">Heroic Login</a>
-	</div> -->
-	<div class="news-ticker">
+<div class="news-ticker">
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-6 col-md-6 hidden-sm hidden-xs">

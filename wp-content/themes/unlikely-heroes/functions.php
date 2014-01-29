@@ -363,6 +363,20 @@ function remove_admin_bar() {
 	}
 }
 
+// Image Sizes added and Allowing to select those image sizes in Media Insert Admin
+if ( function_exists( 'add_image_size' ) ) {
+	add_image_size( 'thumbnail-box', 697, 463, true); // For Campaign Summary boxes
+	add_image_size( 'project-page', 720, 435, true); // For campaign page
+}
+
+add_filter( 'image_size_names_choose', 'custom_image_sizes_choose_2' );  
+function custom_image_sizes_choose_2( $sizes ) {  
+    $custom_sizes = array(  
+        'thumbnail-box' => 'Home Page Summary Box'
+    );  
+    return array_merge( $sizes, $custom_sizes );  
+}
+
 // add_filter( 'parse_query', 'exclude_pages_from_admin' );
 // function exclude_pages_from_admin($query) {
 // 	global $pagenow,$post_type;
@@ -377,11 +391,33 @@ function remove_admin_bar() {
 // } // end soi_login_redirect
 // add_filter( 'login_redirect', 'soi_login_redirect', 10, 3 );
 
-function baw_no_admin_access()
-{
-	if( !current_user_can( 'administrator' ) ) {
-		wp_redirect( home_url() );
-		die();
-	}
-}
-add_action( 'admin_init', 'baw_no_admin_access', 1 );
+// function baw_no_admin_access()
+// {
+// 	if( !current_user_can( 'administrator' ) ) {
+// 		wp_redirect( home_url() );
+// 	}
+// }
+// add_action( 'admin_init', 'baw_no_admin_access', 1 );
+
+
+// function the_project_image($id, $num) {
+// 	if ($num == 1) {
+// 		$project_id = get_post_meta($id, 'ign_project_id', true);
+// 		global $wpdb;
+// 		$url = get_post_meta($id, 'ign_product_image1', true);
+// 		$sql = $wpdb->prepare('SELECT ID FROM '.$wpdb->prefix.'posts WHERE guid = %s', $url);
+// 		$res = $wpdb->get_row($sql);
+// 		if (isset($res->ID)) {
+// 			$src = wp_get_attachment_image_src($res->ID, 'single-thumb');
+// 			$image = $src[0];
+// 		} else {
+// 			$image = $url;
+// 		}
+// 	}
+// 	else {
+// 		$key = 'ign_product_image'.$num;
+// 		$image = get_post_meta($id, $key, true);
+// 	}
+	
+// 	return $image;
+// }

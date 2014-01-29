@@ -398,6 +398,42 @@ body {
 }
 
 /*..................................the boxes-one */
+.section.heroic-events {
+	padding-bottom: 0;
+}
+
+.past-events {
+	h3 {
+	 height: 34px;
+	}
+
+	.box-one {
+		@media (min-width: @screen-sm) and (max-width: @screen-md) {
+			margin-bottom: 30px;
+		}
+
+		@media (min-width: 0) and (max-width: @screen-xs-max) {
+			margin-bottom: 15px;
+		}
+	}
+
+	.box-one-inner p {
+		height: 100px;
+
+		@media (max-width: @screen-md-max) {
+			height: 150px;
+		}
+
+		@media (min-width: @screen-sm) and (max-width: @screen-md) {
+			height: 75px;
+		}
+
+		@media (min-width: 0) and (max-width: @screen-xs-max) {
+			height: auto;
+		}
+	}
+}
+
 .boxes-one {
 	padding-bottom: 90px;
 
@@ -1222,7 +1258,8 @@ a.level-binding {
 @accent-color: transparent;
 
 body {
-	&.page
+	&.page,
+	&.single
 	{
 		@accent-color: @brand-teal;
 		.accent-colors;
@@ -1263,7 +1300,8 @@ body {
 	
 	// Pink
 	&.page-id-838, // The Problem page
-	&.single-lastest_updates { // Updates
+	&.single-lastest_updates, // Updates
+	&.post-type-archive-lastest_updates { // Updates
 		@accent-color: @brand-pink;
 		.accent-colors;
 

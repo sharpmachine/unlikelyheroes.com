@@ -87,7 +87,7 @@ else {
 
 	<div class="text-center mobile-updates visible-xs">
 		<span>Lastest Update:</span>
-<!--	<?php $args = array( 'post_type' => 'lastest_updates', 'posts_per_page' => 1); ?>
+	<?php $args = array( 'post_type' => 'lastest_updates', 'posts_per_page' => 1); ?>
 	<?php $latest_updates = new WP_Query( $args ); ?>
 
 	<?php if ( $latest_updates->have_posts() ) : ?>
@@ -100,7 +100,7 @@ else {
 
 <?php else:  ?>
 	<?php _e( 'Sorry, no posts matched your criteria.' ); ?></p>
-<?php endif; ?>-->
+<?php endif; ?>
 </div>
 
 <div class="section section-dark-gray text-center">
@@ -118,17 +118,17 @@ else {
 
 <div class="container">
 
-		<?php if( have_rows('event_name', 'option') ): ?>
+		<?php if( have_rows('heroic_events', 'option') ): ?>
 
-	<div class="section boxes-one">
+	<div class="section heroic-events boxes-one">
 		<h2 class="text-center">Heroic Events</h2>
-		<div class="row">
+		<div class="row past-events">
 
 		<?php while ( have_rows('heroic_events', 'option') ) : the_row(); ?>
 		
 			<?php 
 		$attachment_id = get_sub_field('event_photo', 'option');
-		$size = "single-thumb";
+		$size = "thumbnail-box";
 		$image = wp_get_attachment_image_src( $attachment_id, $size );
 	?>
 
@@ -161,12 +161,13 @@ else {
 	</div>
 <?php endif; ?>
 	<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-		<div id="content" class="section boxes-one">
+		<div id="content" class="section heroic-projects boxes-one">
 			<h2 class="entry-title text-center"><?php _e('Heroic Campaigns', 'fivehundred'); ?></h2>
 			<div id="project-grid" class="row">
 				<?php 
 				if (is_front_page()) {
 					get_template_part('loop', 'project');
+					get_template_part('create','campaign');
 				}
 				else {
 					$paged = (get_query_var('paged') ? get_query_var('paged') : 1);
@@ -183,7 +184,6 @@ else {
 				</div>
 			</div>
 		</div>
-
 	</div><!-- END: .container -->
 	
 	<?php } else { ?>

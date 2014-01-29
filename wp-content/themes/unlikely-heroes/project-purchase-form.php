@@ -8,8 +8,8 @@ $project_id = get_post_meta($id, 'ign_project_id', true);
 	<div class="row">
 		<div class="col-xs-12">
 			<div id="site-description">
-				<h1><?php echo $content->name; ?></h1>
-				<h2><?php echo $content->short_description; ?></h2> 
+				<h1 class="text-center"><?php echo $content->name; ?></h1>
+				<h2 class="text-center"><?php echo $content->short_description; ?></h2> 
 			</div>
 			<div class="entry-content">
 				<?php

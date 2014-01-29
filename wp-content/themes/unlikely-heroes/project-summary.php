@@ -8,7 +8,20 @@ do_action('fh_project_summary_before');
 	<div class="box-one-inner">
 		<a href="<?php echo the_permalink(); ?>">
 			<div class="box-one-img">
-				<img src="<?php echo $summary->image_url; ?>" class="img-responsive" alt="<?php the_title(); ?>">
+
+				<?php  
+					global $wpdb;
+					$url = get_post_meta($id, 'ign_product_image1', true);
+					$sql = $wpdb->prepare('SELECT ID FROM '.$wpdb->prefix.'posts WHERE guid = %s', $url);
+					$res = $wpdb->get_row($sql);
+					if (isset($res->ID)) {
+						$src = wp_get_attachment_image_src($res->ID, 'thumbnail-box');
+						$image = $src[0];
+					} else {
+						$image = $url;
+					}
+				?>
+			<img src="<?php echo $image; ?>" class="img-responsive" alt="<?php the_title(); ?>">
 			</div>
 			<div class="title"><h3><?php echo $summary->name; ?></h3></div>
 			<div class="ign-summary-container">
