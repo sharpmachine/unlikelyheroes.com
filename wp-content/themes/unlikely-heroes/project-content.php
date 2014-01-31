@@ -1,9 +1,13 @@
 <?php
+/*
+* Single Campaign page
+*/
 global $post;
 $id = $post->ID;
 $content = the_project_content($id);
 $project_id = get_post_meta($id, 'ign_project_id', true);
 ?>
+<div class="container">
 <div id="site-description">
 	<h1><?php echo $content->name; ?> </h1>
 	<h2><?php echo $content->short_description; ?></h2> 
@@ -26,4 +30,5 @@ $project_id = get_post_meta($id, 'ign_project_id', true);
 	</div>
 	<?php get_template_part( 'project', 'sidebar' ); ?>
 	<div class="clear"></div>
+</div>
 </div>

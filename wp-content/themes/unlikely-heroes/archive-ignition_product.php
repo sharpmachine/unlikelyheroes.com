@@ -14,7 +14,7 @@
 
 <div class="container">
 
-	<div class="section boxes-one">
+	<div class="section boxes-one project-summaries">
 		<div class="row">
 
 			<div id="project-grid">

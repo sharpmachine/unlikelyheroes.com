@@ -1,4 +1,4 @@
-<div class="col-sm-6 col-md-3 box-one create-campagin-cta">
+<div class="col-sm-6 col-md-3 box-one create-campaign-cta">
 	<div class="box-one-inner">
 		<a href="<?php bloginfo('url'); ?>/dashboard/?create_project=1">
 			<div class="box-one-img box-one-action">
@@ -10,3 +10,10 @@
 		</a>
 	</div>
 </div>
+
+<?php if (is_home() || is_front_page()): ?>
+<div class="clearfix"></div>
+<div class="text-center">
+	<a href="<?php bloginfo('url'); ?>/projects" class="btn btn-lg">All Campaigns</a>
+</div>
+<?php endif; ?>

@@ -120,7 +120,7 @@ else {
 
 		<?php if( have_rows('heroic_events', 'option') ): ?>
 
-	<div class="section heroic-events boxes-one">
+	<div class="section boxes-one past-events ">
 		<h2 class="text-center">Heroic Events</h2>
 		<div class="row past-events">
 
@@ -161,17 +161,30 @@ else {
 	</div>
 <?php endif; ?>
 	<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-		<div id="content" class="section heroic-projects boxes-one">
-			<h2 class="entry-title text-center"><?php _e('Heroic Campaigns', 'fivehundred'); ?></h2>
+		<div id="content" class="section boxes-one project-summaries">
 			<div id="project-grid" class="row">
 				<?php 
 				if (is_front_page()) {
-					get_template_part('loop', 'project');
-					get_template_part('create','campaign');
+					$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+					$args = array('post_type' => 'ignition_product', 'ignition_product','category_name' => 'featured', 'showposts' => 3, 'paged' => $paged);
+					$newargs = apply_filters('project_query', $args);
+					
+					$query = new WP_Query($newargs);
+					if ( $query->have_posts() ){
+						echo '<h2 class="entry-title text-center">Heroic Campaigns</h2>';
+						while ( $query->have_posts() ) {
+							$query->the_post();
+
+							get_template_part('project');
+							
+						}
+						get_template_part('create','campaign');
+					}
+
 				}
 				else {
 					$paged = (get_query_var('paged') ? get_query_var('paged') : 1);
-					$query = new WP_Query(array('paged' => 'paged', 'posts_per_page' =>1, 'paged' => $paged));
+					$query = new WP_Query(array('paged' => 'paged', 'posts_per_page' => 1, 'paged' => $paged));
 
 						// Start the loop
 					if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post();

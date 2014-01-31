@@ -78,6 +78,10 @@ p.lead {
 		position: relative;
 		top: -3px;
 		margin-left: 16px;
+
+		@media (max-width: @screen-xs) {
+			margin-left: 0;
+		}
 	}
 }
 
@@ -398,69 +402,54 @@ body {
 }
 
 /*..................................the boxes-one */
-.section.heroic-events {
-	padding-bottom: 0;
-}
+.box-one {
+	padding-bottom: 45px;
 
-.past-events {
-	h3 {
-	 height: 34px;
+	@media (min-width: @screen-sm) and (max-width: @screen-md) {
+		margin-bottom: 30px;
 	}
 
-	.box-one {
-		@media (min-width: @screen-sm) and (max-width: @screen-md) {
-			margin-bottom: 30px;
-		}
-
-		@media (min-width: 0) and (max-width: @screen-xs-max) {
-			margin-bottom: 15px;
-		}
-	}
-
-	.box-one-inner p {
-		height: 100px;
-
-		@media (max-width: @screen-md-max) {
-			height: 150px;
-		}
-
-		@media (min-width: @screen-sm) and (max-width: @screen-md) {
-			height: 75px;
-		}
-
-		@media (min-width: 0) and (max-width: @screen-xs-max) {
-			height: auto;
-		}
+	@media (min-width: 0) and (max-width: @screen-xs-max) {
+		margin-bottom: 15px;
+		padding-bottom: 0;
 	}
 }
 
-.boxes-one {
-	padding-bottom: 90px;
+// 	.box-one-inner p {
+// 		height: 100px;
 
-	&:last-child {
-		padding-bottom: 90px;
-	}
-}
+// 		@media (max-width: @screen-md-max) {
+// 			height: 150px;
+// 		}
+
+// 		@media (min-width: @screen-sm) and (max-width: @screen-md) {
+// 			height: 75px;
+// 		}
+
+// 		@media (min-width: 0) and (max-width: @screen-xs-max) {
+// 			height: auto;
+// 		}
+// 	}
+// }
 
 .box-one-inner {
 
 	.box-one-img {
 		background-color: @brand-teal;
-		// height: 148px;
 		overflow: hidden;
 		.transition(0.2s background-color ease);
 
-		@media (min-width: @screen-sm) {
-			height: 203px;
-		}
+		// @media (min-width: @screen-sm) {
+		// 	height: 203px;
+		// }
 
-		@media (min-width: @screen-md) {
-			height: 115px;
-		}
+		// @media (min-width: @screen-md) {
+		// 	height: 115px;
+		// }
 
-		@media (min-width: @screen-lg) {
-			height: 148px;
-		}
+		// @media (min-width: @screen-lg) {
+		// 	height: 148px;
+		// }
 	}
 
 	.box-one-action {
@@ -489,6 +478,7 @@ body {
 	}
 
 	h3 {
+		height: 34px;
 		color: @brand-teal;
 		.Roboto-slab-light;
 		font-size: 16px;
@@ -499,14 +489,29 @@ body {
 	p {
 		margin-bottom: 0;
 		font-size: 12px;
+		overflow: hidden;
 	}
 
 	a {
 		display: block;
+		height: 100%;
+		// height: 438px;
 		padding: 20px;
 		color: #3B3E3C;
 		background-color: @gray-lighter;
 		.transition(0.2s background-color ease);
+
+		@media (min-width: @screen-lg) {
+			height: 438px;
+		}
+
+		@media (min-width: @screen-md) and (max-width: @screen-md-max) {
+			height: 403px;
+		}
+
+		@media (min-width: @screen-sm) and (max-width: @screen-sm-max) {
+			height: 491px;
+		}
 
 		&:hover {
 			background-color: darken(@gray-lighter, 5%);
@@ -528,6 +533,28 @@ body {
 			img {
 				opacity: 0.4;
 				.transition(0.2s opacity ease);
+			}
+		}
+	}
+}
+
+.past-events {
+	padding-bottom: 0;
+
+	.box-one {
+		padding-bottom: 0;
+	}
+}
+
+.project-summaries {
+	.box-one {
+		p {
+			height: 71px;
+		}
+
+		&.create-campaign-cta {
+			p {
+				height: 200px;
 			}
 		}
 	}
@@ -958,14 +985,14 @@ form.wpcf7-form {
 	background: @brand-teal !important;
 }
 
-.memberdeck button {
-	margin-top: 36px !important;
-	.btn;
-	.btn-lg;
-	background: @brand-teal !important;
-	border-radius: 0 !important;
-	box-shadow: none !important;
-}
+// .memberdeck button {
+// 	margin-top: 36px !important;
+// 	.btn;
+// 	.btn-lg;
+// 	background: @brand-teal !important;
+// 	border-radius: 0 !important;
+// 	box-shadow: none !important;
+// }
 
 
 /*..................................the footer */
@@ -1177,27 +1204,6 @@ footer {
 	}
 }
 
-// Campaign summary boxes
-.campaign-summary,
-.create-campagin-cta {
-	margin-bottom: 30px;
-
-	h3 {
-		height: 34px;
-	}
-
-	p {
-		height: 71px;
-		overflow: hidden;
-	}
-}
-
-.create-campagin-cta {
-	p {
-		height: 172px;
-	}
-}
-
 // Campaign levels
 a.level-binding {
 	color: @brand-gray !important;
@@ -1272,6 +1278,54 @@ body.postid-7 .memberdeck p {
 
 .memberdeck #payment-form p {
 	display: block;
+}
+
+.memberdeck .dashboardmenu {
+	background-color: @gray-lighter !important;
+	// border: 1px solid @gray-light !important;
+	border: 0 !important;
+
+	& > li {
+		border-right: 1px solid @gray-light !important;
+	}
+}
+
+.memberdeck button,
+.memberdeck input[type="submit"],
+.memberdeck form .form-row input[type="submit"],
+.memberdeck .button,
+.md-requiredlogin #wp-submit {
+	margin-top: 36px !important;
+	.btn;
+	.btn-lg;
+	background: @brand-teal !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+}
+
+p.error {
+	.alert;
+	.alert-danger;
+}
+
+.md-requiredlogin {
+	h3 {
+		display: none;
+	}
+}
+
+.memberdeck #payment-form,
+.md-requiredlogin #loginform {
+	// @media (max-width: @screen-xs-max) {
+		width: 100% !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		max-width: 100% !important;
+	// }
+}
+
+.md-requiredlogin #loginform {
+	margin-bottom: 0 !important;
 }
 
 /*..................................the page accents */

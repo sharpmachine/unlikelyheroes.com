@@ -1,4 +1,7 @@
 <?php
+/*
+* Thumbnail boxes on home page and /projects page
+*/
 global $post;
 $id = $post->ID;
 $summary = the_project_summary($id);
@@ -8,7 +11,6 @@ do_action('fh_project_summary_before');
 	<div class="box-one-inner">
 		<a href="<?php echo the_permalink(); ?>">
 			<div class="box-one-img">
-
 				<?php  
 					global $wpdb;
 					$url = get_post_meta($id, 'ign_product_image1', true);
