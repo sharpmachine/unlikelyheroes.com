@@ -183,7 +183,7 @@ jQuery(document).ready(function() {
 			return false;
 		}
 	});
-	if (jQuery('.id-fes-form-wrapper').length > 0) {
+	if (jQuery('.id-fes-form-wrapper').length) {
 		jQuery('.id-fes-form-wrapper .date').datepicker({});
 	}
 	jQuery('#fes input[name="project_levels"]').change(function() {
@@ -211,7 +211,7 @@ function countLevels() {
 	return fesLevels;
 }
 function formLevel(fesLevels, levelChange) {
-	console.log(levelChange);
+	//console.log(levelChange);
 	if (levelChange < 0) {
 		levelChange = Math.abs(levelChange);
 		for (i = 1; i <= levelChange; i++) {
@@ -221,12 +221,23 @@ function formLevel(fesLevels, levelChange) {
 	else {
 		for (i = 1; i <= levelChange; i++) {
 			var clone = jQuery('#fes .form-level').eq(0).clone();
-			console.log(jQuery('#fes .form-level:hidden'));
+			//console.log(jQuery('#fes .form-level:hidden'));
 			if (jQuery('#fes .form-level:hidden').length > 0) {
 				jQuery('#fes .form-level:hidden').first().toggle();
 			}
 			else {
+				// add clone
 				jQuery('#fes .form-level').last().after(clone);
+				// clear text and values
+				var cloneIn = jQuery('#fes .form-level').last();
+				var cloneInput = jQuery(cloneIn).find('input');
+				var cloneTextArea = jQuery(cloneIn).find('textarea');
+				jQuery.each(cloneInput, function() {
+					jQuery(this).val('');
+				});
+				jQuery.each(cloneTextArea, function() {
+					jQuery(this).text('');
+				});
 			}
 		}
 	}
@@ -305,33 +316,12 @@ app.popupwindow = function(url, title, w, h){
 
 //ONLOAD function to call after the window has been loaded
 window.onload = function () {
-	// FOR getting the project number, is called for the ignitiondeck-functions.php when Product
-	// is changed in Add Post/Add Page page
-	jQuery('#project_id_shortcodes').change(function () {
-		var prod_num = jQuery(this).val();
-		jQuery.ajax({
-			type: "POST",
-			url: 'admin-ajax.php',
-			data: {action: 'get_product_number', product_id: prod_num},
-			success: function(html) {						
-				//alert(jQuery.trim(html));
-				jQuery('.id-metabox-short-codes .shortcode-content span').html(jQuery.trim(html));
-			}
-		});
-	});
-	
-	/*jQuery('.insert-project-link').fancybox({
-		'width'				: '300px',
-		'autoScale'			: false,
-		'transitionIn'		: 'none',
-		'transitionOut'		: 'none'
-	});*/
 	
 	//================================================================================================
 	// Add New Project page popup for inserting a Project URL
 	//================================================================================================
 	// For Add New Project page to fill the text box with a link of the post, page or ID project page
-	
+	// probably unused
 	jQuery('.post-link-filler').click(function () {
 		var page_link = jQuery(this).attr('href');
 		//alert("page_link: " + page_link);
@@ -365,62 +355,9 @@ window.onload = function () {
 	});
 	//================================================================================================
 };
-function storeurladdress() {
-   	if(document.getElementById('select_pageurls').value == 'external_url')
-   	{
-	   	document.getElementById('proj_url_cont').style.display = 'block';
-	   	document.getElementById('proj_posts').style.display = 'none';
-   	}
-   	else if(document.getElementById('select_pageurls').value == 'page_or_post')
-   	{
-	   	document.getElementById('proj_posts').style.display = 'block';
-	   	document.getElementById('proj_url_cont').style.display = 'none';
-   	}
-   	else if(document.getElementById('select_pageurls').value == 'current_page')
-	{
-		document.getElementById('proj_posts').style.display = 'none';
-	   	document.getElementById('proj_url_cont').style.display = 'none';
-	}
-}
-
-function storepurchaseurladdress() {
-   	if(document.getElementById('select_purchase_pageurls').value == 'external_url')
-   	{
-	   	document.getElementById('purchase_url_cont').style.display = 'block';
-	   	document.getElementById('purchase_posts').style.display = 'none';
-   	}
-   	else if(document.getElementById('select_purchase_pageurls').value == 'page_or_post')
-   	{
-	   	document.getElementById('purchase_posts').style.display = 'block';
-	   	document.getElementById('purchase_url_cont').style.display = 'none';
-   	}
-   	else if(document.getElementById('select_purchase_pageurls').value == 'current_page')
-	{
-		document.getElementById('purchase_posts').style.display = 'none';
-	   	document.getElementById('purchase_url_cont').style.display = 'none';
-	}
-}
-
-function storetyurladdress()
-{
-   	if(document.getElementById('select_ty_pageurls').value == 'external_url')
-   	{
-	   	document.getElementById('ty_url_cont').style.display = 'block';
-	   	document.getElementById('ty_posts').style.display = 'none';
-   	}
-   	else if(document.getElementById('select_ty_pageurls').value == 'page_or_post')
-   	{
-	   	document.getElementById('ty_posts').style.display = 'block';
-	   	document.getElementById('ty_url_cont').style.display = 'none';
-   	}
-   	else if(document.getElementById('select_ty_pageurls').value == 'current_page')
-	{
-		document.getElementById('ty_posts').style.display = 'none';
-	   	document.getElementById('ty_url_cont').style.display = 'none';
-	}
-}
 
 // Submit form function for Purchasing product
+// probably unused
 function submitPurchaseForm(ajax_url) {
 	//var dgFlow = new PAYPAL.apps.DGFlow({ trigger: 'submitBtn' });
 	//jQuery('#submitBtn').trigger('click');

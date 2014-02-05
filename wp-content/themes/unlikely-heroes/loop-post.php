@@ -40,4 +40,4 @@
 		<?php //comments_template( '', true ); ?>
 	<?php endif; ?>
 </article><!-- #post -->
-
+<hr>

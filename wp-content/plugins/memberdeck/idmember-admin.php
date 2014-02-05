@@ -4,7 +4,7 @@ add_action('admin_menu', 'memberdeck_add_menus', 5);
 
 function memberdeck_add_menus() {
 	if (current_user_can('manage_options')) {
-		$settings = add_menu_page(__('MemberDeck', 'memberdeck'), 'MemberDeck', 'manage_options', 'memberdeck', 'memberdeck_settings');
+		$settings = add_menu_page(__('MemberDeck', 'memberdeck'), 'MemberDeck', 'manage_options', 'memberdeck', 'memberdeck_settings', plugins_url( '/images/icon-adminmenu16-sprite.png', __FILE__ ));
 		//$settings = add_submenu_page('options-general.php', 'MemberDeck', 'MemberDeck', 'manage_options', 'memberdeck-settings', 'memberdeck_settings');
 		$users = add_submenu_page('memberdeck', __('Members', 'memberdeck'), __('Members', 'memberdeck'), 'manage_options', 'memberdeck-users', 'memberdeck_users');
 		$payments = add_submenu_page('memberdeck', __('Gateways', 'memberdeck'), __('Gateways', 'memberdeck'), 'manage_options', 'memberdeck-gateways', 'memberdeck_gateways');
@@ -239,7 +239,7 @@ function memberdeck_settings() {
 	$dash = get_option('md_dash_settings');
 	if (!empty($dash)) {
 		$dash = unserialize($dash);
-		if (isset($durl)) {
+		if (isset($dash['durl'])) {
 			$durl = $dash['durl'];
 		}
 		else {
@@ -280,16 +280,16 @@ function memberdeck_settings() {
 		}
 	}
 	if (isset($_POST['dash-submit'])) {
-		$durl = $_POST['durl'];
-		$alayout = $_POST['a-layout'];
-		$aname = $_POST['a-name'];
-		$blayout = $_POST['b-layout'];
-		$bname = $_POST['b-name'];
-		$clayout = $_POST['c-layout'];
-		$cname = $_POST['c-name'];
-		$layout = $_POST['layout-select'];
+		$durl = esc_attr($_POST['durl']);
+		$alayout = esc_attr($_POST['a-layout']);
+		$aname = esc_attr($_POST['a-name']);
+		$blayout = esc_attr($_POST['b-layout']);
+		$bname = esc_attr($_POST['b-name']);
+		$clayout = esc_attr($_POST['c-layout']);
+		$cname = esc_attr($_POST['c-name']);
+		$layout = esc_attr($_POST['layout-select']);
 		if (isset($_POST['powered_by'])) {
-			$powered_by = $_POST['powered_by'];
+			$powered_by = absint($_POST['powered_by']);
 		}
 		else {
 			$powered_by = 0;
@@ -304,8 +304,18 @@ function memberdeck_settings() {
 		$coname = $general['coname'];
 		$coemail = $general['coemail'];
 		$crowdfunding = $general['crowdfunding'];
-		$s3 = $general['s3'];
-		$enable_creator = $general['enable_creator'];
+		if (isset($general['s3'])) {
+			$s3 = $general['s3'];
+		}
+		else {
+			$s3 = 0;
+		}
+		if (isset($general['enable_creator'])) {
+			$enable_creator = $general['enable_creator'];
+		}
+		else {
+			$enable_creator = 0;
+		}
 	}
 	if (isset($_POST['receipt-submit'])) {
 		$coname = $_POST['co-name'];

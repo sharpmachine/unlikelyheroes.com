@@ -9,6 +9,13 @@ jQuery(document).ready(function() {
 	if (bodyClass.indexOf('memberdeck') !== -1) {
 		jQuery('body').addClass('md-admin');
 	}
+	jQuery('.md_help_link').click(function() {
+		var service = jQuery(this).attr('id');
+		var service_id = '#' + service + '-help';
+		jQuery(service_id).slideToggle('fast', function() {
+			// Animation complete.
+		});
+	});
 	/*jQuery('input[name="export_customers"]').click(function(e) {
 		e.preventDefault();
 		export_customers();

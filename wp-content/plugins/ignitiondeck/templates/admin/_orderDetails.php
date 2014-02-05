@@ -1,5 +1,6 @@
 <?php 
 	$columns = null;
+	// seems to have no effect
 	apply_filters('manage-order_columns', $columns);
 		$p = new pagination;
 		//use query to create ascending and descending variables for column sorting
@@ -345,16 +346,15 @@
 	<table class="wp-list-table widefat fixed posts idOrders">
 		<thead>
 			<tr>
-			
-			<th scope="col" id="number" class="manage-column" width="60"><b>ID</b></th>
-			<th scope="col" id="name" class="manage-column sortable desc"><a href="?page=order_details&amp;orderby=name&amp;sort=<?php echo $name_sort; ?><?php echo (isset($_GET['s']) ? '&amp;s='.$_GET['s'] : ""); ?><?php echo (isset($_GET['project']) ? '&amp;project='.$_GET['project'] : ""); ?><?php echo (isset($_GET['order_page']) ? '&amp;order_page='.$_GET['order_page'] : ""); ?>"><b><?php echo $tr_Name; ?></b></a></th>
-			<!--<th scope="col" id="last-name" class="manage-column sortable desc"><b><?php echo $tr_Last_Name; ?></b></th>-->
-			<th scope="col" id="project" class="manage-column sortable desc"><a href="?page=order_details&amp;orderby=project&amp;sort=<?php echo $project_sort; ?><?php echo (isset($_GET['s']) ? '&amp;s='.$_GET['s'] : ""); ?><?php echo (isset($_GET['project']) ? '&amp;project='.$_GET['project'] : ""); ?><?php echo (isset($_GET['order_page']) ? '&amp;order_page='.$_GET['order_page'] : ""); ?>"><b><?php echo $tr_Product_Name; ?></b></a></th>
-			<!--<th scope="col" id="status" class="manage-column sortable desc"><b><?php echo $tr_Status; ?></b></th>-->
-			<!--<th scope="col" id="action" class="manage-column sortable desc"><b><?php echo $tr_Action; ?></b></th>-->
-			<th scope="col" id="level" class="manage-column sortable desc"><a href="?page=order_details&amp;orderby=level&amp;sort=<?php echo $level_sort; ?><?php echo (isset($_GET['s']) ? '&amp;s='.$_GET['s'] : ""); ?><?php echo (isset($_GET['project']) ? '&amp;project='.$_GET['project'] : ""); ?><?php echo (isset($_GET['order_page']) ? '&amp;order_page='.$_GET['order_page'] : ""); ?>"><b><?php echo $tr_Level; ?></b></a></th>
-			<th scope="col" id="pledged" class="manage-column sortable desc"><a href="?page=order_details&amp;orderby=pledged&amp;sort=<?php echo $pledged_sort; ?><?php echo (isset($_GET['s']) ? '&amp;s='.$_GET['s'] : ""); ?><?php echo (isset($_GET['project']) ? '&amp;project='.$_GET['project'] : ""); ?><?php echo (isset($_GET['order_page']) ? '&amp;order_page='.$_GET['order_page'] : ""); ?>"><b><?php echo $tr_Pledged; ?></b></a></th>
-			<th scope="col" id="date" class="manage-column sortable desc"><a href="?page=order_details&amp;orderby=date&amp;sort=<?php echo $date_sort; ?><?php echo (isset($_GET['s']) ? '&amp;s='.$_GET['s'] : ""); ?><?php echo (isset($_GET['project']) ? '&amp;project='.$_GET['project'] : ""); ?><?php echo (isset($_GET['order_page']) ? '&amp;order_page='.$_GET['order_page'] : ""); ?>"><b><?php echo $tr_Date; ?></b></a></th>
+				<th scope="col" id="number" class="manage-column" width="60"><b><?php _e('ID', 'ignitiondeck'); ?></b></th>
+				<th scope="col" id="name" class="manage-column sortable desc"><a href="?page=order_details&amp;orderby=name&amp;sort=<?php echo $name_sort; ?><?php echo (isset($_GET['s']) ? '&amp;s='.$_GET['s'] : ""); ?><?php echo (isset($_GET['project']) ? '&amp;project='.$_GET['project'] : ""); ?><?php echo (isset($_GET['order_page']) ? '&amp;order_page='.$_GET['order_page'] : ""); ?>"><b><?php echo $tr_Name; ?></b></a></th>
+				<!--<th scope="col" id="last-name" class="manage-column sortable desc"><b><?php echo $tr_Last_Name; ?></b></th>-->
+				<th scope="col" id="project" class="manage-column sortable desc"><a href="?page=order_details&amp;orderby=project&amp;sort=<?php echo $project_sort; ?><?php echo (isset($_GET['s']) ? '&amp;s='.$_GET['s'] : ""); ?><?php echo (isset($_GET['project']) ? '&amp;project='.$_GET['project'] : ""); ?><?php echo (isset($_GET['order_page']) ? '&amp;order_page='.$_GET['order_page'] : ""); ?>"><b><?php echo $tr_Product_Name; ?></b></a></th>
+				<!--<th scope="col" id="status" class="manage-column sortable desc"><b><?php echo $tr_Status; ?></b></th>-->
+				<!--<th scope="col" id="action" class="manage-column sortable desc"><b><?php echo $tr_Action; ?></b></th>-->
+				<th scope="col" id="level" class="manage-column sortable desc"><a href="?page=order_details&amp;orderby=level&amp;sort=<?php echo $level_sort; ?><?php echo (isset($_GET['s']) ? '&amp;s='.$_GET['s'] : ""); ?><?php echo (isset($_GET['project']) ? '&amp;project='.$_GET['project'] : ""); ?><?php echo (isset($_GET['order_page']) ? '&amp;order_page='.$_GET['order_page'] : ""); ?>"><b><?php echo $tr_Level; ?></b></a></th>
+				<th scope="col" id="pledged" class="manage-column sortable desc"><a href="?page=order_details&amp;orderby=pledged&amp;sort=<?php echo $pledged_sort; ?><?php echo (isset($_GET['s']) ? '&amp;s='.$_GET['s'] : ""); ?><?php echo (isset($_GET['project']) ? '&amp;project='.$_GET['project'] : ""); ?><?php echo (isset($_GET['order_page']) ? '&amp;order_page='.$_GET['order_page'] : ""); ?>"><b><?php echo $tr_Pledged; ?></b></a></th>
+				<th scope="col" id="date" class="manage-column sortable desc"><a href="?page=order_details&amp;orderby=date&amp;sort=<?php echo $date_sort; ?><?php echo (isset($_GET['s']) ? '&amp;s='.$_GET['s'] : ""); ?><?php echo (isset($_GET['project']) ? '&amp;project='.$_GET['project'] : ""); ?><?php echo (isset($_GET['order_page']) ? '&amp;order_page='.$_GET['order_page'] : ""); ?>"><b><?php echo $tr_Date; ?></b></a></th>
 			</tr>
 		</thead>
 		<?php

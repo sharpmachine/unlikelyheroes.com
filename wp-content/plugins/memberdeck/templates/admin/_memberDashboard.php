@@ -4,7 +4,10 @@
 		<li class="md-box <?php echo $p_width; ?>">
 			<div class="md-profile">
 				<div class="md-avatar">
-					<?php echo get_avatar( $current_user->ID); ?>
+					<?php if (is_user_logged_in()) {
+						echo get_avatar( $current_user->ID);
+					}
+					?>
 				</div>
 				<div class="md-fullname">
 					<?php 
@@ -18,7 +21,7 @@
 					}
 					else {
 						echo '<div class="md-membership">';
-					 	echo (!empty($user_levels) ? __('Member', 'memberdeck') : __('Guest', 'memberdeck')); 
+					 	echo (!empty($user_levels) ? __('Customer', 'memberdeck') : __('Member', 'memberdeck')); 
 					} ?>
 				</div>
 				<div class="md-registered">
@@ -44,9 +47,9 @@
 					<span class="title"><?php echo $extension->download_name; ?></span>
 					<div class="components">
 						<button onclick="location.href='<?php echo get_permalink()."?md_download=".$extension->id."&key=".$key; ?>';" title="<?php echo $extension->button_text; ?> <?php echo $extension->download_name; ?>" class="button"> <i class="md-icon-variable"></i><?php echo (!empty($extension->button_text) ? $extension->button_text : __('Download', 'memberdeck').' '.$extension->version); ?></button>
-						<span class="license"><?php echo (!empty($extension->key) ? '<a><i class="icon-key"></i></a><span class="license-display"><strong>'.__('License Key:', 'memberdeck').'</strong> <br> <span class="key">'.$extension->key.'</span></span>' : ''); ?></span>
-						<span class="info"><a href="<?php echo $extension->info_link; ?>" title="<?php _e('Learn About', 'memberdeck'); ?> <?php echo $extension->download_name; ?>"><i class="icon-info-sign"></i></a></span>
-						<span class="documentation"><a href="<?php echo $extension->doc_link; ?>" title="<?php echo $extension->download_name; ?> <?php _e('Documentation', 'memberdeck'); ?>"><i class="icon-book"></i></a></span>
+						<span class="license"><?php echo (!empty($extension->key) ? '<a><i class="fa fa-key"></i></a><span class="license-display"><strong>'.__('License Key:', 'memberdeck').'</strong> <br> <span class="key">'.$extension->key.'</span></span>' : ''); ?></span>
+						<span class="info"><a href="<?php echo $extension->info_link; ?>" title="<?php _e('Learn About', 'memberdeck'); ?> <?php echo $extension->download_name; ?>"><i class="fa fa-info-circle"></i></a></span>
+						<span class="documentation"><a href="<?php echo $extension->doc_link; ?>" title="<?php echo $extension->download_name; ?> <?php _e('Documentation', 'memberdeck'); ?>"><i class="fa fa-book"></i></a></span>
 						<span class="updatedOn"><?php _e('Updated', 'memberdeck'); ?> <?php echo date('m/d/Y', strtotime($extension->updated)); ?></span>
 					</div>
 				</li>
@@ -87,9 +90,9 @@
 					<span class="title"><?php echo $extension->download_name; ?></span>
 					<div class="components">
 						<button onclick="location.href='<?php echo get_permalink()."?md_download=".$extension->id."&key=".$key; ?>';" title="<?php echo $extension->button_text; ?> <?php echo $extension->download_name; ?>" class="button"> <i class="md-icon-variable"></i><?php echo (!empty($extension->button_text) ? $extension->button_text : __('Download', 'memberdeck').' '.$extension->version); ?></button>
-						<span class="license"><?php echo (!empty($extension->key) ? '<a><i class="icon-key"></i></a><span class="license-display"><strong>'.__('License Key:', 'memberdeck').'</strong> <br> <span class="key">'.$extension->key.'</span></span>' : ''); ?></span>
-						<span class="info"><a href="<?php echo $extension->info_link; ?>" title="<?php _e('Learn About', 'memberdeck'); ?> <?php echo $extension->download_name; ?>"><i class="icon-info-sign"></i></a></span>
-						<span class="documentation"><a href="<?php echo $extension->doc_link; ?>" title="<?php echo $extension->download_name; ?> <?php _e('Documentation', 'memberdeck'); ?>"><i class="icon-book"></i></a></span>
+						<span class="license"><?php echo (!empty($extension->key) ? '<a><i class="fa fa-key"></i></a><span class="license-display"><strong>'.__('License Key:', 'memberdeck').'</strong> <br> <span class="key">'.$extension->key.'</span></span>' : ''); ?></span>
+						<span class="info"><a href="<?php echo $extension->info_link; ?>" title="<?php _e('Learn About', 'memberdeck'); ?> <?php echo $extension->download_name; ?>"><i class="fa fa-info-circle"></i></a></span>
+						<span class="documentation"><a href="<?php echo $extension->doc_link; ?>" title="<?php echo $extension->download_name; ?> <?php _e('Documentation', 'memberdeck'); ?>"><i class="fa fa-book"></i></a></span>
 						<span class="updatedOn"><?php _e('Updated', 'memberdeck'); ?> <?php echo date('m/d/Y', strtotime($extension->updated)); ?></span>
 					</div>
 				</li>
@@ -131,9 +134,9 @@
 					<span class="title"><?php echo $extension->download_name; ?></span>
 					<div class="components">
 						<button onclick="location.href='<?php echo get_permalink()."?md_download=".$extension->id."&key=".$key; ?>';" title="<?php echo $extension->button_text; ?> <?php echo $extension->download_name; ?>" class="button"> <i class="md-icon-variable"></i><?php echo (!empty($extension->button_text) ? $extension->button_text : __('Download', 'memberdeck').' '.$extension->version); ?></button>
-						<span class="license"><?php echo (!empty($extension->key) ? '<a><i class="icon-key"></i></a><span class="license-display"><strong>'.__('License Key:', 'memberdeck').'</strong> <br> <span class="key">'.$extension->key.'</span></span>' : ''); ?></span>
-						<span class="info"><a href="<?php echo $extension->info_link; ?>" title="<?php _e('Learn About', 'memberdeck'); ?> <?php echo $extension->download_name; ?>"><i class="icon-info-sign"></i></a></span>
-						<span class="documentation"><a href="<?php echo $extension->doc_link; ?>" title="<?php echo $extension->download_name; ?> <?php _e('Documentation', 'memberdeck'); ?>"><i class="icon-book"></i></a></span>
+						<span class="license"><?php echo (!empty($extension->key) ? '<a><i class="fa fa-key"></i></a><span class="license-display"><strong>'.__('License Key:', 'memberdeck').'</strong> <br> <span class="key">'.$extension->key.'</span></span>' : ''); ?></span>
+						<span class="info"><a href="<?php echo $extension->info_link; ?>" title="<?php _e('Learn About', 'memberdeck'); ?> <?php echo $extension->download_name; ?>"><i class="fa fa-info-circle"></i></a></span>
+						<span class="documentation"><a href="<?php echo $extension->doc_link; ?>" title="<?php echo $extension->download_name; ?> <?php _e('Documentation', 'memberdeck'); ?>"><i class="fa fa-book"></i></a></span>
 						<span class="updatedOn"><?php _e('Updated', 'memberdeck'); ?> <?php echo date('m/d/Y', strtotime($extension->updated)); ?></span>
 					</div>
 				</li>

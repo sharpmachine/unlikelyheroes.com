@@ -293,12 +293,19 @@ jQuery(document).ready(function() {
 			jQuery(".payment-errors").text("");
 			jQuery("#id-main-submit").text("Processing...");
 			if (!idset) {
-				Stripe.createToken({
-		        number: jQuery(".card-number").val(),
-		        cvc: jQuery(".card-cvc").val(),
-		        exp_month: jQuery(".card-expiry-month").val(),
-		        exp_year: jQuery(".card-expiry-year").val()
-			    }, stripeResponseHandler);
+				try {
+					Stripe.createToken({
+			        number: jQuery(".card-number").val(),
+			        cvc: jQuery(".card-cvc").val(),
+			        exp_month: jQuery(".card-expiry-month").val(),
+			        exp_year: jQuery(".card-expiry-year").val()
+				    }, stripeResponseHandler);
+				}
+				catch(e) {
+					jQuery('#id-main-submit').removeAttr('disabled');
+					jQuery('#id-main-submit').text('Continue Checkout');
+					jQuery(".payment-errors").text('There is a problem with your Stripe credentials');
+				}
 			}
 			else {
 				//jQuery("#id-main-submit").text("Processing...");
@@ -708,7 +715,7 @@ jQuery(document).ready(function() {
 					console.log(res);
 					json = JSON.parse(res);
 					if (json.response == 'success') {
-						window.location = memberdeck_siteurl + "/dashboard/";
+						window.location = memberdeck_durl;
 					}
 					else {
 						jQuery(".payment-errors").text("There was an error processing your registration. Please contact site administrator for assistance");
@@ -729,7 +736,7 @@ jQuery(document).ready(function() {
 					//console.log(res);
 					json = JSON.parse(res);
 					if (json.response == 'success') {
-						window.location = memberdeck_siteurl;
+						window.location = memberdeck_durl;
 					}
 					else {
 						jQuery(".payment-errors").text("There was an error processing your registration. Please contact site administrator for assistance");

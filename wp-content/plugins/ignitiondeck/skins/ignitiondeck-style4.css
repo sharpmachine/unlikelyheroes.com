@@ -124,7 +124,7 @@
   .ignitiondeck.id-creatorprofile .id-creator-links a {
     color: #fff; }
 
-.ignitiondeck .id-purchase-form-wrapper {
+.ignitiondeck .id-purchase-form-wrapper, .ignitiondeck .id-fes-form-wrapper {
   background-image: rgba(16, 65, 109, 0.7);
   /* Old browsers */
   background-image: -moz-linear-gradient(rgba(32, 123, 179, 0.7) 0px, rgba(16, 65, 109, 0.7) 500px);

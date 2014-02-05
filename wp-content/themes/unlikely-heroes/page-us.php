@@ -12,16 +12,6 @@
 	</div>
 </div>
 
-<div class="section section-gray">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-offset-1 col-md-10">
-				<?php the_content(); ?>
-			</div>
-		</div>
-	</div>
-</div>
-
 <div class="container">
 	<div class="row main-content">
 		<h2 class="text-center">Our Team</h2>
@@ -33,7 +23,7 @@
 
 					<div class="row team-member">
 						<div class="col-sm-4">
-							<img src="<?php the_sub_field('team_member_headshot'); ?>" class="img-responsive" alt="Headshot">
+							<img src="<?php the_sub_field('team_member_headshot'); ?>" class="img-responsive img-circle" alt="Headshot">
 						</div>
 						<div class="col-sm-8">
 							<h3 class="team-member-name"><?php the_sub_field('team_member_name'); ?></h3>

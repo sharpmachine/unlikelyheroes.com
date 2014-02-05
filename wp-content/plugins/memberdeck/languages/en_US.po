@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MemberDeck\n"
-"POT-Creation-Date: 2013-12-01 16:51-0500\n"
-"PO-Revision-Date: 2013-12-01 16:51-0500\n"
+"POT-Creation-Date: 2014-01-03 13:41-0500\n"
+"PO-Revision-Date: 2014-01-03 13:41-0500\n"
 "Last-Translator: Nathan Hangen <nhangen@gmail.com>\n"
 "Language-Team: IgnitionDeck <hello@virtuousgiant.com>\n"
 "Language: en_US\n"
@@ -82,19 +82,19 @@ msgstr ""
 msgid "CRM Settings Saved"
 msgstr ""
 
-#: .././idmember-admin.php:505
+#: .././idmember-admin.php:509
 msgid "Gateways Saved"
 msgstr ""
 
-#: .././idmember-admin.php:809
+#: .././idmember-admin.php:818
 msgid "Make Available for Memberships"
 msgstr ""
 
-#: .././idmember-admin.php:824 .././templates/admin/_metaboxContent.php:14
+#: .././idmember-admin.php:833 .././templates/admin/_metaboxContent.php:14
 msgid "Yes"
 msgstr ""
 
-#: .././idmember-admin.php:825 .././templates/admin/_metaboxContent.php:15
+#: .././idmember-admin.php:834 .././templates/admin/_metaboxContent.php:15
 msgid "No"
 msgstr ""
 
@@ -103,167 +103,159 @@ msgstr ""
 msgid "Checkout"
 msgstr ""
 
-#: .././idmember-functions.php:596
+#: .././idmember-functions.php:599
 msgid "Passwords do not match"
 msgstr ""
 
-#: .././idmember-functions.php:599
+#: .././idmember-functions.php:602
 msgid "Profile Updated!"
 msgstr ""
 
-#: .././idmember-functions.php:725 .././idmember-functions.php:733
-#: .././idmember-functions.php:1052
+#: .././idmember-functions.php:761 .././idmember-functions.php:769
+#: .././idmember-functions.php:1100
 msgid "Payment Receipt"
 msgstr ""
 
-#: .././idmember-functions.php:726 .././idmember-functions.php:891
-#: .././idmember-functions.php:1045 .././idmember-functions.php:1228
-#: .././inc/memberdeck-ide.php:230 .././inc/memberdeck-ide.php:314
+#: .././idmember-functions.php:762 .././idmember-functions.php:939
+#: .././idmember-functions.php:1093 .././idmember-functions.php:1276
+#: .././inc/memberdeck-ide.php:191 .././inc/memberdeck-ide.php:275
 msgid "From"
 msgstr ""
 
-#: .././idmember-functions.php:727 .././idmember-functions.php:892
-#: .././idmember-functions.php:1046 .././idmember-functions.php:1229
-#: .././inc/memberdeck-ide.php:231 .././inc/memberdeck-ide.php:315
+#: .././idmember-functions.php:763 .././idmember-functions.php:940
+#: .././idmember-functions.php:1094 .././idmember-functions.php:1277
+#: .././inc/memberdeck-ide.php:192 .././inc/memberdeck-ide.php:276
 msgid "Reply-To"
 msgstr ""
 
-#: .././idmember-functions.php:737 .././idmember-functions.php:902
-#: .././idmember-functions.php:1056
+#: .././idmember-functions.php:773 .././idmember-functions.php:950
+#: .././idmember-functions.php:1104
 msgid "Hello"
 msgstr ""
 
-#: .././idmember-functions.php:739
+#: .././idmember-functions.php:775
 msgid "You have successfully made a payment of "
 msgstr ""
 
-#: .././idmember-functions.php:741
+#: .././idmember-functions.php:777
 msgid "This transaction should appear on your Credit Card statement as"
 msgstr ""
 
-#: .././idmember-functions.php:745 .././idmember-functions.php:914
+#: .././idmember-functions.php:781 .././idmember-functions.php:962
 msgid "DATE"
 msgstr ""
 
-#: .././idmember-functions.php:746 .././idmember-functions.php:915
+#: .././idmember-functions.php:782 .././idmember-functions.php:963
 msgid "DESCRIPTION"
 msgstr ""
 
-#: .././idmember-functions.php:747 .././idmember-functions.php:916
+#: .././idmember-functions.php:783 .././idmember-functions.php:964
 msgid "AMOUNT"
 msgstr ""
 
-#: .././idmember-functions.php:752 .././idmember-functions.php:921
-msgid "$"
-msgstr ""
-
-#: .././idmember-functions.php:752 .././idmember-functions.php:921
-msgid "USD"
-msgstr ""
-
-#: .././idmember-functions.php:757 .././idmember-functions.php:926
+#: .././idmember-functions.php:793 .././idmember-functions.php:974
 msgid "Thank you for your support!"
 msgstr ""
 
-#: .././idmember-functions.php:758 .././idmember-functions.php:927
-#: .././idmember-functions.php:1070
+#: .././idmember-functions.php:794 .././idmember-functions.php:975
+#: .././idmember-functions.php:1118
 msgid "The"
 msgstr ""
 
-#: .././idmember-functions.php:758 .././idmember-functions.php:927
-#: .././idmember-functions.php:1070
+#: .././idmember-functions.php:794 .././idmember-functions.php:975
+#: .././idmember-functions.php:1118
 msgid "team"
 msgstr ""
 
-#: .././idmember-functions.php:890 .././idmember-functions.php:898
+#: .././idmember-functions.php:938 .././idmember-functions.php:946
 msgid "Pre-Order Confirmation"
 msgstr ""
 
-#: .././idmember-functions.php:904
+#: .././idmember-functions.php:952
 msgid "This is a confirmation of your pre-order of "
 msgstr ""
 
-#: .././idmember-functions.php:906 .././idmember-functions.php:1067
+#: .././idmember-functions.php:954 .././idmember-functions.php:1115
 msgid "You have earned a total of "
 msgstr ""
 
-#: .././idmember-functions.php:906 .././idmember-functions.php:1067
+#: .././idmember-functions.php:954 .././idmember-functions.php:1115
 msgid "credits for this purchase"
 msgstr ""
 
-#: .././idmember-functions.php:909
+#: .././idmember-functions.php:957
 msgid "If funding is successful, this charge will process on "
 msgstr ""
 
-#: .././idmember-functions.php:1044
+#: .././idmember-functions.php:1092
 msgid "Complete Your Registration"
 msgstr ""
 
-#: .././idmember-functions.php:1058
+#: .././idmember-functions.php:1106
 msgid "Thank you for your purchase of "
 msgstr ""
 
-#: .././idmember-functions.php:1060
+#: .././idmember-functions.php:1108
 msgid ""
 "Your order is almost ready to go. We just need you to click the link\n"
 "    \t\t\t\t\t\tbelow to complete your registration"
 msgstr ""
 
-#: .././idmember-functions.php:1069
+#: .././idmember-functions.php:1117
 msgid "Thank you for your support"
 msgstr ""
 
-#: .././idmember-functions.php:1243
+#: .././idmember-functions.php:1291
 msgid "Dashboard Sidebar"
 msgstr ""
 
-#: .././idmember-functions.php:1245
+#: .././idmember-functions.php:1293
 msgid "Appears on the Dashboard below the User Profile"
 msgstr ""
 
-#: .././idmember-functions.php:1967 .././idmember-functions.php:2027
-#: .././idmember-functions.php:2081 .././idmember-functions.php:2112
-#: .././idmember-functions.php:2175 .././idmember-functions.php:2191
-#: .././idmember-functions.php:2198 .././idmember-functions.php:2246
-#: .././idmember-functions.php:2262 .././idmember-functions.php:2269
-#: .././idmember-functions.php:2506 .././idmember-functions.php:2510
-#: .././idmember-functions.php:2514
+#: .././idmember-functions.php:2020 .././idmember-functions.php:2080
+#: .././idmember-functions.php:2134 .././idmember-functions.php:2165
+#: .././idmember-functions.php:2228 .././idmember-functions.php:2244
+#: .././idmember-functions.php:2251 .././idmember-functions.php:2299
+#: .././idmember-functions.php:2315 .././idmember-functions.php:2322
+#: .././idmember-functions.php:2559 .././idmember-functions.php:2563
+#: .././idmember-functions.php:2567
 msgid "failure"
 msgstr ""
 
-#: .././idmember-functions.php:2506
+#: .././idmember-functions.php:2559
 msgid "Could not authorize transaction"
 msgstr ""
 
-#: .././idmember-functions.php:2510 .././idmember-functions.php:2514
+#: .././idmember-functions.php:2563 .././idmember-functions.php:2567
 msgid "Could not create customer token"
 msgstr ""
 
-#: .././idmember-functions.php:2552
+#: .././idmember-functions.php:2605
 msgid "Cannot use credits to purchase recurring products"
 msgstr ""
 
-#: .././idmember-functions.php:2613
+#: .././idmember-functions.php:2666
 msgid "You do not have enough credits to complete this transaction"
 msgstr ""
 
-#: .././idmember-functions.php:2618
+#: .././idmember-functions.php:2671
 msgid "This user is not a memberdeck user"
 msgstr ""
 
-#: .././idmember-functions.php:2623
+#: .././idmember-functions.php:2676
 msgid "User was not found"
 msgstr ""
 
-#: .././idmember-shortcodes.php:317
+#: .././idmember-shortcodes.php:331
 msgid "You already own this product. Please"
 msgstr ""
 
-#: .././idmember-shortcodes.php:317
+#: .././idmember-shortcodes.php:331
 msgid "logout"
 msgstr ""
 
-#: .././idmember-shortcodes.php:317
+#: .././idmember-shortcodes.php:331
 msgid "and create a new account in order to purchase again"
 msgstr ""
 
@@ -289,77 +281,77 @@ msgstr ""
 msgid "MemberDeck Shortcodes"
 msgstr ""
 
-#: .././classes/class-id-member.php:274
+#: .././classes/class-id-member.php:288
 msgid "MemberDeck Customer Export"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:14
+#: .././inc/memberdeck-ide.php:21
 msgid "Payment Settings"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:15 .././inc/memberdeck-ide.php:47
+#: .././inc/memberdeck-ide.php:24 .././inc/memberdeck-ide.php:44
 msgid "My Projects"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:66
+#: .././inc/memberdeck-ide.php:63
 msgid "Create Project"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:229
+#: .././inc/memberdeck-ide.php:190
 msgid "New Project Submission"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:237
+#: .././inc/memberdeck-ide.php:198
 msgid "Project Submission Notification"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:241
+#: .././inc/memberdeck-ide.php:202
 msgid "You have a new project submission from user "
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:241
+#: .././inc/memberdeck-ide.php:202
 msgid "with the following attributes"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:246 .././inc/memberdeck-ide.php:330
+#: .././inc/memberdeck-ide.php:207 .././inc/memberdeck-ide.php:291
 msgid "Title"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:247 .././inc/memberdeck-ide.php:331
+#: .././inc/memberdeck-ide.php:208 .././inc/memberdeck-ide.php:292
 msgid "Description"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:248 .././inc/memberdeck-ide.php:332
+#: .././inc/memberdeck-ide.php:209 .././inc/memberdeck-ide.php:293
 msgid "Goal"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:257
+#: .././inc/memberdeck-ide.php:218
 msgid "Use this link"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:257
+#: .././inc/memberdeck-ide.php:218
 msgid " to moderate the project"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:313 .././inc/memberdeck-ide.php:321
+#: .././inc/memberdeck-ide.php:274 .././inc/memberdeck-ide.php:282
 msgid "Project Submission Confirmation"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:325
+#: .././inc/memberdeck-ide.php:286
 msgid "Congratulations. The following project has been submitted for approval"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:341
+#: .././inc/memberdeck-ide.php:302
 msgid ""
 "You will be notified when the review process has been completed. In the "
 "interim, you may use "
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:341
+#: .././inc/memberdeck-ide.php:302
 msgid "use this link"
 msgstr ""
 
-#: .././inc/memberdeck-ide.php:341
+#: .././inc/memberdeck-ide.php:302
 msgid " to continue editing the project"
 msgstr ""
 
@@ -539,6 +531,10 @@ msgstr ""
 msgid "VIEW"
 msgstr ""
 
+#: .././templates/_myProjects.php:8
+msgid "PUBLISHED"
+msgstr ""
+
 #: .././templates/_paymentSettings.php:5
 #: .././templates/admin/_gatewaySettings.php:26
 msgid "Paypal Email"
@@ -604,17 +600,14 @@ msgid "MemberDeck IgnitionDeck Bridge"
 msgstr ""
 
 #: .././templates/admin/_bridgeSettings.php:7
-#: .././templates/admin/_settingsMenu.php:8
 msgid "Level Settings"
 msgstr ""
 
 #: .././templates/admin/_bridgeSettings.php:11
-#: .././templates/admin/_settingsMenu.php:14
 msgid "Edit Level or Get Shortcode"
 msgstr ""
 
 #: .././templates/admin/_bridgeSettings.php:13
-#: .././templates/admin/_settingsMenu.php:16
 msgid "Choose Level"
 msgstr ""
 
@@ -668,136 +661,174 @@ msgid "Enable Paypal"
 msgstr ""
 
 #: .././templates/admin/_gatewaySettings.php:45
-#: .././templates/admin/_gatewaySettings.php:109
+#: .././templates/admin/_gatewaySettings.php:120
 msgid "Enable for Creators"
 msgstr ""
 
 #: .././templates/admin/_gatewaySettings.php:54
-msgid "Stripe Publishable Key"
+msgid "Stripe Currency"
+msgstr ""
+
+#: .././templates/admin/_gatewaySettings.php:56
+msgid "Choose Currency"
+msgstr ""
+
+#: .././templates/admin/_gatewaySettings.php:57
+msgid "USD"
 msgstr ""
 
 #: .././templates/admin/_gatewaySettings.php:58
+msgid "CAD"
+msgstr ""
+
+#: .././templates/admin/_gatewaySettings.php:59
+msgid "GBP"
+msgstr ""
+
+#: .././templates/admin/_gatewaySettings.php:60
+msgid "EUR"
+msgstr ""
+
+#: .././templates/admin/_gatewaySettings.php:61
+msgid "AUD (beta)"
+msgstr ""
+
+#: .././templates/admin/_gatewaySettings.php:65
+msgid "Stripe Publishable Key"
+msgstr ""
+
+#: .././templates/admin/_gatewaySettings.php:69
 msgid "Stripe Secret Key"
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:62
+#: .././templates/admin/_gatewaySettings.php:73
 msgid "Stripe Publishable Key (Test)"
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:66
+#: .././templates/admin/_gatewaySettings.php:77
 msgid "Stripe Secret Key (Test)"
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:72
+#: .././templates/admin/_gatewaySettings.php:83
 msgid "Enable Stripe"
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:77
+#: .././templates/admin/_gatewaySettings.php:88
 msgid "Enable Stripe Connect"
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:86
+#: .././templates/admin/_gatewaySettings.php:97
 msgid "Balanced API Key"
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:90
+#: .././templates/admin/_gatewaySettings.php:101
 msgid "Balanced Marketplace URL"
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:94
+#: .././templates/admin/_gatewaySettings.php:105
 msgid "Balanced Test Key"
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:98
+#: .././templates/admin/_gatewaySettings.php:109
 msgid "Balanced Test URL"
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:104
+#: .././templates/admin/_gatewaySettings.php:115
 msgid "Enable Balanced"
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:114
+#: .././templates/admin/_gatewaySettings.php:125
 msgid "Save Gateway Settings"
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:118
+#: .././templates/admin/_gatewaySettings.php:129
 msgid "Process Pre-Authorizations"
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:120
+#: .././templates/admin/_gatewaySettings.php:131
 msgid ""
 "Warning:</span> This will process all pending authorizations related to the "
 "selected campaign"
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:121
+#: .././templates/admin/_gatewaySettings.php:132
 msgid "Customers will only be charged once"
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:140
+#: .././templates/admin/_gatewaySettings.php:151
 msgid "Gateway Installation Requirements"
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:142
+#: .././templates/admin/_gatewaySettings.php:153
 msgid "Active Gateways"
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:143
+#: .././templates/admin/_gatewaySettings.php:154
 msgid ""
 "Only one credit card gateway (Stripe, Balanced, etc) may be active at one "
 "time."
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:144
+#: .././templates/admin/_gatewaySettings.php:155
 msgid "Currencies"
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:145
+#: .././templates/admin/_gatewaySettings.php:156
 msgid ""
 "All Balanced Payments transactions will be processed in USD. Stripe "
 "transactions may be processed in USD, Euros, or British Pounds."
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:146
+#: .././templates/admin/_gatewaySettings.php:157
 msgid "Recurring Payments"
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:147
+#: .././templates/admin/_gatewaySettings.php:158
 msgid ""
 "Balanced does not yet support recurring payments. To use subscriptions, "
 "please enable Stripe or Paypal."
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:148
+#: .././templates/admin/_gatewaySettings.php:159
 msgid "Stripe Webhook URL"
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:149
+#: .././templates/admin/_gatewaySettings.php:160
 msgid ""
 "In order to receive notifications of Stripe subscription payments, you'll "
 "need to create a production webhook URL with the following format"
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:151
+#: .././templates/admin/_gatewaySettings.php:162
 msgid "Dispute Notifications"
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:152
+#: .././templates/admin/_gatewaySettings.php:163
 msgid ""
 "In order to properly handle Paypal dispute notifications, you must set your "
 "Paypal IPN URL to"
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:154
+#: .././templates/admin/_gatewaySettings.php:165
 msgid "Test Cards"
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:155
+#: .././templates/admin/_gatewaySettings.php:166
 msgid "Balanced Test Cards"
 msgstr ""
 
-#: .././templates/admin/_gatewaySettings.php:156
+#: .././templates/admin/_gatewaySettings.php:167
 msgid "Stripe Test Cards"
+msgstr ""
+
+#: .././templates/admin/_gatewaySettings.php:169
+msgid "Stripe Connect Settings"
+msgstr ""
+
+#: .././templates/admin/_gatewaySettings.php:170
+msgid ""
+"Your redirect URL must end in <em>?ipn_handler=sc_return</em>. For example, "
+"http://mydomain.com/?ipn_handler=sc_return"
 msgstr ""
 
 #: .././templates/admin/_memberDashboard.php:17
@@ -970,403 +1001,417 @@ msgstr ""
 msgid "MemberDeck Settings"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:20
-#: .././templates/admin/_userMenu.php:249
-msgid "Level Name"
+#: .././templates/admin/_settingsMenu.php:8
+msgid "Product Settings"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:24
-msgid "Level Price"
+#: .././templates/admin/_settingsMenu.php:17
+msgid "Edit Product or Get Shortcode"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:28
+#: .././templates/admin/_settingsMenu.php:19
+msgid "Choose Product"
+msgstr ""
+
+#: .././templates/admin/_settingsMenu.php:23
+msgid "Product Name"
+msgstr ""
+
+#: .././templates/admin/_settingsMenu.php:27
+msgid "Product Price"
+msgstr ""
+
+#: .././templates/admin/_settingsMenu.php:31
 msgid "Credit Value"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:32
+#: .././templates/admin/_settingsMenu.php:35
 msgid "Transaction Type"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:32
+#: .././templates/admin/_settingsMenu.php:35
 msgid "*Pre-orders will disable Paypal"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:41
-msgid "Level Type"
+#: .././templates/admin/_settingsMenu.php:44
+msgid "Product Type"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:43
+#: .././templates/admin/_settingsMenu.php:46
 msgid "Standard"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:44
+#: .././templates/admin/_settingsMenu.php:47
 msgid "Recurring"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:45
+#: .././templates/admin/_settingsMenu.php:48
 msgid "Lifetime"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:49
+#: .././templates/admin/_settingsMenu.php:52
 msgid "Recurring Type"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:51
+#: .././templates/admin/_settingsMenu.php:54
 msgid "Weekly"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:52
+#: .././templates/admin/_settingsMenu.php:55
 msgid "Monthly"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:53
+#: .././templates/admin/_settingsMenu.php:56
 msgid "Annual"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:56
+#: .././templates/admin/_settingsMenu.php:59
 msgid "Stripe Plan Name"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:56
+#: .././templates/admin/_settingsMenu.php:59
 msgid "*can only be used once"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:60
+#: .././templates/admin/_settingsMenu.php:63
 msgid "Licenses per download"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:65
-#: .././templates/admin/_settingsMenu.php:164
-#: .././templates/admin/_settingsMenu.php:199
+#: .././templates/admin/_settingsMenu.php:68
+#: .././templates/admin/_settingsMenu.php:167
+#: .././templates/admin/_settingsMenu.php:202
 msgid "Create"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:66
-#: .././templates/admin/_settingsMenu.php:165
-#: .././templates/admin/_settingsMenu.php:200
+#: .././templates/admin/_settingsMenu.php:69
+#: .././templates/admin/_settingsMenu.php:168
+#: .././templates/admin/_settingsMenu.php:203
 msgid "Delete"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:72
+#: .././templates/admin/_settingsMenu.php:75
 msgid "Download Settings"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:77
+#: .././templates/admin/_settingsMenu.php:80
 msgid "Edit Downloads"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:79
+#: .././templates/admin/_settingsMenu.php:82
 msgid "Choose Download"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:83
+#: .././templates/admin/_settingsMenu.php:86
 msgid "Download Name"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:87
+#: .././templates/admin/_settingsMenu.php:90
 msgid "Button Text"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:91
+#: .././templates/admin/_settingsMenu.php:94
 msgid "Download Version"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:95
+#: .././templates/admin/_settingsMenu.php:98
 msgid "Hide from non-members"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:98
+#: .././templates/admin/_settingsMenu.php:101
 msgid "Host on S3"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:101
+#: .././templates/admin/_settingsMenu.php:104
 msgid "Enable Dashboard Purchases"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:104
-msgid "Instant Checkout Level Assignemnt"
+#: .././templates/admin/_settingsMenu.php:107
+msgid "Instant Checkout Product Assignemnt"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:106
-#: .././templates/admin/_shortcodeList.php:3
-msgid "Select Level"
+#: .././templates/admin/_settingsMenu.php:109
+msgid "Select Product"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:111
+#: .././templates/admin/_settingsMenu.php:114
 msgid "Instant Checkout Crowdfunding Assignment "
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:113
+#: .././templates/admin/_settingsMenu.php:116
 msgid "Select Project"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:118
-msgid "Level Assignment"
+#: .././templates/admin/_settingsMenu.php:121
+msgid "Product Assignment"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:127
+#: .././templates/admin/_settingsMenu.php:130
 msgid "Download Link"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:132
+#: .././templates/admin/_settingsMenu.php:135
 msgid "Info Link"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:137
+#: .././templates/admin/_settingsMenu.php:140
 msgid "Documentation Link"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:142
+#: .././templates/admin/_settingsMenu.php:145
 msgid "Image URL"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:148
+#: .././templates/admin/_settingsMenu.php:151
 msgid "Dashboard Position"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:150
+#: .././templates/admin/_settingsMenu.php:153
 msgid "A"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:151
+#: .././templates/admin/_settingsMenu.php:154
 msgid "B"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:152
+#: .././templates/admin/_settingsMenu.php:155
 msgid "C"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:156
+#: .././templates/admin/_settingsMenu.php:159
 msgid "Enable Licensing"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:171
+#: .././templates/admin/_settingsMenu.php:174
 msgid "Credit Settings"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:175
+#: .././templates/admin/_settingsMenu.php:178
 msgid "Edit Credits"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:177
+#: .././templates/admin/_settingsMenu.php:180
 msgid "Choose Credit"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:181
+#: .././templates/admin/_settingsMenu.php:184
 msgid "Credit Name"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:185
+#: .././templates/admin/_settingsMenu.php:188
 msgid "Credit Price"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:189
+#: .././templates/admin/_settingsMenu.php:192
 msgid "Credit Count"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:193
-msgid "Assign to Level"
+#: .././templates/admin/_settingsMenu.php:196
+msgid "Assign to Product"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:195
+#: .././templates/admin/_settingsMenu.php:198
 msgid "None"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:213
-#: .././templates/admin/_settingsMenu.php:426
+#: .././templates/admin/_settingsMenu.php:216
+#: .././templates/admin/_settingsMenu.php:429
 msgid "Dashboard Setup"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:217
+#: .././templates/admin/_settingsMenu.php:220
 msgid "Dashboard Settings"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:219
+#: .././templates/admin/_settingsMenu.php:222
 msgid "Dashboard URL"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:225
+#: .././templates/admin/_settingsMenu.php:228
 msgid "Section A Name"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:241
+#: .././templates/admin/_settingsMenu.php:244
 msgid "Section B Name"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:257
+#: .././templates/admin/_settingsMenu.php:260
 msgid "Section C Name"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:271
+#: .././templates/admin/_settingsMenu.php:274
 msgid "Show MemberDeck Love"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:275
-#: .././templates/admin/_settingsMenu.php:328
-#: .././templates/admin/_settingsMenu.php:396
+#: .././templates/admin/_settingsMenu.php:278
+#: .././templates/admin/_settingsMenu.php:331
+#: .././templates/admin/_settingsMenu.php:399
 #: .././templates/admin/_userMenu.php:231
 #: .././templates/admin/_userMenu.php:258
 msgid "Save"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:279
+#: .././templates/admin/_settingsMenu.php:282
 msgid "Dashboard Layout"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:301
+#: .././templates/admin/_settingsMenu.php:304
 msgid "General Settings"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:304
-#: .././templates/admin/_settingsMenu.php:428
+#: .././templates/admin/_settingsMenu.php:307
+#: .././templates/admin/_settingsMenu.php:431
 msgid "Receipt Settings"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:306
+#: .././templates/admin/_settingsMenu.php:309
 msgid "Company Name (for receipts)"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:310
+#: .././templates/admin/_settingsMenu.php:313
 msgid "Customer Service Email (for receipts)"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:315
+#: .././templates/admin/_settingsMenu.php:318
 msgid "Enable Crowdfunding"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:319
+#: .././templates/admin/_settingsMenu.php:322
 msgid "Enable Amazon S3"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:324
+#: .././templates/admin/_settingsMenu.php:327
 msgid "Enable Creator Accounts"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:334
+#: .././templates/admin/_settingsMenu.php:337
 msgid "CRM Settings"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:340
+#: .././templates/admin/_settingsMenu.php:343
 msgid "Profile Settings"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:342
+#: .././templates/admin/_settingsMenu.php:345
 msgid "Enable Shipping Info on Profile"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:347
+#: .././templates/admin/_settingsMenu.php:350
 msgid "Mailchimp Settings"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:349
-#: .././templates/admin/_settingsMenu.php:368
-#: .././templates/admin/_settingsMenu.php:385
+#: .././templates/admin/_settingsMenu.php:352
+#: .././templates/admin/_settingsMenu.php:371
+#: .././templates/admin/_settingsMenu.php:388
 msgid "Sign up for a free "
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:349
+#: .././templates/admin/_settingsMenu.php:352
 msgid "account to start building a customer database."
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:353
+#: .././templates/admin/_settingsMenu.php:356
 msgid "Mailchimp API Key"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:357
+#: .././templates/admin/_settingsMenu.php:360
 msgid "Mailchimp List ID"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:361
+#: .././templates/admin/_settingsMenu.php:364
 msgid "Enable Mailchimp?"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:366
+#: .././templates/admin/_settingsMenu.php:369
 msgid "SendGrid Settings"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:368
-#: .././templates/admin/_settingsMenu.php:385
+#: .././templates/admin/_settingsMenu.php:371
+#: .././templates/admin/_settingsMenu.php:388
 msgid "account to start sending transactional email."
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:370
+#: .././templates/admin/_settingsMenu.php:373
 msgid "Sendgrid Username"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:374
+#: .././templates/admin/_settingsMenu.php:377
 msgid "Sendgrid Password"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:378
+#: .././templates/admin/_settingsMenu.php:381
 msgid "Enable SendGrid? (Will replace default SMTP Settings)"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:383
+#: .././templates/admin/_settingsMenu.php:386
 msgid "Mandrill Settings"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:389
+#: .././templates/admin/_settingsMenu.php:392
 msgid "Mandrill API Key"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:393
+#: .././templates/admin/_settingsMenu.php:396
 msgid "Enable Mandrill? (Will replace default SMTP Settings)"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:400
+#: .././templates/admin/_settingsMenu.php:403
 msgid "Data Export"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:404
+#: .././templates/admin/_settingsMenu.php:407
 msgid "Export Customer Data to CSV"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:406
+#: .././templates/admin/_settingsMenu.php:409
 msgid "Start Export"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:420
+#: .././templates/admin/_settingsMenu.php:423
 msgid "Using MemberDeck"
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:422
-msgid "Level Types"
-msgstr ""
-
-#: .././templates/admin/_settingsMenu.php:423
-msgid ""
-"Standard Levels expire in one year, Recurring automatically renew after "
-"defined set renewal period expires (unless cancelled). Lifetime levels never "
-"expire."
-msgstr ""
-
-#: .././templates/admin/_settingsMenu.php:424
-msgid "Downloads Settings"
-msgstr ""
-
 #: .././templates/admin/_settingsMenu.php:425
+msgid "Product Types"
+msgstr ""
+
+#: .././templates/admin/_settingsMenu.php:426
 msgid ""
-"To create a new Download, leave the Edit Downloads dropdown at Choose "
-"Download, and start filling out your information in the blank fields below. "
-"Be sure to select what Section your download will appear in the Dashboard, "
-"and what Levels are allowed access to the Download. When creating images for "
-"your downloads, think about making them a consistent width and height, so "
-"their thumbnails look nice together."
+"Standard Products expire in one year, Recurring automatically renew after "
+"defined set renewal period expires (unless cancelled). Lifetime products "
+"never expire."
 msgstr ""
 
 #: .././templates/admin/_settingsMenu.php:427
+msgid "Downloads Settings"
+msgstr ""
+
+#: .././templates/admin/_settingsMenu.php:428
+msgid ""
+"To create a new Download, leave the Edit Downloads dropdown at Choose "
+"Download, and start filling out your information in the blank fields below. "
+"Be sure to select what Section your download will appear in the dashboard, "
+"and what products are allowed access to the Download. When creating images "
+"for your downloads, think about making them a consistent width and height, "
+"so their thumbnails look nice together."
+msgstr ""
+
+#: .././templates/admin/_settingsMenu.php:430
 msgid ""
 "If you change the location of your Member Dashboard from the default page, "
 "be sure to put the URL to that location in here. You can name each Section, "
-"or leave blank if you wish. Be sure to select a Layout Style for each "
-"section. When you select a Dashboard Layout, be aware of what sections "
+"or leave blank if you wish. Be sure to select a layout style for each "
+"section. When you select a dashboard layout, be aware of what sections "
 "remain visible in your chosen Layout."
 msgstr ""
 
-#: .././templates/admin/_settingsMenu.php:429
+#: .././templates/admin/_settingsMenu.php:432
 msgid ""
 "This is the information used in your automatically generated receipts, that "
 "are sent to your members and customers."
+msgstr ""
+
+#: .././templates/admin/_shortcodeList.php:3
+msgid "Select Level"
 msgstr ""
 
 #: .././templates/admin/_stripeConnect.php:7
@@ -1544,6 +1589,10 @@ msgid ""
 "Check or uncheck to grant or remove access to each level. Expiration will be "
 "automatically determined based on level settings. Click expiration date to "
 "customize"
+msgstr ""
+
+#: .././templates/admin/_userMenu.php:249
+msgid "Level Name"
 msgstr ""
 
 #: .././templates/admin/_userMenu.php:250

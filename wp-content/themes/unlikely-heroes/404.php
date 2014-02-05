@@ -19,7 +19,7 @@
 			<div class="col-sm-10 col-sm-offset-1">
 				<div id="post-0" class="post error404 not-found">
 					<div class="entry-content text-center">
-						<img src="<?php bloginfo('template_directory' ); ?>/img/home-alone.jpg" class="img-responsive" alt="Not Found">
+						<img src="<?php echo get_stylesheet_directory_uri(); ?>/img/home-alone.jpg" class="img-responsive" alt="Not Found">
 					</div><!-- .entry-content -->
 				</div><!-- #post-0 -->
 			</div>

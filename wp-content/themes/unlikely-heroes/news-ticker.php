@@ -1,12 +1,9 @@
-<!-- 	<div class="mobile-login visible-xs">
-		<a href="<?php bloginfo('url'); ?>/dashboard" class="btn btn-block">Heroic Login</a>
-	</div> -->
-	<div class="news-ticker">
+<div class="news-ticker">
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-6 col-md-6 hidden-sm hidden-xs">
 				<span>Lastest Update:</span>
-					<?php $args = array( 'post_type' => 'lastest_updates', 'posts_per_page' => 1); ?>
+					<?php $args = array( 'post_type' => 'lastest_updates', 'showposts' => 1); ?>
 					<?php $latest_updates = new WP_Query( $args ); ?>
 
 					<?php if ( $latest_updates->have_posts() ) : ?>
@@ -20,10 +17,11 @@
 					<?php else:  ?>
 							<?php _e( 'Sorry, no posts matched your criteria.' ); ?></p>
 					<?php endif; ?>
+					<?php wp_reset_query(); ?>
 			</div>
 			<div class="col-sm-6 col-md-6 visible-sm">
 				<span>Lastest Update:</span>
-					<?php $args = array( 'post_type' => 'lastest_updates', 'posts_per_page' => 1); ?>
+					<?php $args = array( 'post_type' => 'lastest_updates', 'showposts' => 1); ?>
 					<?php $latest_updates = new WP_Query( $args ); ?>
 
 					<?php if ( $latest_updates->have_posts() ) : ?>
@@ -37,17 +35,29 @@
 					<?php else:  ?>
 							<?php _e( 'Sorry, no posts matched your criteria.' ); ?></p>
 					<?php endif; ?>
+					<?php wp_reset_query(); ?>
 			</div>
 
-			<div class="col-sm-6 col-md-5 text-right">
+			<div class="col-sm-6 col-md-5 text-right hidden-xs">
 				<?php get_template_part('social','media'); ?>
 				<?php if (is_user_logged_in()): ?>
-				<!-- <a href="<?php echo wp_logout_url( home_url() ); ?>" class="btn btn-xs">Logout</a> -->
 				<a href="<?php bloginfo('url' ); ?>/dashboard/?creator_projects=1" class="btn btn-xs">My Campaign</a>
 			<?php else: ?>
 			<a href="<?php bloginfo('url'); ?>/dashboard" class="btn btn-xs">Hero Login</a>
 		<?php endif; ?>
 			</div>
+
+			<div class="col-xs-8 col-sm-6 col-md-5 text-left visible-xs">
+				<?php get_template_part('social','media'); ?>
+				</div>
+				<div class="col-xs-4 visible-xs text-right">
+				<?php if (is_user_logged_in()): ?>
+				<a href="<?php bloginfo('url' ); ?>/dashboard/?creator_projects=1" class="btn btn-xs">My Campaign</a>
+			<?php else: ?>
+			<a href="<?php bloginfo('url'); ?>/dashboard" class="btn btn-xs">Hero Login</a>
+		<?php endif; ?>
+		</div>
+			
 		</div>
 	</div>
 </div>

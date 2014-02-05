@@ -1,5 +1,10 @@
-<div class="wrap">
-	<div class="icon32" id="icon-md"></div><h2><?php _e('MemberDeck Users', 'memberdeck'); ?></h2>
+<div class="wrap memberdeck">
+	<div class="icon32" id="icon-md"></div><h2 class="title"><?php _e('MemberDeck Users', 'memberdeck'); ?></h2>
+	<div class="help">
+		<a href="http://forums.ignitiondeck.com" alt="IgnitionDeck Support" title="IgnitionDeck Support" target="_blank"><button class="button button-large"><?php _e('Support', 'memberdeck'); ?></button></a>
+		<a href="http://docs.ignitiondeck.com" alt="IgnitionDeck Documentation" title="IgnitionDeck Documentation" target="_blank"><button class="button button-large"><?php _e('Documentation', 'memberdeck'); ?></button></a>
+	</div>
+	<div style="clear: both;"><br/></div>
 	<form id="members-filter" action="" method="get">
 		<p class="search-box">
 			<label class="screen-reader-text" for="post-search-input"><?php _e('Search Members', 'memberdeck'); ?>:</label>
@@ -40,25 +45,31 @@
 						<th scope="col" id="name" class="manage-column sortable desc">
 							<a href="#">
 								<span><?php _e('Name', 'memberdeck'); ?></span>
-								<span class="sorting-indicator"></span>
+								<!--<span class="sorting-indicator"></span>-->
 							</a>
 						</th>
 						<th scope="col" id="edate" class="manage-column sortable desc">
 							<a href="#">
 								<span><?php _e('User Email', 'memberdeck'); ?></span>
-								<span class="sorting-indicator"></span>
+								<!--<span class="sorting-indicator"></span>-->
 							</a>
 						</th>
 						<th scope="col" id="levels" class="manage-column sortable desc">
 							<a href="#">
 								<span><?php _e('Current Levels', 'memberdeck'); ?></span>
-								<span class="sorting-indicator"></span>
+								<!--<span class="sorting-indicator"></span>-->
+							</a>
+						</th>
+						<th scope="col" id="credits" class="manage-column sortable desc">
+							<a href="#">
+								<span><?php _e('Credits', 'memberdeck'); ?></span>
+								<!--<span class="sorting-indicator"></span>-->
 							</a>
 						</th>
 						<th scope="col" id="rdate" class="manage-column sortable desc">
 							<a href="#">
 								<span><?php _e('Registration Date', 'memberdeck'); ?></span>
-								<span class="sorting-indicator"></span>
+								<!--<span class="sorting-indicator"></span>-->
 							</a>
 						</th>
 					</tr>
@@ -71,25 +82,31 @@
 						<th scope="col" class="manage-column sortable desc">
 							<a href="#">
 								<span><?php _e('Name', 'memberdeck'); ?></span>
-								<span class="sorting-indicator"></span>
+								<!--<span class="sorting-indicator"></span>-->
 							</a>
 						</th>
 						<th scope="col" class="manage-column sortable desc">
 							<a href="#">
 								<span><?php _e('User Email', 'memberdeck'); ?></span>
-								<span class="sorting-indicator"></span>
+								<!--<span class="sorting-indicator"></span>-->
 							</a>
 						</th>
 						<th scope="col" class="manage-column sortable desc">
 							<a href="#">
 								<span><?php _e('Current Levels', 'memberdeck'); ?></span>
-								<span class="sorting-indicator"></span>
+								<!--<span class="sorting-indicator"></span>-->
+							</a>
+						</th>
+						<th scope="col" id="credits" class="manage-column sortable desc">
+							<a href="#">
+								<span><?php _e('Credits', 'memberdeck'); ?></span>
+								<!--<span class="sorting-indicator"></span>-->
 							</a>
 						</th>
 						<th scope="col" class="manage-column sortable desc">
 							<a href="#">
 								<span><?php _e('Registration Date', 'memberdeck'); ?></span>
-								<span class="sorting-indicator"></span>
+								<!--<span class="sorting-indicator"></span>-->
 							</a>
 						</th>
 					</tr>
@@ -129,6 +146,7 @@
 									}
 
 								echo '</td>';
+								echo '<td class="current-credits">'.(isset($users[$i]->credits) ? $users[$i]->credits : '0').'</td>';
 								echo '<td class="reg-date">'.(isset($users[$i]->r_date) ? $users[$i]->r_date : '').'</td>';
 								echo '</tr>';
 								//$i++;
@@ -150,6 +168,7 @@
 											}
 
 										echo '</td>';
+										echo '<td class="current-credits">'.(isset($users[$i]->credits) ? $users[$i]->credits : '0').'</td>';
 										echo '<td class="reg-date">'.(isset($users[$i]->r_date) ? $users[$i]->r_date : '').'</td>';
 										echo '</tr>';
 									}

@@ -1,6 +1,60 @@
 <?php
 global $crowdfunding;
 
+function balanced_customer_id() {
+	return ID_Member::balanced_customer_id();
+}
+
+function customer_id() {
+	return ID_Member::customer_id();
+}
+
+function md_get_durl() {
+	$durl = home_url('/dashboard');
+	$dash = get_option('md_dash_settings');
+	if (!empty($dash)) {
+		$dash = unserialize($dash);
+		if (isset($dash['durl'])) {
+			$durl = $dash['durl'];
+		}
+	}
+	return $durl;
+}
+
+function instant_checkout() {
+	$instant_checkout = false;
+	if (is_user_logged_in()) {
+		if (is_multisite()) {
+			require (ABSPATH . WPINC . '/pluggable.php');
+		}
+		global $current_user;
+		get_currentuserinfo();
+		$user_id = $current_user->ID;
+		$instant_checkout = false;
+		$gateways = get_option('memberdeck_gateways');
+		if (!empty($gateways)) {
+			$settings = unserialize($gateways);
+			if (isset($settings['es']) && $settings['es'] == '1') {
+				$customer_id = customer_id();
+				if (!empty($customer_id)) {
+					$instant_checkout = get_user_meta($user_id, 'instant_checkout', true);
+				}
+			}
+			else if (isset($settings['eb']) && $settings['eb'] == '1') {
+				$balanced_customer_id = balanced_customer_id();
+				if (!empty($balanced_customer_id)) {
+					$instant_checkout = get_user_meta($user_id, 'instant_checkout', true);
+				}
+			}
+		}
+	}
+	return $instant_checkout;
+}
+
+function md_credits() {
+	return ID_Member::md_credits();
+}
+
 function is_md_network_activated() {
 	// check for network activation
 	$active_plugins = get_site_option( 'active_sitewide_plugins');
@@ -103,68 +157,68 @@ function idmember_pw_gen($length = 10) {
 function idmember_protect_singular($content) {
 	ob_start();
 	global $post;
-	if (is_multisite()) {
-		require (ABSPATH . WPINC . '/pluggable.php');
-		get_currentuserinfo();
-		$md_user_levels = null;
-		if (!empty($current_user)) {
-			$user_id = $current_user->ID;
-			$md_user = ID_Member::user_levels($user_id);
-			if (!empty($md_user)) {
-				$md_user_levels = unserialize($md_user->access_level);
-			}
-		}
-	}
-	else {
-		global $md_user_levels;
-	}
-	
-	if (isset($post)) {
-		if (isset($post->ID)) {
-			$post_id = $post->ID;
-			$protected = get_post_meta($post_id, 'memberdeck_protected_posts', true);
-			if (!current_user_can('manage_options')) {
-				//echo 'not admin';
-				if ($protected) {
-					//echo 'protected';
-					$login_url = site_url('/wp-login.php');
-					if (!empty($md_user_levels)) {
-						//echo 'they have levels';
-						$access = unserialize($protected);
-						$pass = false;
-						foreach ($md_user_levels as $access_level) {
-							if (in_array($access_level, $access)) {
-								$pass = true;
-								break;
-							}
-						}
-						if (!$pass) {
-							//echo 'does not match';
-							include_once 'templates/_protectedPage.php';
-							$content = ob_get_contents();
-							//return $content;
-						}
-						
-					}
-					else {
-						//echo 'no levels';
-						include_once 'templates/_protectedPage.php';
-						$content = ob_get_contents();
-						
-						//return $content;
-					}
+	if (is_user_logged_in()) {
+		if (is_multisite()) {
+			require (ABSPATH . WPINC . '/pluggable.php');
+			global $current_user;
+			get_currentuserinfo();
+			$md_user_levels = null;
+			if (!empty($current_user)) {
+				$user_id = $current_user->ID;
+				$md_user = ID_Member::user_levels($user_id);
+				if (!empty($md_user)) {
+					$md_user_levels = unserialize($md_user->access_level);
 				}
-				else {
-					//echo 'not protected';
-				}
-			}
-			else {
-				//echo 'is admin';
 			}
 		}
 		else {
-			//echo 'no post id';
+			$md_user_levels = ID_Member::get_user_levels();
 		}
+	}
+	if (isset($post->ID)) {
+		$post_id = $post->ID;
+		$protected = get_post_meta($post_id, 'memberdeck_protected_posts', true);
+		if (!current_user_can('manage_options')) {
+			//echo 'not admin';
+			if ($protected) {
+				//echo 'protected';
+				$login_url = site_url('/wp-login.php');
+				if (!empty($md_user_levels)) {
+					//echo 'they have levels';
+					$access = unserialize($protected);
+					$pass = false;
+					foreach ($md_user_levels as $access_level) {
+						if (in_array($access_level, $access)) {
+							$pass = true;
+							break;
+						}
+					}
+					if (!$pass) {
+						//echo 'does not match';
+						include_once 'templates/_protectedPage.php';
+						$content = ob_get_contents();
+						//return $content;
+					}
+					
+				}
+				else {
+					//echo 'no levels';
+					include_once 'templates/_protectedPage.php';
+					$content = ob_get_contents();
+					
+					//return $content;
+				}
+			}
+			else {
+				//echo 'not protected';
+			}
+		}
+		else {
+			//echo 'is admin';
+		}
+	}
+	else {
+		//echo 'no post id';
 	}
 	ob_end_clean();
 	return $content;
@@ -178,6 +232,7 @@ function idmember_protect_category($content) {
 	global $wp_query;
 	if (is_multisite()) {
 		require (ABSPATH . WPINC . '/pluggable.php');
+		global $current_user;
 		get_currentuserinfo();
 		$md_user_levels = null;
 		if (!empty($current_user)) {
@@ -189,7 +244,7 @@ function idmember_protect_category($content) {
 		}
 	}
 	else {
-		global $md_user_levels;
+		$md_user_levels = ID_Member::get_user_levels();
 	}
 	//print_r($wp_query);
 	$tag_terms = get_terms(array('category', 'post_tag'));
@@ -296,73 +351,63 @@ function move_to_protect() {
 
 function md_fh_protection_check() {
 	global $post;
-	if (is_multisite()) {
-		require (ABSPATH . WPINC . '/pluggable.php');
-		get_currentuserinfo();
-		$md_user_levels = null;
-		if (!empty($current_user)) {
-			$user_id = $current_user->ID;
-			$md_user = ID_Member::user_levels($user_id);
-			if (!empty($md_user)) {
-				$md_user_levels = unserialize($md_user->access_level);
-			}
-		}
-	}
-	else {
-		global $md_user_levels;
-	}
-	
-	if (isset($post)) {
-		if (isset($post->ID)) {
-			$post_id = $post->ID;
-			$protected = get_post_meta($post_id, 'memberdeck_protected_posts', true);
-			if (!current_user_can('manage_options')) {
-				//echo 'not admin';
-				if ($protected) {
-					$dash = get_option('md_dash_settings');
-					if (!empty($dash)) {
-						$dash = unserialize($dash);
-						if (isset($durl)) {
-							$durl = $dash['durl'];
-						}
-						else {
-							$durl = home_url().'/dashboard';
-						}
-					}
-					//echo 'protected';
-					$login_url = site_url('/wp-login.php');
-					if (!empty($md_user_levels)) {
-						//echo 'they have levels';
-						$access = unserialize($protected);
-						$pass = false;
-						foreach ($md_user_levels as $access_level) {
-							if (in_array($access_level, $access)) {
-								$pass = true;
-								break;
-							}
-						}
-						if (!$pass) {
-							//echo 'does not match';
-							echo '<script>location.href="'.$durl.'";</script>';
-						}
-						
-					}
-					else {
-						//echo 'no levels';
-						echo '<script>location.href="'.$durl.'";</script>';
-					}
+	if (is_user_logged_in()) {
+		if (is_multisite()) {
+			require (ABSPATH . WPINC . '/pluggable.php');
+			global $current_user;
+			get_currentuserinfo();
+			$md_user_levels = null;
+			if (!empty($current_user)) {
+				$user_id = $current_user->ID;
+				$md_user = ID_Member::user_levels($user_id);
+				if (!empty($md_user)) {
+					$md_user_levels = unserialize($md_user->access_level);
 				}
-				else {
-					//echo 'not protected';
-				}
-			}
-			else {
-				//echo 'is admin';
 			}
 		}
 		else {
-			//echo 'no post id';
+			$md_user_levels = ID_Member::get_user_levels();
 		}
+	}
+	if (isset($post->ID)) {
+		$post_id = $post->ID;
+		$protected = get_post_meta($post_id, 'memberdeck_protected_posts', true);
+		if (!current_user_can('manage_options')) {
+			//echo 'not admin';
+			if ($protected) {
+				//echo 'protected';
+				$login_url = site_url('/wp-login.php');
+				if (!empty($md_user_levels)) {
+					//echo 'they have levels';
+					$access = unserialize($protected);
+					$pass = false;
+					foreach ($md_user_levels as $access_level) {
+						if (in_array($access_level, $access)) {
+							$pass = true;
+							break;
+						}
+					}
+					if (!$pass) {
+						//echo 'does not match';
+						echo '<script>location.href="'.home_url().'";</script>';
+					}
+					
+				}
+				else {
+					//echo 'no levels';
+					echo '<script>location.href="'.home_url().'";</script>';
+				}
+			}
+			else {
+				//echo 'not protected';
+			}
+		}
+		else {
+			//echo 'is admin';
+		}
+	}
+	else {
+		//echo 'no post id';
 	}
 }
 
@@ -429,7 +474,9 @@ add_filter('bbp_replace_the_content', 'idmember_protect_bbp');
 
 add_action( 'wp_login_failed', 'md_bad_login' );  // hook failed login
 function md_bad_login( $username ) {
-	$referrer = $_SERVER['HTTP_REFERER'];  // where did the post submission come from?
+	if (isset($_SERVER['HTTP_REFERER'])) {
+		$referrer = $_SERVER['HTTP_REFERER'];  // where did the post submission come from?
+	}
 	// if there's a valid referrer, and it's not the default log-in screen
 	if ( !empty($referrer) && !strstr($referrer,'wp-login') && !strstr($referrer,'wp-admin') ) {
 		$settings = get_option('md_dash_settings');
@@ -442,8 +489,7 @@ function md_bad_login( $username ) {
 				$durl = $home_url('/dashboard');
 			}
 		}
-		// Remove 'dashboard' after ID forum offer proper fix
-		wp_redirect((isset($durl) ? $durl : home_url()) . 'dashboard/?login_failure=1' );
+		wp_redirect((isset($durl) ? $durl : home_url()) . '/?login_failure=1' );
 		exit;
 	}
 }
@@ -466,8 +512,8 @@ function memberdeck_profile_check() {
 		$user_firstname = $current_user->user_firstname;
 		$user_lastname = $current_user->user_lastname;
 		$email = $current_user->user_email;
-		global $customer_id;
-		global $instant_checkout;
+		$customer_id = customer_id();
+		$instant_checkout = instant_checkout();
 		if (isset($_GET['edit-profile']) && $_GET['edit-profile'] == $user_id) {
 			if (isset($_POST['edit-profile-submit'])) {
 				$user_firstname = esc_attr($_POST['first-name']);
@@ -555,10 +601,10 @@ function memberdeck_profile_form($content) {
 			$es = $options['es'];
 			$eb = $options['eb'];
 			if ($es == 1) {
-				global $customer_id;
+				$customer_id = customer_id();
 			}
 			else if ($eb == 1) {
-				global $balanced_customer_id;
+				$balanced_customer_id = balanced_customer_id();
 				$customer_id = $balanced_customer_id;
 			}
 		}
@@ -566,7 +612,7 @@ function memberdeck_profile_form($content) {
 
 	$general = get_option('md_receipt_settings');
 	
-	global $instant_checkout;
+	$instant_checkout = instant_checkout();
 	//$instant_checkout = get_user_meta($user_id, 'instant_checkout', true);
 	if (isset($_POST['edit-profile-submit'])) {
 		$user_firstname = esc_attr($_POST['first-name']);
@@ -659,6 +705,9 @@ function idmember_login_redirect($user_login, $user) {
 add_filter('login_redirect', 'memberdeck_login_redirect', 3, 3);
 
 function md_stripe_currency_symbol($currency) {
+	if (empty($currency)) {
+		$currency = 'USD';
+	}
 	switch($currency) {
 		case 'USD':
 			$ccode = '$';
@@ -719,7 +768,7 @@ function idmember_purchase_receipt($user_id, $price, $level_id, $source) {
 	}
 	else {
 		$coname = '';
-		$coemail = '';
+		$coemail = get_option('admin_email', null);
 	}
 	$currency = 'USD';
 	$symbol = '$';
@@ -754,112 +803,113 @@ function idmember_purchase_receipt($user_id, $price, $level_id, $source) {
 	/* 
 	** Mail Function
 	*/
+	if (!empty($coemail)) {
+		// Sending email to customer on the completion of order
+		$subject = __('Payment Receipt', 'memberdeck');
+		$headers = __('From', 'memberdeck').': '.$coname.' <'.$coemail.'>' . "\n";
+		$headers .= __('Reply-To', 'memberdeck').': ' . $coemail ."\n";
+		$headers .= "MIME-Version: 1.0\n";
+		$headers .= "Content-Type: text/html; charset=ISO-8859-1\n";
+		$message = '<html><body>';
+		$message .= '<div style="padding:10px;background-color:#f2f2f2;">
+						<div style="padding:10px;border:1px solid #eee;background-color:#fff;">
+						<h2>'.$coname.' '.__('Payment Receipt', 'memberdeck').'</h2>
 
-	// Sending email to customer on the completion of order
-	$subject = __('Payment Receipt', 'memberdeck');
-	$headers = __('From', 'memberdeck').': '.$coname.' <'.$coemail.'>' . "\n";
-	$headers .= __('Reply-To', 'memberdeck').': ' . $coemail ."\n";
-	$headers .= "MIME-Version: 1.0\n";
-	$headers .= "Content-Type: text/html; charset=ISO-8859-1\n";
-	$message = '<html><body>';
-	$message .= '<div style="padding:10px;background-color:#f2f2f2;">
-					<div style="padding:10px;border:1px solid #eee;background-color:#fff;">
-					<h2>'.$coname.' '.__('Payment Receipt', 'memberdeck').'</h2>
+							<div style="margin:10px;">
 
-						<div style="margin:10px;">
+	 							'.__('Hello', 'memberdeck'). ' ' . $fname .' '. $lname .', <br /><br />
+	  
+	  							'.__('You have successfully made a payment of ', 'memberdeck').$symbol.number_format($price, 2, '.', ',').' '.$currency.'<br /><br />
+	    
+	    						'.__('This transaction should appear on your Credit Card statement as', 'memberdeck').': '.$coname.'<br /><br />
+	    						<div style="border: 1px solid #333333; width: 500px;">
+	    							<table width="500" border="0" cellspacing="0" cellpadding="5">
+	          							<tr bgcolor="#333333" style="color: white">
+					                        <td width="100">'.__('DATE', 'memberdeck').'</td>
+					                        <td width="275">'.__('DESCRIPTION', 'memberdeck').'</td>
+					                        <td width="125">'.__('AMOUNT', 'memberdeck').'</td>
+					                    </tr>
+				                         <tr>
+				                           <td width="200">'.date("D, M j").'</td>
+				                           <td width="275">'.$coname.'</td>
+				                           <td width="125">'.__($symbol, 'memberdeck').number_format($price, 2, '.', ',').' '.__($currency, 'memberdeck').'</td>
+				                      	</tr>
+	    							</table>
+	    						</div>
+	    						<br /><br />
+	    						'.__('Thank you for your support!', 'memberdeck').'<br />
+	    						'.__('The', 'memberdeck').' '.$coname.' '.__('team', 'memberdeck').'
+							</div>
 
- 							'.__('Hello', 'memberdeck'). ' ' . $fname .' '. $lname .', <br /><br />
-  
-  							'.__('You have successfully made a payment of ', 'memberdeck').$symbol.number_format($price, 2, '.', ',').' '.$currency.'<br /><br />
-    
-    						'.__('This transaction should appear on your Credit Card statement as', 'memberdeck').': '.$coname.'<br /><br />
-    						<div style="border: 1px solid #333333; width: 500px;">
-    							<table width="500" border="0" cellspacing="0" cellpadding="5">
-          							<tr bgcolor="#333333" style="color: white">
-				                        <td width="100">'.__('DATE', 'memberdeck').'</td>
-				                        <td width="275">'.__('DESCRIPTION', 'memberdeck').'</td>
-				                        <td width="125">'.__('AMOUNT', 'memberdeck').'</td>
-				                    </tr>
-			                         <tr>
-			                           <td width="200">'.date("D, M j").'</td>
-			                           <td width="275">'.$coname.'</td>
-			                           <td width="125">'.__($symbol, 'memberdeck').number_format($price, 2, '.', ',').' '.__($currency, 'memberdeck').'</td>
-			                      	</tr>
-    							</table>
-    						</div>
-    						<br /><br />
-    						'.__('Thank you for your support!', 'memberdeck').'<br />
-    						'.__('The', 'memberdeck').' '.$coname.' '.__('team', 'memberdeck').'
-						</div>
+							<table rules="all" style="border-color:#666;width:80%;margin:20px auto;" cellpadding="10">
 
-						<table rules="all" style="border-color:#666;width:80%;margin:20px auto;" cellpadding="10">
+	    					<!--table rows-->
 
-    					<!--table rows-->
+							</table>
 
-						</table>
+			               ---------------------------------<br />
+			               '.$coname.'<br />
+			               <a href="mailto:'.$coemail.'">'.$coemail.'</a>
+			           
 
-		               ---------------------------------<br />
-		               '.$coname.'<br />
-		               <a href="mailto:'.$coemail.'">'.$coemail.'</a>
-		           
-
-		            </div>
-		        </div>';
-	$message .= '</body></html>';
-	if (isset($enable_sendgrid) && $enable_sendgrid == 1) {
-		require_once MD_PATH.'lib/sendgrid-php-master/lib/SendGrid.php';
-		require_once MD_PATH.'lib/unirest-php-master/lib/Unirest.php';
-		SendGrid::register_autoloader();
-		$sendgrid = new SendGrid($sendgrid_username, $sendgrid_pw);
-		$mail = new SendGrid\Email();
-		$mail->
-			addTo($email)->
-			setFrom($coemail)->
-			setSubject($subject)->
-			setText(null)->
-			addHeader($headers)->
-			setHtml($message);
-		$go = $sendgrid->web->send($mail);
-	}
-	else if (isset($enable_mandrill) && $enable_mandrill == 1) {
-		try {
-			require_once MD_PATH.'lib/mandrill-php-master/src/Mandrill.php';
-			$mandrill = new Mandrill($mandrill_key);
-			$msgarray = array(
-				'html' => $message,
-				'text' => '',
-				'subject' => $subject,
-				'from_email' => $coemail,
-				'from_name' => $coname,
-				'to' => array(
-					array(
-						'email' => $email,
-						'name' => $fname.' '.$lname,
-						'type' => 'to'
+			            </div>
+			        </div>';
+		$message .= '</body></html>';
+		if (isset($enable_sendgrid) && $enable_sendgrid == 1) {
+			require_once MD_PATH.'lib/sendgrid-php-master/lib/SendGrid.php';
+			require_once MD_PATH.'lib/unirest-php-master/lib/Unirest.php';
+			SendGrid::register_autoloader();
+			$sendgrid = new SendGrid($sendgrid_username, $sendgrid_pw);
+			$mail = new SendGrid\Email();
+			$mail->
+				addTo($email)->
+				setFrom($coemail)->
+				setSubject($subject)->
+				setText(null)->
+				addHeader($headers)->
+				setHtml($message);
+			$go = $sendgrid->web->send($mail);
+		}
+		else if (isset($enable_mandrill) && $enable_mandrill == 1) {
+			try {
+				require_once MD_PATH.'lib/mandrill-php-master/src/Mandrill.php';
+				$mandrill = new Mandrill($mandrill_key);
+				$msgarray = array(
+					'html' => $message,
+					'text' => '',
+					'subject' => $subject,
+					'from_email' => $coemail,
+					'from_name' => $coname,
+					'to' => array(
+						array(
+							'email' => $email,
+							'name' => $fname.' '.$lname,
+							'type' => 'to'
+							)
+						),
+					'headers' => array(
+						'MIME-Version' => '1.0',
+						'Content-Type' => 'text/html',
+						'charset' =>  'ISO-8859-1',
+						'Reply-To' => $coemail
 						)
-					),
-				'headers' => array(
-					'MIME-Version' => '1.0',
-					'Content-Type' => 'text/html',
-					'charset' =>  'ISO-8859-1',
-					'Reply-To' => $coemail
-					)
-					);
-			$async = false;
-			$ip_pool = null;
-			$send_at = null;
-			$go = $mandrill->messages->send($msgarray, $async, $ip_pool, $send_at);
+						);
+				$async = false;
+				$ip_pool = null;
+				$send_at = null;
+				$go = $mandrill->messages->send($msgarray, $async, $ip_pool, $send_at);
+			}
+			catch(Mandrill_Error $e) {
+			    // Mandrill errors are thrown as exceptions
+			    echo 'A mandrill error occurred: ' . get_class($e) . ' - ' . $e->getMessage();
+			    // A mandrill error occurred: Mandrill_Unknown_Subaccount - No subaccount exists with the id 'customer-123'
+			    throw $e;
+			}
 		}
-		catch(Mandrill_Error $e) {
-		    // Mandrill errors are thrown as exceptions
-		    echo 'A mandrill error occurred: ' . get_class($e) . ' - ' . $e->getMessage();
-		    // A mandrill error occurred: Mandrill_Unknown_Subaccount - No subaccount exists with the id 'customer-123'
-		    throw $e;
+		else {
+			//echo $email."<br>".$subject."<br>".$message;
+			mail($email, $subject, $message, $headers);
 		}
-	}
-	else {
-		//echo $email."<br>".$subject."<br>".$message;
-		mail($email, $subject, $message, $headers);
 	}
 }
 
@@ -876,7 +926,7 @@ function memberdeck_preauth_receipt($user_id, $price, $level_id, $source) {
 	}
 	else {
 		$coname = '';
-		$coemail = '';
+		$coemail = get_option('admin_email', null);
 	}
 	$currency = 'USD';
 	$symbol = '$';
@@ -928,119 +978,121 @@ function memberdeck_preauth_receipt($user_id, $price, $level_id, $source) {
 		}
 	}
 
-	/* 
-	** Mail Function
-	*/
+	if (!empty($coemail)) {
+		/* 
+		** Mail Function
+		*/
 
-	// Sending email to customer on the completion of order
-	$subject = $level_name.' '.__('Pre-Order Confirmation', 'memberdeck');
-	$headers = __('From', 'memberdeck').': '.$coname.' <'.$coemail.'>' . "\n";
-	$headers .= __('Reply-To', 'memberdeck').': ' . $coemail ."\n";
-	$headers .= "MIME-Version: 1.0\n";
-	$headers .= "Content-Type: text/html; charset=ISO-8859-1\n";
-	$message = '<html><body>';
-	$message .= '<div style="padding:10px;background-color:#f2f2f2;">
-					<div style="padding:10px;border:1px solid #eee;background-color:#fff;">
-					<h2>'.$coname.' '.__('Pre-Order Confirmation', 'memberdeck').'</h2>
+		// Sending email to customer on the completion of order
+		$subject = $level_name.' '.__('Pre-Order Confirmation', 'memberdeck');
+		$headers = __('From', 'memberdeck').': '.$coname.' <'.$coemail.'>' . "\n";
+		$headers .= __('Reply-To', 'memberdeck').': ' . $coemail ."\n";
+		$headers .= "MIME-Version: 1.0\n";
+		$headers .= "Content-Type: text/html; charset=ISO-8859-1\n";
+		$message = '<html><body>';
+		$message .= '<div style="padding:10px;background-color:#f2f2f2;">
+						<div style="padding:10px;border:1px solid #eee;background-color:#fff;">
+						<h2>'.$coname.' '.__('Pre-Order Confirmation', 'memberdeck').'</h2>
 
-						<div style="margin:10px;">
+							<div style="margin:10px;">
 
- 							'.__('Hello', 'memberdeck'). ' ' . $fname .' '. $lname .', <br /><br />
-  
-  							'.__('This is a confirmation of your pre-order of ', 'memberdeck').$level_name.' for '.$symbol.number_format($price, 2, '.', ',').' '.$currency.'<br /><br />';
-  	if (isset($credit_value) && $credit_value > 0) {
-   		$message .=			__('You have earned a total of ', 'memberdeck').$credit_value.' '.($credit_value > 1 ? __('credits for this purchase', 'memberdeck') : 'credit for this purchase').'<br/><br/>';
-    }
-    if ($cf_level) {
-    	$message .=			__('If funding is successful, this charge will process on ', 'memberdeck').$end.'<br/><br/>';
-    }
-    $message .=				'<div style="border: 1px solid #333333; width: 500px;">
-    							<table width="500" border="0" cellspacing="0" cellpadding="5">
-          							<tr bgcolor="#333333" style="color: white">
-				                        <td width="100">'.__('DATE', 'memberdeck').'</td>
-				                        <td width="275">'.__('DESCRIPTION', 'memberdeck').'</td>
-				                        <td width="125">'.__('AMOUNT', 'memberdeck').'</td>
-				                    </tr>
-			                         <tr>
-			                           <td width="200">'.date("D, M j").'</td>
-			                           <td width="275">'.$level_name.'</td>
-			                           <td width="125">'.__($symbol, 'memberdeck').number_format($price, 2, '.', ',').' '.__($currency, 'memberdeck').'</td>
-			                      	</tr>
-    							</table>
-    						</div>
-    						<br /><br />
-    						'.__('Thank you for your support!', 'memberdeck').'<br />
-    						'.__('The', 'memberdeck').' '.$coname.' '.__('team', 'memberdeck').'
-						</div>
+	 							'.__('Hello', 'memberdeck'). ' ' . $fname .' '. $lname .', <br /><br />
+	  
+	  							'.__('This is a confirmation of your pre-order of ', 'memberdeck').$level_name.' for '.$symbol.number_format($price, 2, '.', ',').' '.$currency.'<br /><br />';
+	  	if (isset($credit_value) && $credit_value > 0) {
+	   		$message .=			__('You have earned a total of ', 'memberdeck').$credit_value.' '.($credit_value > 1 ? __('credits for this purchase', 'memberdeck') : 'credit for this purchase').'<br/><br/>';
+	    }
+	    if ($cf_level) {
+	    	$message .=			__('If funding is successful, this charge will process on ', 'memberdeck').$end.'<br/><br/>';
+	    }
+	    $message .=				'<div style="border: 1px solid #333333; width: 500px;">
+	    							<table width="500" border="0" cellspacing="0" cellpadding="5">
+	          							<tr bgcolor="#333333" style="color: white">
+					                        <td width="100">'.__('DATE', 'memberdeck').'</td>
+					                        <td width="275">'.__('DESCRIPTION', 'memberdeck').'</td>
+					                        <td width="125">'.__('AMOUNT', 'memberdeck').'</td>
+					                    </tr>
+				                         <tr>
+				                           <td width="200">'.date("D, M j").'</td>
+				                           <td width="275">'.$level_name.'</td>
+				                           <td width="125">'.__($symbol, 'memberdeck').number_format($price, 2, '.', ',').' '.__($currency, 'memberdeck').'</td>
+				                      	</tr>
+	    							</table>
+	    						</div>
+	    						<br /><br />
+	    						'.__('Thank you for your support!', 'memberdeck').'<br />
+	    						'.__('The', 'memberdeck').' '.$coname.' '.__('team', 'memberdeck').'
+							</div>
 
-						<table rules="all" style="border-color:#666;width:80%;margin:20px auto;" cellpadding="10">
+							<table rules="all" style="border-color:#666;width:80%;margin:20px auto;" cellpadding="10">
 
-    					<!--table rows-->
+	    					<!--table rows-->
 
-						</table>
+							</table>
 
-		               ---------------------------------<br />
-		               '.$coname.'<br />
-		               <a href="mailto:'.$coemail.'">'.$coemail.'</a>
-		           
+			               ---------------------------------<br />
+			               '.$coname.'<br />
+			               <a href="mailto:'.$coemail.'">'.$coemail.'</a>
+			           
 
-		            </div>
-		        </div>';
-	$message .= '</body></html>';
-	if (isset($enable_sendgrid) && $enable_sendgrid == 1) {
-		require_once MD_PATH.'lib/sendgrid-php-master/lib/SendGrid.php';
-		require_once MD_PATH.'lib/unirest-php-master/lib/Unirest.php';
-		SendGrid::register_autoloader();
-		$sendgrid = new SendGrid($sendgrid_username, $sendgrid_pw);
-		$mail = new SendGrid\Email();
-		$mail->
-			addTo($email)->
-			setFrom($coemail)->
-			setSubject($subject)->
-			setText(null)->
-			addHeader($headers)->
-			setHtml($message);
-		$go = $sendgrid->web->send($mail);
-	}
-	else if (isset($enable_mandrill) && $enable_mandrill == 1) {
-		try {
-			require_once MD_PATH.'lib/mandrill-php-master/src/Mandrill.php';
-			$mandrill = new Mandrill($mandrill_key);
-			$msgarray = array(
-				'html' => $message,
-				'text' => '',
-				'subject' => $subject,
-				'from_email' => $coemail,
-				'from_name' => $coname,
-				'to' => array(
-					array(
-						'email' => $email,
-						'name' => $fname.' '.$lname,
-						'type' => 'to'
+			            </div>
+			        </div>';
+		$message .= '</body></html>';
+		if (isset($enable_sendgrid) && $enable_sendgrid == 1) {
+			require_once MD_PATH.'lib/sendgrid-php-master/lib/SendGrid.php';
+			require_once MD_PATH.'lib/unirest-php-master/lib/Unirest.php';
+			SendGrid::register_autoloader();
+			$sendgrid = new SendGrid($sendgrid_username, $sendgrid_pw);
+			$mail = new SendGrid\Email();
+			$mail->
+				addTo($email)->
+				setFrom($coemail)->
+				setSubject($subject)->
+				setText(null)->
+				addHeader($headers)->
+				setHtml($message);
+			$go = $sendgrid->web->send($mail);
+		}
+		else if (isset($enable_mandrill) && $enable_mandrill == 1) {
+			try {
+				require_once MD_PATH.'lib/mandrill-php-master/src/Mandrill.php';
+				$mandrill = new Mandrill($mandrill_key);
+				$msgarray = array(
+					'html' => $message,
+					'text' => '',
+					'subject' => $subject,
+					'from_email' => $coemail,
+					'from_name' => $coname,
+					'to' => array(
+						array(
+							'email' => $email,
+							'name' => $fname.' '.$lname,
+							'type' => 'to'
+							)
+						),
+					'headers' => array(
+						'MIME-Version' => '1.0',
+						'Content-Type' => 'text/html',
+						'charset' =>  'ISO-8859-1',
+						'Reply-To' => $coemail
 						)
-					),
-				'headers' => array(
-					'MIME-Version' => '1.0',
-					'Content-Type' => 'text/html',
-					'charset' =>  'ISO-8859-1',
-					'Reply-To' => $coemail
-					)
-					);
-			$async = false;
-			$ip_pool = null;
-			$send_at = null;
-			$go = $mandrill->messages->send($msgarray, $async, $ip_pool, $send_at);
+						);
+				$async = false;
+				$ip_pool = null;
+				$send_at = null;
+				$go = $mandrill->messages->send($msgarray, $async, $ip_pool, $send_at);
+			}
+			catch(Mandrill_Error $e) {
+			    // Mandrill errors are thrown as exceptions
+			    echo 'A mandrill error occurred: ' . get_class($e) . ' - ' . $e->getMessage();
+			    // A mandrill error occurred: Mandrill_Unknown_Subaccount - No subaccount exists with the id 'customer-123'
+			    throw $e;
+			}
 		}
-		catch(Mandrill_Error $e) {
-		    // Mandrill errors are thrown as exceptions
-		    echo 'A mandrill error occurred: ' . get_class($e) . ' - ' . $e->getMessage();
-		    // A mandrill error occurred: Mandrill_Unknown_Subaccount - No subaccount exists with the id 'customer-123'
-		    throw $e;
+		else {
+			//echo $email."<br>".$subject."<br>".$message;
+			mail($email, $subject, $message, $headers);
 		}
-	}
-	else {
-		//echo $email."<br>".$subject."<br>".$message;
-		mail($email, $subject, $message, $headers);
 	}
 }
 
@@ -1055,7 +1107,7 @@ function idmember_registration_email($user_id, $reg_key) {
 	}
 	else {
 		$coname = '';
-		$coemail = '';
+		$coemail = get_option('admin_email', null);
 	}
 	$user = get_userdata($user_id);
 	$email = $user->user_email;
@@ -1082,114 +1134,116 @@ function idmember_registration_email($user_id, $reg_key) {
 	}
 	$level_name = $level->level_name;
 
-	/* 
-	** Mail Function
-	*/
+	if (!empty($coemail)) {
+		/* 
+		** Mail Function
+		*/
 
-	// Sending email to customer on the completion of order
-	$subject = __('Complete Your Registration', 'memberdeck');
-	$headers = __('From', 'memberdeck').': '.$coname.' <'.$coemail.'>' . "\n";
-	$headers .= __('Reply-To', 'memberdeck').': '.$coemail."\n";
-	$headers .= "MIME-Version: 1.0\n";
-	$headers .= "Content-Type: text/html; charset=ISO-8859-1\n";
-	$message = '<html><body>';
-	$message .= '<div style="padding:10px;background-color:#f2f2f2;">
-					<div style="padding:10px;border:1px solid #eee;background-color:#fff;">
-					<h2>'.$coname.' '.__('Payment Receipt', 'memberdeck').'</h2>
+		// Sending email to customer on the completion of order
+		$subject = __('Complete Your Registration', 'memberdeck');
+		$headers = __('From', 'memberdeck').': '.$coname.' <'.$coemail.'>' . "\n";
+		$headers .= __('Reply-To', 'memberdeck').': '.$coemail."\n";
+		$headers .= "MIME-Version: 1.0\n";
+		$headers .= "Content-Type: text/html; charset=ISO-8859-1\n";
+		$message = '<html><body>';
+		$message .= '<div style="padding:10px;background-color:#f2f2f2;">
+						<div style="padding:10px;border:1px solid #eee;background-color:#fff;">
+						<h2>'.$coname.' '.__('Payment Receipt', 'memberdeck').'</h2>
 
-						<div style="margin:10px;">
+							<div style="margin:10px;">
 
- 							'.__('Hello', 'memberdeck').' '. $fname .' '. $lname .', <br /><br />
-  
-  							'.__('Thank you for your purchase of ', 'memberdeck').' '.$level_name.'.<br /><br />
-    
-    						'.__('Your order is almost ready to go. We just need you to click the link
-    						below to complete your registration', 'memberdeck').':
-    						<br /><br />
-    						'.home_url("/").'?reg='.$reg_key.'
-    						<br /><br />';
-    if (isset($credit_value) && $credit_value > 0) {
-   	$message .=
-    						__('You have earned a total of ', 'memberdeck').$credit_value.' '.($credit_value > 1 ? __('credits for this purchase', 'memberdeck') : 'credit for this purchase');
-    }
-    $message .=				__('Thank you for your support', 'memberdeck').'!<br />
-    						'.__('The', 'memberdeck').' '.$coname.' '.__('team', 'memberdeck').'
-						</div>
+	 							'.__('Hello', 'memberdeck').' '. $fname .' '. $lname .', <br /><br />
+	  
+	  							'.__('Thank you for your purchase of ', 'memberdeck').' '.$level_name.'.<br /><br />
+	    
+	    						'.__('Your order is almost ready to go. We just need you to click the link
+	    						below to complete your registration', 'memberdeck').':
+	    						<br /><br />
+	    						'.home_url("/").'?reg='.$reg_key.'
+	    						<br /><br />';
+	    if (isset($credit_value) && $credit_value > 0) {
+	   	$message .=
+	    						__('You have earned a total of ', 'memberdeck').$credit_value.' '.($credit_value > 1 ? __('credits for this purchase', 'memberdeck') : 'credit for this purchase');
+	    }
+	    $message .=				__('Thank you for your support', 'memberdeck').'!<br />
+	    						'.__('The', 'memberdeck').' '.$coname.' '.__('team', 'memberdeck').'
+							</div>
 
-						<table rules="all" style="border-color:#666;width:80%;margin:20px auto;" cellpadding="10">
+							<table rules="all" style="border-color:#666;width:80%;margin:20px auto;" cellpadding="10">
 
-    					<!--table rows-->
+	    					<!--table rows-->
 
-						</table>
+							</table>
 
-		               ---------------------------------<br />
-		               '.$coname.'<br />
-		               <a href="mailto:'.$coemail.'">'.$coemail.'</a>
-		           
+			               ---------------------------------<br />
+			               '.$coname.'<br />
+			               <a href="mailto:'.$coemail.'">'.$coemail.'</a>
+			           
 
-		            </div>
-		        </div>';
-	$message .= '</body></html>';
-	if (isset($enable_sendgrid) && $enable_sendgrid == 1) {
-		require_once MD_PATH.'lib/sendgrid-php-master/lib/SendGrid.php';
-		require_once MD_PATH.'lib/unirest-php-master/lib/Unirest.php';
-		SendGrid::register_autoloader();
-		$sendgrid = new SendGrid($sendgrid_username, $sendgrid_pw);
-		$mail = new SendGrid\Email();
-		$mail->
-			addTo($email)->
-			setFrom($coemail)->
-			setSubject($subject)->
-			setText(null)->
-			addHeader($headers)->
-			setHtml($message);
-		$go = $sendgrid->web->send($mail);
-	}
-	else if (isset($enable_mandrill) && $enable_mandrill == 1) {
-		try {
-			require_once MD_PATH.'lib/mandrill-php-master/src/Mandrill.php';
-			$mandrill = new Mandrill($mandrill_key);
-			$msgarray = array(
-				'html' => $message,
-				'text' => '',
-				'subject' => $subject,
-				'from_email' => $coemail,
-				'from_name' => $coname,
-				'to' => array(
-					array(
-						'email' => $email,
-						'name' => $fname.' '.$lname,
-						'type' => 'to'
+			            </div>
+			        </div>';
+		$message .= '</body></html>';
+		if (isset($enable_sendgrid) && $enable_sendgrid == 1) {
+			require_once MD_PATH.'lib/sendgrid-php-master/lib/SendGrid.php';
+			require_once MD_PATH.'lib/unirest-php-master/lib/Unirest.php';
+			SendGrid::register_autoloader();
+			$sendgrid = new SendGrid($sendgrid_username, $sendgrid_pw);
+			$mail = new SendGrid\Email();
+			$mail->
+				addTo($email)->
+				setFrom($coemail)->
+				setSubject($subject)->
+				setText(null)->
+				addHeader($headers)->
+				setHtml($message);
+			$go = $sendgrid->web->send($mail);
+		}
+		else if (isset($enable_mandrill) && $enable_mandrill == 1) {
+			try {
+				require_once MD_PATH.'lib/mandrill-php-master/src/Mandrill.php';
+				$mandrill = new Mandrill($mandrill_key);
+				$msgarray = array(
+					'html' => $message,
+					'text' => '',
+					'subject' => $subject,
+					'from_email' => $coemail,
+					'from_name' => $coname,
+					'to' => array(
+						array(
+							'email' => $email,
+							'name' => $fname.' '.$lname,
+							'type' => 'to'
+							)
+						),
+					'headers' => array(
+						'MIME-Version' => '1.0',
+						'Content-Type' => 'text/html',
+						'charset' =>  'ISO-8859-1',
+						'Reply-To' => $coemail
 						)
-					),
-				'headers' => array(
-					'MIME-Version' => '1.0',
-					'Content-Type' => 'text/html',
-					'charset' =>  'ISO-8859-1',
-					'Reply-To' => $coemail
-					)
-					);
-			$async = false;
-			$ip_pool = null;
-			$send_at = null;
-			$go = $mandrill->messages->send($msgarray, $async, $ip_pool, $send_at);
+						);
+				$async = false;
+				$ip_pool = null;
+				$send_at = null;
+				$go = $mandrill->messages->send($msgarray, $async, $ip_pool, $send_at);
+			}
+			catch(Mandrill_Error $e) {
+			    // Mandrill errors are thrown as exceptions
+			    echo 'A mandrill error occurred: ' . get_class($e) . ' - ' . $e->getMessage();
+			    // A mandrill error occurred: Mandrill_Unknown_Subaccount - No subaccount exists with the id 'customer-123'
+			    throw $e;
+			}
 		}
-		catch(Mandrill_Error $e) {
-		    // Mandrill errors are thrown as exceptions
-		    echo 'A mandrill error occurred: ' . get_class($e) . ' - ' . $e->getMessage();
-		    // A mandrill error occurred: Mandrill_Unknown_Subaccount - No subaccount exists with the id 'customer-123'
-		    throw $e;
+		else {
+			//echo $email."<br>".$subject."<br>".$message;
+			mail($email, $subject, $message, $headers);
 		}
-	}
-	else {
-		//echo $email."<br>".$subject."<br>".$message;
-		mail($email, $subject, $message, $headers);
 	}
 }
 
 add_action('idmember_registration_email', 'idmember_registration_email', 1, 2);
 
-function md_send_mail($email, $headers = null, $subject, $message) {
+function md_send_mail($email, $headers = '', $subject, $message) {
 	$settings = get_option('md_receipt_settings');
 	if (!empty($settings)) {
 		$settings = unserialize($settings);
@@ -1198,7 +1252,7 @@ function md_send_mail($email, $headers = null, $subject, $message) {
 	}
 	else {
 		$coname = '';
-		$coemail = '';
+		$coemail = get_option('admin_email', null);
 	}
 
 	/*
@@ -1214,69 +1268,72 @@ function md_send_mail($email, $headers = null, $subject, $message) {
 		$enable_mandrill = $crm_settings['enable_mandrill'];
 	}
 
-	if (isset($enable_sendgrid) && $enable_sendgrid == 1) {
-		require_once MD_PATH.'lib/sendgrid-php-master/lib/SendGrid.php';
-		require_once MD_PATH.'lib/unirest-php-master/lib/Unirest.php';
-		SendGrid::register_autoloader();
-		$sendgrid = new SendGrid($sendgrid_username, $sendgrid_pw);
-		$mail = new SendGrid\Email();
-		$mail->
-			addTo($email)->
-			setFrom($coemail)->
-			setSubject($subject)->
-			setText(null)->
-			//addHeader('MIME-Version', '1.0')->
-			//addHeader('Content-Type', 'text/html')->
-			//addHeader('charset', 'ISO-8859-1')->
-			setReplyTo($coemail)->
-			setHtml($message);
-		$go = $sendgrid->web->send($mail);
-	}
-	else if (isset($enable_mandrill) && $enable_mandrill == 1) {
-		try {
-			require_once MD_PATH.'lib/mandrill-php-master/src/Mandrill.php';
-			$mandrill = new Mandrill($mandrill_key);
-			$msgarray = array(
-				'html' => $message,
-				'text' => '',
-				'subject' => $subject,
-				'from_email' => $coemail,
-				'from_name' => $coname,
-				'to' => array(
-					array(
-						'email' => $email,
-						'name' => (isset($fname) && isset($lname) ? $fname.' '.$lname : ''),
-						'type' => 'to'
+	if (!empty($coemail)) {
+
+		if (isset($enable_sendgrid) && $enable_sendgrid == 1) {
+			require_once MD_PATH.'lib/sendgrid-php-master/lib/SendGrid.php';
+			require_once MD_PATH.'lib/unirest-php-master/lib/Unirest.php';
+			SendGrid::register_autoloader();
+			$sendgrid = new SendGrid($sendgrid_username, $sendgrid_pw);
+			$mail = new SendGrid\Email();
+			$mail->
+				addTo($email)->
+				setFrom($coemail)->
+				setSubject($subject)->
+				setText(null)->
+				//addHeader('MIME-Version', '1.0')->
+				//addHeader('Content-Type', 'text/html')->
+				//addHeader('charset', 'ISO-8859-1')->
+				setReplyTo($coemail)->
+				setHtml($message);
+			$go = $sendgrid->web->send($mail);
+		}
+		else if (isset($enable_mandrill) && $enable_mandrill == 1) {
+			try {
+				require_once MD_PATH.'lib/mandrill-php-master/src/Mandrill.php';
+				$mandrill = new Mandrill($mandrill_key);
+				$msgarray = array(
+					'html' => $message,
+					'text' => '',
+					'subject' => $subject,
+					'from_email' => $coemail,
+					'from_name' => $coname,
+					'to' => array(
+						array(
+							'email' => $email,
+							'name' => (isset($fname) && isset($lname) ? $fname.' '.$lname : ''),
+							'type' => 'to'
+							)
+						),
+					'headers' => array(
+						'MIME-Version' => '1.0',
+						'Content-Type' => 'text/html',
+						'charset' =>  'ISO-8859-1',
+						'Reply-To' => $coemail
 						)
-					),
-				'headers' => array(
-					'MIME-Version' => '1.0',
-					'Content-Type' => 'text/html',
-					'charset' =>  'ISO-8859-1',
-					'Reply-To' => $coemail
-					)
-				);
-			$async = false;
-			$ip_pool = null;
-			$send_at = null;
-			$go = $mandrill->messages->send($msgarray, $async, $ip_pool, $send_at);
+					);
+				$async = false;
+				$ip_pool = null;
+				$send_at = null;
+				$go = $mandrill->messages->send($msgarray, $async, $ip_pool, $send_at);
+			}
+			catch(Mandrill_Error $e) {
+			    // Mandrill errors are thrown as exceptions
+			    echo 'A mandrill error occurred: ' . get_class($e) . ' - ' . $e->getMessage();
+			    // A mandrill error occurred: Mandrill_Unknown_Subaccount - No subaccount exists with the id 'customer-123'
+			    throw $e;
+			}
 		}
-		catch(Mandrill_Error $e) {
-		    // Mandrill errors are thrown as exceptions
-		    echo 'A mandrill error occurred: ' . get_class($e) . ' - ' . $e->getMessage();
-		    // A mandrill error occurred: Mandrill_Unknown_Subaccount - No subaccount exists with the id 'customer-123'
-		    throw $e;
+		else {
+			//echo $email."<br>".$subject."<br>".$message;
+			if (empty($headers)) {
+				$headers = __('From', 'memberdeck').': '.$coname.' <'.$coemail.'>' . "\n";
+				$headers .= __('Reply-To', 'memberdeck').': '.$coemail."\n";
+				$headers .= "MIME-Version: 1.0\n";
+				$headers .= "Content-Type: text/html; charset=ISO-8859-1\n";
+			}
+			mail($email, $subject, $message, $headers);
 		}
-	}
-	else {
-		//echo $email."<br>".$subject."<br>".$message;
-		if ($headers = null) {
-			$headers = __('From', 'memberdeck').': '.$coname.' <'.$coemail.'>' . "\n";
-			$headers .= __('Reply-To', 'memberdeck').': '.$coemail."\n";
-			$headers .= "MIME-Version: 1.0\n";
-			$headers .= "Content-Type: text/html; charset=ISO-8859-1\n";
-		}
-		mail($email, $subject, $message, $headers);
 	}
 }
 
@@ -1526,6 +1583,7 @@ function md_validate_license() {
 	}
 }
 
+add_action('memberdeck_free_success', 'md_sendto_mailchimp', 100, 2);
 add_action('memberdeck_payment_success', 'md_sendto_mailchimp', 100, 4);
 
 function md_sendto_mailchimp($user_id, $order_id, $paykey, $fields) {
@@ -1559,7 +1617,6 @@ function md_sendto_mailchimp($user_id, $order_id, $paykey, $fields) {
 					}
 				}
 			}
-			$the_order = $order->get_order();
 			$mailchimp = new MailChimp($mailchimp_key);
 			//echo 'after instantiation';
 			$name = urlencode('MD Level Name');
@@ -1890,27 +1947,29 @@ function idmember_create_customer() {
 		if (empty($source)) {
 			if ($eb == 1) {
 				$source = 'balanced';
-				global $balanced_customer_id;
+				$balanced_customer_id = balanced_customer_id();
 				$customer_id = $balanced_customer_id;
 			}
 			else {
 				$source = 'stripe';
-				global $customer_id;
+				$customer_id = customer_id();
 			}
 		}
 
 		else {
 			if ($source == 'stripe') {
-				global $customer_id;
+				$customer_id = customer_id();
 			}
 			else if ($source == 'balanced') {
-				global $balanced_customer_id;
+				$balanced_customer_id = balanced_customer_id();
 				$customer_id = $balanced_customer_id;
 			}
 		}
 
 		if ($source == 'stripe') {
-			require_once 'lib/Stripe.php';
+			if (!class_exists('Stripe')) {
+				require_once 'lib/Stripe.php';
+			}
 			if (!empty($sc_accesstoken)) {
 				Stripe::setApiKey($sc_accesstoken);
 			}
@@ -2590,8 +2649,8 @@ add_action('wp_ajax_nopriv_md_delete_export', 'md_delete_export');
 
 function md_use_credit() {
 	global $crowdfunding;
-	global $customer_id;
-	global $md_credits;
+	$customer_id = customer_id();
+	$md_credits = md_credits();
 	$customer = $_POST['Customer'];
 	$product_id = absint(esc_attr($customer['product_id']));
 	$access_levels = array($product_id);
@@ -2882,7 +2941,9 @@ function md_process_preauth() {
 					}
 				}
 			}
-			require_once 'lib/Stripe.php';
+			if (!class_exists('Stripe')) {
+				require_once 'lib/Stripe.php';
+			}
 			$settings = get_option('memberdeck_gateways');
 			if (!empty($settings)) {
 				$settings = unserialize($settings);
@@ -3349,6 +3410,29 @@ function mdid_set_approval($args) {
 		}
 	}
 }
+
+function mdid_delete_project($post_id) {
+	global $wpdb;
+    $post = get_post($post_id);
+    if ($post->post_type == 'ignition_product') {
+        $project_id = get_post_meta($post_id, 'ign_project_id', true);
+        if (isset($project_id) && $project_id > 0) {
+        	global $wpdb;
+        	$sql = $wpdb->prepare('SELECT * FROM '.$wpdb->prefix.'mdid_assignments WHERE project_id = %d', $project_id);
+        	$res = $wpdb->get_results($sql);
+        	if (!empty($res)) {
+        		foreach ($res as $row) {
+        			$assignment_id = $row->assignment_id;
+        			$sql = 'DELETE FROM '.$wpdb->prefix.'mdid_assignments WHERE id = "'.$row->id.'"';
+        			$res = $wpdb->query($sql);
+        			$sql = 'DELETE FROM '.$wpdb->prefix.'mdid_project_levels WHERE id = "'.$assignment_id.'"';
+        			$res = $wpdb->query($sql);
+        		}
+        	}
+        }
+    }
+}
+add_action('before_delete_post', 'mdid_delete_project');
 
 /**
 * MDID Bridge Ajax

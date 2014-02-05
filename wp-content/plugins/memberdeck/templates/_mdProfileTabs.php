@@ -10,14 +10,9 @@ if (!empty($dash)) {
 	}
 }
 ?>
-<!-- <ul class="dashboardmenu"> -->
-<div class="logout-button text-right">
-	<a href="<?php echo wp_logout_url( home_url('/dashboard/') ); ?>" class="btn btn-lg">Logout</a> 
-</div>
-
-	<ul class="nav nav-tabs">
+<ul class="dashboardmenu">
 	<li><a href="<?php echo $durl; ?>"><?php _e('My Dashboard', 'memberdeck'); ?></a></li>
 	<li><a href="<?php echo (isset($current_user) ? the_permalink().'?edit-profile='.$current_user->ID : ''); ?>"><?php echo (isset($current_user) ? __('My Profile', 'memberdeck') : ''); ?></a></li>
-	<li></li>
+	<!-- <li class="help"><a href="#"><i class="icon-question-sign"></i></a></li> -->
 	<?php do_action('md_profile_extratabs'); ?>
 </ul>

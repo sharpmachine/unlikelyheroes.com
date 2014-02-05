@@ -22,6 +22,7 @@
 				<input type="password" size="20" class="cpw required" name="cpw"/>
 			</div>
 			<?php echo do_action('md_register_extrafields'); ?>
+		</div>
 		<span class="payment-errors"></span>
 		<button type="submit" id="id-reg-submit" class="submit-button"><?php _e('Complete Registration', 'memberdeck'); ?></button>
 	</form>

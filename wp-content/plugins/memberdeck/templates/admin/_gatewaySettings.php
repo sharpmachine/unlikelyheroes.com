@@ -1,5 +1,9 @@
-<div class="wrap">
-	<div class="icon32" id="icon-md"></div><h2><?php _e('MemberDeck Payment Gateways', 'memberdeck'); ?></h2>
+<div class="wrap memberdeck">
+	<div class="icon32" id="icon-md"></div><h2 class="title"><?php _e('MemberDeck Payment Gateways', 'memberdeck'); ?></h2>
+	<div class="help">
+		<a href="http://forums.ignitiondeck.com" alt="IgnitionDeck Support" title="IgnitionDeck Support" target="_blank"><button class="button button-large"><?php _e('Support', 'memberdeck'); ?></button></a>
+		<a href="http://docs.ignitiondeck.com" alt="IgnitionDeck Documentation" title="IgnitionDeck Documentation" target="_blank"><button class="button button-large"><?php _e('Documentation', 'memberdeck'); ?></button></a>
+	</div>
 	<div class="md-settings-container">
 	<div class="postbox-container" style="width:65%; margin-right: 3%">
 		<div class="metabox-holder">
@@ -165,6 +169,10 @@
 						<p><strong><?php _e('Test Cards', 'memberdeck'); ?></strong></p>
 						<p><a href="https://docs.balancedpayments.com/current/overview.html?language=bash#test-credit-card-numbers" target="_blank"><?php _e('Balanced Test Cards', 'memberdeck'); ?></a></p>
 						<p><a href="https://stripe.com/docs/testing" target="_blank"><?php _e('Stripe Test Cards', 'memberdeck'); ?></a></p>
+						<?php if (function_exists('is_id_pro') && is_id_pro()) { ?>
+						<strong><?php _e('Stripe Connect Settings', 'memberdeck'); ?></strong>
+						<p><?php _e('Your redirect URL must end in <em>?ipn_handler=sc_return</em>. For example, http://mydomain.com/?ipn_handler=sc_return', 'memberdeck'); ?></p>
+						<?php } ?>
 					</div>
 				</div>
 			</div>

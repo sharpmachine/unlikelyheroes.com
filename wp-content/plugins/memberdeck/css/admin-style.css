@@ -144,12 +144,51 @@ body.md-admin .postbox.info {
 }
 body.md-admin .inside {
 	padding: 0 15px;
+	margin-top: 10px !important;
+}
+body.md-admin .inside.info {
+	background: #DFE1E7 !important;
+	border: none;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-top: 0px !important;
 }
 body.md-admin .inside h4 {
 	padding: 0;
 	line-height: 1em;
 	margin: 10px 0;
 	font-size: 110%;
+}
+body.md-admin .md_help_link {
+	height: 18px;
+	width: 18px;
+	display: block;
+	position: absolute;
+	right: 12px;
+	top: 9px;
+	text-indent: 100%;
+	overflow: hidden;
+	cursor: help;
+}
+body.md-admin .md_help_link {
+	background-image: url(../images/help-icon.png);
+	background-repeat: no-repeat;
+	background-size: 18px 18px;
+	opacity: .5;
+}
+body.md-admin .md_help_link:hover {
+	opacity: .9;
+}
+body.md-admin h3 a.md_help_link:hover + div {
+	display: block;
+}
+body.md-admin .inside .tip {
+	background-color: rgba(255,255,250, .5);
+	padding: 5px 15px;
+	margin: 5px -15px;
+	font-size: 90%;
+	line-height: 1.2em;
+	display: block;
 }
 body.md-admin .columns {
 	display: inline-block;
@@ -440,4 +479,19 @@ input.level-select {
 .mail_option {
 	margin: 10px 0;
 	clear: both;
+}
+
+.wp-admin .memberdeck h2.title {
+	display: inline;
+	vertical-align: middle;
+}
+
+.wp-admin .memberdeck .help {
+	display: inline-block;
+	vertical-align: middle;
+	float: right;
+}
+
+.wp-admin .memberdeck .help .button {
+	vertical-align: middle;
 }

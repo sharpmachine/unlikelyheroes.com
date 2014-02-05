@@ -18,22 +18,22 @@ class ID_Order {
 	var $date;
 
 	function __construct(
-		$id = null,
-		$fname = '',
-		$lname = '',
-		$email = '',
-		$address = '',
-		$country = '',
-		$state = '',
-		$city = '',
-		$zip = '',
-		$project_id = 0,
-		$txn_id = '',
-		$preapproval_key = null,
-		$level = 0,
-		$price = '0',
-		$status = 'P',
-		$date = null
+			$id = null,
+			$fname = '',
+			$lname = '',
+			$email = '',
+			$address = '',
+			$country = '',
+			$state = '',
+			$city = '',
+			$zip = '',
+			$project_id = 0,
+			$txn_id = '',
+			$preapproval_key = null,
+			$level = 0,
+			$price = '0',
+			$status = 'P',
+			$date = null
 		)
 	{
 		if (empty($date)) {
@@ -42,7 +42,6 @@ class ID_Order {
 			$date = date('Y-m-d H:i:s');
 		}
 		$this->id = $id;
-		$this->price = $price;
 		$this->fname = $fname;
 		$this->lname = $lname;
 		$this->email = $email;
@@ -103,7 +102,7 @@ class ID_Order {
 								"'.$this->state.'",
 								"'.$this->city.'",
 								"'.$this->zip.'",
-								"'.$this->product_id.'",
+								"'.$this->project_id.'",
 								"'.$this->txn_id.'",
 								"'.$this->level.'",
 								"'.$this->price.'",
@@ -167,6 +166,27 @@ class ID_Order {
 		}
 	}
 
+	function update_order() {
+		global $wpdb;
+		$sql = $wpdb->prepare('UPDATE '.$wpdb->prefix.'ign_pay_info SET first_name = %s, last_name = %s, email = %s, address = %s, country = %s, state = %s, city = %s, zip = %s, product_id = %d, preapproval_key = %s, product_level = %d, prod_price = %s, status = %s, created_at = %s WHERE id = %d', 
+			$this->fname,
+			$this->lname,
+			$this->email,
+			$this->address,
+			$this->country,
+			$this->state,
+			$this->city,
+			$this->zip,
+			$this->project_id,
+			$this->preapproval_key,
+			$this->level,
+			$this->price,
+			$this->status,
+			$this->date,
+			$this->id);
+		$res = $wpdb->query($sql);
+	}
+
 	public static function get_preapprovals($product_id) {
 		global $wpdb;
 		$sql = $wpdb->prepare('SELECT * FROM '.$wpdb->prefix.'ign_pay_info WHERE product_id = %d AND status = %s', $product_id, 'W');
@@ -177,6 +197,19 @@ class ID_Order {
 	public static function add_txn_id($order_id, $txn_id) {
 		global $wpdb;
 		$sql = $wpdb->prepare('UPDATE '.$wpdb->prefix.'ign_pay_info SET transaction_id = %s WHERE id = %d', $txn_id, $order_id);
+		$res = $wpdb->query($sql);
+	}
+
+	public static function get_order_by_txn($txn_id) {
+		global $wpdb;
+		$sql = $wpdb->prepare('SELECT * FROM '.$wpdb->prefix.'ign_pay_info WHERE transaction_id = %s', $txn_id);
+		$res = $wpdb->get_row($sql);
+		return $res;
+	}
+
+	public static function delete_order($id) {
+		global $wpdb;
+		$sql = 'DELETE FROM '.$wpdb->prefix.'ign_pay_info WHERE id = '.$id;
 		$res = $wpdb->query($sql);
 	}
 

@@ -5,5 +5,5 @@
 		<a href="?edit_project=<?php echo $post_id; ?>"><?php _e('EDIT', 'memberdeck'); ?></a>
 		<a href="<?php echo get_permalink($post_id); ?>"><?php _e('VIEW', 'memberdeck'); ?></a>
 	</div>
-	<div class="project-item project-status"><?php echo (strtoupper($post->post_status) == 'Live' ? __('PUBLISHED', 'memberdeck') : $post->post_status); ?></div>
+	<div class="project-item project-status"><?php echo (strtoupper($status) == 'PUBLISH' ? __('PUBLISHED', 'memberdeck') : $status); ?></div>
 </li>

@@ -259,7 +259,7 @@ class ign_cmb_Meta_Box {
 					echo '<div class="ign_file_upload"><input id="upload_file" type="text" size="45" class="', $field['id'], '" name="', $field['id'], '" value="', $meta, '" />';
 					echo '<input class="upload_button button" type="button" value="Upload File" />';
 					echo '</div>';
-					echo '<div class="ign_file_upload_image">';	
+					echo '<div class="file_actions ign_file_upload_image">';	
 						if ( $meta != '' ) { 
 							$check_image = preg_match( '/(^.*\.jpg|jpeg|png|gif|ico*)/i', $meta );
 							if ( $check_image ) {
@@ -671,21 +671,25 @@ function ign_cmb_editor_footer_scripts() {
 		});
 		
 		// Ajax call for deleting an image, it's a listener to a link which calls ajax afterwards
-		jQuery('.remove_file_button').click(function () {
+		jQuery('.ign_file_upload_image a.submitdelete').click(function (e) {
+			e.preventDefault();
+			var thisDiv = this;
 			var div_status_id = jQuery(this).attr('rel') + "_status";	//ign_product_image1_status
 			var image_field_id = jQuery(this).attr('rel');		//ign_product_image1
 			jQuery.ajax({
 				type: "POST",
-				url: '<?php echo site_url(); ?>/wp-admin/admin-ajax.php',
+				url: id_ajaxurl,
 				data: "action=" + 'remove_product_image'
 				+ "&image=" + jQuery(this).attr('rel')
 				+ "&post_id=" + "<?php echo $post->ID; ?>"
 				,
-				success: function(html) {						
+				success: function(res) {	
+					//console.log(res);					
 					//alert(jQuery.trim(html));
 					//alert("image_field_id: "+image_field_id);
+					jQuery(thisDiv).closest('.ign_file_upload_image').remove();
 					jQuery('#'+div_status_id).remove();		//emptying the div in which Remove link and image is contained
-					jQuery('#'+image_field_id).val(null);
+					jQuery('input[name="'+image_field_id + '"]').val(null);
 				}
 			});
 		});

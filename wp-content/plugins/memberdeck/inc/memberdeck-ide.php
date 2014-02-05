@@ -15,13 +15,15 @@ function md_creator_projects() {
 		get_currentuserinfo();
 		$user_id = $current_user->ID;
 		$user_projects = get_user_meta($user_id, 'ide_user_projects', true);
+		$tab = __('Create Project', 'memberdeck');
 		if (!empty($user_projects)) {
 			$user_projects = unserialize($user_projects);
 			if (is_array($user_projects)) {
 				echo '<li><a href="?payment_settings=1">'.__('Payment Settings', 'memberdeck').'</a></li>';
+				$tab = __('My Projects', 'memberdeck');
 			}
 		}
-		echo '<li><a href="?creator_projects=1">'.__('My Campaigns', 'memberdeck').'</a></li>';
+		echo '<li><a href="?creator_projects=1">'.$tab.'</a></li>';
 	}
 }
 
@@ -41,7 +43,7 @@ function md_ide_creator_projects($content) {
 	echo '<div class="memberdeck">';
 	include_once MD_PATH.'templates/_mdProfileTabs.php';
 	echo '<ul class="md-box-wrapper full-width cf"><li class="md-box full"><div class="md-profile">';
-	echo '<h3>'.__('My Campaigns', 'memberdeck').': </h3>';
+	//echo '<h3>'.__('My Projects', 'memberdeck').': </h3>';
 	echo '<ul>';
 	$user_projects = get_user_meta($user_id, 'ide_user_projects', true);
 	if (!empty($user_projects)) {
@@ -52,10 +54,15 @@ function md_ide_creator_projects($content) {
 				$project_id = get_post_meta($post_id, 'ign_project_id', true);
 				if (!empty($project_id)) {
 					$post = get_post($post_id);
-					$project = new ID_Project($project_id);
-					$the_project = $project->the_project();
-					$thumb = get_post_meta($post_id, 'ign_product_image1', true);
-					include MD_PATH.'templates/_myProjects.php';
+					if (isset($post)) {
+						$status = $post->post_status;
+						if (strtoupper($status) !== 'TRASH') {
+							$project = new ID_Project($project_id);
+							$the_project = $project->the_project();
+							$thumb = get_post_meta($post_id, 'ign_product_image1', true);
+							include MD_PATH.'templates/_myProjects.php';
+						}
+					}
 				}
 			}
 		}
@@ -102,6 +109,7 @@ function md_ide_payment_settings($content) {
 }
 
 add_action('ide_fes_create', 'mdid_fes_associations', 5, 6);
+add_action('ide_fes_update', 'mdid_fes_associations', 5, 6);
 
 function mdid_fes_associations($user_id, $project_id, $post_id, $proj_args, $levels, $auth) {
 	/*
@@ -148,19 +156,23 @@ function mdid_fes_associations($user_id, $project_id, $post_id, $proj_args, $lev
 		// create level
 		$new_level = $level->add_level($args);
 		$level_id = $new_level['level_id'];
-		// assign cf levels
-		$sql = $wpdb->prepare('INSERT INTO '.$wpdb->prefix.'mdid_project_levels (levels) VALUES (%s)', serialize(array($i+1)));
-		$res = $wpdb->query($sql);
-		$assignment_id = $wpdb->insert_id;
-		$sql = $wpdb->prepare('INSERT INTO '.$wpdb->prefix.'mdid_assignments (level_id, project_id, assignment_id) VALUES (%d, %d, %d)', $level_id, $project_id, $assignment_id);
-		$res = $wpdb->query($sql);
-		// attach user to this project/level
-		$claim_level = update_option('md_level_'.$level_id.'_owner', $user_id);
+		// check existence of assignments
+		$level_check = get_assignments_by_level($level_id);
+		if (empty($level_check)) {
+			// assign cf levels
+			$sql = $wpdb->prepare('INSERT INTO '.$wpdb->prefix.'mdid_project_levels (levels) VALUES (%s)', serialize(array($i+1)));
+			$res = $wpdb->query($sql);
+			$assignment_id = $wpdb->insert_id;
+			$sql = $wpdb->prepare('INSERT INTO '.$wpdb->prefix.'mdid_assignments (level_id, project_id, assignment_id) VALUES (%d, %d, %d)', $level_id, $project_id, $assignment_id);
+			$res = $wpdb->query($sql);
+			// attach user to this project/level
+			$claim_level = update_option('md_level_'.$level_id.'_owner', $user_id);
+		}
 		$i++;
 	}
 }
 
-add_action('id_fes_create', 'md_ide_notify_admin', 5, 6);
+add_action('ide_fes_create', 'md_ide_notify_admin', 5, 6);
 
 function md_ide_notify_admin($user_id, $project_id, $post_id, $proj_args, $levels, $project_fund_type) {
 	$user = get_userdata($user_id);
@@ -235,7 +247,7 @@ function md_ide_notify_admin($user_id, $project_id, $post_id, $proj_args, $level
 	}
 }
 
-add_action('id_fes_create', 'md_ide_notify_creator', 5, 6);
+add_action('ide_fes_create', 'md_ide_notify_creator', 5, 6);
 
 function md_ide_notify_creator($user_id, $project_id, $post_id, $proj_args, $levels, $project_fund_type) {
 	$user = get_userdata($user_id);

@@ -90,7 +90,7 @@
   .ignitiondeck.id-creatorprofile .id-creator-links a {
     color: #fff; }
 
-.ignitiondeck .id-purchase-form-wrapper {
+.ignitiondeck .id-purchase-form-wrapper, .ignitiondeck .id-fes-form-wrapper {
   background: rgba(97, 97, 97, 0.6);
   color: white; }
 .ignitiondeck .id-purchase-form {

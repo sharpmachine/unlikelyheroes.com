@@ -112,6 +112,21 @@ class ID_Member {
 		return $res;
 	}
 
+	public static function get_user_levels() {
+		// non multisite
+		global $current_user;
+		get_currentuserinfo();
+		$md_user_levels = null;
+		if (!empty($current_user)) {
+			$user_id = $current_user->ID;
+			$md_user = ID_Member::user_levels($user_id);
+			if (!empty($md_user)) {
+				$md_user_levels = unserialize($md_user->access_level);
+			}
+		}
+		return $md_user_levels;
+	}
+
 	public static function get_users() {
 		global $wpdb;
 		$prefix = md_user_prefix();
@@ -255,7 +270,6 @@ class ID_Member {
 					$fname = '';
 					$lname = '';
 				}
-				
 
 				$user['md_id'] = $member->id;
 				$user['user_id'] = $user_id;
@@ -265,7 +279,29 @@ class ID_Member {
 				$user['last_name'] = $lname;
 				$user['rdate'] = $member->r_date;
 				$user['levels'] = $level_array;
+
+				$user['address'] = '';
+				$user['address_two'] = '';
+				$user['city'] = '';
+				$user['state'] = '';
+				$user['zip'] = '';
+				$user['country'] = '';
 				//$user['data'] = $data;
+				$crm_settings = get_option('crm_settings');
+				if (!empty($crm_settings)) {
+					$shipping_info = $crm_settings['shipping_info'];
+					if (isset($shipping_info) && $shipping_info == '1') {
+						$shipping_info = get_user_meta($user_id, 'md_shipping_info', true);
+						if (is_array($shipping_info)) {
+							$user['address'] = $shipping_info['address'];
+							$user['address_two'] = $shipping_info['address_two'];
+							$user['city'] = $shipping_info['city'];
+							$user['state'] = $shipping_info['state'];
+							$user['zip'] = $shipping_info['zip'];
+							$user['country'] = $shipping_info['country'];
+						}
+					}
+				}
 				$user_records[] = $user;
 			}
 		}
@@ -295,6 +331,71 @@ class ID_Member {
 
 	public static function delete_export($filepath) {
 		unlink($filepath.".csv");
+	}
+
+	public static function customer_id() {
+		$customer_id = null;
+		if (is_user_logged_in()) {
+			if (is_multisite()) {
+				require (ABSPATH . WPINC . '/pluggable.php');
+			}
+			global $current_user;
+			get_currentuserinfo();
+			$user_id = $current_user->ID;
+			if (isset($user_id)) {
+				$member = new ID_Member();
+				$match = $member->match_user($user_id);
+				if (isset($match->data)) {
+					$data = unserialize($match->data);
+					if (is_array($data)) {
+						foreach ($data as $item) {
+							if (is_array($item)) {
+								foreach ($item as $k=>$v) {
+									if ($k == 'customer_id') {
+										$customer_id = $v;
+										break 2;
+									}
+								}
+							}	
+						}
+					}
+				}
+			}
+		}
+		return $customer_id;
+	}
+
+	public static function balanced_customer_id() {
+		$balanced_customer_id = null;
+		if (is_user_logged_in()) {
+			if (is_multisite()) {
+				require (ABSPATH . WPINC . '/pluggable.php');			
+			}
+			global $current_user;
+			get_currentuserinfo();
+			$user_id = $current_user->ID;
+			if (isset($user_id)) {
+				$balanced_customer_id = get_user_meta($user_id, 'balanced_customer_id', true);
+			}
+		}
+		return $balanced_customer_id;
+	}
+
+	public static function md_credits() {
+		$md_credits = 0;
+		if (is_user_logged_in()) {
+			if (is_multisite()) {
+				require (ABSPATH . WPINC . '/pluggable.php');			
+			}
+			global $current_user;
+			get_currentuserinfo();
+			$user_id = $current_user->ID;
+			if (isset($user_id)) {
+				$member = new ID_Member($user_id);
+				$md_credits = $member->get_user_credits();
+			}
+		}
+		return $md_credits;
 	}
 }
 ?>

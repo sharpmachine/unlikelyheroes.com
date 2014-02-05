@@ -1,0 +1,480 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: IgnitionDeck 500 Framework\n"
+"POT-Creation-Date: 2013-09-18 17:56-0500\n"
+"PO-Revision-Date: 2013-09-18 17:56-0500\n"
+"Last-Translator: Nathan Hangen <nhangen@gmail.com>\n"
+"Language-Team: Virtuous Giant <info@virtuousgiant.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPath-1: ../../fivehundred-classic\n"
+
+#: ../archive-ignition_product.php:5
+msgid "All Projects"
+msgstr ""
+
+#: ../archive.php:7
+msgid "Archives"
+msgstr ""
+
+#: ../archive.php:19 ../category.php:19 ../loop-blog.php:10
+msgid "&laquo; Older Entries"
+msgstr ""
+
+#: ../archive.php:20 ../category.php:20 ../loop-blog.php:11
+msgid "Newer Entries &raquo;"
+msgstr ""
+
+#: ../comments.php:29
+msgid "Comment navigation"
+msgstr ""
+
+#: ../comments.php:30
+msgid "&larr; Older Comments"
+msgstr ""
+
+#: ../comments.php:31
+msgid "Newer Comments &rarr;"
+msgstr ""
+
+#: ../comments.php:40
+msgid "Comments are closed."
+msgstr ""
+
+#: ../entry-footer.php:4
+msgid "Read More..."
+msgstr ""
+
+#: ../entry-meta.php:3
+msgid "By"
+msgstr ""
+
+#: ../entry-meta.php:4
+#, php-format
+msgid "View all articles by %s"
+msgstr ""
+
+#: ../footer.php:3
+msgid "Theme 500 is a"
+msgstr ""
+
+#: ../footer.php:4
+msgid "Crowdfunding Theme for WordPress"
+msgstr ""
+
+#: ../front-page.php:61 ../../fivehundred-classic/front-page.php:68
+msgid "Featured Projects"
+msgstr ""
+
+#: ../front-page.php:87 ../../fivehundred-classic/front-page.php:94
+msgid "Follow"
+msgstr ""
+
+#: ../front-page.php:88 ../../fivehundred-classic/front-page.php:95
+msgid "Like"
+msgstr ""
+
+#: ../front-page.php:89 ../../fivehundred-classic/front-page.php:96
+msgid "+1"
+msgstr ""
+
+#: ../front-page.php:90 ../../fivehundred-classic/front-page.php:97
+msgid "Connect"
+msgstr ""
+
+#: ../front-page.php:92 ../../fivehundred-classic/front-page.php:99
+msgid "More"
+msgstr ""
+
+#: ../front-page.php:92 ../../fivehundred-classic/front-page.php:99
+msgid "Projects"
+msgstr ""
+
+#: ../functions.php:67
+msgid ""
+"An Unexpected HTTP Error occurred during the API request.</p> <p><a href=\"?"
+"\" onclick=\"document.location.reload(); return false;\">Try again</a>"
+msgstr ""
+
+#: ../functions.php:71
+msgid "An unknown error occurred"
+msgstr ""
+
+#: ../functions.php:164
+msgid "Settings Saved"
+msgstr ""
+
+#: ../functions.php:194
+msgid "Single Project"
+msgstr ""
+
+#: ../functions.php:587
+msgid "Main Menu"
+msgstr ""
+
+#: ../functions.php:588
+msgid "Footer Menu"
+msgstr ""
+
+#: ../functions.php:628
+msgid "Pingback:"
+msgstr ""
+
+#: ../functions.php:628
+msgid "(Edit)"
+msgstr ""
+
+#: ../functions.php:644
+msgid "Post author"
+msgstr ""
+
+#: ../functions.php:650
+#, php-format
+msgid "%1$s at %2$s"
+msgstr ""
+
+#: ../functions.php:656
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+#: ../functions.php:661
+msgid "Edit"
+msgstr ""
+
+#: ../functions.php:665
+msgid "Reply"
+msgstr ""
+
+#: ../functions.php:713
+msgid "Sidebar Widget Area"
+msgstr ""
+
+#: ../functions.php:721
+msgid "Projects Sidebar Area"
+msgstr ""
+
+#: ../functions.php:727
+msgid "This sidebar is located below the Levels on each Project page."
+msgstr ""
+
+#: ../functions.php:730
+msgid "Home Sidebar Area"
+msgstr ""
+
+#: ../functions.php:736
+msgid "This sidebar is located on the Home Page, to the right of About Us"
+msgstr ""
+
+#: ../functions.php:762
+msgid "This theme requires the"
+msgstr ""
+
+#: ../functions.php:762
+msgid "IgnitionDeck WordPress Crowdfunding Plugin"
+msgstr ""
+
+#: ../loop-levels-home.php:30 ../loop-levels.php:29
+msgid "Limit"
+msgstr ""
+
+#: ../loop-levels-home.php:30 ../loop-levels.php:29
+#: ../../fivehundred-classic/loop-levels.php:29
+msgid "taken"
+msgstr ""
+
+#: ../nav-above-grid.php:16
+msgid "Oldest"
+msgstr ""
+
+#: ../nav-above-grid.php:16
+msgid "Newest"
+msgstr ""
+
+#: ../nav-above-grid.php:17
+msgid "Amount Raised"
+msgstr ""
+
+#: ../nav-above-grid.php:18 ../project-hDeck-home.php:26
+#: ../project-hDeck.php:24 ../project-summary.php:20
+#: ../../fivehundred-classic/project-featured.php:32
+#: ../../fivehundred-classic/project-hDeck.php:54
+#: ../../fivehundred-classic/project-summary.php:20
+msgid "Days Left"
+msgstr ""
+
+#: ../nav-above-grid.php:19
+msgid "Goal Amount"
+msgstr ""
+
+#: ../nav-above-grid.php:20 ../nav-above.php:10
+msgid "Category"
+msgstr ""
+
+#: ../nav-below.php:3
+msgid "<span class=\"meta-nav\">&larr;</span> Older posts"
+msgstr ""
+
+#: ../nav-below.php:4
+msgid "Newer posts <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#: ../page-fullwidth.php:24 ../page.php:17
+msgid "Pages:"
+msgstr ""
+
+#: ../project-footer-single.php:4
+#, php-format
+msgid ""
+"This article was posted in %1$s%2$s. Bookmark the <a href=\"%3$s\" title="
+"\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>. Follow comments with "
+"the <a href=\"%5$s\" title=\"Comments RSS to %4$s\" rel=\"alternate\" type="
+"\"application/rss+xml\">RSS feed for this post</a>."
+msgstr ""
+
+#: ../project-footer-single.php:6
+msgid " and tagged "
+msgstr ""
+
+#: ../project-footer-single.php:11
+#, php-format
+msgid ""
+"<a class=\"comment-link\" href=\"#respond\" title=\"Post a Comment\">Post a "
+"Comment</a> or leave a trackback: <a class=\"trackback-link\" href=\"%s\" "
+"title=\"Trackback URL for your post\" rel=\"trackback\">Trackback URL</a>."
+msgstr ""
+
+#: ../project-footer-single.php:13
+#, php-format
+msgid ""
+"Comments are closed, but you can leave a trackback: <a class=\"trackback-link"
+"\" href=\"%s\" title=\"Trackback URL for post\" rel=\"trackback\">Trackback "
+"URL</a>."
+msgstr ""
+
+#: ../project-footer-single.php:15
+msgid ""
+"Trackbacks are closed, but you can <a class=\"comment-link\" href=\"#respond"
+"\" title=\"Post a Comment\">Post a Comment</a>."
+msgstr ""
+
+#: ../project-footer-single.php:17
+msgid "Both comments and trackbacks are closed."
+msgstr ""
+
+#: ../project-footer.php:5
+#, php-format
+msgid "Also posted in %s"
+msgstr ""
+
+#: ../project-footer.php:9
+msgid "Posted in "
+msgstr ""
+
+#: ../project-footer.php:13
+#, php-format
+msgid "Also tagged %s"
+msgstr ""
+
+#: ../project-footer.php:15
+msgid "Tagged "
+msgstr ""
+
+#: ../project-footer.php:17
+msgid "Leave a comment"
+msgstr ""
+
+#: ../project-footer.php:17
+msgid "1 Comment"
+msgstr ""
+
+#: ../project-footer.php:17
+msgid "% Comments"
+msgstr ""
+
+#: ../project-hDeck-home.php:22 ../project-hDeck.php:20
+#: ../../fivehundred-classic/project-featured.php:23
+msgid "Goal"
+msgstr ""
+
+#: ../project-hDeck-home.php:41 ../project-hDeck.php:39
+#: ../../fivehundred-classic/project-featured.php:26
+#: ../../fivehundred-classic/project-hDeck-home.php:40
+#: ../../fivehundred-classic/project-hDeck.php:38
+msgid "Raised"
+msgstr ""
+
+#: ../project-hDeck-home.php:47 ../project-hDeck.php:45
+#: ../../fivehundred-classic/project-featured.php:29
+#: ../../fivehundred-classic/project-hDeck.php:42
+msgid "Supporters"
+msgstr ""
+
+#: ../project-hDeck-home.php:53 ../project-hDeck.php:51
+#: ../../fivehundred-classic/project-hDeck-home.php:60
+#: ../../fivehundred-classic/project-hDeck.php:58
+msgid "Project Closed"
+msgstr ""
+
+#: ../project-hDeck-home.php:56 ../project-hDeck-home.php:59
+#: ../project-hDeck.php:54 ../project-hDeck.php:57
+#: ../project-sidebar-home.php:16 ../project-sidebar.php:13
+#: ../../fivehundred-classic/project-hDeck-home.php:65
+#: ../../fivehundred-classic/project-hDeck-home.php:68
+#: ../../fivehundred-classic/project-hDeck.php:63
+#: ../../fivehundred-classic/project-hDeck.php:66
+msgid "Support Now"
+msgstr ""
+
+#: ../project-hDeck-home.php:64 ../project-hDeck.php:62
+#: ../../fivehundred-classic/project-hDeck-home.php:46
+#: ../../fivehundred-classic/project-hDeck.php:44
+msgid "Projects Ends"
+msgstr ""
+
+#: ../project-sidebar-home.php:11
+msgid "Support Levels"
+msgstr ""
+
+#: ../project-social.php:11
+msgid "Tweet"
+msgstr ""
+
+#: ../project-summary.php:13
+msgid "RAISED"
+msgstr ""
+
+#: ../project-summary.php:23 ../../fivehundred-classic/project-featured.php:45
+#: ../../fivehundred-classic/project-summary.php:23
+msgid "Learn More"
+msgstr ""
+
+#: ../search.php:5
+#, php-format
+msgid "Search Results for: %s"
+msgstr ""
+
+#: ../search.php:13
+msgid "Nothing Found"
+msgstr ""
+
+#: ../search.php:15
+msgid "Sorry, nothing matched your search. Please try again."
+msgstr ""
+
+#: ../searchform.php:4
+msgid "Search"
+msgstr ""
+
+#: ../tag.php:5
+msgid "Tag Archives:"
+msgstr ""
+
+#: ../templates/admin/_themeSettings.php:2
+msgid "500 Theme"
+msgstr ""
+
+#: ../templates/admin/_themeSettings.php:8
+msgid "Replace Site Name with your Logo"
+msgstr ""
+
+#: ../templates/admin/_themeSettings.php:9
+msgid "Maximum image dimensions are 300 pixels wide and/or 50 pixels high."
+msgstr ""
+
+#: ../templates/admin/_themeSettings.php:9
+msgid ""
+"Note: If you upload an image larger than this, it will automatically resize "
+"the image to fit, however we highly recommend you control the image "
+"dimensions prior to upload."
+msgstr ""
+
+#: ../templates/admin/_themeSettings.php:20
+msgid "About Us Text"
+msgstr ""
+
+#: ../templates/admin/_themeSettings.php:21
+msgid "This will appear below your featured projects on the home page."
+msgstr ""
+
+#: ../templates/admin/_themeSettings.php:31
+msgid "Home Page Layout"
+msgstr ""
+
+#: ../templates/admin/_themeSettings.php:37
+msgid "Number of Projects to Display on Home Page"
+msgstr ""
+
+#: ../templates/admin/_themeSettings.php:43
+msgid "Social Settings"
+msgstr ""
+
+#: ../templates/admin/_themeSettings.php:44
+msgid "Check to show on theme home page, uncheck to hide."
+msgstr ""
+
+#: ../templates/admin/_themeSettings.php:45
+msgid "Twitter"
+msgstr ""
+
+#: ../templates/admin/_themeSettings.php:47
+msgid "Twitter Username"
+msgstr ""
+
+#: ../templates/admin/_themeSettings.php:49
+msgid "Facebook"
+msgstr ""
+
+#: ../templates/admin/_themeSettings.php:51
+msgid "Facebook Username"
+msgstr ""
+
+#: ../templates/admin/_themeSettings.php:53
+msgid "Google+"
+msgstr ""
+
+#: ../templates/admin/_themeSettings.php:55
+msgid "Google+ User Number"
+msgstr ""
+
+#: ../templates/admin/_themeSettings.php:57
+msgid "LinkedIn"
+msgstr ""
+
+#: ../templates/admin/_themeSettings.php:59
+msgid "LinkedIn Username"
+msgstr ""
+
+#: ../templates/admin/_themeSettings.php:66
+msgid "Save Settings"
+msgstr ""
+
+#: ../../fivehundred-classic/functions.php:32
+msgid "Featured Project on Home Page"
+msgstr ""
+
+#: ../../fivehundred-classic/functions.php:34
+msgid "Choose Post to Feature"
+msgstr ""
+
+#: ../../fivehundred-classic/loop-levels.php:29
+msgid "of"
+msgstr ""
+
+#: ../../fivehundred-classic/project-hDeck-home.php:33
+#: ../../fivehundred-classic/project-hDeck.php:31
+msgid "Raising"
+msgstr ""
+
+#: ../../fivehundred-classic/project-hDeck-home.php:35
+#: ../../fivehundred-classic/project-hDeck.php:33
+msgid "by"
+msgstr ""
+
+#: ../../fivehundred-classic/project-summary.php:20
+msgid "Days Closed"
+msgstr ""

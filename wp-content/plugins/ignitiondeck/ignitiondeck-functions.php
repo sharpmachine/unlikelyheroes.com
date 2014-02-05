@@ -94,40 +94,6 @@ function setCurrencyCode($cvalue){
 	}
 
 /**
- * Create Thumbnail
- * @param <type> $imageDirectory
- * @param <type> $imageName
- * @param <type> $thumbDirectory
- * @param <type> $thumbWidth
- * @param <type> $ext
- * @param <type> $thumb_img
- */
-function createThumb($imageDirectory, $imageName, $thumbDirectory, $thumbWidth, $ext, $thumb_img){
-    switch($ext){
-        case 'jpg':
-            $srcImg = imagecreatefromjpeg("$imageDirectory/$imageName");
-            break;
-        case 'jpeg':
-            $srcImg = imagecreatefromjpeg("$imageDirectory/$imageName");
-            break;
-
-        case 'gif':
-            $srcImg = imagecreatefromgif("$imageDirectory/$imageName");
-            break;
-
-        case 'png':
-            $srcImg = imagecreatefrompng("$imageDirectory/$imageName");
-            break;
-    }
-    $origWidth = imagesx($srcImg);
-    $origHeight = imagesy($srcImg);
-    $ratio = $origHeight/ $origWidth; $thumbHeight = $thumbWidth * $ratio;
-    $thumbImg = imagecreatetruecolor($thumbWidth, $thumbHeight);
-    imagecopyresampled($thumbImg, $srcImg, 0, 0, 0, 0, $thumbWidth, $thumbHeight, $origWidth, $origHeight);
-    imagejpeg($thumbImg, "$thumbDirectory/$thumb_img");
-}
-
-/**
  *  Get Payment Settings, paypal address
  * @global object $wpdb
  * @return object
@@ -680,59 +646,70 @@ function getPurchaseURLfromType($project_id, $page="") {
 			}
 		}
 	}
-	$project_id = urlencode($project_id);
+	$project_id = absint($project_id);
 	$page = urlencode($page);
 	if ($project_id > 0) {
 		$post = getPostDetailbyProductID($project_id);
 		if (isset($post->ID)) {
 			$post_page = get_post_meta($post->ID, 'ign_option_purchase_url', true);
 			if (!empty($post_page)) {
-				$meta_url = get_post_meta($post->ID, 'purchase_project_URL', true);
-				if (get_option('permalink_structure') == "") {
-					// we no longer set defaults here since they are set above
-					if ($post_page == "current_page") {		// If Project URL is the normal Project Page
-						if ($page == "purchaseform") {
-							$purchase_url = site_url()."/?ignition_product=".$post->post_name."&purchaseform=1&prodid=".$project_id;
+				$permalink_structure = get_option('permalink_structure');
+				if ($post_page !== 'default') {
+					$meta_url = get_post_meta($post->ID, 'purchase_project_URL', true);
+					if ($permalink_structure == "") {
+						// we no longer set defaults here since they are set above
+						if ($post_page == "current_page") {		// If Project URL is the normal Project Page
+							if ($page == "purchaseform") {
+								$purchase_url = site_url()."/?ignition_product=".$post->post_name."&purchaseform=1&prodid=".$project_id;
+							}
+						} 
+						else if ($post_page == "page_or_post") {		// If Project URL is another post or Project page
+							$post_name = html_entity_decode(get_post_meta($post->ID, 'ign_purchase_post_name', true));
+							$sql_purchase_post = $wpdb->prepare("SELECT * FROM ".$wpdb->prefix."posts WHERE post_name = %s AND post_type !== 'ignition_product' LIMIT 1", $post_name);
+							$purchase_post = $wpdb->get_row($sql_purchase_post);
+							if (!empty($purchase_post)) {
+								if ($page == "purchaseform") {
+									$purchase_url = $purchase_post->guid."&purchaseform=1&prodid=".$project_id;
+								}
+							}	
+						} 
+						else if ($post_page == "external_url") {		//If some external URL is set as Project page
+							if ($page == "purchaseform" && !empty($meta_url)) {
+								$purchase_url = $meta_url."&purchaseform=1&prodid=".$project_id;
+							}	
 						}
 					} 
-					else if ($post_page == "page_or_post") {		// If Project URL is another post or Project page
-						$post_name = html_entity_decode(get_post_meta($post->ID, 'ign_purchase_post_name', true));
-						$sql_purchase_post = $wpdb->prepare("SELECT * FROM ".$wpdb->prefix."posts WHERE post_name = %s AND post_type !== 'ignition_product' LIMIT 1", $post_name);
-						$purchase_post = $wpdb->get_row($sql_purchase_post);
-						if (!empty($purchase_post)) {
+					else {
+						if ($post_page == "current_page") {		// If Project URL is the normal Project Page
 							if ($page == "purchaseform") {
-								$purchase_url = $purchase_post->guid."&purchaseform=1&prodid=".$project_id;
+								$purchase_url = site_url()."/projects/".$post->post_name."/?purchaseform=1&prodid=".$project_id;
+							}	
+						} 
+						else if ($post_page == "page_or_post") {		// If Project URL is another post or Project page
+
+							$post_name = html_entity_decode(get_post_meta($post->ID, 'ign_purchase_post_name', true));
+
+							$sql_purchase_post = $wpdb->prepare("SELECT * FROM ".$wpdb->prefix."posts WHERE post_name = %s AND post_type != 'ignition_product' LIMIT 1", $post_name);
+							$purchase_post = $wpdb->get_row($sql_purchase_post);
+							if (!empty($purchase_post)) {
+								if ($page == "purchaseform") {
+									$purchase_url = get_permalink($purchase_post->ID)."?purchaseform=1&prodid=".$project_id;
+								}
 							}
-						}	
-					} 
-					else if ($post_page == "external_url") {		//If some external URL is set as Project page
-						if ($page == "purchaseform" && !empty($meta_url)) {
-							$purchase_url = $meta_url."&purchaseform=1&prodid=".$project_id;
-						}	
+						} 
+						else if ($post_page == "external_url") {		//If some external URL is set as Project page
+							if ($page == "purchaseform" && !empty($meta_url)) {
+								$purchase_url = $meta_url."?purchaseform=1&prodid=".$project_id;
+							}	
+						}
 					}
-				} 
+				}
 				else {
-					if ($post_page == "current_page") {		// If Project URL is the normal Project Page
-						if ($page == "purchaseform") {
-							$purchase_url = site_url()."/projects/".$post->post_name."/?purchaseform=1&prodid=".$project_id;
-						}	
-					} 
-					else if ($post_page == "page_or_post") {		// If Project URL is another post or Project page
-
-						$post_name = html_entity_decode(get_post_meta($post->ID, 'ign_purchase_post_name', true));
-
-						$sql_purchase_post = $wpdb->prepare("SELECT * FROM ".$wpdb->prefix."posts WHERE post_name = %s AND post_type != 'ignition_product' LIMIT 1", $post_name);
-						$purchase_post = $wpdb->get_row($sql_purchase_post);
-						if (!empty($purchase_post)) {
-							if ($page == "purchaseform") {
-								$purchase_url = get_permalink($purchase_post->ID)."?purchaseform=1&prodid=".$project_id;
-							}
-						}
-					} 
-					else if ($post_page == "external_url") {		//If some external URL is set as Project page
-						if ($page == "purchaseform" && !empty($meta_url)) {
-							$purchase_url = $meta_url."?purchaseform=1&prodid=".$project_id;
-						}	
+					if ($permalink_structure == "") {
+						$purchase_url = $purchase_url.'&purchaseform=1&prodid='.$project_id;
+					}
+					else {
+						$purchase_url = $purchase_url.'?purchaseform=1&prodid='.$project_id;
 					}
 				}
 			}
@@ -767,80 +744,91 @@ function getThankYouURLfromType($project_id, $page="") {
 		if (isset($post->ID)) {
 			$post_page = get_post_meta($post->ID, 'ign_option_ty_url', true);
 			if (!empty($post_page)) {
-				$meta_url = get_post_meta($post->ID, 'ty_project_URL', true);
-				if (get_option('permalink_structure') == "") {
-					// we no longer set defaults here since they are set above
-					if ($post_page == "current_page") {		// If Project URL is the normal Project Page
-						if ($page == "thank_you_url") {
-							$thank_you_url = site_url()."/?ignition_product=".$post->post_name."&cc_success=1";
-						}
-						else {
-							$thank_you_url = site_url()."/?ignition_product=".$post->post_name;
-						}
-							
-					} else if ($post_page == "page_or_post") {		// If Project URL is another post or Project page
-
-						$post_name = html_entity_decode(get_post_meta($post->ID, 'ign_ty_post_name', true));
-						$sql_ty_post = $wpdb->prepare("SELECT * FROM ".$wpdb->prefix."posts WHERE post_name = %s AND post_type !== 'ignition_product' LIMIT 1", $post_name);
-						$ty_post = $wpdb->get_row($sql_ty_post);
-						if (!empty($ty_post)) {
+				$permalink_structure = get_option('permalink_structure');
+				if ($post_page !== 'default') {
+					$meta_url = get_post_meta($post->ID, 'ty_project_URL', true);
+					if ($permalink_structure == "") {
+						// we no longer set defaults here since they are set above
+						if ($post_page == "current_page") {		// If Project URL is the normal Project Page
 							if ($page == "thank_you_url") {
-								$thank_you_url = $ty_post->guid."&cc_success=1";
+								$thank_you_url = site_url()."/?ignition_product=".$post->post_name."&cc_success=1";
 							}
-
 							else {
-								$thank_you_url = $ty_post->guid;
+								$thank_you_url = site_url()."/?ignition_product=".$post->post_name;
 							}
-						}
-							
-					} else if ($post_page == "external_url" && !empty($meta_url)) {		//If some external URL is set as Project page
-						if ($page == "thank_you_url") {
-							$thank_you_url = $meta_url."&cc_success=1";
-						}
-						
-						else {
-							$thank_you_url = $meta_url;
-						}
-							
-					}
-				} else {
-					
-					if ($post_page == "current_page") {		// If Project URL is the normal Project Page
-						
-						if ($page == "thank_you_url") {
-							$thank_you_url = site_url()."/projects/".$post->post_name."/?cc_success=1";
-						}
-						
-						else {
-							$thank_you_url = site_url()."/projects/".$post->post_name;
-						}
-							
-							
-					} else if ($post_page == "page_or_post") {		// If Project URL is another post or Project page
-						
-						$post_name = html_entity_decode(get_post_meta($post->ID, 'ign_ty_post_name', true));
-						$sql_ty_post = $wpdb->prepare("SELECT * FROM ".$wpdb->prefix."posts WHERE post_name = %s AND post_type != 'ignition_product' LIMIT 1", $post_name);
-						$ty_post = $wpdb->get_row($sql_ty_post);
-						if (!empty($ty_post)) {
+								
+						} else if ($post_page == "page_or_post") {		// If Project URL is another post or Project page
+
+							$post_name = html_entity_decode(get_post_meta($post->ID, 'ign_ty_post_name', true));
+							$sql_ty_post = $wpdb->prepare("SELECT * FROM ".$wpdb->prefix."posts WHERE post_name = %s AND post_type !== 'ignition_product' LIMIT 1", $post_name);
+							$ty_post = $wpdb->get_row($sql_ty_post);
+							if (!empty($ty_post)) {
+								if ($page == "thank_you_url") {
+									$thank_you_url = $ty_post->guid."&cc_success=1";
+								}
+
+								else {
+									$thank_you_url = $ty_post->guid;
+								}
+							}
+								
+						} else if ($post_page == "external_url" && !empty($meta_url)) {		//If some external URL is set as Project page
 							if ($page == "thank_you_url") {
-								$thank_you_url = get_permalink($ty_post->ID)."?cc_success=1";
+								$thank_you_url = $meta_url."&cc_success=1";
 							}
 							
 							else {
-								$thank_you_url = get_permalink($ty_post->ID);
+								$thank_you_url = $meta_url;
 							}
+								
 						}
+					} else {
+						
+						if ($post_page == "current_page") {		// If Project URL is the normal Project Page
 							
-					} else if ($post_page == "external_url" && !empty($meta_url)) {		//If some external URL is set as Project page
-						
-						if ($page == "thank_you_url") {
-							$thank_you_url = $meta_url."?cc_success=1";
-						}
-						
-						else {
-							$thank_you_url = $meta_url;
+							if ($page == "thank_you_url") {
+								$thank_you_url = site_url()."/projects/".$post->post_name."/?cc_success=1";
+							}
+							
+							else {
+								$thank_you_url = site_url()."/projects/".$post->post_name;
+							}
+								
+								
+						} else if ($post_page == "page_or_post") {		// If Project URL is another post or Project page
+							
+							$post_name = html_entity_decode(get_post_meta($post->ID, 'ign_ty_post_name', true));
+							$sql_ty_post = $wpdb->prepare("SELECT * FROM ".$wpdb->prefix."posts WHERE post_name = %s AND post_type != 'ignition_product' LIMIT 1", $post_name);
+							$ty_post = $wpdb->get_row($sql_ty_post);
+							if (!empty($ty_post)) {
+								if ($page == "thank_you_url") {
+									$thank_you_url = get_permalink($ty_post->ID)."?cc_success=1";
+								}
+								
+								else {
+									$thank_you_url = get_permalink($ty_post->ID);
+								}
+							}
+								
+						} else if ($post_page == "external_url" && !empty($meta_url)) {		//If some external URL is set as Project page
+							
+							if ($page == "thank_you_url") {
+								$thank_you_url = $meta_url."?cc_success=1";
+							}
+							
+							else {
+								$thank_you_url = $meta_url;
+							}	
 						}	
-					}	
+					}
+				}
+				else {
+					if ($permalink_structure == "") {
+						$purchase_url = $purchase_url.'&cc_success=1';
+					}
+					else {
+						$purchase_url = $purchase_url.'?cc_success=1';
+					}
 				}
 			}
 		}
@@ -993,7 +981,6 @@ function postToURL($url, $data) {
 
 function getProductDefaultSettings() {
 	global $wpdb;
-	
 	$sql_settings = "SELECT * FROM ".$wpdb->prefix."ign_prod_default_settings WHERE id = '1'";
 	$settings = $wpdb->get_row( $sql_settings );
 	
@@ -1054,7 +1041,9 @@ function action_id_payment_success($pay_info_id) {
 	}	
 }
 
-add_action('id_payment_success', 'action_id_payment_success', 1, 1);
+if (is_id_licensed()) {
+	add_action('id_payment_success', 'action_id_payment_success', 1, 1);
+}
 
 /*
  *   Function to print all the short codes
@@ -1240,9 +1229,19 @@ function schedule_hourly_id_cron() {
 add_action('schedule_hourly_id_cron', 'schedule_hourly_id_cron');
 
 function schedule_twicedaily_id_cron() {
+	$is_pro = false;
 	$key = get_option('id_license_key');
 	$validate = id_validate_license($key);
-	update_option('is_id_pro', $validate);
+	if (isset($validate['response'])) {
+		if ($validate['response']) {
+			if (isset($validate['download'])) {
+				if ($validate['download'] == '30') {
+					$is_pro = 1;
+				}
+			}
+		}
+	}
+	update_option('is_id_pro', $is_pro);
 }
 
 add_action('schedule_twicedaily_id_cron', 'schedule_twicedaily_id_cron');
@@ -1320,15 +1319,16 @@ add_action('wp_ajax_nopriv_get_product_number', 'get_product_number_callback');
 // AJAX call for deleting product image coming as an argument
 function remove_product_image_callback() {
 	global $wpdb;
-	
-	delete_post_meta($_POST['post_id'], $_POST['image']);
-	echo "\$_POST['post_id']: ".$_POST['post_id']."   \$_POST['image']: ".$_POST['image'];
+	$post_id = absint($_POST['post_id']);
+	$image = esc_attr($_POST['image']);
+	$del = delete_post_meta($post_id, $image);
 	exit;
 }
 add_action('wp_ajax_remove_product_image', 'remove_product_image_callback');
 add_action('wp_ajax_nopriv_remove_product_image', 'remove_product_image_callback');
 
 // AJAX call for deleting product image coming as an argument
+// probably unused
 function get_pages_links_callback() {
 	global $wpdb, $post;
 	
@@ -1810,8 +1810,10 @@ function id_validate_price() {
 	}
 }
 
-add_action('wp_ajax_id_validate_price', 'id_validate_price');
-add_action('wp_ajax_nopriv_id_validate_price', 'id_validate_price');
+if (is_id_licensed()) {
+	add_action('wp_ajax_id_validate_price', 'id_validate_price');
+	add_action('wp_ajax_nopriv_id_validate_price', 'id_validate_price');
+}
 
 function idpp_products_handler() {
 	$projects = ID_Project::get_all_projects();
@@ -1984,22 +1986,28 @@ function get_product_levels_callback() {
 	global $wpdb;
 	require 'languages/text_variables.php';
 	if (isset($_POST['Project'])) {
-		$project_id = $_POST['Project'];
-		$product_detail = new ID_Project($project_id);
+		$project_id = absint($_POST['Project']);
+		$project = new ID_Project($project_id);
 		
-		$product_settings = $product_detail->get_project_settings();
+		$product_settings = $project->get_project_settings();
 		if (empty($product_settings))
-			$product_settings = $product_detail->get_project_defaults();
+			$product_settings = $project->get_project_defaults();
 		//GETTING the currency symbol
-		$currencyCodeValue = $product_settings->currency_code;	
-		$cCode = setCurrencyCode($currencyCodeValue);
+		if (isset($product_settings)) {
+			$currencyCodeValue = $project->currency_code;	
+			$cCode = setCurrencyCode($currencyCodeValue);
+		}
+		else {
+			$currencyCodeValue = 'USD';
+			$cCode = '$';
+		}
 		
-		$post_id = $product_detail->get_project_postid();
+		$post_id = $project->get_project_postid();
 		
 		$level_count = get_post_meta($post_id, 'ign_product_level_count', true);
 		$meta_price_1 = get_post_meta( $post_id, "ign_product_price", true );
 		$options = "<option data-price='".number_format($meta_price_1, 2, '.', '')."' value=\"1\">".$tr_Level." 1: ".$tr_Price." ".$cCode.number_format(absint($meta_price_1), 2, '.', ',')."</option>";
-		if ($level_count !== "" && $level_count > 0) {
+		if (isset($level_count) && $level_count > 0) {
 			
 			for ($i=1 ; $i <= $level_count ; $i++) {
 				$meta_price = get_post_meta( $post_id, $name="ign_product_level_".($i)."_price", true );
@@ -2008,7 +2016,6 @@ function get_product_levels_callback() {
 				}
 			}
 		}
-		
 		echo $options;
 	}
 	exit;

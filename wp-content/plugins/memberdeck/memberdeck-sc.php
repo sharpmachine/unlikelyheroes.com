@@ -113,15 +113,16 @@ function md_sc_creds($user_id) {
 	if (isset($params->id) && $params->id > 0) {
 		require_once 'lib/Stripe.php';
 		$api_key = $params->access_token;
-		echo $api_key;
+		//echo $api_key;
 		try {
 			Stripe::setApiKey($api_key);
 			$account = Stripe_Account::retrieve();
-			print_r($account);
 			return $params->id;
 		}
 		catch(Exception $e) {
-			echo $e;
+			// we have an error, we probably need to delete and try again
+			delete_sc_params($user_id);
+			//echo $e;
 		 	return null;
 		}
 	}
@@ -152,7 +153,6 @@ function md_sc_signup() {
 		get_currentuserinfo();
 		$user_id = $current_user->ID;
 		$check_creds = md_sc_creds($user_id);
-
 		$sc_settings = get_option('md_sc_settings');
 		if (!empty($sc_settings)) {
 			$sc_settings = unserialize($sc_settings);
@@ -181,6 +181,9 @@ add_action('init', 'md_sc_return_handler');
 function md_sc_return_handler() {
 	if (isset($_GET['ipn_handler']) && $_GET['ipn_handler'] == 'sc_return') {
 		// we're in
+		if (isset($_GET['error'])) {
+			$error = $_GET['error'];
+		}
 		if (isset($_GET['code'])) {
 			$code = $_GET['code'];
 		}
@@ -194,48 +197,59 @@ function md_sc_return_handler() {
 			$state = $user_id;
 		}
 		if (isset($code) && isset($state)) {
-			$url = 'https://connect.stripe.com/oauth/token?code='.$code.'&grant_type=authorization_code';
-			$ch = curl_init($url);
-			$settings = get_option('memberdeck_gateways');
-			if (!empty($settings)) {
-				$settings = unserialize($settings);
-				if (is_array($settings)) {
-					$test = $settings['test'];
-					if ($test == 1) {
-						$key = $settings['tsk'];
-					}
-					else {
-						$key = $settings['sk'];
-					}
-					if (!empty($key)) {
-						$params = array('client_secret' => $key);
-						curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
-						curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-						$json = curl_exec($ch);
-						curl_close($ch);
-						if (isset($json)) {
-							$response = json_decode($json);
-							//print_r($response);
-							if (isset($response->error_description)) {
-								//add_filter('the_content', 'md_sc_return_error', 5, $content, $response->error_description);
-								$message = $response->error_description;
-								echo $message;
+			if (is_user_logged_in()) {
+				if (is_multisite()) {
+					require (ABSPATH . WPINC . '/pluggable.php');
+				}
+				global $current_user;
+				get_currentuserinfo();
+				$user_id = $current_user->ID;
+				$check_creds = md_sc_creds($user_id);
+				if (empty($check_creds)) {
+					$url = 'https://connect.stripe.com/oauth/token?code='.$code.'&grant_type=authorization_code';
+					$ch = curl_init($url);
+					$settings = get_option('memberdeck_gateways');
+					if (!empty($settings)) {
+						$settings = unserialize($settings);
+						if (is_array($settings)) {
+							$test = $settings['test'];
+							if ($test == 1) {
+								$key = $settings['tsk'];
 							}
 							else {
-								$access_token = $response->access_token;
-								$refresh_token = $response->refresh_token;
-								$stripe_publishable_key = $response->stripe_publishable_key;
-								$stripe_user_id = $response->stripe_user_id;
-								$params = array('access_token' => $access_token,
-									'refresh_token' => $refresh_token,
-									'stripe_publishable_key' => $stripe_publishable_key,
-									'stripe_user_id' => $stripe_user_id);
-								$user_id = $_GET['state'];
-								$insert_id = save_sc_params($user_id, $params);
-								if ($insert_id > 0) {
-									//add_filter('the_content', 'md_sc_return_success');
-									$message = 'Success';
-									//echo $message;
+								$key = $settings['sk'];
+							}
+							if (!empty($key)) {
+								$params = array('client_secret' => $key);
+								curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+								curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+								$json = curl_exec($ch);
+								curl_close($ch);
+								if (isset($json)) {
+									$response = json_decode($json);
+									//print_r($response);
+									if (isset($response->error_description)) {
+										//add_filter('the_content', 'md_sc_return_error', 5, $content, $response->error_description);
+										$message = $response->error_description;
+										//echo $message;
+									}
+									else {
+										$access_token = $response->access_token;
+										$refresh_token = $response->refresh_token;
+										$stripe_publishable_key = $response->stripe_publishable_key;
+										$stripe_user_id = $response->stripe_user_id;
+										$params = array('access_token' => $access_token,
+											'refresh_token' => $refresh_token,
+											'stripe_publishable_key' => $stripe_publishable_key,
+											'stripe_user_id' => $stripe_user_id);
+										$user_id = $_GET['state'];
+										$insert_id = save_sc_params($user_id, $params);
+										if ($insert_id > 0) {
+											//add_filter('the_content', 'md_sc_return_success');
+											$message = 'Success';
+											//echo $message;
+										}
+									}
 								}
 							}
 						}

@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<div class="jumbotron jumbotron-about">
+<div class="jumbotron">
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12">
@@ -20,7 +20,7 @@
 			<div class="col-lg-4">
 				<div class="well">
 				<h3>Recent Heroic Updates:</h3>
-				<?php $args = array( 'post_type' => 'lastest_updates'); ?>
+				<?php $args = array( 'post_type' => 'lastest_updates', 'posts_per_page' => 5); ?>
 						<?php $latest_updates = new WP_Query( $args ); ?>
 
 						<?php if ( $latest_updates->have_posts() ) : ?>

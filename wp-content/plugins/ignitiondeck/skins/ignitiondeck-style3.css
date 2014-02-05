@@ -83,7 +83,7 @@
   .ignitiondeck.id-creatorprofile .id-creator-links a.facebook, .ignitiondeck.id-creatorprofile .id-creator-links a.twitter, .ignitiondeck.id-creatorprofile .id-creator-links a.gplus {
     color: #fff; }
 
-.ignitiondeck .id-purchase-form-wrapper {
+.ignitiondeck .id-purchase-form-wrapper, .ignitiondeck .id-fes-form-wrapper {
   background: rgba(173, 173, 173, 0.6);
   color: #242424; }
 .ignitiondeck .id-purchase-form {
