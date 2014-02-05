@@ -272,7 +272,6 @@ if (!function_exists('register_attendees')) {
             }
 
             echo espresso_registration_footer();
-            echo "<h1>SHITBOX</h1>";
 
             //Check to see how many database queries were performed
             //echo '<p>Database Queries: ' . get_num_queries() .'</p>';
