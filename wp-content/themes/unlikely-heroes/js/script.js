@@ -47,5 +47,7 @@ jQuery(document).ready(function($) {
 	});
 
 	$(".navbar-collapse").sticky({ topSpacing: 0 });
+
+	$("p.login-username label").html("Email");
 	
 });
