@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-6 col-md-6 hidden-sm hidden-xs">
-				<span>Lastest Update:</span>
+				<span>Latest Update:</span>
 					<?php $args = array( 'post_type' => 'lastest_updates', 'showposts' => 1); ?>
 					<?php $latest_updates = new WP_Query( $args ); ?>
 
