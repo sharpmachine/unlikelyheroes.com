@@ -9,7 +9,7 @@ jQuery(document).ready(function($) {
 	$("li.dropdown > a").addClass('dropdown-toggle');
 	$("li.dropdown > a").attr('data-toggle','dropdown');
 	$("li.dropdown > a").attr('data-hover','dropdown');
-	// $("a.dropdown-toggle").append('<i class="fa fa-caret-down"></i>');
+	$("a.dropdown-toggle").append('<i class="fa fa-caret-down"></i>');
 
 	// Add bootstrap pagination class to WordPress pagination
 	$("ul.page-numbers").addClass('pagination');
@@ -51,10 +51,10 @@ jQuery(document).ready(function($) {
 
 	$("p.login-username label").html("Email");
 
-	$('.nav li.dropdown').hover(function() {
-		$(this).addClass('open');
-	}, function() {
-		$(this).removeClass('open');
-	});
+	// $('.nav li.dropdown').hover(function() {
+	// 	$(this).addClass('open');
+	// }, function() {
+	// 	$(this).removeClass('open');
+	// });
 
 });
