@@ -63,9 +63,9 @@ jQuery(document).ready(function() {
 	        jQuery('input[name="price"]').val(price_entry);
 	        jQuery("#price_entry").change(function() {
 	            price_entry = jQuery("#price_entry").val();
-	             price_entry = price_entry.replace(/\D/g,'');
-	            jQuery('input[name="price"]').val(price_entry);
-	            jQuery('.preorder-form-product-price').html(price_entry);
+	            var cleanPrice = price_entry.replace(/[A-Za-z$-]/g, "");
+	            jQuery('input[name="price"]').val(cleanPrice);
+	            jQuery('.preorder-form-product-price').html(cleanPrice);
 	        });
 	        jQuery(".main-btn").click(function(e) {
 	            if (price_entry < 0.99) {
@@ -134,15 +134,18 @@ jQuery(document).ready(function() {
 	        var project = jQuery('#form_pay').data('projectid');
 	        var url = id_siteurl;
 	        jQuery(".ign-checkout-button .main-btn").val('Processing...');
+	        jQuery(this).attr('disabled', 'disabled');
 	        var widgetClass = jQuery('.id-purchase-form div:first-child').attr('id');
 	        var validate = checkIgnitionDeckForm(widgetClass, proj_type, level, post_id, project, url);
 	        if (validate == true) {
+	        	jQuery(this).removeAttr('disabled');
 	            jQuery(document).trigger('validate', true);
 	            if (jQuery("#button_pay_purchase").attr('name') == btnName) {
 	                return true;
 	            }
 	        }
 	        else {
+	        	jQuery(this).removeAttr('disabled');
 	            jQuery(".ign-checkout-button .main-btn").val('Continue Checkout');
 	            jQuery(document).trigger('validate', false);
 	        }
@@ -184,24 +187,36 @@ jQuery(document).ready(function() {
 		}
 	});
 	if (jQuery('.id-fes-form-wrapper').length) {
-		jQuery('.id-fes-form-wrapper .date').datepicker({});
+		jQuery
+		('.id-fes-form-wrapper .date').datepicker({});
 	}
+	var minLevels = jQuery('input[name="project_levels"]').attr('min');
 	jQuery('#fes input[name="project_levels"]').change(function() {
 		var fesLevels = countLevels();
-		newLevels = jQuery(this).val();
-		levelChange = newLevels - fesLevels;
-		formLevel(fesLevels, levelChange);
+		var newLevels = jQuery(this).val();
+		if (jQuery.isNumeric(newLevels)) {
+			levelChange = newLevels - fesLevels;
+			formLevel(fesLevels, levelChange);
+		}
+		else {
+			jQuery(this).val(fesLevels);
+		}
+		if (jQuery(this).val() < minLevels) {
+			jQuery(this).val(minLevels);
+		}
 	});
 	var thumbs = jQuery('#fes input[type="file"]');
 	jQuery.each(jQuery(thumbs), function(k,v) {
 		var url = jQuery(this).data('url');
+		console.log(url);
 		if (url && url.length > 0) {
+			console.log('here');
 			var name = jQuery(this).attr('name');
 			jQuery(this).replaceWith('<span class="image_swap"><img class="project_image" src="' + url + '"/><br/><a name="' + name + '" href="#" class="remove_image">Remove</a></span>');
 			jQuery('#fes .remove_image').click(function(e) {
 				e.preventDefault();
 				var name = jQuery(this).attr('name');
-				jQuery(this).parent('.image_swap').replaceWith('<input type="file" name="' + name + '" class="' + name + '"/>');
+				jQuery(this).parent('.image_swap').replaceWith('<input type="file" name="' + name + '" class="' + name + '" accept="image/*"/>');
 			});
 		}
 	});
@@ -220,14 +235,16 @@ function formLevel(fesLevels, levelChange) {
 	}
 	else {
 		for (i = 1; i <= levelChange; i++) {
-			var clone = jQuery('#fes .form-level').eq(0).clone();
+			var clone = jQuery('#fes .form-level-clone').clone();
+			jQuery(clone).removeClass('form-level-clone').addClass('form-level');
+			jQuery(clone).find('input').removeAttr('disabled');
 			//console.log(jQuery('#fes .form-level:hidden'));
 			if (jQuery('#fes .form-level:hidden').length > 0) {
 				jQuery('#fes .form-level:hidden').first().toggle();
 			}
 			else {
 				// add clone
-				jQuery('#fes .form-level').last().after(clone);
+				jQuery('#fes .form-level-clone').last().before(clone);
 				// clear text and values
 				var cloneIn = jQuery('#fes .form-level').last();
 				var cloneInput = jQuery(cloneIn).find('input');

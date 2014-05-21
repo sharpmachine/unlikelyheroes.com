@@ -21,7 +21,7 @@ class Jetpack_Widget_Conditions {
 
 	public static function widget_admin_setup() {
 		wp_enqueue_style( 'widget-conditions', plugins_url( 'widget-conditions/widget-conditions.css', __FILE__ ) );
-		wp_enqueue_script( 'widget-conditions', plugins_url( 'widget-conditions/widget-conditions.js', __FILE__ ), array( 'jquery', 'jquery-ui-core' ), 20130129, true );
+		wp_enqueue_script( 'widget-conditions', plugins_url( 'widget-conditions/widget-conditions.js', __FILE__ ), array( 'jquery', 'jquery-ui-core' ), 20140422, true );
 	}
 
 	/**
@@ -86,6 +86,7 @@ class Jetpack_Widget_Conditions {
 				?>
 				<option value="front" <?php selected( 'front', $minor ); ?>><?php _e( 'Front page', 'jetpack' ); ?></option>
 				<option value="posts" <?php selected( 'posts', $minor ); ?>><?php _e( 'Posts page', 'jetpack' ); ?></option>
+				<option value="archive" <?php selected( 'archive', $minor ); ?>><?php _e( 'Archive page', 'jetpack' ); ?></option>
 				<option value="404" <?php selected( '404', $minor ); ?>><?php _e( '404 error page', 'jetpack' ); ?></option>
 				<option value="search" <?php selected( 'search', $minor ); ?>><?php _e( 'Search results', 'jetpack' ); ?></option>
 				<optgroup label="<?php esc_attr_e( 'Post type:', 'jetpack' ); ?>">
@@ -109,6 +110,32 @@ class Jetpack_Widget_Conditions {
 					?>
 				</optgroup>
 				<?php
+			break;
+			case 'taxonomy':
+				?>
+				<option value=""><?php _e( 'All taxonomy pages', 'jetpack' ); ?></option>
+				<?php
+
+				$taxonomies = get_taxonomies( array( '_builtin' => false ), 'objects' );
+				usort( $taxonomies, array( __CLASS__, 'strcasecmp_name' ) );
+
+				foreach ( $taxonomies as $taxonomy ) {
+					?>
+					<optgroup label="<?php esc_attr_e( $taxonomy->labels->name . ':', 'jetpack' ); ?>">
+						<option value="<?php echo esc_attr( $taxonomy->name ); ?>" <?php selected( $taxonomy->name, $minor ); ?>><?php echo 'All ' . esc_html( $taxonomy->name ) . ' pages'; ?></option>
+					<?php
+
+					$terms = get_terms( array( $taxonomy->name ), array( 'number' => 250, 'hide_empty' => false ) );
+					foreach ( $terms as $term ) {
+						?>
+						<option value="<?php echo esc_attr( $taxonomy->name . '_tax_' . $term->term_id ); ?>" <?php selected( $taxonomy->name . '_tax_' . $term->term_id, $minor ); ?>><?php echo esc_html( $term->name ); ?></option>
+						<?php
+					}
+
+					?>
+				</optgroup>
+				<?php
+				}
 			break;
 		}
 	}
@@ -163,6 +190,9 @@ class Jetpack_Widget_Conditions {
 									<option value="tag" <?php selected( "tag", $rule['major'] ); ?>><?php echo esc_html_x( 'Tag', 'Noun, as in: "This post has one tag."', 'jetpack' ); ?></option>
 									<option value="date" <?php selected( "date", $rule['major'] ); ?>><?php echo esc_html_x( 'Date', 'Noun, as in: "This page is a date archive."', 'jetpack' ); ?></option>
 									<option value="page" <?php selected( "page", $rule['major'] ); ?>><?php echo esc_html_x( 'Page', 'Example: The user is looking at a page, not a post.', 'jetpack' ); ?></option>
+									<?php if ( get_taxonomies( array( '_builtin' => false ) ) ) : ?>
+									<option value="taxonomy" <?php selected( "taxonomy", $rule['major'] ); ?>><?php echo esc_html_x( 'Taxonomy', 'Noun, as in: "This post has one taxonomy."', 'jetpack' ); ?></option>
+									<?php endif; ?>
 								</select>
 								<?php _ex( 'is', 'Widget Visibility: {Rule Major [Page]} is {Rule Minor [Search results]}', 'jetpack' ); ?>
 								<select class="conditions-rule-minor" name="conditions[rules_minor][]" <?php if ( ! $rule['major'] ) { ?> disabled="disabled"<?php } ?> data-loading-text="<?php esc_attr_e( 'Loading...', 'jetpack' ); ?>">
@@ -367,7 +397,7 @@ class Jetpack_Widget_Conditions {
 						$condition_result = true;
 					else if ( is_category( $rule['minor'] ) )
 						$condition_result = true;
-					else if ( is_singular() && $rule['minor'] && has_category( $rule['minor'] ) )
+					else if ( is_singular() && $rule['minor'] && in_array( 'category', get_post_taxonomies() ) &&  has_category( $rule['minor'] ) )
 						$condition_result = true;
 				break;
 				case 'author':
@@ -376,6 +406,16 @@ class Jetpack_Widget_Conditions {
 					else if ( $rule['minor'] && is_author( $rule['minor'] ) )
 						$condition_result = true;
 					else if ( is_singular() && $rule['minor'] && $rule['minor'] == $post->post_author )
+						$condition_result = true;
+				break;
+				case 'taxonomy':
+					$term = explode( '_tax_', $rule['minor'] ); // $term[0] = taxonomy name; $term[1] = term id
+					$terms = get_the_terms( $post->ID, $rule['minor'] ); // Does post have terms in taxonomy?
+					if ( is_tax( $term[0], $term[1] ) )
+						$condition_result = true;
+					else if ( is_singular() && $term[1] && has_term( $term[1], $term[0] ) )
+						$condition_result = true;
+					else if ( is_singular() && $terms & !is_wp_error( $terms ) )
 						$condition_result = true;
 				break;
 			}

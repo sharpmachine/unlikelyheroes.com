@@ -242,7 +242,6 @@ function ign_meta_boxes(array $meta_boxes) {
 			array(
 	            'name' => $tr_meta_disc_name,
 	            'desc' => $tr_meta_disc_det,
-				'std' => $tr_meta_disc_std,
 	            'id' => $prefix . 'disclaimer',
 	            'class' => $prefix . 'projectmeta_full',
 	            'show_help' => true,

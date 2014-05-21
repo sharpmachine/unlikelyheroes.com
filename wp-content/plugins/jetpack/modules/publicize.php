@@ -1,8 +1,8 @@
 <?php
 /**
  * Module Name: Publicize
- * Module Description: Connect your site to popular social networks and automatically share new posts with your friends.
- * Sort Order: 1
+ * Module Description: Share new posts on social media networks automatically.
+ * Sort Order: 10
  * First Introduced: 2.0
  * Requires Connection: Yes
  * Auto Activate: Yes
@@ -21,7 +21,7 @@ class Jetpack_Publicize {
 		if ( $this->in_jetpack && method_exists( 'Jetpack', 'module_configuration_load' ) ) {
 			Jetpack::enable_module_configurable( __FILE__ );
 			Jetpack::module_configuration_load( __FILE__, array( $this, 'jetpack_configuration_load' ) );
-			add_action( 'init', array( $this, 'sync_posts_init' ) );
+			add_action( 'init', array( $this, 'sync_posts_init' ), 999 );
 		}
 
 		require_once dirname( __FILE__ ) . '/publicize/publicize.php';

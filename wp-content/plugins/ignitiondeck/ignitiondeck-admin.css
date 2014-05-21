@@ -384,7 +384,15 @@ cursor: pointer;
 	display: inline;
 	vertical-align: middle;
 }
-
+.wp-admin .ignitiondeck .icon32 {
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	background-image: url(images/id-icon-32.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	vertical-align: middle;
+}
 .wp-admin .ignitiondeck .help {
 	display: inline-block;
 	vertical-align: middle;
@@ -393,4 +401,11 @@ cursor: pointer;
 
 .wp-admin .ignitiondeck .help .button {
 	vertical-align: middle;
+}
+
+.wrap .license_validation {
+	background: #f1f1f1;
+	padding: 0 10px;
+	display: block;
+	border: 1px solid #e5e5e5;
 }

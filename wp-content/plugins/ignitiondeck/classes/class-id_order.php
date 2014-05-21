@@ -59,6 +59,13 @@ class ID_Order {
 		$this->date = $date;
 	}
 
+	function get_order() {
+		global $wpdb;
+		$sql = $wpdb->prepare('SELECT * FROM '.$wpdb->prefix.'ign_pay_info WHERE id = %s', $this->id);
+		$res = $wpdb->get_row($sql);
+		return $res;
+	}
+
 	function check_new_order() {
 		global $wpdb;
 		$sql = $wpdb->prepare('SELECT * FROM '.$wpdb->prefix.'ign_pay_info WHERE transaction_id = %s', $this->txn_id);

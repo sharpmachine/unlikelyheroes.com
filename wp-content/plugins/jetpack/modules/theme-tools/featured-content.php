@@ -102,6 +102,7 @@ class Featured_Content {
 		add_action( 'customize_controls_enqueue_scripts', array( __CLASS__, 'enqueue_scripts'    )    );
 		add_action( 'pre_get_posts',                      array( __CLASS__, 'pre_get_posts'      )    );
 		add_action( 'switch_theme',                       array( __CLASS__, 'switch_theme'       )    );
+		add_action( 'switch_theme',                       array( __CLASS__, 'delete_transient'   )    );
 		add_action( 'wp_loaded',                          array( __CLASS__, 'wp_loaded'          )    );
 
 		if ( isset( $theme_support[0]['additional_post_types'] ) ) {
@@ -328,9 +329,13 @@ class Featured_Content {
 			return $terms;
 		}
 
-		foreach( $terms as $order => $term ) {
-			if ( is_object( $term ) && self::get_setting( 'tag-id' ) == $term->term_id && 'post_tag' == $term->taxonomy ) {
-				unset( $terms[ $order ] );
+		$tag = get_term_by( 'name', self::get_setting( 'tag-name' ), 'post_tag' );
+
+		if ( false !== $tag ) {
+			foreach ( $terms as $order => $term ) {
+				if ( is_object( $term ) && $tag->term_id == $term->term_id && 'post_tag' == $term->taxonomy ) {
+					unset( $terms[ $order ] );
+				}
 			}
 		}
 
@@ -367,9 +372,13 @@ class Featured_Content {
 			return $terms;
 		}
 
-		foreach( $terms as $order => $term ) {
-			if ( self::get_setting( 'tag-id' ) == $term->term_id ) {
-				unset( $terms[ $term->term_id ] );
+		$tag = get_term_by( 'name', self::get_setting( 'tag-name' ), 'post_tag' );
+
+		if ( false !== $tag ) {
+			foreach ( $terms as $term ) {
+				if ( $tag->term_id == $term->term_id ) {
+					unset( $terms[ $term->term_id ] );
+				}
 			}
 		}
 

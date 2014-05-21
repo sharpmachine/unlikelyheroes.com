@@ -5,7 +5,7 @@
 	</div>
 	<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 		<div id="content">
-			<?php get_template_part( 'nav', 'above' ); ?>
+			<?php //get_template_part( 'nav', 'above' ); ?>
 			<div id="404-grid">
 				<div id="post-0" class="post error404 not-found">
 					<h1 class="entry-title">Not Found</h1>

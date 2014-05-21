@@ -7,7 +7,7 @@
 Plugin Name: IgnitionDeck Plugin
 URI: http://IgnitionDeck.com
 Description: A custom crowdfunding platform for WordPress. IgnitionDeck allows you to create unlimited and dynamic fundraising campaigns for physical and/or digital goods, integrates with a variety of email and ecommerce platforms, and is compatible with all WordPress themes 3.1+.
-Version: 1.3.6
+Version: 1.3.9
 Author: Virtuous Giant
 Author URI: http://VirtuousGiant.com
 License: GPL2
@@ -63,7 +63,7 @@ function install_id_for_blogs() {
 }
 
 global $ign_db_version;
-$ign_db_version = "1.3.6";
+$ign_db_version = "1.3.9";
 $ign_installed_ver = get_option( "ign_db_version" );
 
 function ign_pre_install ($blog_id = null) {
@@ -351,6 +351,7 @@ function ignitiondeck_uninstall($blog_id = null) {
 	foreach ($options as $option) {
 		delete_option($option);
 	}
+	ID_Project::delete_project_posts();
 }
 /*
 End Pro Activation, Multisite Activation, Standard Activation
@@ -393,6 +394,67 @@ require ('languages/text_variables.php');
 //add_action( 'init', 'ignitiondeck_init' );
 function ignitiondeck_init(){
 
+}
+
+add_action('wp_head', 'id_fb_ogg');
+
+function id_fb_ogg() {
+	global $post;
+	$show_ogg = false;
+	if (isset($post)) {
+		$post_content = $post->post_content;
+		if ($post->post_type == 'ignition_product') {
+			$post_id = $post->ID;
+			$show_ogg = true;
+		}
+		else if (strpos($post_content, 'project_')) {
+			$pos = strpos($post_content, 'product=');
+			$project_id = absint(substr($post_content, $pos + 9, 1));
+			if (isset($project_id) && $project_id > 0) {
+				$project = new ID_Project($project_id);
+				$post_id = $project->get_project_postid();
+				$post = get_post($post_id);
+				$show_ogg = true;
+			}
+		}
+		// since we are now using a query, we don't need the following code
+		/*else {
+			$fh_ogg = false;
+			$theme = wp_get_theme();
+			if (strpos($theme->get('Name'), '500')) {
+				// using 500 framework
+				$fh_ogg = true;
+			}
+			else if ($theme->get('Template') == 'fivehundred') {
+				// using 500 child theme
+				$fh_ogg = true;
+			}
+			if ($fh_ogg) {
+				$fh_options = get_option('fivehundred_theme_settings');
+				if (!empty($fh_options)) {
+					$home_project = $fh_options['home'];
+					if (isset($home_project) && $home_project > 0) {
+						echo $home_project;
+						$project = new ID_Project($home_project);
+						$post_id = $project->get_project_postid();
+						$post = get_post($post_id);
+						$show_ogg = true;
+					}
+				}
+			}
+		}*/
+	}
+	if ($show_ogg) {
+		$current_site = get_option('blogname');
+		$image = get_post_meta($post_id, 'ign_product_image1', true);
+		$description = strip_tags(html_entity_decode(get_post_meta($post_id, 'ign_project_description', true)));
+		$meta = '<meta property="og:image" content="'.$image.'" />';
+		$meta .= '<meta property="og:title" content="'.$post->post_title.'" />';
+		$meta .= '<meta property="og:url" content="'.get_permalink($post->ID).'" />';
+		$meta .= '<meta property="og:site_name" content="'.$current_site.'" />';
+		$meta .= '<meta property="og:description" content="'.$description.'" />';
+		echo $meta;
+	}
 }
 
 // Deregister Woo Media Uploader on Project Pages

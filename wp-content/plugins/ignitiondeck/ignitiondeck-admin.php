@@ -790,13 +790,17 @@ function deck_builder() {
 		}
 		if ($_POST['deck_select'] > 0) {
 			// update saved deck
-			$deck_id = $_POST['deck_select'];
+			$deck_id = absint($_POST['deck_select']);
 			Deck::update_deck($attrs, $deck_id);
 		}
 		else {
 			// new deck, insert
 			$new = Deck::create_deck($attrs);
 		}
+	}
+	else if (isset($_POST['deck_delete'])) {
+		$deck_id = absint($_POST['deck_select']);
+		Deck::delete_deck($deck_id);
 	}
 	echo '<div class="wrap">';
 	echo admin_menu_html();
@@ -1132,6 +1136,9 @@ function generate_embed_code() {
 function product_settings() {
 	require 'languages/text_variables.php';		
 	global $wpdb;
+	if (is_id_pro()) {
+		$project_default = get_option('id_project_default');
+	}
 	$purchase_default = get_option('id_purchase_default');
 	$ty_default = get_option('id_ty_default');
 	//============================================================================================================================================
@@ -1174,7 +1181,7 @@ function product_settings() {
 				update_option('id_defaults_notice', 'off');
 				$message = '<div class="updated fade below-h2" id="message" class="updated"><p>'.$tr_Settings_updated.'</p></div>';	
 			}
-
+			// purchase url
 			$purl_sel = esc_attr($_POST['ign_option_purchase_url']);
 			if ($purl_sel == 'page_or_post') {
 				$purl = absint($_POST['ign_purchase_post_name']);
@@ -1183,7 +1190,7 @@ function product_settings() {
 				$purl = esc_attr($_POST['id_purchase_URL']);
 			}
 			$purchase_default = array('option' => $purl_sel, 'value' => $purl);
-			update_option('id_purchase_default', $purchase_default);
+			// ty url
 			$tyurl_sel = esc_attr($_POST['ign_option_ty_url']);
 			if ($tyurl_sel == 'page_or_post') {
 				$tyurl = absint($_POST['ign_ty_post_name']);
@@ -1192,6 +1199,8 @@ function product_settings() {
 				$tyurl = esc_attr($_POST['id_project_URL']);
 			}
 			$ty_default = array('option' => $tyurl_sel, 'value' => $tyurl);
+			// options set
+			update_option('id_purchase_default', $purchase_default);
 			update_option('id_ty_default', $ty_default);
 		}
 	
@@ -1473,7 +1482,7 @@ function admin_menu_html() {
 	 //All the lines, with #GLOBALS['<variable name>']; replace with $<variable name>
 	$menu = '
 		<div class="sidebar ignitiondeck">
-			<h2 class="title">IgnitionDeck</h2>
+			<div class="icon32"></div><h2 class="title">IgnitionDeck</h2>
 			<div class="help">
 				<a href="http://forums.ignitiondeck.com" alt="IgnitionDeck Support" title="IgnitionDeck Support" target="_blank"><button class="button button-large">'.__('Support', 'memberdeck').'</button></a>
 				<a href="http://docs.ignitiondeck.com" alt="IgnitionDeck Documentation" title="IgnitionDeck Documentation" target="_blank"><button class="button button-large">'.__('Documentation', 'memberdeck').'</button></a>

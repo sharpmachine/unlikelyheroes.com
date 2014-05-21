@@ -168,6 +168,7 @@ jQuery(document).ready(function() {
 								data: {action: 'get_deck_attrs', Deck: selected},
 								success: function(res) {
 									//console.log(res);
+									jQuery('input[name="deck_delete"]').show();
 									if (res.length > 0) {
 										json = JSON.parse(res);
 										if (json) {
@@ -187,6 +188,7 @@ jQuery(document).ready(function() {
 						else {
 							jQuery('.deck-attr-text').val('');
 							jQuery('.deck-attr').removeAttr('checked');
+							jQuery('input[name="deck_delete"]').hide();
 						}
 					});
 				}

@@ -11,6 +11,8 @@ if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post(
 	<?php get_template_part('entry'); ?>
 <?php endwhile; ?>
 <?php endif; ?>
-<?php next_posts_link(__('&laquo; Older Entries', 'fivehundred'), $query->max_num_pages) ?>
-<?php previous_posts_link(__('Newer Entries &raquo;', 'fivehundred')); ?>
+	<div class="pagination">
+		<div class="nav-previous alignleft"><?php next_posts_link( __( 'Older Entries', 'fivehundred' ), $query->max_num_pages ); ?></div>
+		<div class="nav-next alignright"><?php previous_posts_link( __( 'Newer Entries', 'fivehundred' ) ); ?></div>
+	</div>
 <?php wp_reset_postdata(); ?>

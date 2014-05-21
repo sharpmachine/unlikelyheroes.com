@@ -378,5 +378,16 @@ class ID_Project {
 		$images = array($project_image1, $project_image2, $project_image3, $project_image4);
 		return $images;
 	}
+
+	public static function delete_project_posts() {
+		global $wpdb;
+		$post_query = 'SELECT * FROM '.$wpdb->prefix.'posts WHERE post_type = "ignition_product"';
+		$post_res = $wpdb->get_results($post_query);
+		if (!empty($post_res)) {
+			foreach ($post_res as $res) {
+				wp_delete_post($res->ID, true);
+			}
+		}
+	}
 }
 ?>

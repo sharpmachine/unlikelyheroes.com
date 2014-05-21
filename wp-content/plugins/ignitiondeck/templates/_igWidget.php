@@ -99,7 +99,7 @@
 							}
 						?>
 							<div class="level-group">
-								<div class="id-level-title"><span><?php echo (isset($level->meta_title) ? strip_tags(stripslashes($level->meta_title)) : $tr_Level.' '.($level->id)); ?>:</span> <?php echo $the_deck->cCode;?><?php echo number_format($level->meta_price, 2, '.', ','); ?></div>
+								<div class="id-level-title"><span><?php echo (isset($level->meta_title) ? strip_tags(stripslashes($level->meta_title)) : $tr_Level.' '.($level->id)); ?>:</span> <?php echo $the_deck->cCode;?><?php echo (isset($level->meta_price) && $level->meta_price > 0 ? number_format($level->meta_price, 2, '.', ',') : '0'); ?></div>
 								<div class="id-level-desc"><?php echo html_entity_decode(stripslashes($level->meta_desc)); ?></div>
 							<?php echo (!empty($level->meta_limit) ? '<div class="id-level-counts"><span>'. $tr_Limit .': '.$level->meta_count .' '.$tr_Of.' '.$level->meta_limit.' '.$tr_Taken.'</span></div>' : ''); ?>
 							<?php echo do_action('id_after_level'); ?>

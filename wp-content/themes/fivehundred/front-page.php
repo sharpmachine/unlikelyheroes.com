@@ -39,6 +39,7 @@ Template Name: Project Grid (Home)
 		$li = null;
 		$about_us = null;
 	}
+	$options = get_option('fivehundred_featured');
 ?>
 <?php if (isset($settings['home']) && !empty($settings['home'])) {
 	get_header(); ?>
@@ -52,10 +53,14 @@ Template Name: Project Grid (Home)
 <?php } else if (is_home()) { ?>
 	<?php get_header(); ?>
 	<div id="container">
-		<div id="site-description">
-			<h1><?php bloginfo( 'description' ) ?></h1>
-		</div>
 		<div class="ign-project-content ign-project-top"><?php if (dynamic_sidebar('home-top-content-widget-area')) : ?><?php endif; ?></div>
+		<?php if (!empty($options)) {?>
+		<div class="breakout-out">
+			<div class="breakout-in">
+				<?php get_template_part('project-featured'); ?>
+			</div>
+		</div>
+		<?php } ?>
 		<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 			<div id="content">
 			<h2 class="entry-title"><?php _e('Featured Projects', 'fivehundred'); ?></h2>

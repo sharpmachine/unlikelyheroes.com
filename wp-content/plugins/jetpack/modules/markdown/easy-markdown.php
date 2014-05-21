@@ -1,4 +1,5 @@
 <?php
+
 /*
 Plugin Name: Easy Markdown
 Plugin URI: http://automattic.com/
@@ -63,28 +64,50 @@ class WPCom_Markdown {
 	public function load() {
 		$this->add_default_post_type_support();
 		$this->maybe_load_actions_and_filters();
-		add_action( 'switch_blog', array( $this, 'maybe_load_actions_and_filters' ) );
+		if ( defined( 'REST_API_REQUEST' ) && REST_API_REQUEST ) {
+			add_action( 'switch_blog', array( $this, 'maybe_load_actions_and_filters' ), 10, 2 );
+		}
 		add_action( 'admin_init', array( $this, 'register_setting' ) );
+		add_action( 'admin_init', array( $this, 'maybe_unload_for_bulk_edit' ) );
 		if ( current_theme_supports( 'o2' ) || class_exists( 'P2' ) ) {
 			$this->add_o2_helpers();
 		}
 	}
 
 	/**
-	 * Called on init and fires on blog_switch to decide if our actions and filters
-	 * should be running.
+	 * If we're in a bulk edit session, unload so that we don't lose our markdown metadata
 	 * @return null
 	 */
-	public function maybe_load_actions_and_filters() {
-		if ( $this->is_posting_enabled() )
-			$this->load_markdown_for_posts();
-		else
+	public function maybe_unload_for_bulk_edit() {
+		if ( isset( $_REQUEST['bulk_edit'] ) && $this->is_posting_enabled() ) {
 			$this->unload_markdown_for_posts();
+		}
+	}
 
-		if ( $this->is_commenting_enabled() )
+	/**
+	 * Called on init and fires on switch_blog to decide if our actions and filters
+	 * should be running.
+	 * @param int|null $new_blog_id New blog ID
+	 * @param int|null $old_blog_id Old blog ID
+	 * @return null
+	 */
+	public function maybe_load_actions_and_filters( $new_blog_id = null, $old_blog_id = null ) {
+		// If this is a switch_to_blog call, and the blog isn't changing, we'll already be loaded
+		if ( $new_blog_id && $new_blog_id === $old_blog_id ) {
+			return;
+		}
+
+		if ( $this->is_posting_enabled() ) {
+			$this->load_markdown_for_posts();
+		} else {
+			$this->unload_markdown_for_posts();
+		}
+
+		if ( $this->is_commenting_enabled() ) {
 			$this->load_markdown_for_comments();
-		else
+		} else {
 			$this->unload_markdown_for_comments();
+		}
 	}
 
 	/**
@@ -99,8 +122,9 @@ class WPCom_Markdown {
 		add_action( 'wp_restore_post_revision', array( $this, 'wp_restore_post_revision' ), 10, 2 );
 		add_filter( '_wp_post_revision_fields', array( $this, '_wp_post_revision_fields' ) );
 		add_action( 'xmlrpc_call', array( $this, 'xmlrpc_actions' ) );
+		add_filter( 'content_save_pre', array( $this, 'preserve_code_blocks' ), 1 );
 		if ( defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST ) {
-			$this->check_for_mwgetpost();
+			$this->check_for_early_methods();
 		}
 	}
 
@@ -116,6 +140,7 @@ class WPCom_Markdown {
 		remove_action( 'wp_restore_post_revision', array( $this, 'wp_restore_post_revision' ), 10, 2 );
 		remove_filter( '_wp_post_revision_fields', array( $this, '_wp_post_revision_fields' ) );
 		remove_action( 'xmlrpc_call', array( $this, 'xmlrpc_actions' ) );
+		remove_filter( 'content_save_pre', array( $this, 'preserve_code_blocks' ), 1 );
 	}
 
 	/**
@@ -192,6 +217,15 @@ class WPCom_Markdown {
 	 */
 	public function o2_unescape_lists( $text ) {
 		return preg_replace( '/^[&]\#042; /um', '* ', $text );
+	}
+
+	/**
+	 * Preserve code blocks from being munged by KSES before they have a chance
+	 * @param  string $text post content
+	 * @return string       post content with code blocks escaped
+	 */
+	public function preserve_code_blocks( $text ) {
+		return $this->get_parser()->codeblock_preserve( $text );
 	}
 
 	/**
@@ -303,7 +337,7 @@ class WPCom_Markdown {
 	 * instantiating our parser.
 	 * @return object WPCom_GHF_Markdown_Parser instance.
 	 */
-	protected function get_parser() {
+	public function get_parser() {
 
 		if ( ! self::$parser ) {
 			jetpack_require_lib( 'markdown' );
@@ -348,8 +382,10 @@ class WPCom_Markdown {
 	public function edit_post_content( $content, $id ) {
 		if ( $this->is_markdown( $id ) ) {
 			$post = get_post( $id );
-			if ( $post && ! empty( $post->post_content_filtered ) )
-				$content = $post->post_content_filtered;
+			if ( $post && ! empty( $post->post_content_filtered ) ) {
+				$post = $this->swap_for_editing( $post );
+				return $post->post_content;
+			}
 		}
 		return $content;
 	}
@@ -462,12 +498,16 @@ class WPCom_Markdown {
 	 * @param  array  $args  Arguments, with keys:
 	 *                       id: provide a string to prefix footnotes with a unique identifier
 	 *                       unslash: when true, expects and returns slashed data
+	 *                       decode_code_blocks: when true, assume that text in fenced code blocks is already
+	 *                         HTML encoded and should be decoded before being passed to Markdown, which does
+	 *                         its own encoding.
 	 * @return string        Markdown-processed content
 	 */
 	public function transform( $text, $args = array() ) {
 		$args = wp_parse_args( $args, array(
 			'id' => false,
-			'unslash' => true
+			'unslash' => true,
+			'decode_code_blocks' => ! $this->get_parser()->use_code_shortcode
 		) );
 		// probably need to unslash
 		if ( $args['unslash'] )
@@ -482,6 +522,10 @@ class WPCom_Markdown {
 		$text = preg_replace( '/^&gt;/m', '>', $text );
 		// prefixes are because we need to namespace footnotes by post_id
 		$this->get_parser()->fn_id_prefix = $args['id'] ? $args['id'] . '-' : '';
+		// If we're not using the code shortcode, prevent over-encoding.
+		if ( $args['decode_code_blocks'] ) {
+			$text = $this->get_parser()->codeblock_restore( $text );
+		}
 		// Transform it!
 		$text = $this->get_parser()->transform( $text );
 		// Fix footnotes - kses doesn't like the : IDs it supplies
@@ -554,6 +598,7 @@ class WPCom_Markdown {
 		switch ( $xmlrpc_method ) {
 			case 'metaWeblog.getRecentPosts':
 			case 'wp.getPosts':
+			case 'wp.getPages':
 				add_action( 'parse_query', array( $this, 'make_filterable' ), 10, 1 );
 				break;
 			case 'wp.getPost':
@@ -563,19 +608,21 @@ class WPCom_Markdown {
 	}
 
 	/**
-	 * The metaWeblog.getPost xmlrpc_call action fires *after* get_post() is called.
-	 * So, we have to detect that method and prime the post cache early.
+	 * metaWeblog.getPost and wp.getPage fire xmlrpc_call action *after* get_post() is called.
+	 * So, we have to detect those methods and prime the post cache early.
 	 * @return null
 	 */
-	protected function check_for_mwgetpost() {
+	protected function check_for_early_methods() {
 		global $HTTP_RAW_POST_DATA;
-		if ( false === strpos( $HTTP_RAW_POST_DATA, 'metaWeblog.getPost') ) {
+		if ( false === strpos( $HTTP_RAW_POST_DATA, 'metaWeblog.getPost' )
+			&& false === strpos( $HTTP_RAW_POST_DATA, 'wp.getPage' ) ) {
 			return;
 		}
 		include_once( ABSPATH . WPINC . '/class-IXR.php' );
 		$message = new IXR_Message( $HTTP_RAW_POST_DATA );
 		$message->parse();
-		$this->prime_post_cache( $message->params[0] );
+		$post_id_position = 'metaWeblog.getPost' === $message->methodName ?  0 : 1;
+		$this->prime_post_cache( $message->params[ $post_id_position ] );
 	}
 
 	/**
@@ -587,7 +634,7 @@ class WPCom_Markdown {
 	private function prime_post_cache( $post_id = false ) {
 		global $wp_xmlrpc_server;
 		if ( ! $post_id ) {
-			$post_id = $wp_xmlrpc_server->message->params[0];
+			$post_id = $wp_xmlrpc_server->message->params[3];
 		}
 
 		// prime the post cache
@@ -595,9 +642,7 @@ class WPCom_Markdown {
 			$post = get_post( $post_id );
 			if ( ! empty( $post->post_content_filtered ) ) {
 				wp_cache_delete( $post->ID, 'posts' );
-				$markdown = $post->post_content_filtered;
-				$post->post_content_filtered = $post->post_content;
-				$post->post_content = $markdown;
+				$post = $this->swap_for_editing( $post );
 				wp_cache_add( $post->ID, $post, 'posts' );
 				$this->posts_to_uncache[] = $post_id;
 			}
@@ -607,6 +652,23 @@ class WPCom_Markdown {
 			add_action( 'shutdown', array( $this, 'uncache_munged_posts' ) );
 		}
 	}
+
+	/**
+	 * Swaps `post_content_filtered` back to `post_content` for editing purposes.
+	 * @param  object $post WP_Post object
+	 * @return object       WP_Post object with swapped `post_content_filtered` and `post_content`
+	 */
+	protected function swap_for_editing( $post ) {
+		$markdown = $post->post_content_filtered;
+		// unencode encoded code blocks
+		$markdown = $this->get_parser()->codeblock_restore( $markdown );
+		// restore beginning of line blockquotes
+		$markdown = preg_replace( '/^&gt; /m', '> ', $markdown );
+		$post->post_content_filtered = $post->post_content;
+		$post->post_content = $markdown;
+		return $post;
+	}
+
 
 	/**
 	 * We munge the post cache to serve proper markdown content to XML-RPC clients.

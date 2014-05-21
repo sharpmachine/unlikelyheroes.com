@@ -7,13 +7,14 @@ if (!empty($options['home'])) {
 	$permalinks = get_option('permalink_structure');
 	$summary = the_project_summary($id);
 	do_action('fh_hDeck_before');
+	$video = the_project_video($id);
 }
 ?>
 <div id="ign-hDeck-wrapper">
 	<div id="ign-hdeck-wrapperbg">
 		<div id="ign-hDeck-header">
 			<div id="ign-hDeck-left">
-				<div class="video" style="background-image: url(<?php echo $summary->image_url; ?>)"><?php echo the_project_video($id); ?> </div>
+				<div class="video <?php echo (!empty($video) ? 'hasvideo' : ''); ?>" style="background-image: url(<?php echo $summary->image_url; ?>)"><?php echo $video; ?> </div>
 				<div id="ign-hDeck-social">
 					<?php get_template_part('project', 'social'); ?>
 				</div>
@@ -58,7 +59,7 @@ if (!empty($options['home'])) {
 						else { ?>
 							<?php if (function_exists('is_id_licensed') && is_id_licensed()) { ?>
 								<?php if (empty($permalinks) || $permalinks == '') { ?>
-									<a href="<?php echo get_permalink($id); ?>?purchaseform=500&amp;prodid=<?php echo (isset($project_id) ? $project_id : ''); ?>"><?php _e('Support Now', 'fivehundred'); ?></a>
+									<a href="<?php echo get_permalink($id); ?>&purchaseform=500&amp;prodid=<?php echo (isset($project_id) ? $project_id : ''); ?>"><?php _e('Support Now', 'fivehundred'); ?></a>
 								<?php }
 								else { ?>
 							 		<a href="<?php echo get_permalink($id); ?>?purchaseform=500&amp;prodid=<?php echo (isset($project_id) ? $project_id : ''); ?>"><?php _e('Support Now', 'fivehundred'); ?></a>
