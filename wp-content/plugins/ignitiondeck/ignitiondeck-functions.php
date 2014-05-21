@@ -406,8 +406,9 @@ function getLevelLimitReached($product_id, $post_id, $level) {
 		$meta_limit = get_post_meta( $post_id, "ign_product_level_".$level."_limit", true );
 	}
 	
-	if ($meta_limit == "")
+	if (empty($meta_limit)) {
 		return false;
+	}
 	
 	if ($level_purchase_so_far < $meta_limit)
 		return false;
@@ -665,7 +666,7 @@ function getPurchaseURLfromType($project_id, $page="") {
 						} 
 						else if ($post_page == "page_or_post") {		// If Project URL is another post or Project page
 							$post_name = html_entity_decode(get_post_meta($post->ID, 'ign_purchase_post_name', true));
-							$sql_purchase_post = $wpdb->prepare("SELECT * FROM ".$wpdb->prefix."posts WHERE post_name = %s AND post_type !== 'ignition_product' LIMIT 1", $post_name);
+							$sql_purchase_post = $wpdb->prepare("SELECT * FROM ".$wpdb->prefix."posts WHERE post_name = %s AND post_type != 'ignition_product' LIMIT 1", $post_name);
 							$purchase_post = $wpdb->get_row($sql_purchase_post);
 							if (!empty($purchase_post)) {
 								if ($page == "purchaseform") {
@@ -760,7 +761,7 @@ function getThankYouURLfromType($project_id, $page="") {
 						} else if ($post_page == "page_or_post") {		// If Project URL is another post or Project page
 
 							$post_name = html_entity_decode(get_post_meta($post->ID, 'ign_ty_post_name', true));
-							$sql_ty_post = $wpdb->prepare("SELECT * FROM ".$wpdb->prefix."posts WHERE post_name = %s AND post_type !== 'ignition_product' LIMIT 1", $post_name);
+							$sql_ty_post = $wpdb->prepare("SELECT * FROM ".$wpdb->prefix."posts WHERE post_name = %s AND post_type != 'ignition_product' LIMIT 1", $post_name);
 							$ty_post = $wpdb->get_row($sql_ty_post);
 							if (!empty($ty_post)) {
 								if ($page == "thank_you_url") {
@@ -824,10 +825,10 @@ function getThankYouURLfromType($project_id, $page="") {
 				}
 				else {
 					if ($permalink_structure == "") {
-						$purchase_url = $purchase_url.'&cc_success=1';
+						$thank_you_url = $thank_you_url.'&cc_success=1';
 					}
 					else {
-						$purchase_url = $purchase_url.'?cc_success=1';
+						$thank_you_url = $thank_you_url.'?cc_success=1';
 					}
 				}
 			}
@@ -981,7 +982,7 @@ function postToURL($url, $data) {
 
 function getProductDefaultSettings() {
 	global $wpdb;
-	$sql_settings = "SELECT * FROM ".$wpdb->prefix."ign_prod_default_settings WHERE id = '1'";
+	$sql_settings = "SELECT * FROM ".$wpdb->prefix."ign_prod_default_settings";
 	$settings = $wpdb->get_row( $sql_settings );
 	
 	if (count($settings) > 0)
@@ -1088,8 +1089,6 @@ function getAllShortCodes() {
 				<div>&nbsp;</div>
 				<div><strong>For Displaying Project End:</strong><br>&#91;project_end product="<span data-product=&quot;&quot;></span>"&#93;</div>
 				<div>&nbsp;</div>
-				<div><strong>For Project Buy Button:</strong><br>&#91;project_widget_buy_button product="<span data-product=&quot;&quot;></span>"&#93;</div>
-				<div>&nbsp;</div>
 				<div><strong>For Displaying Project FAQ:</strong><br>&#91;project_faq product="<span data-product=&quot;&quot;></span>"&#93;</div>
 				<div>&nbsp;</div>
 				<div><strong>For Displaying Project Updates:</strong><br>&#91;project_updates product="<span data-product=&quot;&quot;></span>"&#93;</div>
@@ -1154,8 +1153,6 @@ function getShortCodesPostPage() {
 				<div><strong>For Displaying Project Days Left:</strong><br>&#91;project_daystogo product="<span data-product=&quot;&quot;></span>"&#93;</div>
 				<div>&nbsp;</div>
 				<div><strong>For Displaying Project End:</strong><br>&#91;project_end product="<span data-product=&quot;&quot;></span>"&#93;</div>
-				<div>&nbsp;</div>
-				<div><strong>For Project Buy Button:</strong><br>&#91;project_widget_buy_button product="<span data-product=&quot;&quot;></span>"&#93;</div>
 				<div>&nbsp;</div>
 				<div><strong>For Displaying Project FAQ:</strong><br>&#91;project_faq product="<span data-product=&quot;&quot;></span>"&#93;</div>
 				<div>&nbsp;</div>
@@ -1291,14 +1288,21 @@ function id_validate_license($key) {
     	echo 'Curl error: '.curl_error($ch);
     }
     curl_close($ch);
-    $data = json_decode($response);
-    $valid = $data->valid;
-    if (isset($data->download_id)) {
-    	$download = $data->download_id;
-    }
-    else {
+    if (curl_errno($ch)) {
+    	echo 'error:' . curl_error($c);
+    	$valid = false;
     	$download = null;
     }
+    else {
+	    $data = json_decode($response);
+	    $valid = $data->valid;
+	    if (isset($data->download_id)) {
+	    	$download = $data->download_id;
+	    }
+	    else {
+	    	$download = null;
+	    }
+	}
     return array('response' => $valid, 'download' => $download);
 }
 

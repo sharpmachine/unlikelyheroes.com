@@ -32,10 +32,10 @@ class ID_FES {
 				array(
 					'label' => __('Company Logo', 'ignitiondeck'),
 					'value' => (isset($vars['company_logo']) ? $vars['company_logo'] : ''),
-					'misc' => (isset($vars['company_logo']) ? 'data-url="'.$vars['company_logo'].'"' : ''),
+					'misc' => (isset($vars['company_logo']) ? 'data-url="'.$vars['company_logo'].'" accept="image/*"' : 'accept="image/*"'),
 					'name' => 'company_logo',
 					'type' => 'file',
-					'wclass' => 'form-row half'
+					'wclass' => 'form-row half',
 					),
 				array(
 					'label' => __('Company Location', 'ignitiondeck'),
@@ -131,19 +131,21 @@ class ID_FES {
 						'class' => 'required date',
 						'wclass' => 'form-row third'
 						);
-				$fund_type_form = array(
+				if (isset($vars['project_fund_type']) && $vars['project_fund_type'] == 'both') {
+				$this->form[] = array(
 						'label' => __('Project Fund Type', 'ignitiondeck'),
 						'name' => 'project_fund_type',
 						'type' => 'select',
 						'wclass' => 'form-row',
-						'options' => array(array('value' => 'capture', 'title' => 'Capture'), array('value' => 'preauth', 'title' => 'Pre-Order'))
+						'options' => array(array('value' => 'capture', 'title' => 'Immediately Deliver Funds'), array('value' => 'preauth', 'title' => '100% Threshold'))
 						);
+				}
 
-				foreach ($fund_type_form['options'] as $options) {
+				/*foreach ($fund_type_form['options'] as $options) {
 					$fund_type_form['misc'] = (isset($vars['project_fund_type']) && $vars['project_fund_type'] == $options['value'] ? 'selected="selected"' : null);
 				}
-				//print_r($fund_type_form);
-				//$this->form[] = $fund_type_form;
+
+				$this->form[] = $fund_type_form;*/
 					/*array(
 						'before' => '<div class="form-row half"><h3>Project Type</h3>',
 						'label' => __('Level Based', 'ignitiondeck'),
@@ -184,95 +186,95 @@ class ID_FES {
 						'after' => '</div>'
 						);
 			}
-				$this->form[] = array(
-					'label' => __('Project Video', 'ignitiondeck'),
-					'value' => (isset($vars['project_video']) ? $vars['project_video'] : ''),
-					'name' => 'project_video',
+			$this->form[] = array(
+				'label' => __('Project Video', 'ignitiondeck'),
+				'value' => (isset($vars['project_video']) ? $vars['project_video'] : ''),
+				'name' => 'project_video',
+				'type' => 'textarea',
+				'wclass' => 'form-row'
+			);
+			$this->form[] = array(
+					'before' => '<br/><h3>Project Details</h3>',
+					'label' => __('Project Short Description', 'ignitiondeck'),
+					'value' => (isset($vars['project_short_description']) ? $vars['project_short_description'] : ''),
+					'name' => 'project_short_description',
+					'type' => 'text',
+					'class' => 'required',
+					'wclass' => 'form-row'
+					);
+			$this->form[] = array(
+					'label' => __('Project Long Description', 'ignitiondeck'),
+					'value' => (isset($vars['project_long_description']) ? $vars['project_long_description'] : ''),
+					'name' => 'project_long_description',
 					'type' => 'textarea',
 					'wclass' => 'form-row'
-				);
-				$this->form[] = array(
-						'before' => '<br/><h3>Project Details</h3>',
-						'label' => __('Project Short Description', 'ignitiondeck'),
-						'value' => (isset($vars['project_short_description']) ? $vars['project_short_description'] : ''),
-						'name' => 'project_short_description',
-						'type' => 'text',
-						'class' => 'required',
-						'wclass' => 'form-row'
-						);
-				$this->form[] = array(
-						'label' => __('Project Long Description', 'ignitiondeck'),
-						'value' => (isset($vars['project_long_description']) ? $vars['project_long_description'] : ''),
-						'name' => 'project_long_description',
-						'type' => 'textarea',
-						'wclass' => 'form-row'
-						);
-				$this->form[] = 	array(
-						'label' => __('Project FAQ', 'ignitiondeck'),
-						'value' => (isset($vars['project_faq']) ? $vars['project_faq'] : ''),
-						'name' => 'project_faq',
-						'type' => 'textarea',
-						'wclass' => 'form-row'
-						);
-				$this->form[] = array(
-						'label' => __('Project Updates', 'ignitiondeck'),
-						'value' => (isset($vars['project_updates']) ? $vars['project_updates'] : ''),
-						'name' => 'project_updates',
-						'type' => 'textarea',
-						'wclass' => 'form-row'
-						);
-				$this->form[] = array(
-						'label' => __('Featured Image', 'ignitiondeck'),
-						'value' => (isset($vars['project_hero']) ? $vars['project_hero'] : ''),
-						'misc' => (isset($vars['project_hero']) ? 'data-url="'.$vars['project_hero'].'"' : ''),
-						'name' => 'project_hero',
-						'type' => 'file',
-						'wclass' => 'form-row half left'
-						);
-				$this->form[] = array(
-						'label' => __('Project Image 2', 'ignitiondeck'),
-						'value' => (isset($vars['project_image2']) ? $vars['project_image2'] : ''),
-						'misc' => (isset($vars['project_image2']) ? 'data-url="'.$vars['project_image2'].'"' : ''),
-						'name' => 'project_image2',
-						'type' => 'file',
-						'wclass' => 'form-row half'
-						);
-				$this->form[] = array(
-						'label' => __('Project Image 3', 'ignitiondeck'),
-						'value' => (isset($vars['project_image3']) ? $vars['project_image3'] : ''),
-						'misc' => (isset($vars['project_image3']) ? 'data-url="'.$vars['project_image3'].'"' : ''),
-						'name' => 'project_image3',
-						'type' => 'file',
-						'wclass' => 'form-row half left'
-						);
-				$this->form[] = array(
-						'label' => __('Project Image 4', 'ignitiondeck'),
-						'value' => (isset($vars['project_image4']) ? $vars['project_image4'] : ''),
-						'misc' => (isset($vars['project_image4']) ? 'data-url="'.$vars['project_image4'].'"' : ''),
-						'name' => 'project_image4',
-						'type' => 'file',
-						'wclass' => 'form-row half'
-						);
-			if (empty($vars['status']) || strtoupper($vars['status']) !== 'PUBLISH') {
-				$this->form[] = array(
-						'before' => '<h3>Project Reward Levels</h3>',
-						'label' => __('Number of Levels', 'ignitiondeck'),
-						'value' => (isset($vars['project_levels']) ? $vars['project_levels'] : '1'),
-						'name' => 'project_levels',
-						'type' => 'number',
-						'wclass' => 'form-row half',
-						'class' => 'required',
-						'misc' => 'min="1"'
-						);
-					if (empty($vars['project_levels']) || $vars['project_levels'] == 1) {
+					);
+			$this->form[] = 	array(
+					'label' => __('Project FAQ', 'ignitiondeck'),
+					'value' => (isset($vars['project_faq']) ? $vars['project_faq'] : ''),
+					'name' => 'project_faq',
+					'type' => 'textarea',
+					'wclass' => 'form-row'
+					);
+			$this->form[] = array(
+					'label' => __('Project Updates', 'ignitiondeck'),
+					'value' => (isset($vars['project_updates']) ? $vars['project_updates'] : ''),
+					'name' => 'project_updates',
+					'type' => 'textarea',
+					'wclass' => 'form-row'
+					);
+			$this->form[] = array(
+					'label' => __('Featured Image', 'ignitiondeck'),
+					'value' => (isset($vars['project_hero']) ? $vars['project_hero'] : ''),
+					'misc' => (isset($vars['project_hero']) ? 'data-url="'.$vars['project_hero'].'" accept="image/*"' : 'accept="image/*"'),
+					'name' => 'project_hero',
+					'type' => 'file',
+					'wclass' => 'form-row half left'
+					);
+			$this->form[] = array(
+					'label' => __('Project Image 2', 'ignitiondeck'),
+					'value' => (isset($vars['project_image2']) ? $vars['project_image2'] : ''),
+					'misc' => (isset($vars['project_image2']) ? 'data-url="'.$vars['project_image2'].'" accept="image/*"' : 'accept="image/*"'),
+					'name' => 'project_image2',
+					'type' => 'file',
+					'wclass' => 'form-row half'
+					);
+			$this->form[] = array(
+					'label' => __('Project Image 3', 'ignitiondeck'),
+					'value' => (isset($vars['project_image3']) ? $vars['project_image3'] : ''),
+					'misc' => (isset($vars['project_image3']) ? 'data-url="'.$vars['project_image3'].'" accept="image/*"' : 'accept="image/*"'),
+					'name' => 'project_image3',
+					'type' => 'file',
+					'wclass' => 'form-row half left'
+					);
+			$this->form[] = array(
+					'label' => __('Project Image 4', 'ignitiondeck'),
+					'value' => (isset($vars['project_image4']) ? $vars['project_image4'] : ''),
+					'misc' => (isset($vars['project_image4']) ? 'data-url="'.$vars['project_image4'].'" accept="image/*"' : 'accept="image/*"'),
+					'name' => 'project_image4',
+					'type' => 'file',
+					'wclass' => 'form-row half'
+					);
+			$this->form[] = array(
+					'before' => '<h3>Project Reward Levels</h3>',
+					'label' => __('Number of Levels', 'ignitiondeck'),
+					'value' => (isset($vars['project_levels']) ? $vars['project_levels'] : '1'),
+					'name' => 'project_levels',
+					'type' => 'number',
+					'wclass' => 'form-row half',
+					'class' => 'required',
+					'misc' => (isset($vars['project_levels']) && isset($vars['status']) && strtoupper($vars['status']) == 'PUBLISH' ? 'min="'.$vars['project_levels'].'"' : 'min="1"')
+					);
+				if (empty($vars['project_levels']) || $vars['project_levels'] == 1) {
+					if (!isset($vars['status']) || strtoupper($vars['status']) !== 'PUBLISH') {
 						$this->form[] = array(
-							'before' => '<div class="form-level">',
-							'label' => __('Level Title', 'ignitiondeck'),
-							'value' => (isset($vars['levels'][0]['title']) ? $vars['levels'][0]['title'] : ''),
-							'name' => 'project_level_title[]',
-							'type' => 'text',
-							'wclass' => 'form-row'
-							);
+						'before' => '<div class="form-level">',
+						'label' => __('Level Title', 'ignitiondeck'),
+						'value' => (isset($vars['levels'][0]['title']) ? $vars['levels'][0]['title'] : ''),
+						'name' => 'project_level_title[]',
+						'type' => 'text',
+						'wclass' => 'form-row'
+						);
 						$this->form[] =array(
 							'label' => __('Level Price', 'ignitiondeck'),
 							'value' => (isset($vars['levels'][0]['price']) ? $vars['levels'][0]['price'] : ''),
@@ -280,53 +282,104 @@ class ID_FES {
 							'type' => 'text',
 							'wclass' => 'form-row half left'
 							);
-						$this->form[] =array(
+						$this->form[] = array(
 							'label' => __('Level Limit', 'ignitiondeck'),
 							'value' => (isset($vars['levels'][0]['limit']) ? $vars['levels'][0]['limit'] : ''),
 							'name' => 'project_level_limit[]',
 							'type' => 'number',
 							'wclass' => 'form-row half'
 							);
-						$this->form[] =array(
-							'label' => __('Level Description', 'ignitiondeck'),
-							'value' => (isset($vars['levels'][0]['short']) ? $vars['levels'][0]['short'] : ''),
-							'name' => 'level_description[]',
-							'type' => 'text',
-							'wclass' => 'form-row'
-							);
-						$this->form[] =array(
-							'label' => __('Level Long Description', 'ignitiondeck'),
-							'value' => (isset($vars['levels'][0]['long']) ? $vars['levels'][0]['long'] : ''),
-							'name' => 'level_long_description[]',
-							'type' => 'textarea',
-							'wclass' => 'form-row',
-							'after' => '</div>'
-							);
 					}
-					else if (isset($vars['project_levels']) && $vars['project_levels'] > 1) {
-						for ($i = 0; $i <= $vars['project_levels'] - 1; $i++) {
+					else {
+						$this->form[] = array(
+								'before' => '<div class="form-level">',
+								'label' => __('Level Title', 'ignitiondeck'),
+								'value' => (isset($vars['levels'][0]['title']) ? $vars['levels'][0]['title'] : ''),
+								'name' => 'project_level_title[]',
+								'type' => 'hidden',
+								'wclass' => 'form-row'
+								);
 							$this->form[] = array(
-							'before' => '<div class="form-level">',
-							'label' => __('Level Title', 'ignitiondeck'),
-							'value' => (isset($vars['levels'][$i]['title']) ? $vars['levels'][$i]['title'] : ''),
-							'name' => 'project_level_title[]',
-							'type' => 'text',
-							'wclass' => 'form-row'
-							);
-						$this->form[] = array(
-							'label' => __('Level Price', 'ignitiondeck'),
-							'value' => (isset($vars['levels'][$i]['price']) ? $vars['levels'][$i]['price'] : ''),
-							'name' => 'project_level_price[]',
-							'type' => 'text',
-							'wclass' => 'form-row half left'
-							);
-						$this->form[] = array(
-							'label' => __('Level Limit', 'ignitiondeck'),
-							'value' => (isset($vars['levels'][$i]['limit']) ? $vars['levels'][$i]['limit'] : ''),
-							'name' => 'project_level_limit[]',
-							'type' => 'number',
-							'wclass' => 'form-row half'
-							);
+								'label' => __('Level Price', 'ignitiondeck'),
+								'value' => (isset($vars['levels'][0]['price']) ? $vars['levels'][0]['price'] : ''),
+								'name' => 'project_level_price[]',
+								'type' => 'hidden',
+								'wclass' => 'form-row half left'
+								);
+							$this->form[] = array(
+								'label' => __('Level Limit', 'ignitiondeck'),
+								'value' => (isset($vars['levels'][0]['limit']) ? $vars['levels'][0]['limit'] : ''),
+								'name' => 'project_level_limit[]',
+								'type' => 'hidden',
+								'wclass' => 'form-row half'
+								);
+					}
+					$this->form[] =array(
+						'label' => __('Level Description', 'ignitiondeck'),
+						'value' => (isset($vars['levels'][0]['short']) ? $vars['levels'][0]['short'] : ''),
+						'name' => 'level_description[]',
+						'type' => 'text',
+						'wclass' => 'form-row'
+						);
+					$this->form[] =array(
+						'label' => __('Level Long Description', 'ignitiondeck'),
+						'value' => (isset($vars['levels'][0]['long']) ? $vars['levels'][0]['long'] : ''),
+						'name' => 'level_long_description[]',
+						'type' => 'textarea',
+						'wclass' => 'form-row',
+						'after' => '</div>'
+						);
+				}
+				else if (isset($vars['project_levels']) && $vars['project_levels'] > 1) {
+					for ($i = 0; $i <= $vars['project_levels'] - 1; $i++) {
+						if (!isset($vars['status']) || strtoupper($vars['status']) !== 'PUBLISH') {
+							$this->form[] = array(
+								'before' => '<div class="form-level">',
+								'label' => __('Level Title', 'ignitiondeck'),
+								'value' => (isset($vars['levels'][$i]['title']) ? $vars['levels'][$i]['title'] : ''),
+								'name' => 'project_level_title[]',
+								'type' => 'text',
+								'wclass' => 'form-row'
+								);
+							$this->form[] = array(
+								'label' => __('Level Price', 'ignitiondeck'),
+								'value' => (isset($vars['levels'][$i]['price']) ? $vars['levels'][$i]['price'] : ''),
+								'name' => 'project_level_price[]',
+								'type' => 'text',
+								'wclass' => 'form-row half left'
+								);
+							$this->form[] = array(
+								'label' => __('Level Limit', 'ignitiondeck'),
+								'value' => (isset($vars['levels'][$i]['limit']) ? $vars['levels'][$i]['limit'] : ''),
+								'name' => 'project_level_limit[]',
+								'type' => 'number',
+								'wclass' => 'form-row half'
+								);
+						}
+						else {
+							$this->form[] = array(
+								'before' => '<div class="form-level">',
+								'label' => __('Level Title', 'ignitiondeck'),
+								'value' => (isset($vars['levels'][$i]['title']) ? $vars['levels'][$i]['title'] : ''),
+								'name' => 'project_level_title[]',
+								'type' => 'hidden',
+								'wclass' => 'form-row'
+								);
+							$this->form[] = array(
+								'label' => __('Level Price', 'ignitiondeck'),
+								'value' => (isset($vars['levels'][$i]['price']) ? $vars['levels'][$i]['price'] : ''),
+								'name' => 'project_level_price[]',
+								'type' => 'hidden',
+								'wclass' => 'form-row half left'
+								);
+							$this->form[] = array(
+								'label' => __('Level Limit', 'ignitiondeck'),
+								'value' => (isset($vars['levels'][$i]['limit']) ? $vars['levels'][$i]['limit'] : ''),
+								'name' => 'project_level_limit[]',
+								'type' => 'hidden',
+								'wclass' => 'form-row half'
+								);
+						}
 						$this->form[] = array(
 							'label' => __('Level Description', 'ignitiondeck'),
 							'value' => (isset($vars['levels'][$i]['short']) ? $vars['levels'][$i]['short'] : ''),
@@ -342,10 +395,44 @@ class ID_FES {
 							'wclass' => 'form-row',
 							'after' => '</div>'
 							);
-						}
 					}
-			}
-			$this->form[] = array(
+				}
+				$this->form[] = array(
+					'before' => '<div class="form-level-clone">',
+					'label' => __('Level Title', 'ignitiondeck'),
+					'name' => 'project_level_title[]',
+					'type' => 'text',
+					'wclass' => 'form-row',
+					'misc' => 'disabled="disabled"'
+					);
+				$this->form[] = array(
+					'label' => __('Level Price', 'ignitiondeck'),
+					'name' => 'project_level_price[]',
+					'type' => 'text',
+					'wclass' => 'form-row half left',
+					'misc' => 'disabled="disabled"'
+					);
+				$this->form[] = array(
+					'label' => __('Level Limit', 'ignitiondeck'),
+					'name' => 'project_level_limit[]',
+					'type' => 'number',
+					'wclass' => 'form-row half',
+					'misc' => 'disabled="disabled"'
+					);
+				$this->form[] = array(
+					'label' => __('Level Description', 'ignitiondeck'),
+					'name' => 'level_description[]',
+					'type' => 'text',
+					'wclass' => 'form-row'
+					);
+				$this->form[] = array(
+					'label' => __('Level Long Description', 'ignitiondeck'),
+					'name' => 'level_long_description[]',
+					'type' => 'textarea',
+					'wclass' => 'form-row',
+					'after' => '</div>'
+					);
+				$this->form[] = array(
 					'value' => __('Submit', 'ignitiondeck'),
 					'name' => 'project_fesubmit',
 					'type' => 'submit'

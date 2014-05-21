@@ -81,7 +81,7 @@ class Deck extends ID_Project {
 		$the_deck->p_count = $p_count;
 		$the_deck->rating_per = $rating_per;
 		$the_deck->days_left = $days_left;
-		$the_deck->month = $end_month;
+		$the_deck->month = apply_filters('id_end_month', $end_month);
 		$the_deck->day = $end_day;
 		$the_deck->year = $end_year;
 		$the_deck->settings = $settings;
@@ -142,7 +142,7 @@ class Deck extends ID_Project {
 		$the_deck->p_count = $p_count;
 		$the_deck->rating_per = $rating_per;
 		$the_deck->days_left = $days_left;
-		$the_deck->month = $end_month;
+		$the_deck->month = apply_filters('id_end_month', $end_month);
 		$the_deck->day = $end_day;
 		$the_deck->year = $end_year;
 		$the_deck->settings = $settings;
@@ -162,6 +162,12 @@ class Deck extends ID_Project {
 	public static function update_deck($attrs, $deck_id) {
 		global $wpdb;
 		$sql = $wpdb->prepare('UPDATE '.$wpdb->prefix.'ign_deck_settings SET attributes = %s WHERE id = %d', serialize($attrs), $deck_id);
+		$res = $wpdb->query($sql);
+	}
+
+	public static function delete_deck($deck_id) {
+		global $wpdb;
+		$sql = $wpdb->prepare('DELETE FROM '.$wpdb->prefix.'ign_deck_settings WHERE id = %d', $deck_id);
 		$res = $wpdb->query($sql);
 	}
 

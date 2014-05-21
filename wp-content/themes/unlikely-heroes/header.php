@@ -26,7 +26,7 @@
 		echo ' | ' . sprintf( __( 'Page %s', 'smm' ), max( $paged, $page ) );
 	?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="">
+	
 	<meta name="author" content="Sharp Machine">
 	
 	<link rel="profile" href="http://gmpg.org/xfn/11" />

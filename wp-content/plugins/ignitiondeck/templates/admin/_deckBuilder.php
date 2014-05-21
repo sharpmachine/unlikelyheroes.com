@@ -67,6 +67,7 @@
 							</div>
 							<div class="submit">
 								<input type="submit" name="deck_submit" id="submit" class="button button-primary"/>
+								<input type="submit" name="deck_delete" id="deck_delete" class="button" value="Delete Deck" style="display: none;"/>
 							</div>
 						</form>
 					</div>

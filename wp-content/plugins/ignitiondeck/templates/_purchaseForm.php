@@ -42,7 +42,7 @@
 				}
 				?>
 				<?php if(isset($purchase_form->form_settings['first_name']['status'])):?>
-				<li class="form-row third left">
+				<li class="form-row third left idinput">
 					<label class="idfield_label" for="first_name"><?php echo $tr_First_Name;  ?>:
 						<?php if(isset($purchase_form->form_settings['first_name']['mandatory'])): ?>
 						<span class="required-mark"><?php echo $tr_Required;  ?></span>
@@ -51,7 +51,7 @@
 				</li>
 				<?php endif; ?>
 				<?php if(isset($purchase_form->form_settings['last_name']['status'])):?>
-				<li class="form-row twothird">
+				<li class="form-row twothird idinput">
 					<label class="idfield_label" for="last_name"><?php echo $tr_Last_Name; ?>:
 						<?php if(isset($purchase_form->form_settings['last_name']['mandatory'])): ?>
 						<span class="required-mark"><?php echo $tr_Required;  ?></span>
@@ -60,7 +60,7 @@
 				</li>
 				<?php endif; ?>
 				<?php if(isset($purchase_form->form_settings['email']['status'])):?>
-				<li class="form-row">
+				<li class="form-row idinput">
 					<label class="idfield_label" for="email"><?php echo $tr_Email; ?>:
 						<?php if(isset($purchase_form->form_settings['email']['mandatory'])): ?>
 						<span class="required-mark"><?php echo $tr_Required;  ?></span>
@@ -69,7 +69,7 @@
 				</li>
 				<?php endif; ?>
 				<?php if(isset($purchase_form->form_settings['address']['status'])):?>
-				<li class="form-row">
+				<li class="form-row idinput">
 					<label class="idfield_label" for="address"><?php echo $tr_Address; ?>:
 						<?php if(isset($purchase_form->form_settings['address']['mandatory'])): ?>
 						<span class="required-mark"><?php echo $tr_Required;  ?></span>
@@ -78,7 +78,7 @@
 				</li>
 				<?php endif; ?>
 				<?php if(isset($purchase_form->form_settings['city']['status'])):?>
-				<li class="form-row half left">
+				<li class="form-row half left idinput">
 					<label class="idfield_label" for="city"><?php echo $tr_City; ?>:
 						<?php if(isset($purchase_form->form_settings['city']['mandatory'])): ?>
 						<span class="required-mark"><?php echo $tr_Required;  ?></span>
@@ -87,7 +87,7 @@
 				</li>
 				<?php endif; ?>
 				<?php if(isset($purchase_form->form_settings['state']['status'])):?>
-				<li class="form-row half">
+				<li class="form-row half idinput">
 					<label class="idfield_label" for="state"><?php echo $tr_State; ?>:
 						<?php if(isset($purchase_form->form_settings['state']['mandatory'])): ?>
 						<span class="required-mark"><?php echo $tr_Required;  ?></span>
@@ -96,7 +96,7 @@
 				</li>
 				<?php endif; ?>
 				<?php if(isset($purchase_form->form_settings['zip']['status'])):?>
-				<li class="form-row half left">
+				<li class="form-row half left idinput">
 					<label class="idfield_label" for="zip"><?php echo $tr_Zip; ?>:
 						<?php if(isset($purchase_form->form_settings['zip']['mandatory'])): ?>
 						<span class="required-mark"><?php echo $tr_Required;  ?></span>
@@ -105,7 +105,7 @@
 				</li>
 				<?php endif; ?>
 				<?php if(isset($purchase_form->form_settings['country']['status'])):?>
-				<li class="form-row half">
+				<li class="form-row half idinput">
 					<label class="idfield_label" for="country"><?php echo $tr_Country; ?>:
 						<?php if(isset($purchase_form->form_settings['country']['mandatory'])): ?>
 						<span class="required-mark"><?php echo $tr_Required;  ?></span>
@@ -119,7 +119,7 @@
 					<?php echo apply_filters('id_pay_choices', $pay_choices, $project_id); ?>
 				</div>
 				<?php echo apply_filters('id_purchaseform_extrafields', $output); ?>
-				<li class="form-row">
+				<li class="form-row idinput">
 					<?php 
 					if (isset($level) && $level > 0) {
 						if ($level == 1) {
@@ -158,7 +158,7 @@
 						<input type="hidden" name="level_select" id="level_select" value="1"/>
 					<?php }	?>
 				</li>
-				<li class="form-row">
+				<li class="form-row idinput">
 					<div class="id-checkout-level-desc" desc="$">
 						<strong>
 							<?php echo (isset($purchase_form->project_type) && $purchase_form->project_type !== "pwyw" ? $tr_Level.': ' : ''); ?>
@@ -181,8 +181,8 @@
 						<input type="hidden" name="quantity" />
 						<input type="hidden" name="project_type" id="project_type" value="<?php echo (isset($purchase_form->project_type) ? $purchase_form->project_type : 'level-based'); ?>"/>
 						<input type="hidden" name="level" value="<?php echo (isset($level) && $level >= 1 ? $level : ''); ?>"/>
-				<li>
-					<div class="ign-checkout-price">
+				<li class="input">
+					<div class="ign-checkout-price idinput">
 						<label class="idfield_label" for="price"><?php echo $tr_Total_Contribution; ?> </label>
 						<div class="idfield">
 							<span class="id-buy-form-currency"><?php echo (isset($purchase_form->cCode) ? $purchase_form->cCode : ''); ?></span>
@@ -194,6 +194,7 @@
 								else {
 									echo (isset($purchase_form->the_project) ? $purchase_form->the_project->product_price : '');
 								} ?>
+							</span>
 						</div>
 					</div>
 					<div class="ign-checkout-button"><input class="main-btn" type="submit" value="<?php echo $tr_Make_Payment; ?>" name="<?php echo $purchase_form->submit_btn_name ?>" id="button_pay_purchase"/>

@@ -1,8 +1,9 @@
 <div class="ignitiondeck id-widget id-mini" data-projectid="<?php echo (isset($project_id)? $project_id : ''); ?>">
 	<div class="id-product-infobox">
 		<div class="product-wrapper">
+			<?php echo do_action('id_widget_before', $project_id); ?>
+			<?php echo do_action('id_mini_widget_before', $project_id); ?>
 			<div class="pledge">
-				<?php echo do_action('id_mini_widget_before', $project_id); ?>
 				<?php $mini_image = get_post_meta($mini_deck->post_id, "ign_product_image1", true); ?>
 				<?php  if (!$custom || ($custom && isset($attrs['project_title']))) { ?>
 					<h2 class="id-product-title"><a href="<?php echo getProjectURLfromType($project_id); ?>"><?php echo stripslashes($mini_deck->project->product_name); ?></a></h2>
@@ -69,6 +70,7 @@
 			<?php
 		}
 		?>
+		<?php echo do_action('id_widget_after', $project_id); ?>
 		<?php echo do_action('id_mini_widget_after', $project_id); ?>
 	</div>
 	<!-- end product-infobox -->

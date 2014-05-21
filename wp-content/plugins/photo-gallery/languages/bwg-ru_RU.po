@@ -1,0 +1,220 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: bwg\n"
+"POT-Creation-Date: 2014-01-17 18:29+0300\n"
+"PO-Revision-Date: 2014-01-17 18:29+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.3\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-SearchPath-0: C:\\wamp\\www\\wordpress\\wp-content\\plugins\\best-"
+"wordpress-gallery\n"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/photo-gallery.php:2395
+#, fuzzy
+msgid "field is required."
+msgstr "поле обязательное для заполнения."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/photo-gallery.php:2396
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:806
+msgid "This is not a valid email address."
+msgstr "Это не правильный адрес электронной почты."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:348
+msgid " item(s)"
+msgstr "элемент(ы)"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:353
+msgid "First"
+msgstr "Первый"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:354
+msgid "Previous"
+msgstr "Предыдущий"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:355
+msgid "Next"
+msgstr "Следующий"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:356
+msgid "Last"
+msgstr "Последний"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:382
+msgid "Go to the first page"
+msgstr "К первой странице"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:383
+msgid "Go to the previous page"
+msgstr "Перейти на предыдущую страницу"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:385
+msgid "of"
+msgstr "из"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:389
+msgid "Go to the next page"
+msgstr "Перейти на следующую страницу"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:390
+msgid "Go to the last page"
+msgstr "Перейти к последней странице"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_compact_preview.php:47
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:33
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:32
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewImage_browser.php:32
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewSlideshow.php:121
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewThumbnails.php:67
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewThumbnails_masonry.php:33
+msgid "There is no theme selected or the theme was deleted."
+msgstr "Тема не выбрана или была удалена."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_compact_preview.php:52
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:40
+msgid "There is no album selected or the album was deleted."
+msgstr "Альбом не выбран или был удален."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_compact_preview.php:340
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:361
+msgid "Back"
+msgstr "Назад"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_compact_preview.php:350
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:371
+msgid "Album is empty."
+msgstr "Альбом пуст."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_compact_preview.php:429
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:470
+msgid "Gallery is empty."
+msgstr "Галерея пуста."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:446
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:546
+msgid "More"
+msgstr "Более"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:541
+msgid "Hide"
+msgstr "Скрыть"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:37
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewImage_browser.php:37
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewSlideshow.php:126
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewThumbnails.php:78
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewThumbnails_masonry.php:38
+msgid "There is no gallery selected or the gallery was deleted."
+msgstr "Галерея не выбрана или была удалена."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:42
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewImage_browser.php:42
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewSlideshow.php:131
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewThumbnails.php:83
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewThumbnails_masonry.php:43
+msgid "There are no images in this gallery."
+msgstr "В этой галерее нет изображений "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:415
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:629
+msgid "Show comments"
+msgstr "Показать комментарии"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:421
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:422
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:634
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:635
+msgid "Share on Facebook"
+msgstr "Поделиться на Facebook"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:428
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:429
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:641
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:642
+msgid "Share on Twitter"
+msgstr "Поделиться на Twitter"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:435
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:436
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:648
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:649
+msgid "Share on Google+"
+msgstr "Поделиться в Google+"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:622
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1892
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewSlideshow.php:1469
+msgid "Play"
+msgstr "Играть"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:624
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1743
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1824
+msgid "Maximize"
+msgstr "Увеличить "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:625
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1826
+msgid "Fullscreen"
+msgstr "Полноэкранный"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:799
+msgid "Error. Incorrect Verification Code."
+msgstr "Ошибка. Неправильный код верификации."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:814
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1578
+msgid "Hide Comments"
+msgstr "Скрыть Комментарии"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:818
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:847
+msgid "Name"
+msgstr "Имя"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:824
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:847
+msgid "Email"
+msgstr "Email"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:831
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:847
+msgid "Comment"
+msgstr "Комментарий"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:836
+msgid "Verification Code"
+msgstr "Код подтверждения"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:853
+msgid "Submit"
+msgstr "Оставить"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:875
+msgid "Delete Comment"
+msgstr "Удалить комментарий"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1544
+msgid "Show Comments"
+msgstr "Показать комментарии"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1772
+msgid "Restore"
+msgstr "Восстановить"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1868
+msgid "Exit Fullscreen"
+msgstr "Отключить полный экран"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1886
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewSlideshow.php:1460
+#: C:\wamp\www\wordpress\wp-content\plugins\photo-gallery/frontend/views/BWGViewSlideshow.php:1494
+msgid "Pause"
+msgstr "Пауза"

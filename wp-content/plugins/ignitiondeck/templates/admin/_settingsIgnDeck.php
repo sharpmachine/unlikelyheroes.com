@@ -15,12 +15,14 @@
 								</li>
 								<li>
 									<button class="button button-primary"><?php _e('Validate', 'ignitiondeck'); ?></button>
-									<span class="license_validation">
-										<?php echo ($is_pro || $is_basic ? '<i class="fa fa-check"></i>'.__(' License Valid for', 'ignitiondeck').$type_msg : 'You are using IgnitionDeck Basic.<br/><a href="http://ignitiondeck.com/id/ignitiondeck-pricing" target="_blank">Upgrade now</a> to receive support, commerce, and free updates for a year.'); ?>
-									</span>
 								</li>
 							</ul>
 						</form>
+						<div class="license_validation">
+							<p>
+								<?php echo ($is_pro || $is_basic ? '<i class="fa fa-check"></i>'.__(' License Valid for', 'ignitiondeck').$type_msg : 'You are using IgnitionDeck Basic.<br/><a href="http://ignitiondeck.com/id/ignitiondeck-pricing" target="_blank">Upgrade now</a> to receive support, commerce, and free updates for a year.'); ?>
+							</p>
+						</div>
 					</div>
 				</div>
 				<?php } ?>

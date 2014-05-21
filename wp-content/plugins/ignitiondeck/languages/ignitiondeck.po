@@ -1,19 +1,211 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: IgnitionDeck 1.22\n"
-"POT-Creation-Date: 2013-12-01 16:52-0500\n"
-"PO-Revision-Date: 2013-12-01 16:52-0500\n"
+"POT-Creation-Date: 2014-03-14 16:17-0500\n"
+"PO-Revision-Date: 2014-03-14 16:17-0500\n"
 "Last-Translator: Nathan Hangen <nhangen@gmail.com>\n"
 "Language-Team: Virtuous Giant <hello@virtuousgiant.com>\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.6.4\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ../.\n"
+
+#: .././classes/class-id_fes.php:25
+msgid "Company Name"
+msgstr ""
+
+#: .././classes/class-id_fes.php:33
+msgid "Company Logo"
+msgstr ""
+
+#: .././classes/class-id_fes.php:41
+msgid "Company Location"
+msgstr ""
+
+#: .././classes/class-id_fes.php:49
+msgid "Company URL"
+msgstr ""
+
+#: .././classes/class-id_fes.php:57
+msgid "Company Facebook"
+msgstr ""
+
+#: .././classes/class-id_fes.php:65
+msgid "Company Twitter"
+msgstr ""
+
+#: .././classes/class-id_fes.php:75 .././languages/text_variables.php:337
+msgid "Project Title"
+msgstr ""
+
+#: .././classes/class-id_fes.php:84
+msgid "Goal Amount"
+msgstr ""
+
+#: .././classes/class-id_fes.php:111
+msgid "Start Date"
+msgstr ""
+
+#: .././classes/class-id_fes.php:119 .././languages/text_variables.php:14
+msgid "End Date"
+msgstr ""
+
+#: .././classes/class-id_fes.php:127
+msgid "Anticipated Ship Date"
+msgstr ""
+
+#: .././classes/class-id_fes.php:136
+msgid "Project Fund Type"
+msgstr ""
+
+#: .././classes/class-id_fes.php:170
+msgid "Close on End"
+msgstr ""
+
+#: .././classes/class-id_fes.php:179
+msgid "Leave Open"
+msgstr ""
+
+#: .././classes/class-id_fes.php:190
+msgid "Project Video"
+msgstr ""
+
+#: .././classes/class-id_fes.php:198
+msgid "Project Short Description"
+msgstr ""
+
+#: .././classes/class-id_fes.php:206
+msgid "Project Long Description"
+msgstr ""
+
+#: .././classes/class-id_fes.php:213
+msgid "Project FAQ"
+msgstr ""
+
+#: .././classes/class-id_fes.php:220 .././languages/text_variables.php:233
+msgid "Project Updates"
+msgstr ""
+
+#: .././classes/class-id_fes.php:227
+msgid "Featured Image"
+msgstr ""
+
+#: .././classes/class-id_fes.php:235
+msgid "Project Image 2"
+msgstr ""
+
+#: .././classes/class-id_fes.php:243
+msgid "Project Image 3"
+msgstr ""
+
+#: .././classes/class-id_fes.php:251
+msgid "Project Image 4"
+msgstr ""
+
+#: .././classes/class-id_fes.php:260
+msgid "Number of Levels"
+msgstr ""
+
+#: .././classes/class-id_fes.php:272 .././classes/class-id_fes.php:296
+#: .././classes/class-id_fes.php:338 .././classes/class-id_fes.php:362
+#: .././classes/class-id_fes.php:402 .././languages/text_variables.php:152
+msgid "Level Title"
+msgstr ""
+
+#: .././classes/class-id_fes.php:279 .././classes/class-id_fes.php:303
+#: .././classes/class-id_fes.php:345 .././classes/class-id_fes.php:369
+#: .././classes/class-id_fes.php:409 .././languages/text_variables.php:141
+msgid "Level Price"
+msgstr ""
+
+#: .././classes/class-id_fes.php:286 .././classes/class-id_fes.php:310
+#: .././classes/class-id_fes.php:352 .././classes/class-id_fes.php:376
+#: .././classes/class-id_fes.php:416 .././languages/text_variables.php:153
+msgid "Level Limit"
+msgstr ""
+
+#: .././classes/class-id_fes.php:318 .././classes/class-id_fes.php:384
+#: .././classes/class-id_fes.php:423 .././languages/text_variables.php:142
+msgid "Level Description"
+msgstr ""
+
+#: .././classes/class-id_fes.php:325 .././classes/class-id_fes.php:391
+#: .././classes/class-id_fes.php:429
+msgid "Level Long Description"
+msgstr ""
+
+#: .././classes/class-id_fes.php:436
+msgid "Submit"
+msgstr ""
+
+#: .././ignitiondeck-admin.php:46
+msgid "Project Categories"
+msgstr ""
+
+#: .././ignitiondeck-admin.php:47
+msgid "Project Category"
+msgstr ""
+
+#: .././ignitiondeck-admin.php:114
+msgid "Author"
+msgstr ""
+
+#: .././ignitiondeck-admin.php:134 .././languages/text_variables.php:350
+msgid "None"
+msgstr ""
+
+#: .././ignitiondeck-admin.php:352
+msgid " IgnitionDeck Enterprise"
+msgstr ""
+
+#: .././ignitiondeck-admin.php:355
+msgid " IgnitionDeck"
+msgstr ""
+
+#: .././ignitiondeck-admin.php:1487
+msgid "Support"
+msgstr ""
+
+#: .././ignitiondeck-admin.php:1488
+msgid "Documentation"
+msgstr ""
+
+#: .././ignitiondeck-enterprise.php:623
+msgid "Your project has been submitted and is awaiting review."
+msgstr ""
+
+#: .././ignitiondeck-enterprise.php:624
+msgid ""
+"You can visit this page at any time in order to continue editing your "
+"project."
+msgstr ""
+
+#: .././ignitiondeck-enterprise.php:627
+msgid "Your project is live."
+msgstr ""
+
+#: .././ignitiondeck-enterprise.php:628
+msgid ""
+"You may continue to add levels or edit content available to you on this "
+"screen."
+msgstr ""
+
+#: .././ignitiondeck-enterprise.php:788
+msgid "My Profile"
+msgstr ""
+
+#: .././ignitiondeck-enterprise.php:862
+msgid "Projects Supported"
+msgstr ""
+
+#: .././ignitiondeck-enterprise.php:863
+msgid "Joined"
+msgstr ""
 
 #: .././ignitiondeck-update.php:87
 msgid ""
@@ -25,96 +217,8 @@ msgstr ""
 msgid "An unknown error occurred"
 msgstr ""
 
-#: .././classes/class-id_fes.php:25 .././languages/text_variables.php:337
-msgid "Project Title"
-msgstr ""
-
-#: .././classes/class-id_fes.php:33
-msgid "Goal Amount"
-msgstr ""
-
-#: .././classes/class-id_fes.php:41
-msgid "Start Date"
-msgstr ""
-
-#: .././classes/class-id_fes.php:49 .././languages/text_variables.php:14
-msgid "End Date"
-msgstr ""
-
-#: .././classes/class-id_fes.php:56
-msgid "Anticipated Ship Date"
-msgstr ""
-
-#: .././classes/class-id_fes.php:63
-msgid "Project Fund Type"
-msgstr ""
-
-#: .././classes/class-id_fes.php:91
-msgid "Close on End"
-msgstr ""
-
-#: .././classes/class-id_fes.php:100
-msgid "Leave Open"
-msgstr ""
-
-#: .././classes/class-id_fes.php:111
-msgid "Project Short Description"
-msgstr ""
-
-#: .././classes/class-id_fes.php:119
-msgid "Project Long Description"
-msgstr ""
-
-#: .././classes/class-id_fes.php:126
-msgid "Project Video"
-msgstr ""
-
-#: .././classes/class-id_fes.php:133
-msgid "Featured Image"
-msgstr ""
-
-#: .././classes/class-id_fes.php:141
-msgid "Project Image 2"
-msgstr ""
-
-#: .././classes/class-id_fes.php:149
-msgid "Project Image 3"
-msgstr ""
-
-#: .././classes/class-id_fes.php:157
-msgid "Project Image 4"
-msgstr ""
-
-#: .././classes/class-id_fes.php:166
-msgid "Number of Levels"
-msgstr ""
-
-#: .././classes/class-id_fes.php:178 .././classes/class-id_fes.php:218
-#: .././languages/text_variables.php:152
-msgid "Level Title"
-msgstr ""
-
-#: .././classes/class-id_fes.php:185 .././classes/class-id_fes.php:225
-#: .././languages/text_variables.php:141
-msgid "Level Price"
-msgstr ""
-
-#: .././classes/class-id_fes.php:192 .././classes/class-id_fes.php:232
-#: .././languages/text_variables.php:153
-msgid "Level Limit"
-msgstr ""
-
-#: .././classes/class-id_fes.php:199 .././classes/class-id_fes.php:239
-#: .././languages/text_variables.php:142
-msgid "Level Description"
-msgstr ""
-
-#: .././classes/class-id_fes.php:206 .././classes/class-id_fes.php:246
-msgid "Level Long Description"
-msgstr ""
-
-#: .././classes/class-id_fes.php:256
-msgid "Submit"
+#: .././ignitiondeck.php:1693 .././ignitiondeck.php:1757
+msgid "Default"
 msgstr ""
 
 #: .././languages/text_variables.php:2 .././languages/text_variables.php:155
@@ -326,7 +430,7 @@ msgid "About the Project"
 msgstr ""
 
 #: .././languages/text_variables.php:57
-msgid "The Project FAQ's"
+msgid "The Project FAQs"
 msgstr ""
 
 #: .././languages/text_variables.php:58
@@ -407,6 +511,7 @@ msgid "Clear"
 msgstr ""
 
 #: .././languages/text_variables.php:77
+#: .././templates/admin/_productSettings.php:51
 msgid "Clear All"
 msgstr ""
 
@@ -483,6 +588,7 @@ msgid "Total Sale"
 msgstr ""
 
 #: .././languages/text_variables.php:96
+#: .././templates/_projectCreatorProfile.php:12
 msgid "Facebook"
 msgstr ""
 
@@ -507,6 +613,7 @@ msgid "No"
 msgstr ""
 
 #: .././languages/text_variables.php:102
+#: .././templates/_projectCreatorProfile.php:9
 msgid "Twitter"
 msgstr ""
 
@@ -961,7 +1068,7 @@ msgid "Main Project Image"
 msgstr ""
 
 #: .././languages/text_variables.php:224
-msgid "Image 1 - Shortcode: [product_image product=\"1\" image=\"1\"]"
+msgid "Image 1 - Shortcode: [project_image product=\"1\" image=\"1\"]"
 msgstr ""
 
 #: .././languages/text_variables.php:225
@@ -969,7 +1076,7 @@ msgid "Image 2"
 msgstr ""
 
 #: .././languages/text_variables.php:226
-msgid "Image 2 - Shortcode: [product_image product=\"1\" image=\"2\"]"
+msgid "Image 2 - Shortcode: [project_image product=\"1\" image=\"2\"]"
 msgstr ""
 
 #: .././languages/text_variables.php:227
@@ -977,7 +1084,7 @@ msgid "Image 3"
 msgstr ""
 
 #: .././languages/text_variables.php:228
-msgid "Image 3 - Shortcode: [product_image product=\"1\" image=\"3\"]"
+msgid "Image 3 - Shortcode: [project_image product=\"1\" image=\"3\"]"
 msgstr ""
 
 #: .././languages/text_variables.php:229
@@ -985,7 +1092,7 @@ msgid "Image 4"
 msgstr ""
 
 #: .././languages/text_variables.php:230
-msgid "Image 4 - Shortcode: [product_image product=\"1\" image=\"4\"]"
+msgid "Image 4 - Shortcode: [project_image product=\"1\" image=\"4\"]"
 msgstr ""
 
 #: .././languages/text_variables.php:231
@@ -996,10 +1103,6 @@ msgstr ""
 msgid ""
 "For those often asked questions that you would like to give a direct answer "
 "to. You can edit and add as much as needed."
-msgstr ""
-
-#: .././languages/text_variables.php:233
-msgid "Project Updates"
 msgstr ""
 
 #: .././languages/text_variables.php:234
@@ -1490,16 +1593,14 @@ msgstr ""
 
 #: .././languages/text_variables.php:348
 msgid ""
-"Entering your license key will enable automatic updates via the WordPress "
-"admin for the duration of your license period."
+"Entering your <a href=\"http://ignitiondeck.com/id/documentation/setup-"
+"ignitiondeck/ignitiondeck-license-keys/\" target=\"_blank\">license key</a> "
+"will enable automatic updates via the WordPress admin for the duration of "
+"your license period."
 msgstr ""
 
 #: .././languages/text_variables.php:349
 msgid "Project Submitted"
-msgstr ""
-
-#: .././languages/text_variables.php:350
-msgid "None"
 msgstr ""
 
 #: .././languages/text_variables.php:351
@@ -1524,4 +1625,137 @@ msgstr ""
 
 #: .././languages/text_variables.php:356
 msgid "Default Thank You Page"
+msgstr ""
+
+#: .././templates/admin/_orderDetails.php:349
+msgid "ID"
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:10
+msgid ""
+"This is where you set the defaults for whenever you create a new project on "
+"your website.  Whatever you set here, is what each project will default to, "
+"unless oyu set its custom settings below."
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:12
+msgid ""
+"Currency Code: this is the currency PayPal will collect funds in, as well as "
+"the currency that will be displayed publicly."
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:14
+msgid ""
+"Address information: Ask for this if some of your reward levels involve "
+"shipping an item.  We highly suggest however, that you email all of your "
+"supporters once it’s actually time to ship, to get up to date shipping "
+"information from them at that time."
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:22
+msgid "U.S. Dollar"
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:23
+msgid "Australian Dollar"
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:24
+msgid "Canadian Dollar"
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:25
+msgid "Czech Koruna"
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:26
+msgid "Danish Krone"
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:27
+msgid "Euro"
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:28
+msgid "Hong Kong Dollar<"
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:29
+msgid "Hungarian Forint"
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:30
+msgid "Israeli New Sheqel"
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:31
+msgid "Japanese Yen"
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:32
+msgid "Mexican Peso"
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:33
+msgid "Malaysian Ringgit"
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:34
+msgid "Norwegian Krone"
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:35
+msgid "New Zealand Dollar"
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:36
+msgid "Philippine Peso"
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:37
+msgid "Polish Zloty"
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:38
+msgid "Pound Sterling"
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:39
+msgid "Singapore Dollar"
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:40
+msgid "Swedish Krona"
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:41
+msgid "Swiss Franc"
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:42
+msgid "New Taiwan Dollar"
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:43
+msgid "Thai Baht"
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:44
+msgid "Turkish Lira"
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:45
+msgid "Brazilian Real"
+msgstr ""
+
+#: .././templates/admin/_productSettings.php:50
+msgid "Check All"
+msgstr ""
+
+#: .././templates/admin/_settingsIgnDeck.php:17
+msgid "Validate"
+msgstr ""
+
+#: .././templates/admin/_settingsIgnDeck.php:23
+msgid " License Valid for"
 msgstr ""
