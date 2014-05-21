@@ -439,17 +439,9 @@ body {
 		overflow: hidden;
 		.transition(0.2s background-color ease);
 
-		// @media (min-width: @screen-sm) {
-		// 	height: 203px;
-		// }
-
-		// @media (min-width: @screen-md) {
-		// 	height: 115px;
-		// }
-
-		// @media (min-width: @screen-lg) {
-		// 	height: 148px;
-		// }
+		img {
+			.backface-visibility(hidden);
+		}
 	}
 
 	.box-one-action {
@@ -539,7 +531,8 @@ body {
 }
 
 .past-events {
-	padding-bottom: 0;
+	margin-bottom: 60px;
+	padding-bottom: 0px;
 
 	.box-one {
 		padding-bottom: 0;
@@ -557,6 +550,48 @@ body {
 				height: 200px;
 			}
 		}
+	}
+}
+
+.grouprev-campaigns {
+	padding-bottom: 0;
+}
+
+.grouprev-campaign-summary {
+	.box-one-img {
+		width: 100%;
+		height: 463px;
+
+		@media (min-width: @screen-sm) {
+			height: 203px;
+		}
+
+		@media (min-width: @screen-md) {
+			height: 115px;
+		}
+
+		@media (min-width: @screen-lg) {
+			height: 143px;
+		}
+	}
+
+	.box-one-img-bg {
+		width: 100%;
+		height: 100%;
+		background-color: @brand-teal;
+		.opacity(0);
+		.transition(all ease 0.2s);
+	}
+
+	a:hover {
+		.box-one-img-bg {
+			.opacity(0.5);
+			.transition(all ease 0.2s);
+		}
+	}
+
+	.money-raised {
+		margin-bottom: 15px;
 	}
 }
 
@@ -1353,6 +1388,7 @@ body {
 	&.page-id-214, // Thank you page
 	&.single-ignition_product,
 	&.post-type-archive-ignition_product,
+	&.post-type-archive-campaigns,
 	&.error404,
 	&.page-id-932 { 
 		@accent-color: @brand-teal;

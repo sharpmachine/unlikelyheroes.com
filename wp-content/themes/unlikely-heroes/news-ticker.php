@@ -41,9 +41,9 @@
 			<div class="col-sm-6 col-md-5 text-right hidden-xs">
 				<?php get_template_part('social','media'); ?>
 				<?php if (is_user_logged_in()): ?>
-				<a href="<?php bloginfo('url' ); ?>/dashboard/?creator_projects=1" class="btn btn-xs">My Campaign</a>
+				<a href="<?php bloginfo('url' ); ?>/dashboard/?creator_projects=1" class="btn btn-xs hidden">My Campaign</a>
 			<?php else: ?>
-			<a href="<?php bloginfo('url'); ?>/dashboard" class="btn btn-xs">Hero Login</a>
+			<a href="<?php bloginfo('url'); ?>/dashboard" class="btn btn-xs hidden">Hero Login</a>
 		<?php endif; ?>
 			</div>
 
@@ -52,9 +52,9 @@
 				</div>
 				<div class="col-xs-4 visible-xs text-right">
 				<?php if (is_user_logged_in()): ?>
-				<a href="<?php bloginfo('url' ); ?>/dashboard/?creator_projects=1" class="btn btn-xs">My Campaign</a>
+				<a href="<?php bloginfo('url' ); ?>/dashboard/?creator_projects=1" class="btn btn-xs hidden">My Campaign</a>
 			<?php else: ?>
-			<a href="<?php bloginfo('url'); ?>/dashboard" class="btn btn-xs">Hero Login</a>
+			<a href="<?php bloginfo('url'); ?>/dashboard" class="btn btn-xs hidden">Hero Login</a>
 		<?php endif; ?>
 		</div>
 			
