@@ -32,20 +32,19 @@ jQuery(document).ready(function() {
 
    	jQuery("#menu-header ul.defaultMenu ul.children").css({ display: 'none' });
 	jQuery("#menu-header ul.defaultMenu li").hover(function() {
-		jQuery(this).find('ul.children')
-			.stop(true, true).delay(40).animate({ "height": "show" }, 300 );
+		jQuery(this).find('ul.children').stop(true, true).delay(40).animate({ "height": "show" }, 300 );
 			
 	}, function(){
-		jQuery(this).find('ul.children')
-			.stop(true, true).delay(40).animate({ "height": "hide" }, 300 );
+		jQuery(this).find('ul.children').stop(true, true).delay(40).animate({ "height": "hide" }, 300 );
 	});
 	jQuery("#menu-header ul.menu ul.sub-menu").css({ display: 'none' });
 	jQuery("#menu-header ul.menu li").hover(function() {
-		jQuery(this).find('ul.sub-menu')
-			.stop(true, true).delay(40).animate({ "height": "show" }, 300 );
+		jQuery(this).find('ul.sub-menu').stop(true, true).delay(40).animate({ "height": "show" }, 300 );
 			
 	}, function(){
-		jQuery(this).find('ul.sub-menu')
-			.stop(true, true).delay(40).animate({ "height": "hide" }, 300 );
+		jQuery(this).find('ul.sub-menu').stop(true, true).delay(40).animate({ "height": "hide" }, 300 );
+	});
+	jQuery('.hasvideo').click(function() {
+	  	jQuery('.hasvideo iframe').attr('src', jQuery('.hasvideo iframe').attr('src') + '?rel=0&autoplay=1').show();
 	});
 });

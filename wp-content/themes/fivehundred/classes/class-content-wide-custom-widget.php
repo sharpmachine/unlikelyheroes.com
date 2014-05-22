@@ -89,13 +89,12 @@ class Fh_Content_Fullalt_Bgimage_Widget extends WP_Widget {
 			else {
 				$custom_class = '';
 			}
-			echo '<div class="fullwindow '.$align.' ';
+			echo '<div class="fullwindow custom '.$align.' ';
 			echo (!empty($custom_class) ? $custom_class : ''); 
 			echo '" style="';
 			echo (!empty($height) ? 'height: '.$height.'px;' : '');
 			echo (!empty($text_color) ? 'color: '.$text_color.' !important;' : '');
 			echo '"><div class="fullwindow-internal" style="';
-			echo (!empty($height) ? 'height: '.$height.'px;' : '');
 			echo (!empty($bgimage) ? 'background-image: url('.$bgimage.');' : '');
 			echo (!empty($bg_color) ? ' background-color: '.$bg_color.';' : '');   
 			echo '"><div class="constrained"><div class="ign-content-fullalt" style="';
@@ -104,8 +103,8 @@ class Fh_Content_Fullalt_Bgimage_Widget extends WP_Widget {
 			echo (!empty($padding_bottom) ? ' padding-bottom: '.$padding_bottom.'px;' : '');
 			echo '">';
 			echo (!empty($image) ? '<img class="widgetimage" src="'.$image.'">' : '');
-			echo (!empty($title) ? '<h3>'.$title.'</h3>' : '');
-			echo (!empty($text) ? '<div class="ign-content-text">'.$text.'</div>' : '');
+			echo (!empty($title) ? '<h3 style="color: '.$text_color.'">'.$title.'</h3>' : '');
+			echo (!empty($text) ? '<div class="ign-content-text" style="color: '.$text_color.'">'.$text.'</div>' : '');
 			echo '</div></div></div></div>';
 		}
 	}

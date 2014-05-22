@@ -116,11 +116,35 @@ else {
 	</div>
 </div>
 
+
+<?php $args = array( 'post_type' => 'campaigns', 'showposts' => 3); ?>
+<?php $campaigns = new WP_Query( $args ); ?>
+
+<?php if ( $campaigns->have_posts() ) : ?>
+<div class="section grouprev-campaigns">
+	<div class="container">
+		<h2 class="entry-title text-center">Heroic Campaigns</h2>
+	
+			<?php while ( $campaigns->have_posts() ) : $campaigns->the_post(); ?>
+	
+				<?php get_template_part('grouprev', 'listing'); ?>
+				
+			<?php endwhile; ?>
+	
+			<?php wp_reset_postdata(); ?>
+	
+		<?php get_template_part('grouprev-create','campaign'); ?>
+	
+	</div>
+</div>
+<?php endif; ?>
+<?php wp_reset_query(); ?>
+
 <div class="container">
 
 		<?php if( have_rows('heroic_events', 'option') ): ?>
 
-	<div class="section boxes-one past-events ">
+	<div class="section boxes-one past-events">
 		<h2 class="text-center">Heroic Events</h2>
 		<div class="row past-events">
 
@@ -160,7 +184,8 @@ else {
 		</div>
 	</div>
 <?php endif; ?>
-	<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<div class="hidden">
+<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 		<div id="content" class="section boxes-one project-summaries">
 			<div id="project-grid" class="row">
 				<?php 
@@ -174,18 +199,18 @@ else {
 						echo '<h2 class="entry-title text-center">Heroic Campaigns</h2>';
 						while ( $query->have_posts() ) {
 							$query->the_post();
-
+	
 							get_template_part('project');
 							
 						}
 						get_template_part('create','campaign');
 					}
-
+	
 				}
 				else {
 					$paged = (get_query_var('paged') ? get_query_var('paged') : 1);
 					$query = new WP_Query(array('paged' => 'paged', 'posts_per_page' => 1, 'paged' => $paged));
-
+	
 						// Start the loop
 					if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post();
 					get_template_part('entry');
@@ -197,7 +222,7 @@ else {
 				</div>
 			</div>
 		</div>
-	</div><!-- END: .container -->
+	</div><!-- END: .container --></div>
 	
 	<?php } else { ?>
 	<?php get_header(); ?>
@@ -216,4 +241,5 @@ else {
 				?>
 			</div>
 			<?php } ?>
+
 			<?php get_footer(); ?>

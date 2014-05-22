@@ -102,8 +102,19 @@ function fivehundred_init() {
 add_action('after_setup_theme', 'fivehundred_init');
 
 function fivehundred_dequeue() {
+	$disable_skins = false;
 	if (isset($_GET['purchaseform'])) {
 		remove_filter('the_content', 'wpautop');
+		$disable_skins = true;
+		
+	}
+	else if (isset($_GET['create_project'])) {
+		$disable_skins = true;
+	}
+	else if (isset($_GEt['action']) && $_GET['action'] == 'register') {
+		$disable_skins = true;
+	}
+	if ($disable_skins) {
 		global $theme_base;
 		if (isset($theme_base) && $theme_base == 'fivehundred') {
 			$theme_name = getThemeFileName();
@@ -179,6 +190,20 @@ function fivehundred_admin_menu() {
 						'li' => $li,
 						'li_via' => $liname);
 		update_option('fivehundred_theme_settings', $settings);
+		if (isset($_POST['choose-featured']) && $_POST['choose-featured'] > 0) {
+			$project_id = absint($_POST['choose-featured']);
+			$project = new ID_Project($project_id);
+			$post_id = $project->get_project_postid();
+			if (!empty($post_id)) {
+				$options = array(
+					'post_id' => $post_id,
+					'project_id' => $project_id);
+				update_option('fivehundred_featured', $options);
+			}
+		}
+		else {
+			delete_option('fivehundred_featured');
+		}
 		echo '<div class="updated fade below-h2" id="message"><p>'.__('Settings Saved', 'fivehundred').'</p></div>';
 	}
 	else {
@@ -196,9 +221,14 @@ function fivehundred_admin_menu() {
 		$gname = $settings['g_via'];
 		$li = $settings['li'];
 		$liname = $settings['li_via'];
+		$options = get_option('fivehundred_featured');
+		if ($options) {
+			$post_id = $options['post_id'];
+			$project_id = $options['project_id'];
+		}
 	}
 	// set up the project home page dropdown
-	$projects = get_ign_projects();
+	$projects = ID_Project::get_all_projects();
 	$levels = '<tr>
 					<td>
 						<select id="choose-home" name="choose-home">
@@ -264,11 +294,32 @@ function apply_project_category($args) {
 	return $args;
 }
 
+add_action('pre_get_posts', 'set_home_project_query');
+
+function set_home_project_query($query) {
+	if (is_home() && $query->is_main_query()) {
+		$options = get_option('fivehundred_theme_settings');
+		if (!empty($options)) {
+			$home = $options['home'];
+			if (!empty($home) && $home > 0) {
+				$project_id = $home;
+				$project = new ID_Project($project_id);
+				$post_id = $project->get_project_postid();
+				if (isset($post_id) && $post_id > 0) {
+					$query->set('p', $post_id);
+					$query->set('post_type', 'ignition_product');
+				}
+			}
+		}
+	}
+	return;
+}
+
 add_action('pre_get_posts', 'projects_archive_display');
 
 function projects_archive_display($query) {
 	if (is_post_type_archive('ignition_product')) {
-		$query->set('posts_per_page',9);
+		$query->set('posts_per_page', 9);
 		return;
 	}
 }
@@ -413,7 +464,7 @@ function the_project_hDeck($id) {
 	if ($show_dates == true) {
 		$hDeck->end = $end_raw;
 		$hDeck->day = $day;
-		$hDeck->month = date('F', mktime(0, 0, 0,$month, 10));
+		$hDeck->month = apply_filters('id_end_month', date('F', mktime(0, 0, 0,$month, 10)));
 		$hDeck->year = $year;
 		$hDeck->days_left = $dif;
 	}
@@ -566,6 +617,19 @@ function the_project_image($id, $num) {
 		$res = $wpdb->get_row($sql);
 		if (isset($res->ID)) {
 			$src = wp_get_attachment_image_src($res->ID, 'fivehundred_featured');
+			$image = $src[0];
+		} else {
+			$image = $url;
+		}
+	}
+	if ($num == 2) {
+		$project_id = get_post_meta($id, 'ign_project_id', true);
+		global $wpdb;
+		$url = get_post_meta($id, 'ign_product_image2', true);
+		$sql = $wpdb->prepare('SELECT ID FROM '.$wpdb->prefix.'posts WHERE guid = %s', $url);
+		$res = $wpdb->get_row($sql);
+		if (isset($res->ID)) {
+			$src = wp_get_attachment_image_src($res->ID, '');
 			$image = $src[0];
 		} else {
 			$image = $url;
@@ -776,29 +840,29 @@ function fh_color_styles() {
 		?>
 		<style>
 		.ign-content-long, .ign-content-normal, .ign-content-alt, .ign-content-level, .ign-content-alert, .ign-video-headline, .ign-content-fullalt, #site-description, .entry-content, #comments, .ignitiondeck.id-purchase-form-full {padding-left: 20px !important; padding-right: 20px !important; box-sizing: border-box;}
-		#ign-project-content .entry-content { padding-left: 0!important; padding-right: 0!important; }
+		#container .entry-content { padding-left: 0!important; padding-right: 0!important; }
 		body {background: <?php echo $site_background_color; ?>;}
-		body, .entry-content h1, .comment-content h1, .entry-content h2, .comment-content h2, .entry-content h3, .comment-content h3, .entry-content h4, .comment-content h4, .entry-content h5, .comment-content h5, .entry-content h6, .comment-content h6, #ign-project-content .ign-content-level li, .ignition_project #site-description h1, #ign-product-levels .ign-level-title span, #ign-product-levels .ign-level-desc, .ignitiondeck form .form-row label, .ignitiondeck form .payment-type-selector a, .ignitiondeck form label.dd-option-text, .widget-area .widget-container h3, #content .ign-project-summary .ign-summary-desc, #content .ign-project-summary .ign-progress-percentage, #content .ign-project-summary .title h3, footer .footer-finalwrap a, #menu-header ul.defaultMenu li ul.children li a, #menu-header .menu ul li ul.children li a, #menu-header ul li ul.sub-menu li.current-menu-item a, #menu-header ul.defaultMenu li ul.children li.current-menu-item a, #menu-header .menu ul ul.children li.current-menu-item a, #menu-header .menu ul li a:active, #menu-header ul.menu li a, #menu-header ul.defaultMenu li a, #menu-header .menu ul li a, #content .ign-project-summary .ign-progress-raised, footer, .memberdeck .md-box-wrapper, .memberdeck form .form-row label, .ignitiondeck form .finaldesc, .ignitiondeck form .finaldesc p, #fivehundred .ignitiondeck.id-creatorprofile, .ign-project-content .ign-content-alt h3   { color:  <?php echo $text_color; ?>;}
+		body, .entry-content h1, .comment-content h1, .entry-content h2, .comment-content h2, .entry-content h3, .comment-content h3, .entry-content h4, .comment-content h4, .entry-content h5, .comment-content h5, .entry-content h6, .comment-content h6, #container .ign-content-level li, .ignition_project #site-description h1, #ign-product-levels .ign-level-title span, #ign-product-levels .ign-level-desc, .ignitiondeck form .form-row label, .ignitiondeck form .payment-type-selector a, .ignitiondeck form label.dd-option-text, .widget-area .widget-container h3, #content .ign-project-summary .ign-summary-desc, #content .ign-project-summary .ign-progress-percentage, #content .ign-project-summary .title h3, footer .footer-finalwrap a, #menu-header ul.defaultMenu li ul.children li a, #menu-header .menu ul li ul.children li a, #menu-header ul li ul.sub-menu li.current-menu-item a, #menu-header ul.defaultMenu li ul.children li.current-menu-item a, #menu-header .menu ul ul.children li.current-menu-item a, #menu-header .menu ul li a:active, #menu-header ul.menu li a, #menu-header ul.defaultMenu li a, #menu-header .menu ul li a, #content .ign-project-summary .ign-progress-raised, footer, .memberdeck .md-box-wrapper, .memberdeck form .form-row label, .ignitiondeck form .finaldesc, .ignitiondeck form .finaldesc p, #fivehundred .ignitiondeck.id-creatorprofile, .container .ign-content-alt h3   { color:  <?php echo $text_color; ?>;}
 		#ign-hDeck-right, .ign-product-proposed-end, .ignition_project #site-description h2, .home #site-description h1, #site-description h1, .commentlist > li.bypostauthor .comment-meta, .comment-meta, .dd-desc, footer #site-description h1, .entry-content blockquote, .comment-content blockquote, #content .ign-project-summary .ign-summary-days, #content .ign-project-summary .title h3:hover, .memberdeck .md-profile .md-registered { color: <?php echo $text_subtle_color; ?>;}
-		#ign-project-content .ign-content-level .ign-content-text {border-top-color: <?php echo $text_subtle_color; ?>;}
-		#ign-project-content .constrained, #menu-header ul.menu ul.sub-menu, #menu-header div.menu ul.defaultMenu ul.children, #menu-header .menu ul ul.children, #content .ign-project-summary .ign-progress-bar, #menu-header ul.menu li:hover, ul.menu li:active,  #menu-header ul.defaultMenu li:hover,  #menu-header ul.defaultMenu li:active, #menu-header .menu ul li:active, #menu-header .menu li.createaccount, #menu-header .menu li.login, .memberdeck .dashboardmenu { background-color: <?php echo $primary_color; ?>; }
-		#ign-project-content .constrained, #ign-project-content .constrained h3, footer .footer-finalwrap a:hover, #menu-header ul ul.sub-menu a:hover, #menu-header ul.defaultMenu li ul.children a:hover, #menu-header ul.menu li a:hover, ul.menu li a:active, #menu-header ul.defaultMenu li a:hover, #menu-header ul.defaultMenu li a:active, #menu-header ul li ul.sub-menu li a, #menu-header ul.menu li:hover, ul.menu li:active,  #menu-header ul.defaultMenu li:hover,  #menu-header ul.defaultMenu li:active, #menu-header .menu ul li:active, #menu-header .menu li.createaccount, #menu-header .menu li.login, #menu-header ul.menu li:hover a, ul.menu li:active a,  #menu-header ul.defaultMenu li:hover a,  #menu-header ul.defaultMenu li:active a, #menu-header .menu ul li:active a, #menu-header .menu li.createaccount a, #menu-header .menu li.login a, .ign-supportnow a, .ign-supportnow a:hover, .memberdeck button, .memberdeck input[type="submit"], .memberdeck form .form-row input[type="submit"], .memberdeck .button, .memberdeck .md-dash-sidebar ul li.widget_nav_menu ul.menu li a, .memberdeck .md-dash-sidebar ul li.widget_nav_menu ul.menu li a:hover { color: <?php echo $text_onprimary_color; ?>; }
+		#container .ign-content-level .ign-content-text {border-top-color: <?php echo $text_subtle_color; ?>;}
+		#container .constrained, #menu-header ul.menu ul.sub-menu, #menu-header div.menu ul.defaultMenu ul.children, #menu-header .menu ul ul.children, #content .ign-project-summary .ign-progress-bar, #menu-header ul.menu li:hover, ul.menu li:active,  #menu-header ul.defaultMenu li:hover,  #menu-header ul.defaultMenu li:active, #menu-header .menu ul li:active, #menu-header .menu li.createaccount, #menu-header .menu li.login, .memberdeck .dashboardmenu { background-color: <?php echo $primary_color; ?>; }
+		#container .constrained, #container .constrained h3, footer .footer-finalwrap a:hover, #menu-header ul ul.sub-menu a:hover, #menu-header ul.defaultMenu li ul.children a:hover, #menu-header ul.menu li a:hover, ul.menu li a:active, #menu-header ul.defaultMenu li a:hover, #menu-header ul.defaultMenu li a:active, #menu-header ul li ul.sub-menu li a, #menu-header ul.menu li:hover, ul.menu li:active,  #menu-header ul.defaultMenu li:hover,  #menu-header ul.defaultMenu li:active, #menu-header .menu ul li:active, #menu-header .menu li.createaccount, #menu-header .menu li.login, #menu-header ul.menu li:hover a, ul.menu li:active a,  #menu-header ul.defaultMenu li:hover a,  #menu-header ul.defaultMenu li:active a, #menu-header .menu ul li:active a, #menu-header .menu li.createaccount a, #menu-header .menu li.login a, .ign-supportnow a, .ign-supportnow a:hover, .memberdeck button, .memberdeck input[type="submit"], .memberdeck form .form-row input[type="submit"], .memberdeck .button, .memberdeck .md-dash-sidebar ul li.widget_nav_menu ul.menu li a, .memberdeck .md-dash-sidebar ul li.widget_nav_menu ul.menu li a:hover { color: <?php echo $text_onprimary_color; ?>; }
 		#menu-header ul.menu li a:hover, ul.menu li a:active, #menu-header ul.defaultMenu li a:hover,  #menu-header ul.defaultMenu li a:active, #menu-header .menu ul li a:active, #ign-hDeck-right .ign-progress-bar, .memberdeck .dashboardmenu li:hover {background: <?php echo $primary_light_color; ?>;}
 		.title-wrap h2.entry-title, .single-post #content .title-wrap h2.entry-title, .memberdeck form .form-row input, .memberdeck form .form-row textarea  { color: <?php echo $primary_dark_color; ?>; }
 		a.comment-reply-link, .ignitiondeck form .main-btn, .ignitiondeck form input[type=submit] {background: <?php echo $text_color; ?>;}
 		a.comment-reply-link:hover, a.comment-reply-link:focus, a.comment-reply-link:active, .ignitiondeck form .main-btn, .ignitiondeck form input[type=submit]:hover{background: <?php echo $text_subtle_color; ?>;}
 		#container, .title-wrap, .ignitiondeck form .form-row input, .ignitiondeck form .form-row textarea, .ignitiondeck form .form-row select, .dd-options, .memberdeck form .form-row input, .memberdeck form .form-row textarea, .ignitiondeck .dd-select   { background-color:  <?php echo $container_background_color; ?> !important; }
 		a.comment-reply-link, a.comment-reply-link:hover, a.comment-reply-link:focus, a.comment-reply-link:active, a.comment-reply-link, .ignitiondeck form .main-btn, .ignitiondeck form input[type=submit], a.comment-reply-link, .ignitiondeck form .main-btn, .ignitiondeck form input[type=submit]:hover, .memberdeck .dashboardmenu a, .memberdeck .dashboardmenu a:hover { color:  <?php echo $container_background_color; ?>; }
-		#home-sharing ul li.twitter-btn a, #home-sharing ul li.linkedin-btn a, #home-sharing ul li.facebook-btn a, #home-sharing ul li.gplus-btn a, #ign-project-content .ign-content-alt h3, #ign-project-content .ign-content-level h3 .amount, #ign-product-levels .ign-level-title .level-price, #ign-product-levels .ign-level-counts, .comment-meta .fn span, #ign-project-content  .ign-video-headline h3, .ignitiondeck form .payment-type-selector a:hover, .ignitiondeck form .payment-type-selector a.active, .ignitiondeck form .payment-type-selector a.active:hover, .grid-header ul li a:hover, .grid-header ul li a.active, .grid-header ul li.filter_submenu:hover span, #content h2.entry-title a, #content .ign-project-summary .ign-summary-days strong, .ign-progress-raised strong, #ign-project-content .ign-content-alt h3, #ign-project-content .ign-content-level h3 .amount, #ign-project-content .ign-content-alert h3, #site-title a, #ign-hDeck-right .ign-product-goal strong, #ign-hDeck-right .ign-product-supporters strong, #ign-hDeck-right .ign-product-proposed-end .ign-proposed-end, .ignitiondeck form .ign-checkout-price, .grid-header ul li.filter_submenu span, .filter_choice a, .memberdeck .md-profile .md-credits  { color: <?php echo $primary_color; ?>; }
+		#home-sharing ul li.twitter-btn a, #home-sharing ul li.linkedin-btn a, #home-sharing ul li.facebook-btn a, #home-sharing ul li.gplus-btn a, #container .ign-content-alt h3, #container .ign-content-level h3 .amount, #ign-product-levels .ign-level-title .level-price, #ign-product-levels .ign-level-counts, .comment-meta .fn span, #container  .ign-video-headline h3, .ignitiondeck form .payment-type-selector a:hover, .ignitiondeck form .payment-type-selector a.active, .ignitiondeck form .payment-type-selector a.active:hover, .grid-header ul li a:hover, .grid-header ul li a.active, .grid-header ul li.filter_submenu:hover span, #content h2.entry-title a, #content .ign-project-summary .ign-summary-days strong, .ign-progress-raised strong, #container .ign-content-alt h3, #container .ign-content-level h3 .amount, #container .ign-content-alert h3, #site-title a, #ign-hDeck-right .ign-product-goal strong, #ign-hDeck-right .ign-product-supporters strong, #ign-hDeck-right .ign-product-proposed-end .ign-proposed-end, .ignitiondeck form .ign-checkout-price, .grid-header ul li.filter_submenu span, .filter_choice a, .memberdeck .md-profile .md-credits  { color: <?php echo $primary_color; ?>; }
 		.grid-header ul li a:hover, .grid-header ul li a.active, .grid-header ul li.filter_submenu:hover span {border-top-color: <?php echo $primary_color; ?>; border-bottom-color: <?php echo $primary_color; ?>;}
 		#home-sharing ul li.twitter-btn a:hover, #home-sharing ul li.linkedin-btn a:hover, #home-sharing ul li.facebook-btn a:hover, #home-sharing ul li.gplus-btn a:hover, #content h2.entry-title a:hover, #site-title a:hover { color: <?php echo $primary_light_color; ?>; }
 		.ignitiondeck form .payment-type-selector a:hover, .ignitiondeck form .payment-type-selector a.active, .entry-content blockquote, .comment-content blockquote, #content .ign-project-summary .ign-summary-container:hover, #menu-header ul.menu li:hover, ul.menu li:active,  #menu-header ul.defaultMenu li:hover,  #menu-header ul.defaultMenu li:active, #menu-header .menu ul li:active, #menu-header .menu li.createaccount, #menu-header .menu li.login, #menu-header ul.menu ul.sub-menu, #menu-header div.menu ul.defaultMenu ul.children, #menu-header .menu ul ul.children { border-color: <?php echo $primary_color; ?>; }
-		#ign-project-content .ign-content-fullalt { border-top-color: <?php echo $secondary_color; ?>; }
+		#container .ign-content-fullalt { border-top-color: <?php echo $secondary_color; ?>; }
 		body a, .ignitiondeck form .required-mark, .widget-area .widget-container a, #content .ign-project-summary .ign-summary-learnmore,  #menu-footer ul.menu li a, #menu-footer ul.defaultMenu li a, .memberdeck a  { color: <?php echo $secondary_color; ?>; }
 		body a:hover, .widget-area .widget-container a:hover, #content .ign-project-summary .ign-summary-learnmore:hover,  #menu-footer ul.menu li a:hover, ul.menu li a:active, #menu-footer ul.defaultMenu li a:hover, #menu-footer ul.defaultMenu li a:active, .memberdeck a:hover { color: <?php echo $secondary_dark_color; ?>; }
 		.memberdeck .md-dash-sidebar ul li.widget_nav_menu ul.menu li a { background-color: <?php echo $secondary_color; ?>; }
 		.memberdeck .md-dash-sidebar ul li.widget_nav_menu ul.menu li a:hover { background-color: <?php echo $secondary_dark_color; ?>; }
-		#ign-project-content h3.product-dashed-heading, #ign-project-content h3.product-dashed-heading1, #ign-project-content #prodfaq, #ign-project-content #produpdates, .ignitiondeck form .form-row input, .ignitiondeck form .form-row textarea, .ignitiondeck form .form-row select { color:  <?php echo $text_color; ?>; }
+		#container h3.product-dashed-heading, #container h3.product-dashed-heading1, #container #prodfaq, #container #produpdates, .ignitiondeck form .form-row input, .ignitiondeck form .form-row textarea, .ignitiondeck form .form-row select { color:  <?php echo $text_color; ?>; }
 		#menu-header ul.menu li.current-menu-item a, #menu-header ul.menu li.current_page_item a, #menu-header ul.menu li.current-menu-ancestor a, #menu-header .menu ul li.current-menu-ancestor a, .memberdeck button:hover, .memberdeck input[type="submit"]:hover, .memberdeck form .form-row input[type="submit"]:hover, .memberdeck .button:hover { color: <?php echo $text_onprimary_color; ?>; background: <?php echo $primary_dark_color; ?>;}
 		#menu-header ul.menu li.current-menu-item a:hover, #menu-header ul.menu li.current_page_item a:hover, #menu-header ul.menu li.current-menu-ancestor a:hover, #menu-header .menu ul li.current-menu-ancestor a:hover { color: <?php echo $text_onprimary_color; ?>; background: <?php echo $primary_color; ?>;}
 		#menu-footer ul.menu li, #menu-footer ul.defaultMenu li {border-right-color: <?php echo $text_subtle_color; ?>;}
@@ -809,13 +873,13 @@ function fh_color_styles() {
 		.ign-supportnow a, .memberdeck button, .memberdeck input[type="submit"], .memberdeck form .form-row input[type="submit"], .memberdeck .button {background: <?php echo $primary_color; ?>; background-color: <?php echo $primary_color; ?> !important;}
 		<?php 
 			if (!empty($primary_color) && $primary_color !== '#3B7BB3') {
-				echo '	#ign-project-content .fullwindow-internal, #ign-project-content .ign-content-alert, #ign-hDeck-wrapper #ign-hdeck-wrapperbg, .grid-header ul li a:hover, .grid-header ul li a.active, .grid-header ul li.filter_submenu:hover span, #content .ign-project-summary .ign-progress-wrapper, .grid-header ul li ul li a:hover, .ignitiondeck form .payment-type-selector a   {background: rgba(' . $rs . ',' . $gs . ', ' . $bs . ', .2);}' . "\n";
+				echo '	#container .fullwindow-internal, #container .ign-content-alert, #ign-hDeck-wrapper #ign-hdeck-wrapperbg, .grid-header ul li a:hover, .grid-header ul li a.active, .grid-header ul li.filter_submenu:hover span, #content .ign-project-summary .ign-progress-wrapper, .grid-header ul li ul li a:hover, .ignitiondeck form .payment-type-selector a   {background: rgba(' . $rs . ',' . $gs . ', ' . $bs . ', .2);}' . "\n";
 			}
 			if (!empty($site_background_color) && $site_background_color !== '#F1F4F7') {
-				echo '	#ign-project-content .ign-content-alt, #ign-project-content .ign-content-level .ign-content-text, #ign-product-levels a .level-group:hover .ign-level-desc, .title-wrap h2.entry-title, #ign-project-content h3.product-dashed-heading, #ign-project-content h3.product-dashed-heading1, #ign-project-content .ign-content-video, .dd-option:hover, .dd-option-selected, #content .ign-project-summary .ign-summary-container:hover, .memberdeck .md-list-thin > li:hover:nth-child(odd), .memberdeck .md-box li:hover, .ignitiondeck .id-purchase-form {background: rgba(' . $rb . ',' . $gb . ', ' . $bb . ', .5) !important;}' . "\n";
+				echo '	#container .ign-content-alt, #container .ign-content-level .ign-content-text, #ign-product-levels a .level-group:hover .ign-level-desc, .title-wrap h2.entry-title, #container h3.product-dashed-heading, #container h3.product-dashed-heading1, #container .ign-content-video, .dd-option:hover, .dd-option-selected, #content .ign-project-summary .ign-summary-container:hover, .memberdeck .md-list-thin > li:hover:nth-child(odd), .memberdeck .md-box li:hover, .ignitiondeck .id-purchase-form {background: rgba(' . $rb . ',' . $gb . ', ' . $bb . ', .5) !important;}' . "\n";
 			}
 			if (!empty($site_background_color) && $site_background_color !== '#F1F4F7') {
-				echo '.commentlist > li.bypostauthor, #ign-project-content #prodfaq, #ign-project-content #produpdates, .entry-content blockquote, .comment-content blockquote, .wp-caption, .grid-header, #content .ign-project-summary .ign-summary-container, .memberdeck .md-box-wrapper, .memberdeck .md-list-thin > li:nth-child(odd), .memberdeck .md-profile li.myprojects:nth-child(even), .dd-selected, #fivehundred .ignitiondeck.id-creatorprofile, #ign-product-levels .ign-level-desc, #ign-product-levels .ign-level-counts {background: rgba(' . $rb . ',' . $gb . ', ' . $bb . ', .2);}' . "\n";
+				echo '.commentlist > li.bypostauthor, #container #prodfaq, #container #produpdates, .entry-content blockquote, .comment-content blockquote, .wp-caption, .grid-header, #content .ign-project-summary .ign-summary-container, .memberdeck .md-box-wrapper, .memberdeck .md-list-thin > li:nth-child(odd), .memberdeck .md-profile li.myprojects:nth-child(even), .dd-selected, #fivehundred .ignitiondeck.id-creatorprofile, #ign-product-levels .ign-level-desc, #ign-product-levels .ign-level-counts {background: rgba(' . $rb . ',' . $gb . ', ' . $bb . ', .2);}' . "\n";
 			}
 			if (!empty($site_background_color) && $site_background_color !== '#F1F4F7') {
 				echo '	#ign-product-levels .alt, .comment-meta .fn span {background: rgba(' . $rb . ',' . $gb . ', ' . $bb . ', .25);}' . "\n";
@@ -832,6 +896,7 @@ function fh_color_styles() {
 	}
 }
 
+
 function fh_my_account_link($items, $args) {
 	if (class_exists('ID_Member')) {
 		$dash = get_option('md_dash_settings');
@@ -846,10 +911,11 @@ function fh_my_account_link($items, $args) {
 		}
 		if ($args->theme_location == 'main-menu') {
 			if (is_user_logged_in()) {
-				$items .= '<li class="login"><a href="'.$durl.'">'.__('My Account', 'fivehundred').'</a></li>';
+				$items .= '<li class="createaccount buttonpadding"><a href="'.$durl.'">'.__('My Account', 'fivehundred').'</a></li>';
+				$items .= '<li class="login right"><a href="'.wp_logout_url( home_url() ).'">'.__('Logout', 'fivehundred').'</a></li>';
 			}
 			else {
-				$items .= '<li class="createaccount"><a href="'.$durl.'?action=register">'.__('Create Account', 'fivehundred').'</a></li>';
+				$items .= '<li class="createaccount buttonpadding"><a href="'.$durl.'?action=register">'.__('Create Account', 'fivehundred').'</a></li>';
 				$items .= '<li class="login right"><a href="'.$durl.'">'.__('Login', 'fivehundred').'</a></li>';
 			}
 		}
@@ -1042,6 +1108,15 @@ function fivehundred_widgets_init() {
 			'after_widget' => '',
 			'before_title' => '',
 			'after_title' => ''
+		));
+		$sidebar = register_sidebar(array(
+			'name' => __('Top of Footer', 'fivehundred'),
+			'description' => __('This is a widget area at top of the footer, on every page of the site.', 'fivehundred'),
+			'id' => 'footer-widget-area',
+			'before_widget' => '<li id="%1$s" class="footer-widget-container %2$s">',
+			'after_widget' => '</li>',
+			'before_title' => '<h3 class="widget-title">',
+			'after_title' => '</h3>'
 		));
 		do_action('fivehundred_widgets_init');
 	}

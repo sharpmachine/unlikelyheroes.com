@@ -1,6 +1,11 @@
 <?php
 	$settings = get_option('fivehundred_theme_settings');
 	$home_projects = $settings['home_projects'];
+	$options = get_option('fivehundred_featured');
+	if (!empty($options)) {
+		$featured_proj = $options['project_id'];
+		$featured_post = $options['post_id'];
+	}
 	if (is_home() || is_front_page() || is_page_template('page-grid-template.php')) {
 		$project_count = $home_projects;
 	}
@@ -13,6 +18,9 @@
 	if (is_home() || is_front_page() || is_archive() || is_page_template('page-grid-template.php')) {
 		$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 		$args = array('post_type' => 'ignition_product', 'posts_per_page' => $project_count, 'paged' => $paged);
+		if (!empty($options)) {
+			$args['post__not_in'] = array($featured_post);
+		}
 		$newargs = apply_filters('project_query', $args);
 
 		$query = new WP_Query($newargs);

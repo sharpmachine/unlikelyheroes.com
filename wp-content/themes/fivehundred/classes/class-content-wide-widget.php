@@ -47,7 +47,7 @@ class Fh_Content_Fullalt_Widget extends WP_Widget {
 			else {
 				$custom_class = '';
 			}
-			echo '<div class="fullwindow '.$custom_class.'" style="height: '.$height.'px;"><div class="fullwindow-internal" style="height: '.$height.'px;"><div class="constrained"><div class="ign-content-fullalt" style="height: '.$height.'px;"><h3>'.$title.'</h3>';
+			echo '<div class="fullwindow '.$custom_class.'" style="height: '.$height.'px;"><div class="fullwindow-internal"><div class="constrained"><div class="ign-content-fullalt" style="height: '.$height.'px;"><h3>'.$title.'</h3>';
 			echo '<div class="ign-content-text">'.$text.'</div></div></div></div></div>';
 		}
 	}

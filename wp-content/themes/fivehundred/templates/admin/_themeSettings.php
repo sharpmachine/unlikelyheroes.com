@@ -74,6 +74,21 @@
 							<input type="text" id="li-via" name="li-via" value="<?php echo $liname; ?>"/><br/>
 						</td>
 					</tr>
+					<tr>
+						<td>
+							<label for="choose-featured"><?php _e('Featured Project on Home Page', 'fivehundred'); ?></label><br/>
+							<select id="choose-featured" name="choose-featured">
+								<option><?php _e('No Feature', 'fivehundred'); ?></option>
+								<?php 
+								foreach ($projects as $project) {
+									$selected = null;
+									if (isset($project_id) && $project_id == $project->id) {
+										$selected = 'selected="selected"';
+									} ?>
+									<option value="<?php echo $project->id; ?>" <?php echo (isset($selected) ? $selected : ''); ?>><?php echo $project->product_name; ?></option>
+							<?php } ?>
+							</select>
+					</tr>
 					<?php echo do_action('fivehundred_extra_fields'); ?>
 					<tr>
 						<td>

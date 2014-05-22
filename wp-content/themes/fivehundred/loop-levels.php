@@ -7,7 +7,14 @@ $end_type = get_post_meta($id, 'ign_end_type', true);
 $project_id = get_post_meta($id, 'ign_project_id', true);
 $project = new ID_Project($project_id);
 $days_left = $project->days_left();
-$url = get_permalink($id).'?purchaseform=500&prodid='.$project_id;//getPurchaseURLfromType($project_id, 'purchaseform');
+$permalink_structure = get_option('permalink_structure');
+if (empty($permalink_structure)) {
+	$url_suffix = '&';
+}
+else {
+	$url_suffix = '?';
+}
+$url = get_permalink($id).$url_suffix.'purchaseform=500&prodid='.$project_id;//getPurchaseURLfromType($project_id, 'purchaseform');
 $custom_order = get_post_meta($id, 'custom_level_order', true);
 if ($custom_order) {
 	usort($levels, 'fh_level_sort');

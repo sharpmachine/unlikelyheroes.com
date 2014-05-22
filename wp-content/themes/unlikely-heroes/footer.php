@@ -19,8 +19,8 @@
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/plugins-min.js"></script>
-    <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/script-min.js"></script>
+    <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/plugins.min.js"></script>
+    <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/scripts.min.js"></script>
 
     <?php wp_footer(); ?>
   </body>

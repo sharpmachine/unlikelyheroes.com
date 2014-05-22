@@ -3,7 +3,7 @@
 <div id="content">
 	<?php if ( have_posts() ) : ?>
 		<h1 class="page-title"><?php printf( __( 'Search Results for: %s', 'fivehundred' ), '<span>' . get_search_query()  . '</span>' ); ?></h1>
-		<?php get_template_part( 'nav', 'above' ); ?>
+		<?php //get_template_part( 'nav', 'above' ); ?>
 		<?php while ( have_posts() ) : the_post() ?>
 		<?php get_template_part( 'entry' ); ?>
 		<?php endwhile; ?>

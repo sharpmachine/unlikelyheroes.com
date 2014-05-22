@@ -4,7 +4,7 @@
 	<h1><?php the_title(); ?></h1>
 </div>
 <div id="content">
-	<?php get_template_part( 'nav', 'above' ); ?>
+	<?php //get_template_part( 'nav', 'above' ); ?>
 <?php while ( have_posts() ) : the_post() ?>
 	<?php get_template_part( 'entry' ); ?>
 <?php comments_template(); ?>
