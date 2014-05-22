@@ -116,30 +116,6 @@ else {
 	</div>
 </div>
 
-
-<?php $args = array( 'post_type' => 'campaigns', 'showposts' => 3); ?>
-<?php $campaigns = new WP_Query( $args ); ?>
-
-<?php if ( $campaigns->have_posts() ) : ?>
-<div class="section grouprev-campaigns">
-	<div class="container">
-		<h2 class="entry-title text-center">Heroic Campaigns</h2>
-	
-			<?php while ( $campaigns->have_posts() ) : $campaigns->the_post(); ?>
-	
-				<?php get_template_part('grouprev', 'listing'); ?>
-				
-			<?php endwhile; ?>
-	
-			<?php wp_reset_postdata(); ?>
-	
-		<?php get_template_part('grouprev-create','campaign'); ?>
-	
-	</div>
-</div>
-<?php endif; ?>
-<?php wp_reset_query(); ?>
-
 <div class="container">
 
 		<?php if( have_rows('heroic_events', 'option') ): ?>
@@ -222,7 +198,8 @@ else {
 				</div>
 			</div>
 		</div>
-	</div><!-- END: .container --></div>
+	</div><!-- END: .container -->
+	</div>
 	
 	<?php } else { ?>
 	<?php get_header(); ?>
@@ -241,5 +218,29 @@ else {
 				?>
 			</div>
 			<?php } ?>
+
+
+<?php $args = array( 'post_type' => 'campaigns', 'showposts' => 3); ?>
+<?php $campaigns = new WP_Query( $args ); ?>
+
+<?php if ( $campaigns->have_posts() ) : ?>
+<div class="section grouprev-campaigns">
+	<div class="container">
+		<h2 class="entry-title text-center">Heroic Campaigns</h2>
+	
+			<?php while ( $campaigns->have_posts() ) : $campaigns->the_post(); ?>
+	
+				<?php get_template_part('grouprev', 'listing'); ?>
+				
+			<?php endwhile; ?>
+	
+			<?php wp_reset_postdata(); ?>
+	
+		<?php get_template_part('grouprev-create','campaign'); ?>
+	
+	</div>
+</div>
+<?php endif; ?>
+<?php wp_reset_query(); ?>
 
 			<?php get_footer(); ?>
